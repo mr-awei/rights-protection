@@ -107,7 +107,7 @@
             <view class="script-arrow">›</view>
           </view>
           <view class="script-preview">
-            <text class="script-preview-text">{{item.phone_script ? item.phone_script.substring(0, 50) + '...' : '点击查看完整话术'}}</text>
+            <text class="script-preview-text">{{item.preview || '点击查看完整话术'}}</text>
           </view>
           <view class="script-tags">
             <text class="script-tag">📞 电话版</text>

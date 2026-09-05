@@ -30,7 +30,24 @@ Page({
 
   loadHotScripts() {
     const scripts = getHotScripts(3);
-    this.setData({ hotScripts: scripts });
+    // 预处理话术数据，生成预览文本
+    const processed = scripts.map(s => {
+      let preview = '点击查看完整话术';
+      if (s.phone_script && typeof s.phone_script === 'string') {
+        // 去除首尾引号，截取前50个字符
+        let text = s.phone_script.replace(/^["']|["']$/g, '');
+        if (text.length > 50) {
+          preview = text.substring(0, 50) + '...';
+        } else {
+          preview = text;
+        }
+      }
+      return {
+        ...s,
+        preview: preview
+      };
+    });
+    this.setData({ hotScripts: processed });
   },
 
   onSearchInput(e) {
