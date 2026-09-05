@@ -1,4 +1,4 @@
-// channels_index.js - 轻量索引（启动加载，已修正分类）
+// channels_index.js - 轻量索引（启动加载，含一级+二级用户分类）
 module.exports = [
   {
     "id": "ch_001",
@@ -16,6 +16,7 @@ module.exports = [
     "category_l1": "基础民生与公共交通",
     "category_l2": "基础民生与公共交通",
     "category_user": "电信运营",
+    "category_user_l2": "电信申诉",
     "hot_level": 3,
     "part_num": 1
   },
@@ -37,6 +38,7 @@ module.exports = [
     "category_l1": "基础民生与公共交通",
     "category_l2": "基础民生与公共交通",
     "category_user": "交通物流",
+    "category_user_l2": "快递邮政",
     "hot_level": 3,
     "part_num": 1
   },
@@ -53,6 +55,7 @@ module.exports = [
     "category_l1": "基础民生与公共交通",
     "category_l2": "基础民生与公共交通",
     "category_user": "房产物业",
+    "category_user_l2": "电力能源",
     "hot_level": 3,
     "part_num": 1
   },
@@ -71,6 +74,7 @@ module.exports = [
     "category_l1": "基础民生与公共交通",
     "category_l2": "基础民生与公共交通",
     "category_user": "房产物业",
+    "category_user_l2": "电力能源",
     "hot_level": 3,
     "part_num": 1
   },
@@ -88,6 +92,7 @@ module.exports = [
     "category_l1": "基础民生与公共交通",
     "category_l2": "基础民生与公共交通",
     "category_user": "房产物业",
+    "category_user_l2": "供水燃气",
     "hot_level": 3,
     "part_num": 1
   },
@@ -103,6 +108,7 @@ module.exports = [
     "category_l1": "基础民生与公共交通",
     "category_l2": "基础民生与公共交通",
     "category_user": "房产物业",
+    "category_user_l2": "供水燃气",
     "hot_level": 3,
     "part_num": 1
   },
@@ -121,6 +127,7 @@ module.exports = [
     "category_l1": "基础民生与公共交通",
     "category_l2": "基础民生与公共交通",
     "category_user": "房产物业",
+    "category_user_l2": "供水燃气",
     "hot_level": 3,
     "part_num": 1
   },
@@ -138,6 +145,7 @@ module.exports = [
     "category_l1": "基础民生与公共交通",
     "category_l2": "基础民生与公共交通",
     "category_user": "房产物业",
+    "category_user_l2": "供水燃气",
     "hot_level": 3,
     "part_num": 1
   },
@@ -156,6 +164,7 @@ module.exports = [
     "category_l1": "基础民生与公共交通",
     "category_l2": "基础民生与公共交通",
     "category_user": "房产物业",
+    "category_user_l2": "供水燃气",
     "hot_level": 3,
     "part_num": 1
   },
@@ -173,6 +182,7 @@ module.exports = [
     "category_l1": "基础民生与公共交通",
     "category_l2": "基础民生与公共交通",
     "category_user": "交通物流",
+    "category_user_l2": "铁路民航",
     "hot_level": 3,
     "part_num": 1
   },
@@ -191,6 +201,7 @@ module.exports = [
     "category_l1": "基础民生与公共交通",
     "category_l2": "基础民生与公共交通",
     "category_user": "交通物流",
+    "category_user_l2": "铁路民航",
     "hot_level": 3,
     "part_num": 1
   },
@@ -209,6 +220,7 @@ module.exports = [
     "category_l1": "基础民生与公共交通",
     "category_l2": "基础民生与公共交通",
     "category_user": "交通物流",
+    "category_user_l2": "铁路民航",
     "hot_level": 3,
     "part_num": 1
   },
@@ -228,6 +240,7 @@ module.exports = [
     "category_l1": "基础民生与公共交通",
     "category_l2": "基础民生与公共交通",
     "category_user": "交通物流",
+    "category_user_l2": "公路水运",
     "hot_level": 3,
     "part_num": 1
   },
@@ -244,6 +257,7 @@ module.exports = [
     "category_l1": "基础民生与公共交通",
     "category_l2": "基础民生与公共交通",
     "category_user": "交通物流",
+    "category_user_l2": "公路水运",
     "hot_level": 3,
     "part_num": 1
   },
@@ -260,6 +274,7 @@ module.exports = [
     "category_l1": "基础民生与公共交通",
     "category_l2": "基础民生与公共交通",
     "category_user": "交通物流",
+    "category_user_l2": "公路水运",
     "hot_level": 3,
     "part_num": 1
   },
@@ -274,6 +289,7 @@ module.exports = [
     "category_l1": "基础民生与公共交通",
     "category_l2": "基础民生与公共交通",
     "category_user": "交通物流",
+    "category_user_l2": "城市公交",
     "hot_level": 3,
     "part_num": 1
   },
@@ -288,6 +304,7 @@ module.exports = [
     "category_l1": "基础民生与公共交通",
     "category_l2": "基础民生与公共交通",
     "category_user": "交通物流",
+    "category_user_l2": "城市公交",
     "hot_level": 3,
     "part_num": 1
   },
@@ -308,6 +325,7 @@ module.exports = [
     "category_l1": "金融与商业消费",
     "category_l2": "金融与商业消费",
     "category_user": "金融保险",
+    "category_user_l2": "银行保险",
     "hot_level": 3,
     "part_num": 1
   },
@@ -324,6 +342,7 @@ module.exports = [
     "category_l1": "金融与商业消费",
     "category_l2": "金融与商业消费",
     "category_user": "金融保险",
+    "category_user_l2": "银行保险",
     "hot_level": 3,
     "part_num": 1
   },
@@ -344,6 +363,7 @@ module.exports = [
     "category_l1": "金融与商业消费",
     "category_l2": "金融与商业消费",
     "category_user": "金融保险",
+    "category_user_l2": "互联网金融",
     "hot_level": 3,
     "part_num": 1
   },
@@ -360,6 +380,7 @@ module.exports = [
     "category_l1": "金融与商业消费",
     "category_l2": "金融与商业消费",
     "category_user": "金融保险",
+    "category_user_l2": "证券基金",
     "hot_level": 3,
     "part_num": 1
   },
@@ -376,6 +397,7 @@ module.exports = [
     "category_l1": "金融与商业消费",
     "category_l2": "金融与商业消费",
     "category_user": "金融保险",
+    "category_user_l2": "证券基金",
     "hot_level": 3,
     "part_num": 1
   },
@@ -397,6 +419,7 @@ module.exports = [
     "category_l1": "金融与商业消费",
     "category_l2": "金融与商业消费",
     "category_user": "金融保险",
+    "category_user_l2": "证券基金",
     "hot_level": 3,
     "part_num": 1
   },
@@ -418,6 +441,7 @@ module.exports = [
     "category_l1": "金融与商业消费",
     "category_l2": "金融与商业消费",
     "category_user": "消费购物",
+    "category_user_l2": "市场监管",
     "hot_level": 3,
     "part_num": 1
   },
@@ -437,6 +461,7 @@ module.exports = [
     "category_l1": "金融与商业消费",
     "category_l2": "金融与商业消费",
     "category_user": "消费购物",
+    "category_user_l2": "市场监管",
     "hot_level": 3,
     "part_num": 1
   },
@@ -457,6 +482,7 @@ module.exports = [
     "category_l1": "金融与商业消费",
     "category_l2": "金融与商业消费",
     "category_user": "消费购物",
+    "category_user_l2": "市场监管",
     "hot_level": 3,
     "part_num": 1
   },
@@ -477,6 +503,7 @@ module.exports = [
     "category_l1": "金融与商业消费",
     "category_l2": "金融与商业消费",
     "category_user": "消费购物",
+    "category_user_l2": "市场监管",
     "hot_level": 3,
     "part_num": 1
   },
@@ -496,6 +523,7 @@ module.exports = [
     "category_l1": "金融与商业消费",
     "category_l2": "金融与商业消费",
     "category_user": "消费购物",
+    "category_user_l2": "市场监管",
     "hot_level": 3,
     "part_num": 1
   },
@@ -515,6 +543,7 @@ module.exports = [
     "category_l1": "金融与商业消费",
     "category_l2": "金融与商业消费",
     "category_user": "消费购物",
+    "category_user_l2": "市场监管",
     "hot_level": 3,
     "part_num": 1
   },
@@ -533,6 +562,7 @@ module.exports = [
     "category_l1": "金融与商业消费",
     "category_l2": "金融与商业消费",
     "category_user": "网络安全",
+    "category_user_l2": "反诈预警",
     "hot_level": 3,
     "part_num": 1
   },
@@ -552,6 +582,7 @@ module.exports = [
     "category_l1": "金融与商业消费",
     "category_l2": "金融与商业消费",
     "category_user": "网络安全",
+    "category_user_l2": "反诈预警",
     "hot_level": 3,
     "part_num": 1
   },
@@ -567,6 +598,7 @@ module.exports = [
     "category_l1": "金融与商业消费",
     "category_l2": "金融与商业消费",
     "category_user": "金融保险",
+    "category_user_l2": "反垄断",
     "hot_level": 3,
     "part_num": 1
   },
@@ -581,6 +613,7 @@ module.exports = [
     "category_l1": "金融与商业消费",
     "category_l2": "金融与商业消费",
     "category_user": "金融保险",
+    "category_user_l2": "反垄断",
     "hot_level": 3,
     "part_num": 1
   },
@@ -598,6 +631,7 @@ module.exports = [
     "category_l1": "金融与商业消费",
     "category_l2": "金融与商业消费",
     "category_user": "政务纪检",
+    "category_user_l2": "财税审计",
     "hot_level": 3,
     "part_num": 1
   },
@@ -613,6 +647,7 @@ module.exports = [
     "category_l1": "金融与商业消费",
     "category_l2": "金融与商业消费",
     "category_user": "政务纪检",
+    "category_user_l2": "财税审计",
     "hot_level": 3,
     "part_num": 1
   },
@@ -628,6 +663,7 @@ module.exports = [
     "category_l1": "金融与商业消费",
     "category_l2": "金融与商业消费",
     "category_user": "政务纪检",
+    "category_user_l2": "财税审计",
     "hot_level": 3,
     "part_num": 1
   },
@@ -645,6 +681,7 @@ module.exports = [
     "category_l1": "金融与商业消费",
     "category_l2": "金融与商业消费",
     "category_user": "政务纪检",
+    "category_user_l2": "财税审计",
     "hot_level": 3,
     "part_num": 1
   },
@@ -664,6 +701,7 @@ module.exports = [
     "category_l1": "金融与商业消费",
     "category_l2": "金融与商业消费",
     "category_user": "消费购物",
+    "category_user_l2": "农业商务",
     "hot_level": 3,
     "part_num": 1
   },
@@ -680,6 +718,7 @@ module.exports = [
     "category_l1": "金融与商业消费",
     "category_l2": "金融与商业消费",
     "category_user": "消费购物",
+    "category_user_l2": "农业商务",
     "hot_level": 3,
     "part_num": 1
   },
@@ -698,6 +737,7 @@ module.exports = [
     "category_l1": "金融与商业消费",
     "category_l2": "金融与商业消费",
     "category_user": "消费购物",
+    "category_user_l2": "农业商务",
     "hot_level": 3,
     "part_num": 1
   },
@@ -717,6 +757,7 @@ module.exports = [
     "category_l1": "金融与商业消费",
     "category_l2": "金融与商业消费",
     "category_user": "金融保险",
+    "category_user_l2": "境外金融",
     "hot_level": 3,
     "part_num": 1
   },
@@ -735,6 +776,7 @@ module.exports = [
     "category_l1": "金融与商业消费",
     "category_l2": "金融与商业消费",
     "category_user": "金融保险",
+    "category_user_l2": "境外金融",
     "hot_level": 3,
     "part_num": 1
   },
@@ -751,6 +793,7 @@ module.exports = [
     "category_l1": "金融与商业消费",
     "category_l2": "金融与商业消费",
     "category_user": "消费购物",
+    "category_user_l2": "境外消费",
     "hot_level": 3,
     "part_num": 1
   },
@@ -768,6 +811,7 @@ module.exports = [
     "category_l1": "金融与商业消费",
     "category_l2": "金融与商业消费",
     "category_user": "金融保险",
+    "category_user_l2": "境外金融",
     "hot_level": 3,
     "part_num": 1
   },
@@ -787,6 +831,7 @@ module.exports = [
     "category_l1": "金融与商业消费",
     "category_l2": "金融与商业消费",
     "category_user": "金融保险",
+    "category_user_l2": "境外金融",
     "hot_level": 3,
     "part_num": 1
   },
@@ -807,6 +852,7 @@ module.exports = [
     "category_l1": "金融与商业消费",
     "category_l2": "金融与商业消费",
     "category_user": "金融保险",
+    "category_user_l2": "境外金融",
     "hot_level": 3,
     "part_num": 1
   },
@@ -825,6 +871,7 @@ module.exports = [
     "category_l1": "社会服务与政务司法",
     "category_l2": "社会服务与政务司法",
     "category_user": "医疗教育",
+    "category_user_l2": "医疗卫生",
     "hot_level": 3,
     "part_num": 1
   },
@@ -841,6 +888,7 @@ module.exports = [
     "category_l1": "社会服务与政务司法",
     "category_l2": "社会服务与政务司法",
     "category_user": "医疗教育",
+    "category_user_l2": "医疗卫生",
     "hot_level": 3,
     "part_num": 1
   },
@@ -859,6 +907,7 @@ module.exports = [
     "category_l1": "社会服务与政务司法",
     "category_l2": "社会服务与政务司法",
     "category_user": "医疗教育",
+    "category_user_l2": "医保服务",
     "hot_level": 3,
     "part_num": 1
   },
@@ -878,6 +927,7 @@ module.exports = [
     "category_l1": "社会服务与政务司法",
     "category_l2": "社会服务与政务司法",
     "category_user": "医疗教育",
+    "category_user_l2": "教育科研",
     "hot_level": 3,
     "part_num": 1
   },
@@ -893,6 +943,7 @@ module.exports = [
     "category_l1": "社会服务与政务司法",
     "category_l2": "社会服务与政务司法",
     "category_user": "医疗教育",
+    "category_user_l2": "教育科研",
     "hot_level": 3,
     "part_num": 2
   },
@@ -910,6 +961,7 @@ module.exports = [
     "category_l1": "社会服务与政务司法",
     "category_l2": "社会服务与政务司法",
     "category_user": "消费购物",
+    "category_user_l2": "旅游服务",
     "hot_level": 3,
     "part_num": 2
   },
@@ -929,6 +981,7 @@ module.exports = [
     "category_l1": "社会服务与政务司法",
     "category_l2": "社会服务与政务司法",
     "category_user": "消费购物",
+    "category_user_l2": "食品药品",
     "hot_level": 3,
     "part_num": 2
   },
@@ -947,6 +1000,7 @@ module.exports = [
     "category_l1": "社会服务与政务司法",
     "category_l2": "社会服务与政务司法",
     "category_user": "消费购物",
+    "category_user_l2": "食品药品",
     "hot_level": 3,
     "part_num": 2
   },
@@ -968,6 +1022,7 @@ module.exports = [
     "category_l1": "社会服务与政务司法",
     "category_l2": "社会服务与政务司法",
     "category_user": "消费购物",
+    "category_user_l2": "食品药品",
     "hot_level": 3,
     "part_num": 2
   },
@@ -988,6 +1043,7 @@ module.exports = [
     "category_l1": "社会服务与政务司法",
     "category_l2": "社会服务与政务司法",
     "category_user": "房产物业",
+    "category_user_l2": "住建物业",
     "hot_level": 3,
     "part_num": 2
   },
@@ -1004,6 +1060,7 @@ module.exports = [
     "category_l1": "社会服务与政务司法",
     "category_l2": "社会服务与政务司法",
     "category_user": "房产物业",
+    "category_user_l2": "住建物业",
     "hot_level": 3,
     "part_num": 2
   },
@@ -1020,6 +1077,7 @@ module.exports = [
     "category_l1": "社会服务与政务司法",
     "category_l2": "社会服务与政务司法",
     "category_user": "房产物业",
+    "category_user_l2": "工程质量",
     "hot_level": 3,
     "part_num": 2
   },
@@ -1037,6 +1095,7 @@ module.exports = [
     "category_l1": "社会服务与政务司法",
     "category_l2": "社会服务与政务司法",
     "category_user": "环保城管",
+    "category_user_l2": "环境保护",
     "hot_level": 3,
     "part_num": 2
   },
@@ -1053,6 +1112,7 @@ module.exports = [
     "category_l1": "社会服务与政务司法",
     "category_l2": "社会服务与政务司法",
     "category_user": "环保城管",
+    "category_user_l2": "环境保护",
     "hot_level": 3,
     "part_num": 2
   },
@@ -1070,6 +1130,7 @@ module.exports = [
     "category_l1": "社会服务与政务司法",
     "category_l2": "社会服务与政务司法",
     "category_user": "政务纪检",
+    "category_user_l2": "自然资源",
     "hot_level": 3,
     "part_num": 2
   },
@@ -1087,6 +1148,7 @@ module.exports = [
     "category_l1": "社会服务与政务司法",
     "category_l2": "社会服务与政务司法",
     "category_user": "政务纪检",
+    "category_user_l2": "自然资源",
     "hot_level": 3,
     "part_num": 2
   },
@@ -1106,6 +1168,7 @@ module.exports = [
     "category_l1": "社会服务与政务司法",
     "category_l2": "社会服务与政务司法",
     "category_user": "劳动用工",
+    "category_user_l2": "人社社保",
     "hot_level": 3,
     "part_num": 2
   },
@@ -1123,6 +1186,7 @@ module.exports = [
     "category_l1": "社会服务与政务司法",
     "category_l2": "社会服务与政务司法",
     "category_user": "劳动用工",
+    "category_user_l2": "公积金",
     "hot_level": 3,
     "part_num": 2
   },
@@ -1139,6 +1203,7 @@ module.exports = [
     "category_l1": "社会服务与政务司法",
     "category_l2": "社会服务与政务司法",
     "category_user": "劳动用工",
+    "category_user_l2": "欠薪维权",
     "hot_level": 3,
     "part_num": 2
   },
@@ -1158,6 +1223,7 @@ module.exports = [
     "category_l1": "社会服务与政务司法",
     "category_l2": "社会服务与政务司法",
     "category_user": "劳动用工",
+    "category_user_l2": "税务工会",
     "hot_level": 3,
     "part_num": 2
   },
@@ -1175,6 +1241,7 @@ module.exports = [
     "category_l1": "社会服务与政务司法",
     "category_l2": "社会服务与政务司法",
     "category_user": "政务纪检",
+    "category_user_l2": "司法公安",
     "hot_level": 3,
     "part_num": 2
   },
@@ -1193,6 +1260,7 @@ module.exports = [
     "category_l1": "社会服务与政务司法",
     "category_l2": "社会服务与政务司法",
     "category_user": "政务纪检",
+    "category_user_l2": "司法公安",
     "hot_level": 3,
     "part_num": 2
   },
@@ -1211,6 +1279,7 @@ module.exports = [
     "category_l1": "社会服务与政务司法",
     "category_l2": "社会服务与政务司法",
     "category_user": "政务纪检",
+    "category_user_l2": "司法公安",
     "hot_level": 3,
     "part_num": 2
   },
@@ -1227,6 +1296,7 @@ module.exports = [
     "category_l1": "社会服务与政务司法",
     "category_l2": "社会服务与政务司法",
     "category_user": "政务纪检",
+    "category_user_l2": "司法公安",
     "hot_level": 3,
     "part_num": 2
   },
@@ -1242,6 +1312,7 @@ module.exports = [
     "category_l1": "社会服务与政务司法",
     "category_l2": "社会服务与政务司法",
     "category_user": "政务纪检",
+    "category_user_l2": "纪检监察",
     "hot_level": 3,
     "part_num": 2
   },
@@ -1259,6 +1330,7 @@ module.exports = [
     "category_l1": "社会服务与政务司法",
     "category_l2": "社会服务与政务司法",
     "category_user": "政务纪检",
+    "category_user_l2": "司法公安",
     "hot_level": 3,
     "part_num": 2
   },
@@ -1277,6 +1349,7 @@ module.exports = [
     "category_l1": "社会服务与政务司法",
     "category_l2": "社会服务与政务司法",
     "category_user": "政务纪检",
+    "category_user_l2": "纪检监察",
     "hot_level": 3,
     "part_num": 2
   },
@@ -1293,6 +1366,7 @@ module.exports = [
     "category_l1": "社会服务与政务司法",
     "category_l2": "社会服务与政务司法",
     "category_user": "政务纪检",
+    "category_user_l2": "司法公安",
     "hot_level": 3,
     "part_num": 2
   },
@@ -1308,6 +1382,7 @@ module.exports = [
     "category_l1": "社会服务与政务司法",
     "category_l2": "社会服务与政务司法",
     "category_user": "政务纪检",
+    "category_user_l2": "纪检监察",
     "hot_level": 3,
     "part_num": 2
   },
@@ -1327,6 +1402,7 @@ module.exports = [
     "category_l1": "社会服务与政务司法",
     "category_l2": "社会服务与政务司法",
     "category_user": "政务纪检",
+    "category_user_l2": "财税审计",
     "hot_level": 3,
     "part_num": 2
   },
@@ -1346,6 +1422,7 @@ module.exports = [
     "category_l1": "社会服务与政务司法",
     "category_l2": "社会服务与政务司法",
     "category_user": "政务纪检",
+    "category_user_l2": "财税审计",
     "hot_level": 3,
     "part_num": 2
   },
@@ -1361,6 +1438,7 @@ module.exports = [
     "category_l1": "社会服务与政务司法",
     "category_l2": "社会服务与政务司法",
     "category_user": "政务纪检",
+    "category_user_l2": "民政民生",
     "hot_level": 3,
     "part_num": 2
   },
@@ -1380,6 +1458,7 @@ module.exports = [
     "category_l1": "社会服务与政务司法",
     "category_l2": "社会服务与政务司法",
     "category_user": "政务纪检",
+    "category_user_l2": "民政民生",
     "hot_level": 3,
     "part_num": 2
   },
@@ -1397,6 +1476,7 @@ module.exports = [
     "category_l1": "社会服务与政务司法",
     "category_l2": "社会服务与政务司法",
     "category_user": "政务纪检",
+    "category_user_l2": "民政民生",
     "hot_level": 3,
     "part_num": 2
   },
@@ -1416,6 +1496,7 @@ module.exports = [
     "category_l1": "社会服务与政务司法",
     "category_l2": "社会服务与政务司法",
     "category_user": "政务纪检",
+    "category_user_l2": "民政民生",
     "hot_level": 3,
     "part_num": 2
   },
@@ -1433,6 +1514,7 @@ module.exports = [
     "category_l1": "社会服务与政务司法",
     "category_l2": "社会服务与政务司法",
     "category_user": "网络安全",
+    "category_user_l2": "网络举报",
     "hot_level": 3,
     "part_num": 2
   },
@@ -1450,6 +1532,7 @@ module.exports = [
     "category_l1": "社会服务与政务司法",
     "category_l2": "社会服务与政务司法",
     "category_user": "网络安全",
+    "category_user_l2": "网络举报",
     "hot_level": 3,
     "part_num": 2
   },
@@ -1468,6 +1551,7 @@ module.exports = [
     "category_l1": "社会服务与政务司法",
     "category_l2": "社会服务与政务司法",
     "category_user": "网络安全",
+    "category_user_l2": "违法犯罪",
     "hot_level": 3,
     "part_num": 2
   },
@@ -1487,6 +1571,7 @@ module.exports = [
     "category_l1": "社会服务与政务司法",
     "category_l2": "社会服务与政务司法",
     "category_user": "政务纪检",
+    "category_user_l2": "政务服务",
     "hot_level": 3,
     "part_num": 2
   },
@@ -1504,6 +1589,7 @@ module.exports = [
     "category_l1": "社会服务与政务司法",
     "category_l2": "社会服务与政务司法",
     "category_user": "政务纪检",
+    "category_user_l2": "政务服务",
     "hot_level": 3,
     "part_num": 2
   },
@@ -1523,6 +1609,7 @@ module.exports = [
     "category_l1": "社会服务与政务司法",
     "category_l2": "社会服务与政务司法",
     "category_user": "政务纪检",
+    "category_user_l2": "政务服务",
     "hot_level": 3,
     "part_num": 2
   },
@@ -1540,6 +1627,7 @@ module.exports = [
     "category_l1": "社会服务与政务司法",
     "category_l2": "社会服务与政务司法",
     "category_user": "政务纪检",
+    "category_user_l2": "安全生产",
     "hot_level": 3,
     "part_num": 2
   },
@@ -1557,6 +1645,7 @@ module.exports = [
     "category_l1": "社会服务与政务司法",
     "category_l2": "社会服务与政务司法",
     "category_user": "政务纪检",
+    "category_user_l2": "安全生产",
     "hot_level": 3,
     "part_num": 2
   },
@@ -1574,6 +1663,7 @@ module.exports = [
     "category_l1": "社会服务与政务司法",
     "category_l2": "社会服务与政务司法",
     "category_user": "政务纪检",
+    "category_user_l2": "安全生产",
     "hot_level": 3,
     "part_num": 2
   },
@@ -1590,6 +1680,7 @@ module.exports = [
     "category_l1": "社会服务与政务司法",
     "category_l2": "社会服务与政务司法",
     "category_user": "政务纪检",
+    "category_user_l2": "自然资源",
     "hot_level": 3,
     "part_num": 2
   },
@@ -1605,6 +1696,7 @@ module.exports = [
     "category_l1": "社会服务与政务司法",
     "category_l2": "社会服务与政务司法",
     "category_user": "政务纪检",
+    "category_user_l2": "民政民生",
     "hot_level": 3,
     "part_num": 2
   },
@@ -1623,6 +1715,7 @@ module.exports = [
     "category_l1": "社会服务与政务司法",
     "category_l2": "社会服务与政务司法",
     "category_user": "政务纪检",
+    "category_user_l2": "民政民生",
     "hot_level": 3,
     "part_num": 2
   },
@@ -1638,6 +1731,7 @@ module.exports = [
     "category_l1": "社会服务与政务司法",
     "category_l2": "社会服务与政务司法",
     "category_user": "政务纪检",
+    "category_user_l2": "民政民生",
     "hot_level": 3,
     "part_num": 2
   },
@@ -1654,6 +1748,7 @@ module.exports = [
     "category_l1": "社会服务与政务司法",
     "category_l2": "社会服务与政务司法",
     "category_user": "环保城管",
+    "category_user_l2": "城市管理",
     "hot_level": 3,
     "part_num": 2
   },
@@ -1673,6 +1768,7 @@ module.exports = [
     "category_l1": "社会服务与政务司法",
     "category_l2": "社会服务与政务司法",
     "category_user": "劳动用工",
+    "category_user_l2": "税务工会",
     "hot_level": 3,
     "part_num": 2
   },
@@ -1688,6 +1784,7 @@ module.exports = [
     "category_l1": "社会服务与政务司法",
     "category_l2": "社会服务与政务司法",
     "category_user": "政务纪检",
+    "category_user_l2": "民政民生",
     "hot_level": 3,
     "part_num": 2
   },
@@ -1704,6 +1801,7 @@ module.exports = [
     "category_l1": "社会服务与政务司法",
     "category_l2": "社会服务与政务司法",
     "category_user": "政务纪检",
+    "category_user_l2": "民政民生",
     "hot_level": 3,
     "part_num": 2
   },
@@ -1720,6 +1818,7 @@ module.exports = [
     "category_l1": "社会服务与政务司法",
     "category_l2": "社会服务与政务司法",
     "category_user": "政务纪检",
+    "category_user_l2": "民政民生",
     "hot_level": 3,
     "part_num": 2
   },
@@ -1737,6 +1836,7 @@ module.exports = [
     "category_l1": "社会服务与政务司法",
     "category_l2": "社会服务与政务司法",
     "category_user": "政务纪检",
+    "category_user_l2": "民政民生",
     "hot_level": 3,
     "part_num": 2
   },
@@ -1756,6 +1856,7 @@ module.exports = [
     "category_l1": "四川省 / 成都市地方渠道专章",
     "category_l2": "四川省 / 成都市地方渠道专章",
     "category_user": "政务纪检",
+    "category_user_l2": "政务服务",
     "hot_level": 3,
     "part_num": 3
   },
@@ -1772,6 +1873,7 @@ module.exports = [
     "category_l1": "四川省 / 成都市地方渠道专章",
     "category_l2": "四川省 / 成都市地方渠道专章",
     "category_user": "政务纪检",
+    "category_user_l2": "政务服务",
     "hot_level": 3,
     "part_num": 3
   },
@@ -1790,6 +1892,7 @@ module.exports = [
     "category_l1": "四川省 / 成都市地方渠道专章",
     "category_l2": "四川省 / 成都市地方渠道专章",
     "category_user": "金融保险",
+    "category_user_l2": "地方金融",
     "hot_level": 3,
     "part_num": 3
   },
@@ -1806,6 +1909,7 @@ module.exports = [
     "category_l1": "四川省 / 成都市地方渠道专章",
     "category_l2": "四川省 / 成都市地方渠道专章",
     "category_user": "金融保险",
+    "category_user_l2": "地方金融",
     "hot_level": 3,
     "part_num": 3
   },
@@ -1825,6 +1929,7 @@ module.exports = [
     "category_l1": "四川省 / 成都市地方渠道专章",
     "category_l2": "四川省 / 成都市地方渠道专章",
     "category_user": "金融保险",
+    "category_user_l2": "地方金融",
     "hot_level": 3,
     "part_num": 3
   },
@@ -1845,6 +1950,7 @@ module.exports = [
     "category_l1": "四川省 / 成都市地方渠道专章",
     "category_l2": "四川省 / 成都市地方渠道专章",
     "category_user": "医疗教育",
+    "category_user_l2": "地方卫生",
     "hot_level": 3,
     "part_num": 3
   },
@@ -1860,6 +1966,7 @@ module.exports = [
     "category_l1": "基础民生与公共交通",
     "category_l2": "城市公交 / 地铁",
     "category_user": "交通物流",
+    "category_user_l2": "公路水运",
     "hot_level": 3,
     "part_num": 3
   },
@@ -1875,6 +1982,7 @@ module.exports = [
     "category_l1": "金融与商业消费",
     "category_l2": "反垄断与经济违法举报",
     "category_user": "金融保险",
+    "category_user_l2": "反垄断",
     "hot_level": 3,
     "part_num": 3
   },
@@ -1890,6 +1998,7 @@ module.exports = [
     "category_l1": "金融与商业消费",
     "category_l2": "反垄断与经济违法举报",
     "category_user": "政务纪检",
+    "category_user_l2": "财税审计",
     "hot_level": 3,
     "part_num": 3
   },
@@ -1910,6 +2019,7 @@ module.exports = [
     "category_l1": "社会服务与政务司法",
     "category_l2": "医疗",
     "category_user": "医疗教育",
+    "category_user_l2": "医保服务",
     "hot_level": 3,
     "part_num": 3
   },
@@ -1926,6 +2036,7 @@ module.exports = [
     "category_l1": "社会服务与政务司法",
     "category_l2": "环保",
     "category_user": "政务纪检",
+    "category_user_l2": "自然资源",
     "hot_level": 3,
     "part_num": 3
   },
@@ -1943,6 +2054,7 @@ module.exports = [
     "category_l1": "社会服务与政务司法",
     "category_l2": "劳动用工 / 社保",
     "category_user": "劳动用工",
+    "category_user_l2": "公积金",
     "hot_level": 3,
     "part_num": 3
   },
@@ -1958,6 +2070,7 @@ module.exports = [
     "category_l1": "社会服务与政务司法",
     "category_l2": "国家安全",
     "category_user": "政务纪检",
+    "category_user_l2": "民政民生",
     "hot_level": 3,
     "part_num": 3
   },
@@ -1978,6 +2091,7 @@ module.exports = [
     "category_l1": "社会服务与政务司法",
     "category_l2": "法院司法",
     "category_user": "政务纪检",
+    "category_user_l2": "司法公安",
     "hot_level": 3,
     "part_num": 3
   },
@@ -1998,6 +2112,7 @@ module.exports = [
     "category_l1": "社会服务与政务司法",
     "category_l2": "民政",
     "category_user": "政务纪检",
+    "category_user_l2": "民政民生",
     "hot_level": 3,
     "part_num": 3
   },
@@ -2015,6 +2130,7 @@ module.exports = [
     "category_l1": "社会服务与政务司法",
     "category_l2": "涉外贸易与海关",
     "category_user": "政务纪检",
+    "category_user_l2": "自然资源",
     "hot_level": 3,
     "part_num": 3
   },
@@ -2033,6 +2149,7 @@ module.exports = [
     "category_l1": "社会服务与政务司法",
     "category_l2": "城市管理",
     "category_user": "环保城管",
+    "category_user_l2": "城市管理",
     "hot_level": 3,
     "part_num": 3
   },
@@ -2049,6 +2166,7 @@ module.exports = [
     "category_l1": "社会服务与政务司法",
     "category_l2": "特殊群体维权",
     "category_user": "政务纪检",
+    "category_user_l2": "民政民生",
     "hot_level": 3,
     "part_num": 3
   },
@@ -2064,6 +2182,7 @@ module.exports = [
     "category_l1": "社会服务与政务司法",
     "category_l2": "特殊群体维权",
     "category_user": "政务纪检",
+    "category_user_l2": "民政民生",
     "hot_level": 3,
     "part_num": 3
   },
@@ -2079,6 +2198,7 @@ module.exports = [
     "category_l1": "社会服务与政务司法",
     "category_l2": "事业单位与公共服务",
     "category_user": "医疗教育",
+    "category_user_l2": "教育科研",
     "hot_level": 3,
     "part_num": 3
   },
@@ -2096,6 +2216,7 @@ module.exports = [
     "category_l1": "社会服务与政务司法",
     "category_l2": "事业单位与公共服务",
     "category_user": "政务纪检",
+    "category_user_l2": "财税审计",
     "hot_level": 3,
     "part_num": 3
   },
@@ -2113,6 +2234,7 @@ module.exports = [
     "category_l1": "社会服务与政务司法",
     "category_l2": "安全生产应急",
     "category_user": "政务纪检",
+    "category_user_l2": "安全生产",
     "hot_level": 3,
     "part_num": 3
   }

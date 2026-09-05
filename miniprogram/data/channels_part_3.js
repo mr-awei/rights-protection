@@ -1,4 +1,4 @@
-// channels_part_3.js - 渠道分片3（101-122条，已修正分类）
+// channels_part_3.js - 渠道分片3（101-122条，含一级+二级用户分类）
 module.exports = [
   {
     "id": "ch_101",
@@ -36,7 +36,8 @@ module.exports = [
     "success_rate": "",
     "user_feedback_count": "",
     "ext": "",
-    "category_user": "政务纪检"
+    "category_user": "政务纪检",
+    "category_user_l2": "政务服务"
   },
   {
     "id": "ch_102",
@@ -71,7 +72,8 @@ module.exports = [
     "success_rate": "",
     "user_feedback_count": "",
     "ext": "",
-    "category_user": "政务纪检"
+    "category_user": "政务纪检",
+    "category_user_l2": "政务服务"
   },
   {
     "id": "ch_103",
@@ -108,7 +110,8 @@ module.exports = [
     "success_rate": "",
     "user_feedback_count": "",
     "ext": "",
-    "category_user": "金融保险"
+    "category_user": "金融保险",
+    "category_user_l2": "地方金融"
   },
   {
     "id": "ch_104",
@@ -143,7 +146,8 @@ module.exports = [
     "success_rate": "",
     "user_feedback_count": "",
     "ext": "",
-    "category_user": "金融保险"
+    "category_user": "金融保险",
+    "category_user_l2": "地方金融"
   },
   {
     "id": "ch_105",
@@ -181,7 +185,8 @@ module.exports = [
     "success_rate": "",
     "user_feedback_count": "",
     "ext": "",
-    "category_user": "金融保险"
+    "category_user": "金融保险",
+    "category_user_l2": "地方金融"
   },
   {
     "id": "ch_106",
@@ -220,7 +225,8 @@ module.exports = [
     "success_rate": "",
     "user_feedback_count": "",
     "ext": "",
-    "category_user": "医疗教育"
+    "category_user": "医疗教育",
+    "category_user_l2": "地方卫生"
   },
   {
     "id": "ch_107",
@@ -254,7 +260,8 @@ module.exports = [
     "success_rate": "",
     "user_feedback_count": "",
     "ext": "",
-    "category_user": "交通物流"
+    "category_user": "交通物流",
+    "category_user_l2": "公路水运"
   },
   {
     "id": "ch_108",
@@ -288,7 +295,8 @@ module.exports = [
     "success_rate": "",
     "user_feedback_count": "",
     "ext": "",
-    "category_user": "金融保险"
+    "category_user": "金融保险",
+    "category_user_l2": "反垄断"
   },
   {
     "id": "ch_109",
@@ -322,7 +330,8 @@ module.exports = [
     "success_rate": "",
     "user_feedback_count": "",
     "ext": "",
-    "category_user": "政务纪检"
+    "category_user": "政务纪检",
+    "category_user_l2": "财税审计"
   },
   {
     "id": "ch_110",
@@ -361,7 +370,8 @@ module.exports = [
     "success_rate": "",
     "user_feedback_count": "",
     "ext": "",
-    "category_user": "医疗教育"
+    "category_user": "医疗教育",
+    "category_user_l2": "医保服务"
   },
   {
     "id": "ch_111",
@@ -396,7 +406,8 @@ module.exports = [
     "success_rate": "",
     "user_feedback_count": "",
     "ext": "",
-    "category_user": "政务纪检"
+    "category_user": "政务纪检",
+    "category_user_l2": "自然资源"
   },
   {
     "id": "ch_112",
@@ -432,7 +443,8 @@ module.exports = [
     "success_rate": "",
     "user_feedback_count": "",
     "ext": "",
-    "category_user": "劳动用工"
+    "category_user": "劳动用工",
+    "category_user_l2": "公积金"
   },
   {
     "id": "ch_113",
@@ -466,7 +478,8 @@ module.exports = [
     "success_rate": "",
     "user_feedback_count": "",
     "ext": "",
-    "category_user": "政务纪检"
+    "category_user": "政务纪检",
+    "category_user_l2": "民政民生"
   },
   {
     "id": "ch_114",
@@ -505,7 +518,8 @@ module.exports = [
     "success_rate": "",
     "user_feedback_count": "",
     "ext": "",
-    "category_user": "政务纪检"
+    "category_user": "政务纪检",
+    "category_user_l2": "司法公安"
   },
   {
     "id": "ch_115",
@@ -544,7 +558,8 @@ module.exports = [
     "success_rate": "",
     "user_feedback_count": "",
     "ext": "",
-    "category_user": "政务纪检"
+    "category_user": "政务纪检",
+    "category_user_l2": "民政民生"
   },
   {
     "id": "ch_116",
@@ -580,7 +595,8 @@ module.exports = [
     "success_rate": "",
     "user_feedback_count": "",
     "ext": "",
-    "category_user": "政务纪检"
+    "category_user": "政务纪检",
+    "category_user_l2": "自然资源"
   },
   {
     "id": "ch_117",
@@ -617,7 +633,8 @@ module.exports = [
     "success_rate": "",
     "user_feedback_count": "",
     "ext": "",
-    "category_user": "环保城管"
+    "category_user": "环保城管",
+    "category_user_l2": "城市管理"
   },
   {
     "id": "ch_118",
@@ -652,7 +669,8 @@ module.exports = [
     "success_rate": "",
     "user_feedback_count": "",
     "ext": "",
-    "category_user": "政务纪检"
+    "category_user": "政务纪检",
+    "category_user_l2": "民政民生"
   },
   {
     "id": "ch_119",
@@ -686,7 +704,8 @@ module.exports = [
     "success_rate": "",
     "user_feedback_count": "",
     "ext": "",
-    "category_user": "政务纪检"
+    "category_user": "政务纪检",
+    "category_user_l2": "民政民生"
   },
   {
     "id": "ch_120",
@@ -720,7 +739,8 @@ module.exports = [
     "success_rate": "",
     "user_feedback_count": "",
     "ext": "",
-    "category_user": "医疗教育"
+    "category_user": "医疗教育",
+    "category_user_l2": "教育科研"
   },
   {
     "id": "ch_121",
@@ -756,7 +776,8 @@ module.exports = [
     "success_rate": "",
     "user_feedback_count": "",
     "ext": "",
-    "category_user": "政务纪检"
+    "category_user": "政务纪检",
+    "category_user_l2": "财税审计"
   },
   {
     "id": "ch_122",
@@ -792,6 +813,7 @@ module.exports = [
     "success_rate": "",
     "user_feedback_count": "",
     "ext": "",
-    "category_user": "政务纪检"
+    "category_user": "政务纪检",
+    "category_user_l2": "安全生产"
   }
 ];

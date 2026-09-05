@@ -1,11 +1,14 @@
 // pages/category/category.js
-const { getCategories, getChannelsByCategory } = require('../../utils/data');
+const { getCategories, getChannelsByCategory, getChannelById } = require('../../utils/data.js');
 
 Page({
   data: {
-    categories: [],
-    activeCategory: 0,
-    channels: []
+    categories: [],           // 一级分类树（含children）
+    activeCategory: 0,        // 当前选中的一级分类索引
+    activeSubCategory: 0,     // 当前选中的二级分类索引
+    subCategories: [],        // 当前一级分类下的二级分类列表
+    channels: [],             // 当前二级分类下的渠道列表
+    loading: false
   },
 
   onLoad() {
@@ -13,58 +16,98 @@ Page({
   },
 
   onShow() {
-    // 页面显示时刷新
-  },
-
-  loadCategories() {
-    const categories = getCategories();
-    // 如果没有分类数据，使用默认分类
-    const defaultCategories = [
-      { name: '交通物流', icon: '🚄' },
-      { name: '电信运营', icon: '📱' },
-      { name: '消费购物', icon: '🛒' },
-      { name: '金融保险', icon: '💰' },
-      { name: '房产物业', icon: '🏠' },
-      { name: '劳动用工', icon: '💼' },
-      { name: '医疗教育', icon: '🏥' },
-      { name: '环保城管', icon: '🌿' },
-      { name: '政务纪检', icon: '⚖️' },
-      { name: '网络安全', icon: '🛡️' }
-    ];
-
-    const cats = categories.length > 0 ? categories : defaultCategories;
-    this.setData({ categories: cats });
-    this.loadChannels(0);
-  },
-
-  onCategoryTap(e) {
-    const index = e.currentTarget.dataset.index;
-    this.setData({ activeCategory: index });
-    this.loadChannels(index);
-  },
-
-  loadChannels(index) {
-    const { categories } = this.data;
-    const category = categories[index];
-    if (!category) return;
-
-    const categoryName = category.name || category;
-    const channels = getChannelsByCategory(categoryName);
-
-    // 如果按分类没找到，显示所有渠道的前20条
-    if (channels.length === 0) {
-      const { getChannels } = require('../../utils/data');
-      const allChannels = getChannels();
-      this.setData({ channels: allChannels.slice(0, 20) });
-    } else {
-      this.setData({ channels });
+    // 页面显示时刷新当前分类数据
+    if (this.data.categories.length > 0) {
+      this.loadChannels();
     }
   },
 
+  // 加载分类树
+  loadCategories() {
+    const categories = getCategories();
+    // 兜底默认分类
+    const defaultCategories = [
+      { name: '交通物流', icon: '🚄', color: '#3B82F6', children: [{name:'快递邮政'},{name:'铁路民航'},{name:'公路水运'},{name:'城市公交'}] },
+      { name: '电信运营', icon: '📱', color: '#8B5CF6', children: [{name:'电信申诉'}] },
+      { name: '消费购物', icon: '🛒', color: '#F59E0B', children: [{name:'市场监管'},{name:'食品药品'},{name:'旅游服务'},{name:'农业商务'},{name:'境外消费'}] },
+      { name: '金融保险', icon: '💰', color: '#10B981', children: [{name:'银行保险'},{name:'证券基金'},{name:'互联网金融'},{name:'反垄断'},{name:'境外金融'},{name:'地方金融'}] },
+      { name: '房产物业', icon: '🏠', color: '#EF4444', children: [{name:'住建物业'},{name:'供水燃气'},{name:'电力能源'},{name:'工程质量'}] },
+      { name: '劳动用工', icon: '💼', color: '#6366F1', children: [{name:'人社社保'},{name:'公积金'},{name:'欠薪维权'},{name:'税务工会'}] },
+      { name: '医疗教育', icon: '🏥', color: '#EC4899', children: [{name:'医疗卫生'},{name:'医保服务'},{name:'教育科研'},{name:'地方卫生'}] },
+      { name: '环保城管', icon: '🌿', color: '#14B8A6', children: [{name:'环境保护'},{name:'城市管理'}] },
+      { name: '政务纪检', icon: '⚖️', color: '#64748B', children: [{name:'政务服务'},{name:'纪检监察'},{name:'司法公安'},{name:'安全生产'},{name:'自然资源'},{name:'民政民生'},{name:'财税审计'}] },
+      { name: '网络安全', icon: '🛡️', color: '#0EA5E9', children: [{name:'反诈预警'},{name:'网络举报'},{name:'违法犯罪'}] }
+    ];
+
+    const cats = categories.length > 0 ? categories : defaultCategories;
+    this.setData({ categories: cats }, () => {
+      this.loadSubCategories(0);
+    });
+  },
+
+  // 加载当前一级分类下的二级分类
+  loadSubCategories(categoryIndex) {
+    const cat = this.data.categories[categoryIndex];
+    const subCats = cat && cat.children ? cat.children : [];
+    this.setData({
+      activeCategory: categoryIndex,
+      activeSubCategory: 0,
+      subCategories: subCats
+    }, () => {
+      this.loadChannels();
+    });
+  },
+
+  // 加载当前二级分类下的渠道
+  loadChannels() {
+    const { categories, activeCategory, activeSubCategory, subCategories } = this.data;
+    if (!categories[activeCategory] || !subCategories[activeSubCategory]) {
+      this.setData({ channels: [] });
+      return;
+    }
+
+    const l1Name = categories[activeCategory].name;
+    const l2Name = subCategories[activeSubCategory].name;
+
+    // 获取该一级分类下的所有渠道，然后按二级分类过滤
+    const allChannels = getChannelsByCategory(l1Name);
+    const filtered = allChannels.filter(c => c.category_user_l2 === l2Name);
+
+    this.setData({ channels: filtered });
+  },
+
+  // 点击一级分类
+  onCategoryTap(e) {
+    const index = e.currentTarget.dataset.index;
+    if (index === this.data.activeCategory) return;
+    this.loadSubCategories(index);
+  },
+
+  // 点击二级分类
+  onSubCategoryTap(e) {
+    const index = e.currentTarget.dataset.index;
+    if (index === this.data.activeSubCategory) return;
+    this.setData({ activeSubCategory: index }, () => {
+      this.loadChannels();
+    });
+  },
+
+  // 点击渠道
   onChannelTap(e) {
     const id = e.currentTarget.dataset.id;
+    const channel = getChannelById(id);
+    if (!channel) {
+      wx.showToast({ title: '渠道不存在', icon: 'none' });
+      return;
+    }
     wx.navigateTo({
       url: `/pages/channel-detail/channel-detail?id=${id}`
     });
+  },
+
+  // 下拉刷新
+  onPullDownRefresh() {
+    this.loadChannels();
+    wx.stopPullDownRefresh();
   }
 });

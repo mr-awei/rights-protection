@@ -1,4 +1,4 @@
-// channels_config.js - 分片配置（已修正分类）
+// channels_config.js - 分片配置
 module.exports = {
   total: 122,
   num_parts: 3,

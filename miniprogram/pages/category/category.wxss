@@ -1,7 +1,7 @@
 /* pages/category/category.wxss */
 .container {
   height: 100vh;
-  background: #F5F7FA;
+  background: #F8FAFC;
 }
 
 .category-layout {
@@ -9,112 +9,228 @@
   height: 100%;
 }
 
-/* 左侧分类侧边栏 */
+/* ========== 左侧一级分类侧边栏 ========== */
 .category-sidebar {
   width: 180rpx;
-  background: #F5F7FA;
-  flex-shrink: 0;
   height: 100%;
+  background: #FFFFFF;
+  border-right: 1rpx solid #F1F5F9;
 }
 
 .cat-sidebar-item {
-  padding: 28rpx 16rpx;
-  text-align: center;
-  font-size: 24rpx;
-  color: #4E5969;
-  cursor: pointer;
-  border-left: 6rpx solid transparent;
-  transition: all 0.2s;
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8rpx;
+  justify-content: center;
+  padding: 28rpx 12rpx;
+  transition: all 0.2s ease;
 }
 
 .cat-sidebar-item.active {
-  background: #FFFFFF;
-  color: #1677FF;
-  font-weight: 600;
-  border-left-color: #1677FF;
+  background: #F8FAFC;
 }
 
-.cat-icon {
+.cat-sidebar-icon {
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: 20rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-size: 36rpx;
+  margin-bottom: 10rpx;
+  transition: all 0.2s ease;
 }
 
-.cat-name {
-  font-size: 24rpx;
+.cat-sidebar-item.active .cat-sidebar-icon {
+  transform: scale(1.1);
+  box-shadow: 0 4rpx 12rpx rgba(0,0,0,0.08);
 }
 
-/* 右侧渠道列表 */
+.cat-sidebar-name {
+  font-size: 22rpx;
+  color: #64748B;
+  font-weight: 500;
+  text-align: center;
+  line-height: 1.3;
+}
+
+.cat-sidebar-item.active .cat-sidebar-name {
+  color: #1E293B;
+  font-weight: 600;
+}
+
+.cat-sidebar-indicator {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 6rpx;
+  height: 48rpx;
+  background: linear-gradient(180deg, #3B82F6, #2563EB);
+  border-radius: 0 6rpx 6rpx 0;
+}
+
+/* ========== 右侧内容区 ========== */
 .category-content {
   flex: 1;
   height: 100%;
-  padding: 24rpx;
-  background: #FFFFFF;
+  padding: 0 24rpx;
 }
 
-.cat-group-title {
-  font-size: 28rpx;
+/* 二级分类标签栏 */
+.sub-category-bar {
+  white-space: nowrap;
+  padding: 24rpx 0 16rpx;
+  margin: 0 -24rpx;
+  padding-left: 24rpx;
+  padding-right: 24rpx;
+}
+
+.sub-cat-tag {
+  display: inline-block;
+  padding: 14rpx 28rpx;
+  margin-right: 16rpx;
+  background: #FFFFFF;
+  border: 1rpx solid #E2E8F0;
+  border-radius: 32rpx;
+  font-size: 24rpx;
+  color: #64748B;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.sub-cat-tag.active {
+  background: linear-gradient(135deg, #3B82F6, #2563EB);
+  border-color: transparent;
+  color: #FFFFFF;
   font-weight: 600;
-  color: #1F2329;
-  margin: 8rpx 8rpx 20rpx;
+  box-shadow: 0 4rpx 12rpx rgba(59, 130, 246, 0.3);
+}
+
+/* 分类标题 */
+.cat-header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  padding: 8rpx 0 20rpx;
 }
 
-.cat-count {
-  font-size: 22rpx;
-  color: #86909C;
+.cat-title {
+  font-size: 32rpx;
+  font-weight: 700;
+  color: #1E293B;
+  margin-right: 12rpx;
+}
+
+.cat-subtitle {
+  font-size: 24rpx;
+  color: #94A3B8;
   font-weight: 400;
 }
 
-.cat-channel-item {
-  background: #F5F7FA;
-  border-radius: 16rpx;
+.cat-count-badge {
+  margin-left: auto;
+  padding: 6rpx 16rpx;
+  background: #EFF6FF;
+  color: #3B82F6;
+  font-size: 20rpx;
+  font-weight: 600;
+  border-radius: 20rpx;
+}
+
+/* ========== 渠道卡片列表 ========== */
+.channel-list {
+  padding-bottom: 20rpx;
+}
+
+.channel-card {
+  display: flex;
+  align-items: center;
+  background: #FFFFFF;
+  border-radius: 20rpx;
   padding: 24rpx;
   margin-bottom: 16rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.04);
+  transition: all 0.2s ease;
 }
 
-.cat-channel-item:active {
-  background: #E5E6EB;
+.channel-card-hover {
+  transform: scale(0.98);
+  box-shadow: 0 4rpx 16rpx rgba(0,0,0,0.08);
 }
 
-.cci-name {
+.channel-card-left {
+  margin-right: 20rpx;
+}
+
+.channel-icon {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 20rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40rpx;
+}
+
+.channel-card-center {
+  flex: 1;
+  min-width: 0;
+}
+
+.channel-name {
   font-size: 28rpx;
   font-weight: 600;
-  margin-bottom: 8rpx;
-  color: #1F2329;
+  color: #1E293B;
   line-height: 1.4;
-}
-
-.cci-desc {
-  font-size: 24rpx;
-  color: #86909C;
-  line-height: 1.5;
-  margin-bottom: 12rpx;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
+  margin-bottom: 8rpx;
   overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
 
-.cci-meta {
+.channel-meta {
   display: flex;
-  gap: 16rpx;
+  align-items: center;
   flex-wrap: wrap;
+  gap: 12rpx;
 }
 
-.cci-meta text {
+.channel-phone {
   font-size: 22rpx;
-  color: #86909C;
+  color: #3B82F6;
+  font-weight: 500;
+  background: #EFF6FF;
+  padding: 4rpx 12rpx;
+  border-radius: 8rpx;
 }
 
-/* 空状态 */
+.channel-official {
+  font-size: 20rpx;
+  color: #10B981;
+  font-weight: 500;
+}
+
+.channel-card-right {
+  margin-left: 16rpx;
+}
+
+.channel-arrow {
+  font-size: 40rpx;
+  color: #CBD5E1;
+  font-weight: 300;
+}
+
+/* ========== 空状态 ========== */
 .empty-state {
-  text-align: center;
-  padding: 80rpx 20rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 100rpx 0;
 }
 
 .empty-icon {
@@ -125,5 +241,12 @@
 
 .empty-title {
   font-size: 28rpx;
-  color: #86909C;
+  color: #64748B;
+  font-weight: 500;
+  margin-bottom: 8rpx;
+}
+
+.empty-desc {
+  font-size: 24rpx;
+  color: #94A3B8;
 }

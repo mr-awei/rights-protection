@@ -1,0 +1,30 @@
+{
+  "query": "维权通微信小程序UI重新设计：1.重新分类体系，使用一级分类+二级分类，解决政务纪检等分类条目太多的问题；2.整体UI重新设计，现代简洁风格，蓝色主色调，卡片式布局，圆角设计，图标使用SVG，包含首页、分类页（二级分类）、搜索结果页、渠道详情页、我的页",
+  "signature": {
+    "ground": "light",
+    "typeVoice": null,
+    "imageWorld": null,
+    "layoutLogic": null,
+    "colorStrategy": null,
+    "motionVoice": "still"
+  },
+  "why": {
+    "ground": "语义命中 1 个线索",
+    "typeVoice": "query 没给这一维的信号 —— 由你按内容定",
+    "imageWorld": "query 没给这一维的信号 —— 由你按内容定",
+    "layoutLogic": "query 没给这一维的信号 —— 由你按内容定",
+    "colorStrategy": "query 没给这一维的信号 —— 由你按内容定",
+    "motionVoice": "语义命中 1 个线索"
+  },
+  "open": [
+    "typeVoice",
+    "imageWorld",
+    "layoutLogic",
+    "colorStrategy"
+  ],
+  "divergence": {
+    "vsRecent": [],
+    "min": null,
+    "require": 3
+  }
+}

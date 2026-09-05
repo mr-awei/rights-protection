@@ -1,0 +1,131 @@
+{
+  "version": 1,
+  "created": "2026-09-05T19:06:17",
+  "query": "维权通微信小程序UI重新设计：1.重新分类体系，使用一级分类+二级分类，解决政务纪检等分类条目太多的问题；2.整体UI重新设计，现代简洁风格，蓝色主色调，卡片式布局，圆角设计，图标使用SVG，包含首页、分类页（二级分类）、搜索结果页、渠道详情页、我的页",
+  "contract": {
+    "query": "维权通微信小程序UI重新设计：1.重新分类体系，使用一级分类+二级分类，解决政务纪检等分类条目太多的问题；2.整体UI重新设计，现代简洁风格，蓝色主色调，卡片式布局，圆角设计，图标使用SVG，包含首页、分类页（二级分类）、搜索结果页、渠道详情页、我的页",
+    "artifactClass": "mobile",
+    "surface": "mobile-app",
+    "provenance": "explicit",
+    "operation": "create",
+    "handoff": [
+      "html",
+      "doc"
+    ],
+    "count": {
+      "unit": "屏",
+      "n": null,
+      "mode": "target",
+      "source": "载体默认"
+    },
+    "canvas": {
+      "w": 390,
+      "h": 844,
+      "source": "载体默认"
+    },
+    "ledger": [
+      {
+        "kind": "必须",
+        "value": "首页、分类页（二级分类）、搜索结果页、渠道详情页",
+        "block": false
+      }
+    ],
+    "attachments": [],
+    "skeleton": "app",
+    "title": "：1.重新分类体系 · 设计方案",
+    "workdir": "E:\\rights protection\\ui-design-runs\\维权通微信小程序UI重新-20260905-190617-f28f",
+    "deliverables": {
+      "doc": {
+        "proposal": "doc/proposal.xml",
+        "canvases": [
+          "doc/canvas-a.html",
+          "doc/canvas-b.html"
+        ],
+        "cover": "doc/cover.html",
+        "coverImage": "shots/cover.jpg",
+        "required": true,
+        "note": "设计思路、设计想法、设计语言、为什么这么设计；窄栏排版画布，像一份印出来的专题"
+      },
+      "product": {
+        "path": "app/index.html",
+        "profile": "app-screen",
+        "required": true,
+        "shape": "产品界面",
+        "h5Shape": "产品界面",
+        "note": "**真实产品界面原型**：首屏就是用户日常会看到的那一屏，不是关于它的说明"
+      }
+    },
+    "assetPlan": [
+      {
+        "role": "hero-bg",
+        "how": "image_gen",
+        "slot": "full-bleed",
+        "why": "首屏满版氛围，文字压在上面"
+      },
+      {
+        "role": "icon-set",
+        "how": "svg",
+        "slot": "inline",
+        "why": "图标必须用 SVG——生图出不了透明底"
+      },
+      {
+        "role": "texture",
+        "how": "css",
+        "slot": "layer",
+        "why": "底纹用 CSS 画，不占素材预算"
+      },
+      {
+        "role": "material-detail",
+        "how": "image_gen",
+        "slot": "full-bleed",
+        "why": "材质微距通栏"
+      },
+      {
+        "role": "scene-01",
+        "how": "image_gen",
+        "slot": "full-bleed",
+        "why": "使用场景，主体在画面里"
+      }
+    ],
+    "minVisualAssets": 5,
+    "frozen": "2026-09-05T19:06:17",
+    "hash": "80564bf2bb67e082"
+  },
+  "style": {
+    "query": "维权通微信小程序，工具类应用，蓝色主色调，现代简洁，卡片式布局",
+    "signature": {
+      "ground": "light",
+      "typeVoice": "sans-cool",
+      "imageWorld": "graphic-abstract",
+      "layoutLogic": "grid",
+      "colorStrategy": "tri-role",
+      "motionVoice": null
+    },
+    "why": {
+      "ground": "语义命中 1 个线索",
+      "typeVoice": "你指定的",
+      "imageWorld": "你指定的",
+      "layoutLogic": "你指定的",
+      "colorStrategy": "你指定的",
+      "motionVoice": "query 没给这一维的信号 —— 由你按内容定"
+    },
+    "open": [
+      "motionVoice"
+    ],
+    "divergence": {
+      "vsRecent": [
+        0
+      ],
+      "min": 0,
+      "require": 3
+    }
+  },
+  "receipts": {
+    "shot": [],
+    "observe": [],
+    "check": [],
+    "publish": [],
+    "read": []
+  },
+  "delivery": null
+}

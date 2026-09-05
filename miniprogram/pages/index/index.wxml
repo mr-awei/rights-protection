@@ -1,26 +1,24 @@
 <!--pages/index/index.wxml-->
 <view class="container">
-  <!-- 蓝色渐变头部 -->
-  <view class="hero">
-    <!-- 状态栏占位 -->
-    <view class="status-bar-placeholder"></view>
-
-    <view class="hero-content">
-      <view class="greeting">你好，维权人</view>
-      <view class="slogan">遇到问题，一键找到维权渠道</view>
+  <!-- 渐变头部 -->
+  <view class="gradient-header">
+    <view class="header-content">
+      <view class="header-top">
+        <view class="header-title">
+          <text class="title-main">维权通</text>
+          <text class="title-sub">官方投诉渠道 · 一键直达</text>
+        </view>
+        <view class="header-badge">
+          <text class="badge-text">122条</text>
+        </view>
+      </view>
 
       <!-- 搜索框 -->
-      <view class="search-box">
-        <view class="search-icon">
-          <svg width="36rpx" height="36rpx" viewBox="0 0 24 24" fill="none" stroke="#86909C" stroke-width="2">
-            <circle cx="11" cy="11" r="8"/>
-            <path d="m21 21-4.35-4.35"/>
-          </svg>
-        </view>
+      <view class="search-box" bindtap="onSearchFocus">
+        <view class="search-icon">🔍</view>
         <input
           class="search-input"
-          type="text"
-          placeholder="描述你遇到的问题，如：快递被偷了"
+          placeholder="搜索投诉渠道、话术、流程..."
           placeholder-class="search-placeholder"
           value="{{searchKeyword}}"
           bindinput="onSearchInput"
@@ -32,70 +30,99 @@
 
       <!-- 热门搜索 -->
       <view class="hot-searches">
-        <view
-          class="hot-tag"
-          wx:for="{{hotSearches}}"
-          wx:key="*this"
-          data-keyword="{{item}}"
-          bindtap="onHotSearchTap"
-        >{{item}}</view>
-      </view>
-    </view>
-  </view>
-
-  <!-- 场景入口 -->
-  <view class="section-title">
-    <text>我遇到了什么问题</text>
-  </view>
-  <view class="scene-grid">
-    <view
-      class="scene-item"
-      wx:for="{{sceneEntries}}"
-      wx:key="label"
-      data-keyword="{{item.keyword}}"
-      bindtap="onSceneEntryTap"
-    >
-      <view class="scene-icon" style="background: {{item.color}};">{{item.icon}}</view>
-      <view class="scene-label">{{item.label}}</view>
-    </view>
-  </view>
-
-  <!-- 紧急电话栏 -->
-  <view class="emergency-bar" bindtap="onEmergencyCall">
-    <view class="em-icon">🚨</view>
-    <view class="em-text">
-      <view class="em-title">紧急维权电话</view>
-      <view class="em-desc">遇到紧急情况，立即拨打</view>
-    </view>
-    <view class="em-call">110</view>
-  </view>
-
-  <!-- 高频话术 -->
-  <view class="section-title">
-    <text>高频投诉话术</text>
-    <text class="more" bindtap="onMoreScriptsTap">更多 ›</text>
-  </view>
-  <view class="script-list">
-    <view
-      class="script-item"
-      wx:for="{{hotScripts}}"
-      wx:key="id"
-      data-id="{{item.id}}"
-      bindtap="onScriptTap"
-    >
-      <view class="s-icon">📞</view>
-      <view class="s-content">
-        <view class="s-title">{{item.scene_name}}</view>
-        <view class="s-desc">{{item.applicable}}</view>
-        <view class="s-meta">
-          <text wx:if="{{item.phone_script}}">📞 电话版</text>
-          <text wx:if="{{item.written_request}}">📝 书面版</text>
-          <text>⭐ 热门话术</text>
+        <text class="hot-label">🔥 热门搜索</text>
+        <view class="hot-tags">
+          <text
+            class="hot-tag"
+            wx:for="{{hotSearches}}"
+            wx:key="*this"
+            data-keyword="{{item}}"
+            bindtap="onHotSearchTap"
+          >{{item}}</text>
         </view>
       </view>
     </view>
   </view>
 
-  <!-- 底部占位 -->
-  <view style="height: 40rpx;"></view>
+  <!-- 内容区 -->
+  <view class="content">
+    <!-- 快捷场景入口 -->
+    <view class="section">
+      <view class="section-header">
+        <text class="section-title">常见场景</text>
+        <text class="section-more" bindtap="onMoreScriptsTap">全部分类 ›</text>
+      </view>
+      <view class="scene-grid">
+        <view
+          class="scene-item"
+          wx:for="{{sceneEntries}}"
+          wx:key="label"
+          data-keyword="{{item.keyword}}"
+          bindtap="onSceneEntryTap"
+          hover-class="scene-item-hover"
+        >
+          <view class="scene-icon" style="background: {{item.color}}">
+            <text>{{item.icon}}</text>
+          </view>
+          <text class="scene-label">{{item.label}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 紧急电话 -->
+    <view class="section">
+      <view class="emergency-card" bindtap="onEmergencyCall" hover-class="emergency-card-hover">
+        <view class="emergency-icon">🚨</view>
+        <view class="emergency-info">
+          <text class="emergency-title">紧急报警</text>
+          <text class="emergency-desc">遇到紧急情况，一键拨打110</text>
+        </view>
+        <view class="emergency-btn">
+          <text class="emergency-btn-text">立即拨打</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 高频话术 -->
+    <view class="section" wx:if="{{hotScripts.length > 0}}">
+      <view class="section-header">
+        <text class="section-title">高频投诉话术</text>
+        <text class="section-more">共{{hotScripts.length}}套</text>
+      </view>
+      <view class="script-list">
+        <view
+          class="script-card"
+          wx:for="{{hotScripts}}"
+          wx:key="id"
+          data-id="{{item.id}}"
+          bindtap="onScriptTap"
+          hover-class="script-card-hover"
+        >
+          <view class="script-card-header">
+            <view class="script-icon">📝</view>
+            <view class="script-info">
+              <text class="script-name">{{item.scene_name || item.name}}</text>
+              <text class="script-meta">{{item.scene || '通用场景'}} · 电话版+书面版</text>
+            </view>
+            <view class="script-arrow">›</view>
+          </view>
+          <view class="script-preview">
+            <text class="script-preview-text">{{item.phone_script ? item.phone_script.substring(0, 50) + '...' : '点击查看完整话术'}}</text>
+          </view>
+          <view class="script-tags">
+            <text class="script-tag">📞 电话版</text>
+            <text class="script-tag">✉️ 书面版</text>
+            <text class="script-tag hot">🔥 高频</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 底部提示 -->
+    <view class="footer-tip">
+      <text class="footer-text">数据仅供参考，具体以官方平台为准</text>
+    </view>
+
+    <view style="height: 40rpx;"></view>
+  </view>
 </view>

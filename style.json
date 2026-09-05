@@ -1,0 +1,29 @@
+{
+  "query": "维权通微信小程序，工具类应用，蓝色主色调，现代简洁，卡片式布局",
+  "signature": {
+    "ground": "light",
+    "typeVoice": "sans-cool",
+    "imageWorld": "graphic-abstract",
+    "layoutLogic": "grid",
+    "colorStrategy": "tri-role",
+    "motionVoice": null
+  },
+  "why": {
+    "ground": "语义命中 1 个线索",
+    "typeVoice": "你指定的",
+    "imageWorld": "你指定的",
+    "layoutLogic": "你指定的",
+    "colorStrategy": "你指定的",
+    "motionVoice": "query 没给这一维的信号 —— 由你按内容定"
+  },
+  "open": [
+    "motionVoice"
+  ],
+  "divergence": {
+    "vsRecent": [
+      0
+    ],
+    "min": 0,
+    "require": 3
+  }
+}
