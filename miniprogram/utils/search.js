@@ -1,31 +1,30 @@
 // utils/search.js
-// 搜索逻辑（倒排索引搜索、结果排序）
+// 搜索逻辑（关键词提取+场景匹配+名称匹配兜底）
 
 const { extractKeywords } = require('./keyword-extractor');
 
 // 数据缓存
 let channelsData = null;
 let scriptsData = null;
-let searchIndex = null;
-let suggestTrie = null;
 
 /**
- * 加载数据
+ * 加载数据（只用JS文件，确保100%加载成功）
  */
 function loadData() {
-  if (channelsData && scriptsData && searchIndex) return;
+  if (channelsData && scriptsData) return;
 
   try {
-    channelsData = require('../data/channels.json');
-    scriptsData = require('../data/scripts.json');
-    searchIndex = require('../data/search_index.json');
-    suggestTrie = require('../data/suggest_trie.json');
+    channelsData = require('../data/channels.js');
   } catch (e) {
-    console.error('[搜索] 数据加载失败:', e);
-    channelsData = channelsData || [];
-    scriptsData = scriptsData || [];
-    searchIndex = searchIndex || { terms: {}, docs: [] };
-    suggestTrie = suggestTrie || {};
+    console.error('[搜索] 加载channels失败:', e);
+    channelsData = [];
+  }
+
+  try {
+    scriptsData = require('../data/scripts.js');
+  } catch (e) {
+    console.error('[搜索] 加载scripts失败:', e);
+    scriptsData = [];
   }
 }
 
@@ -47,6 +46,8 @@ function search(query) {
   const keywords = kwResult.allKeywords;
   const scenes = kwResult.scenes;
 
+  console.log('[搜索] 提取关键词:', keywords, '匹配场景:', scenes.length);
+
   // 2. 场景匹配
   if (scenes.length === 1) {
     // 单个场景 → 直接跳转
@@ -67,8 +68,8 @@ function search(query) {
     };
   }
 
-  // 3. 无场景匹配 → 倒排索引搜索
-  const results = invertedSearch(query, keywords);
+  // 3. 无场景匹配 → 名称匹配搜索（兜底）
+  const results = fallbackSearch(query, keywords);
   if (results.length === 0) {
     return { type: 'empty', scenes: [], results: [], keywords: keywords };
   }
@@ -76,77 +77,75 @@ function search(query) {
 }
 
 /**
- * 倒排索引搜索
+ * 名称匹配搜索（兜底方案，不依赖倒排索引）
  */
-function invertedSearch(query, keywords) {
+function fallbackSearch(query, keywords) {
   loadData();
+  const results = [];
+  const queryLower = query.toLowerCase();
 
-  const docScores = {};
-  const queryTerms = [query, ...keywords];
+  // 搜索渠道
+  for (const channel of channelsData) {
+    let score = 0;
+    const name = (channel.name || '').toLowerCase();
+    const scope = (channel.scope || '').toLowerCase();
+    const tags = (channel.tags || []).join(' ').toLowerCase();
 
-  // 遍历查询词
-  for (const term of queryTerms) {
-    if (!term || term.length < 2) continue;
+    // 完整查询词匹配（权重最高）
+    if (name.includes(queryLower)) score += 10;
+    if (scope.includes(queryLower)) score += 3;
+    if (tags.includes(queryLower)) score += 5;
 
-    // 在倒排索引中查找
-    const termKey = term.toLowerCase();
-    const postings = searchIndex.terms[termKey];
-    if (!postings) continue;
+    // 关键词匹配
+    for (const kw of keywords) {
+      const kwLower = kw.toLowerCase();
+      if (name.includes(kwLower)) score += 5;
+      if (scope.includes(kwLower)) score += 1;
+      if (tags.includes(kwLower)) score += 3;
+    }
 
-    // 计算每个文档的得分
-    for (const posting of postings) {
-      const docId = posting.doc_id;
-      const tf = posting.tf || 1;
-      const fieldBoost = getFieldBoost(posting.field);
-
-      if (!docScores[docId]) {
-        docScores[docId] = { score: 0, matchedTerms: [] };
-      }
-      docScores[docId].score += tf * fieldBoost;
-      if (!docScores[docId].matchedTerms.includes(term)) {
-        docScores[docId].matchedTerms.push(term);
-      }
+    if (score > 0) {
+      results.push({
+        type: 'channel',
+        id: channel.id,
+        name: channel.name,
+        scope: channel.scope,
+        desc: channel.scope || '',
+        score: score,
+        matchedTerms: keywords
+      });
     }
   }
 
-  // 转换为结果列表并排序
-  const results = [];
-  for (const [docId, data] of Object.entries(docScores)) {
-    const doc = searchIndex.docs[docId];
-    if (!doc) continue;
+  // 搜索话术
+  for (const script of scriptsData) {
+    let score = 0;
+    const sceneName = (script.scene_name || '').toLowerCase();
+    const applicable = (script.applicable || '').toLowerCase();
+    const keywords_list = (script.keywords || []).join(' ').toLowerCase();
 
-    let item = null;
-    if (doc.type === 'channel') {
-      const channel = findChannelById(doc.id);
-      if (channel) {
-        item = {
-          type: 'channel',
-          id: channel.id,
-          name: channel.name,
-          scope: channel.scope,
-          desc: channel.scope || '',
-          score: data.score,
-          matchedTerms: data.matchedTerms
-        };
-      }
-    } else if (doc.type === 'script') {
-      const script = findScriptById(doc.id);
-      if (script) {
-        item = {
-          type: 'script',
-          id: script.id,
-          scene_name: script.scene_name,
-          name: script.scene_name || '',
-          applicable: script.applicable,
-          desc: script.applicable || '',
-          score: data.score,
-          matchedTerms: data.matchedTerms
-        };
-      }
+    if (sceneName.includes(queryLower)) score += 10;
+    if (applicable.includes(queryLower)) score += 3;
+    if (keywords_list.includes(queryLower)) score += 5;
+
+    for (const kw of keywords) {
+      const kwLower = kw.toLowerCase();
+      if (sceneName.includes(kwLower)) score += 5;
+      if (applicable.includes(kwLower)) score += 1;
+      if (keywords_list.includes(kwLower)) score += 3;
     }
 
-    if (item) {
-      results.push(item);
+    if (score > 0) {
+      results.push({
+        type: 'script',
+        id: script.id,
+        scene_name: script.scene_name,
+        name: script.scene_name || '',
+        applicable: script.applicable,
+        desc: script.applicable || '',
+        score: score,
+        matchedTerms: keywords
+      });
     }
   }
 
@@ -155,33 +154,11 @@ function invertedSearch(query, keywords) {
 }
 
 /**
- * 字段权重
- */
-function getFieldBoost(field) {
-  const boosts = {
-    'name': 5.0,
-    'scene_name': 5.0,
-    'tags': 3.0,
-    'category': 2.0,
-    'category_l1': 2.0,
-    'category_l2': 2.0,
-    'desc': 1.5,
-    'description': 1.5,
-    'scope': 1.5,
-    'applicable': 1.5,
-    'legal_basis': 1.0,
-    'default': 1.0
-  };
-  return boosts[field] || boosts['default'];
-}
-
-/**
  * 查找渠道
  */
 function findChannelById(id) {
   loadData();
-  const list = channelsData.channels || channelsData || [];
-  return list.find(c => c.id === id);
+  return channelsData.find(c => c.id === id);
 }
 
 /**
@@ -189,12 +166,11 @@ function findChannelById(id) {
  */
 function findScriptById(id) {
   loadData();
-  const list = scriptsData.scripts || scriptsData || [];
-  return list.find(s => s.id === id);
+  return scriptsData.find(s => s.id === id);
 }
 
 /**
- * 搜索联想
+ * 搜索联想（简单前缀匹配）
  */
 function suggest(prefix) {
   loadData();
@@ -203,28 +179,16 @@ function suggest(prefix) {
   const results = [];
   const prefixLower = prefix.toLowerCase();
 
-  // 遍历Trie树
-  function traverse(node, currentPrefix) {
-    if (node.isEnd) {
-      results.push(currentPrefix);
-    }
-    for (const [char, child] of Object.entries(node.children || {})) {
-      traverse(child, currentPrefix + char);
-    }
-  }
-
-  // 找到前缀对应的节点
-  let node = suggestTrie;
-  for (const char of prefixLower) {
-    if (node.children && node.children[char]) {
-      node = node.children[char];
-    } else {
-      return results;
+  // 从渠道名称中提取
+  for (const channel of channelsData) {
+    const name = channel.name || '';
+    if (name.toLowerCase().includes(prefixLower)) {
+      results.push(name);
+      if (results.length >= 10) break;
     }
   }
 
-  traverse(node, prefixLower);
-  return results.slice(0, 10);
+  return results;
 }
 
 /**
@@ -248,5 +212,6 @@ module.exports = {
   findChannelById,
   findScriptById,
   highlightKeywords,
-  loadData
+  loadData,
+  fallbackSearch
 };

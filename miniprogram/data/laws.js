@@ -1,0 +1,66 @@
+// laws.js - 由 laws.json 自动转换，请勿手动编辑
+module.exports = [
+  {
+    "id": "law_001",
+    "name": "中华人民共和国反垄断法",
+    "full_name": "中华人民共和国反垄断法",
+    "article": "",
+    "source_count": 1
+  },
+  {
+    "id": "law_002",
+    "name": "公平竞争审查条例",
+    "full_name": "公平竞争审查条例",
+    "article": "",
+    "source_count": 1
+  },
+  {
+    "id": "law_003",
+    "name": "税收违法行为检举管理办法",
+    "full_name": "税收违法行为检举管理办法",
+    "article": "",
+    "source_count": 1
+  },
+  {
+    "id": "law_004",
+    "name": "统计法实施条例",
+    "full_name": "统计法实施条例",
+    "article": "",
+    "source_count": 1
+  },
+  {
+    "id": "law_005",
+    "name": "政府采购法",
+    "full_name": "政府采购法",
+    "article": "",
+    "source_count": 1
+  },
+  {
+    "id": "law_006",
+    "name": "国家安全法",
+    "full_name": "国家安全法",
+    "article": "",
+    "source_count": 1
+  },
+  {
+    "id": "law_007",
+    "name": "反间谍法",
+    "full_name": "反间谍法",
+    "article": "",
+    "source_count": 1
+  },
+  {
+    "id": "law_008",
+    "name": "妇女权益保障法",
+    "full_name": "妇女权益保障法",
+    "article": "",
+    "source_count": 1
+  },
+  {
+    "id": "law_009",
+    "name": "反家庭暴力法",
+    "full_name": "反家庭暴力法",
+    "article": "",
+    "source_count": 1
+  }
+];

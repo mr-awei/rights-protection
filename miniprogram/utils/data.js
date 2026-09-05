@@ -28,33 +28,33 @@ function loadAllData() {
   if (channelsData && scriptsData) return;
 
   try {
-    channelsData = require('../data/channels.json');
+    channelsData = require('../data/channels.js');
   } catch (e) {
     console.error('[data] 加载channels失败:', e);
     channelsData = [];
   }
 
   try {
-    scriptsData = require('../data/scripts.json');
+    scriptsData = require('../data/scripts.js');
   } catch (e) {
     console.error('[data] 加载scripts失败:', e);
     scriptsData = [];
   }
 
   try {
-    lawsData = require('../data/laws.json');
+    lawsData = require('../data/laws.js');
   } catch (e) {
     lawsData = [];
   }
 
   try {
-    categoriesData = require('../data/categories.json');
+    categoriesData = require('../data/categories.js');
   } catch (e) {
     categoriesData = [];
   }
 
   try {
-    configData = require('../data/config.json');
+    configData = require('../data/config.js');
   } catch (e) {
     configData = {};
   }
