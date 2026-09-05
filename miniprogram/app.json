@@ -1,0 +1,47 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/scene-picker/scene-picker",
+    "pages/search-result/search-result",
+    "pages/channel-detail/channel-detail",
+    "pages/script-detail/script-detail",
+    "pages/category/category",
+    "pages/profile/profile"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#1677FF",
+    "navigationBarTitleText": "维权通",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#F5F7FA"
+  },
+  "tabBar": {
+    "color": "#86909C",
+    "selectedColor": "#1677FF",
+    "backgroundColor": "#FFFFFF",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "images/tab-home.png",
+        "selectedIconPath": "images/tab-home-active.png"
+      },
+      {
+        "pagePath": "pages/category/category",
+        "text": "分类",
+        "iconPath": "images/tab-category.png",
+        "selectedIconPath": "images/tab-category-active.png"
+      },
+      {
+        "pagePath": "pages/profile/profile",
+        "text": "我的",
+        "iconPath": "images/tab-profile.png",
+        "selectedIconPath": "images/tab-profile-active.png"
+      }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json",
+  "lazyCodeLoading": "requiredComponents"
+}

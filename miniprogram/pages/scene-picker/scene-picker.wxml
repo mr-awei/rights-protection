@@ -1,0 +1,56 @@
+<!--pages/scene-picker/scene-picker.wxml-->
+<view class="container">
+  <!-- 头部说明 -->
+  <view class="sp-header">
+    <view class="sp-title">为你找到以下相关场景</view>
+    <view class="sp-subtitle">根据你描述的关键词匹配，请选择最符合的场景</view>
+  </view>
+
+  <!-- 关键词标签 -->
+  <view class="keyword-tags" wx:if="{{keywords.length > 0}}">
+    <view
+      class="kw-tag"
+      wx:for="{{keywords}}"
+      wx:key="*this"
+      data-keyword="{{item}}"
+      bindtap="onKeywordRemove"
+    >
+      {{item}}
+      <text class="remove">✕</text>
+    </view>
+  </view>
+
+  <!-- 场景卡片列表 -->
+  <view class="scene-cards">
+    <view
+      class="scene-card"
+      wx:for="{{scenes}}"
+      wx:key="id"
+      data-scene="{{item}}"
+      bindtap="onSceneTap"
+    >
+      <view class="sc-header">
+        <view class="sc-icon" style="background: {{item.color}};">{{item.icon}}</view>
+        <view class="sc-title">{{item.name}}</view>
+        <view class="sc-score">匹配度 {{item.matchScore > 100 ? 99 : item.matchScore}}%</view>
+      </view>
+      <view class="sc-desc">{{item.desc}}</view>
+      <view class="sc-meta">
+        <text class="meta-item" wx:if="{{item.channels.length > 0}}">📞 {{item.channels.length}}个渠道</text>
+        <text class="meta-item" wx:if="{{item.scripts.length > 0}}">💬 {{item.scripts.length}}套话术</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 无匹配提示 -->
+  <view class="empty-state" wx:if="{{scenes.length === 0}}">
+    <view class="empty-icon">🔍</view>
+    <view class="empty-title">未找到匹配场景</view>
+    <view class="empty-desc">试试换个关键词，或查看全部分类</view>
+  </view>
+
+  <!-- 底部入口 -->
+  <view class="sp-footer" bindtap="onShowAllCategories">
+    以上都不是，查看全部分类 ›
+  </view>
+</view>

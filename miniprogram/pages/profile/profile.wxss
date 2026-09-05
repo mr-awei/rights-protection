@@ -1,0 +1,147 @@
+/* pages/profile/profile.wxss */
+.container {
+  min-height: 100vh;
+  background: #F5F7FA;
+  padding-bottom: 60rpx;
+}
+
+/* 蓝色渐变头部 */
+.profile-header {
+  background: linear-gradient(135deg, #1677FF 0%, #0958D9 100%);
+  padding: 60rpx 32rpx 80rpx;
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  gap: 28rpx;
+}
+
+.avatar {
+  width: 112rpx;
+  height: 112rpx;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 48rpx;
+  flex-shrink: 0;
+}
+
+.p-info {
+  flex: 1;
+}
+
+.p-name {
+  font-size: 36rpx;
+  font-weight: 600;
+}
+
+.p-desc {
+  font-size: 24rpx;
+  opacity: 0.8;
+  margin-top: 8rpx;
+}
+
+/* 统计数据 */
+.stats-bar {
+  margin: -40rpx 32rpx 0;
+  background: #FFFFFF;
+  border-radius: 24rpx;
+  padding: 32rpx;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 8rpx 24rpx rgba(0, 0, 0, 0.08);
+  position: relative;
+  z-index: 2;
+}
+
+.stat-item {
+  flex: 1;
+  text-align: center;
+}
+
+.stat-num {
+  font-size: 40rpx;
+  font-weight: 700;
+  color: #1677FF;
+}
+
+.stat-label {
+  font-size: 22rpx;
+  color: #86909C;
+  margin-top: 8rpx;
+}
+
+.stat-divider {
+  width: 2rpx;
+  height: 60rpx;
+  background: #E5E6EB;
+}
+
+/* 工具箱 */
+.tool-list {
+  margin: 32rpx;
+}
+
+.tool-item {
+  background: #FFFFFF;
+  border-radius: 24rpx;
+  padding: 28rpx 32rpx;
+  margin-bottom: 16rpx;
+  display: flex;
+  align-items: center;
+  gap: 24rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.04);
+}
+
+.tool-item:active {
+  background: #F5F7FA;
+}
+
+.t-icon {
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: 20rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32rpx;
+  flex-shrink: 0;
+}
+
+.t-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.t-name {
+  font-size: 28rpx;
+  font-weight: 500;
+  color: #1F2329;
+}
+
+.t-desc {
+  font-size: 22rpx;
+  color: #86909C;
+  margin-top: 4rpx;
+}
+
+.t-arrow {
+  color: #C9CDD4;
+  font-size: 32rpx;
+  flex-shrink: 0;
+}
+
+/* 底部信息 */
+.footer-info {
+  text-align: center;
+  padding: 40rpx 32rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+}
+
+.footer-info text {
+  font-size: 22rpx;
+  color: #C9CDD4;
+}

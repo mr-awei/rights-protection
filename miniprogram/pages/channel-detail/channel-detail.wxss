@@ -1,0 +1,228 @@
+/* pages/channel-detail/channel-detail.wxss */
+.container {
+  min-height: 100vh;
+  background: #F5F7FA;
+  padding-bottom: 140rpx;
+}
+
+/* 蓝色渐变头部 */
+.channel-hero {
+  background: linear-gradient(135deg, #1677FF 0%, #0958D9 100%);
+  padding: 40rpx 32rpx 48rpx;
+  color: #FFFFFF;
+}
+
+.ch-name {
+  font-size: 40rpx;
+  font-weight: 700;
+  margin-bottom: 12rpx;
+  line-height: 1.4;
+}
+
+.ch-desc {
+  font-size: 26rpx;
+  opacity: 0.85;
+  line-height: 1.6;
+}
+
+.ch-tags {
+  display: flex;
+  gap: 12rpx;
+  margin-top: 24rpx;
+  flex-wrap: wrap;
+}
+
+.ch-tag {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 6rpx 20rpx;
+  border-radius: 20rpx;
+  font-size: 22rpx;
+}
+
+/* 联系方式卡片 */
+.contact-section {
+  margin: -24rpx 32rpx 0;
+  position: relative;
+  z-index: 2;
+}
+
+.contact-card {
+  background: #FFFFFF;
+  border-radius: 24rpx;
+  padding: 32rpx;
+  box-shadow: 0 8rpx 24rpx rgba(0, 0, 0, 0.08);
+  margin-bottom: 24rpx;
+}
+
+.cc-title {
+  font-size: 28rpx;
+  font-weight: 600;
+  margin-bottom: 24rpx;
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  color: #1F2329;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 24rpx;
+  padding: 20rpx 0;
+  border-bottom: 2rpx solid #F5F7FA;
+}
+
+.contact-item:last-child {
+  border-bottom: none;
+}
+
+.ci-icon {
+  width: 72rpx;
+  height: 72rpx;
+  background: #E6F4FF;
+  border-radius: 20rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32rpx;
+  flex-shrink: 0;
+}
+
+.ci-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.ci-label {
+  font-size: 22rpx;
+  color: #86909C;
+}
+
+.ci-value {
+  font-size: 28rpx;
+  font-weight: 500;
+  color: #1F2329;
+  margin-top: 4rpx;
+  word-break: break-all;
+}
+
+.ci-action {
+  color: #1677FF;
+  font-size: 26rpx;
+  font-weight: 500;
+  padding: 12rpx 24rpx;
+  background: #E6F4FF;
+  border-radius: 28rpx;
+  flex-shrink: 0;
+}
+
+.ci-action:active {
+  background: #BAE0FF;
+}
+
+.contact-empty {
+  text-align: center;
+  padding: 40rpx;
+  color: #86909C;
+  font-size: 26rpx;
+}
+
+/* 区块 */
+.section-block {
+  margin: 32rpx;
+}
+
+.sb-title {
+  font-size: 30rpx;
+  font-weight: 600;
+  margin-bottom: 24rpx;
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  color: #1F2329;
+}
+
+/* 法律/流程列表 */
+.law-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+}
+
+.law-item {
+  background: #FFFFFF;
+  border-radius: 16rpx;
+  padding: 24rpx;
+  border-left: 6rpx solid #FAAD14;
+}
+
+.process-item {
+  border-left-color: #1677FF;
+}
+
+.law-name {
+  font-size: 26rpx;
+  font-weight: 600;
+  margin-bottom: 8rpx;
+  color: #1F2329;
+}
+
+.law-content {
+  font-size: 24rpx;
+  color: #86909C;
+  line-height: 1.7;
+}
+
+/* 关联话术 */
+.related-scripts {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+}
+
+.rs-item {
+  background: #FFFFFF;
+  border-radius: 16rpx;
+  padding: 24rpx;
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+}
+
+.rs-item:active {
+  background: #F5F7FA;
+}
+
+.rs-icon {
+  width: 64rpx;
+  height: 64rpx;
+  background: #F6FFED;
+  border-radius: 16rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28rpx;
+  flex-shrink: 0;
+}
+
+.rs-name {
+  font-size: 26rpx;
+  font-weight: 500;
+  flex: 1;
+  color: #1F2329;
+}
+
+.rs-arrow {
+  color: #C9CDD4;
+  font-size: 32rpx;
+}
+
+/* 加载中 */
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  color: #86909C;
+  font-size: 28rpx;
+}

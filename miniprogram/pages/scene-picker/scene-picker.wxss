@@ -1,0 +1,170 @@
+/* pages/scene-picker/scene-picker.wxss */
+.container {
+  min-height: 100vh;
+  background: #F5F7FA;
+  padding: 32rpx;
+  padding-bottom: 60rpx;
+}
+
+/* 头部说明 */
+.sp-header {
+  text-align: center;
+  margin-bottom: 32rpx;
+}
+
+.sp-title {
+  font-size: 34rpx;
+  font-weight: 600;
+  margin-bottom: 16rpx;
+  color: #1F2329;
+}
+
+.sp-subtitle {
+  font-size: 24rpx;
+  color: #86909C;
+}
+
+/* 关键词标签 */
+.keyword-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16rpx;
+  justify-content: center;
+  margin: 24rpx 0 40rpx;
+}
+
+.kw-tag {
+  background: #E6F4FF;
+  color: #1677FF;
+  padding: 10rpx 24rpx;
+  border-radius: 28rpx;
+  font-size: 26rpx;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 8rpx;
+}
+
+.kw-tag:active {
+  background: #BAE0FF;
+}
+
+.kw-tag .remove {
+  opacity: 0.6;
+  font-size: 22rpx;
+}
+
+/* 场景卡片列表 */
+.scene-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 24rpx;
+}
+
+.scene-card {
+  background: #FFFFFF;
+  border-radius: 24rpx;
+  padding: 32rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.04);
+  border: 4rpx solid transparent;
+  transition: all 0.2s;
+}
+
+.scene-card:active {
+  border-color: #1677FF;
+  transform: scale(0.98);
+}
+
+.sc-header {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+  margin-bottom: 16rpx;
+}
+
+.sc-icon {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 24rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40rpx;
+  flex-shrink: 0;
+}
+
+.sc-title {
+  font-size: 30rpx;
+  font-weight: 600;
+  flex: 1;
+  color: #1F2329;
+}
+
+.sc-score {
+  font-size: 22rpx;
+  color: #52C41A;
+  background: #F6FFED;
+  padding: 4rpx 16rpx;
+  border-radius: 20rpx;
+  flex-shrink: 0;
+}
+
+.sc-desc {
+  font-size: 24rpx;
+  color: #86909C;
+  margin-bottom: 20rpx;
+  line-height: 1.6;
+}
+
+.sc-meta {
+  display: flex;
+  gap: 24rpx;
+}
+
+.meta-item {
+  font-size: 22rpx;
+  color: #4E5969;
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+}
+
+/* 空状态 */
+.empty-state {
+  text-align: center;
+  padding: 120rpx 40rpx;
+}
+
+.empty-icon {
+  font-size: 96rpx;
+  margin-bottom: 32rpx;
+  opacity: 0.5;
+}
+
+.empty-title {
+  font-size: 32rpx;
+  font-weight: 600;
+  margin-bottom: 16rpx;
+  color: #4E5969;
+}
+
+.empty-desc {
+  font-size: 26rpx;
+  color: #86909C;
+}
+
+/* 底部入口 */
+.sp-footer {
+  text-align: center;
+  margin-top: 40rpx;
+  padding: 28rpx;
+  background: #FFFFFF;
+  border-radius: 24rpx;
+  font-size: 26rpx;
+  color: #4E5969;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.04);
+}
+
+.sp-footer:active {
+  background: #F5F7FA;
+}

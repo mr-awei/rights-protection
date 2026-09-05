@@ -1,0 +1,162 @@
+/* pages/search-result/search-result.wxss */
+.container {
+  min-height: 100vh;
+  background: #F5F7FA;
+}
+
+/* Tab切换 */
+.result-tabs {
+  display: flex;
+  background: #FFFFFF;
+  border-bottom: 2rpx solid #E5E6EB;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.result-tab {
+  flex: 1;
+  text-align: center;
+  padding: 24rpx 0;
+  font-size: 28rpx;
+  color: #4E5969;
+  position: relative;
+}
+
+.result-tab.active {
+  color: #1677FF;
+  font-weight: 600;
+}
+
+.result-tab.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 48rpx;
+  height: 6rpx;
+  background: #1677FF;
+  border-radius: 4rpx;
+}
+
+/* 结果数量 */
+.result-count {
+  padding: 24rpx 32rpx;
+  font-size: 24rpx;
+  color: #86909C;
+}
+
+/* 结果列表 */
+.result-list {
+  padding: 0 32rpx;
+}
+
+.result-item {
+  background: #FFFFFF;
+  border-radius: 24rpx;
+  padding: 28rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.04);
+}
+
+.result-item:active {
+  background: #F5F7FA;
+}
+
+.ri-title {
+  font-size: 30rpx;
+  font-weight: 600;
+  margin-bottom: 12rpx;
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  color: #1F2329;
+}
+
+.ri-type {
+  font-size: 20rpx;
+  padding: 4rpx 12rpx;
+  border-radius: 8rpx;
+  font-weight: 500;
+  flex-shrink: 0;
+}
+
+.ri-type.channel {
+  background: #E6F4FF;
+  color: #1677FF;
+}
+
+.ri-type.script {
+  background: #F6FFED;
+  color: #52C41A;
+}
+
+.ri-name {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ri-desc {
+  font-size: 24rpx;
+  color: #86909C;
+  line-height: 1.6;
+  margin-bottom: 16rpx;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+.ri-meta {
+  display: flex;
+  gap: 24rpx;
+}
+
+.ri-meta text {
+  font-size: 22rpx;
+  color: #86909C;
+}
+
+/* 高亮 */
+.highlight {
+  color: #FF4D4F;
+  font-weight: 600;
+}
+
+/* 空状态 */
+.empty-state {
+  text-align: center;
+  padding: 120rpx 40rpx;
+}
+
+.empty-icon {
+  font-size: 96rpx;
+  margin-bottom: 32rpx;
+  opacity: 0.5;
+}
+
+.empty-title {
+  font-size: 32rpx;
+  font-weight: 600;
+  margin-bottom: 16rpx;
+  color: #4E5969;
+}
+
+.empty-desc {
+  font-size: 26rpx;
+  color: #86909C;
+  margin-bottom: 40rpx;
+}
+
+.empty-actions {
+  display: flex;
+  justify-content: center;
+}
+
+.empty-actions .btn {
+  min-width: 240rpx;
+}

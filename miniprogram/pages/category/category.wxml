@@ -1,0 +1,48 @@
+<!--pages/category/category.wxml-->
+<view class="container">
+  <view class="category-layout">
+    <!-- 左侧分类侧边栏 -->
+    <scroll-view class="category-sidebar" scroll-y>
+      <view
+        class="cat-sidebar-item {{activeCategory === index ? 'active' : ''}}"
+        wx:for="{{categories}}"
+        wx:key="name"
+        data-index="{{index}}"
+        bindtap="onCategoryTap"
+      >
+        <text class="cat-icon">{{item.icon || ''}}</text>
+        <text class="cat-name">{{item.name}}</text>
+      </view>
+    </scroll-view>
+
+    <!-- 右侧渠道列表 -->
+    <scroll-view class="category-content" scroll-y>
+      <view class="cat-group-title">
+        {{categories[activeCategory].name || '全部'}}
+        <text class="cat-count">{{channels.length}}个渠道</text>
+      </view>
+
+      <view
+        class="cat-channel-item"
+        wx:for="{{channels}}"
+        wx:key="id"
+        data-id="{{item.id}}"
+        bindtap="onChannelTap"
+      >
+        <view class="cci-name">{{item.name}}</view>
+        <view class="cci-desc">{{item.desc || item.description}}</view>
+        <view class="cci-meta">
+          <text wx:if="{{item.phone}}">📞 {{item.phone}}</text>
+          <text wx:if="{{item.is_official}}">✅ 官方</text>
+        </view>
+      </view>
+
+      <view class="empty-state" wx:if="{{channels.length === 0}}">
+        <view class="empty-icon">📭</view>
+        <view class="empty-title">该分类下暂无渠道</view>
+      </view>
+
+      <view style="height: 40rpx;"></view>
+    </scroll-view>
+  </view>
+</view>

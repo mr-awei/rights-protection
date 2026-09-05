@@ -1,0 +1,269 @@
+/* pages/index/index.wxss */
+.container {
+  min-height: 100vh;
+  background: #F5F7FA;
+  padding-bottom: 40rpx;
+}
+
+/* 蓝色渐变头部 */
+.hero {
+  background: linear-gradient(135deg, #1677FF 0%, #0958D9 100%);
+  padding: 0 32rpx 48rpx;
+  color: #FFFFFF;
+}
+
+.status-bar-placeholder {
+  height: var(--status-bar-height, 44px);
+}
+
+.hero-content {
+  padding-top: 20rpx;
+}
+
+.greeting {
+  font-size: 26rpx;
+  opacity: 0.85;
+  margin-bottom: 8rpx;
+}
+
+.slogan {
+  font-size: 40rpx;
+  font-weight: 700;
+  margin-bottom: 32rpx;
+}
+
+/* 搜索框 */
+.search-box {
+  background: #FFFFFF;
+  border-radius: 24rpx;
+  padding: 20rpx 28rpx;
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  box-shadow: 0 8rpx 24rpx rgba(0, 0, 0, 0.1);
+}
+
+.search-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.search-input {
+  flex: 1;
+  font-size: 28rpx;
+  color: #1F2329;
+  height: 48rpx;
+  line-height: 48rpx;
+}
+
+.search-placeholder {
+  color: #86909C;
+  font-size: 28rpx;
+}
+
+.search-btn {
+  background: #1677FF;
+  color: #FFFFFF;
+  padding: 12rpx 28rpx;
+  border-radius: 12rpx;
+  font-size: 26rpx;
+  font-weight: 500;
+  flex-shrink: 0;
+}
+
+.search-btn:active {
+  background: #0958D9;
+}
+
+/* 热门搜索 */
+.hot-searches {
+  display: flex;
+  gap: 16rpx;
+  margin-top: 24rpx;
+  flex-wrap: wrap;
+}
+
+.hot-tag {
+  background: rgba(255, 255, 255, 0.2);
+  color: #FFFFFF;
+  padding: 8rpx 20rpx;
+  border-radius: 24rpx;
+  font-size: 22rpx;
+}
+
+.hot-tag:active {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* 章节标题 */
+.section-title {
+  font-size: 32rpx;
+  font-weight: 600;
+  margin: 40rpx 32rpx 24rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #1F2329;
+}
+
+.section-title .more {
+  font-size: 24rpx;
+  color: #86909C;
+  font-weight: 400;
+}
+
+/* 场景入口网格 */
+.scene-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24rpx;
+  padding: 0 32rpx;
+}
+
+.scene-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12rpx;
+}
+
+.scene-item:active {
+  opacity: 0.7;
+}
+
+.scene-icon {
+  width: 96rpx;
+  height: 96rpx;
+  border-radius: 28rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 44rpx;
+}
+
+.scene-label {
+  font-size: 24rpx;
+  color: #4E5969;
+  text-align: center;
+}
+
+/* 紧急电话栏 */
+.emergency-bar {
+  background: linear-gradient(135deg, #FFF2F0 0%, #FFECE8 100%);
+  margin: 32rpx;
+  border-radius: 24rpx;
+  padding: 28rpx 32rpx;
+  display: flex;
+  align-items: center;
+  gap: 24rpx;
+  border: 2rpx solid #FFCCC7;
+}
+
+.emergency-bar:active {
+  opacity: 0.9;
+}
+
+.em-icon {
+  width: 80rpx;
+  height: 80rpx;
+  background: #FF4D4F;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36rpx;
+  flex-shrink: 0;
+}
+
+.em-text {
+  flex: 1;
+}
+
+.em-title {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #FF4D4F;
+}
+
+.em-desc {
+  font-size: 22rpx;
+  color: #4E5969;
+  margin-top: 4rpx;
+}
+
+.em-call {
+  background: #FF4D4F;
+  color: #FFFFFF;
+  padding: 12rpx 28rpx;
+  border-radius: 32rpx;
+  font-size: 24rpx;
+  font-weight: 500;
+}
+
+/* 高频话术 */
+.script-list {
+  padding: 0 32rpx;
+}
+
+.script-item {
+  background: #FFFFFF;
+  border-radius: 24rpx;
+  padding: 28rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.04);
+  display: flex;
+  gap: 24rpx;
+  align-items: flex-start;
+}
+
+.script-item:active {
+  background: #F5F7FA;
+}
+
+.s-icon {
+  width: 72rpx;
+  height: 72rpx;
+  background: #F6FFED;
+  border-radius: 20rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36rpx;
+  flex-shrink: 0;
+}
+
+.s-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.s-title {
+  font-size: 28rpx;
+  font-weight: 600;
+  margin-bottom: 8rpx;
+  color: #1F2329;
+}
+
+.s-desc {
+  font-size: 24rpx;
+  color: #86909C;
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+.s-meta {
+  display: flex;
+  gap: 16rpx;
+  margin-top: 12rpx;
+  flex-wrap: wrap;
+}
+
+.s-meta text {
+  font-size: 22rpx;
+  color: #86909C;
+}

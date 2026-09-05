@@ -1,0 +1,64 @@
+<!--pages/search-result/search-result.wxml-->
+<view class="container">
+  <!-- Tab切换 -->
+  <view class="result-tabs">
+    <view
+      class="result-tab {{activeTab === 'all' ? 'active' : ''}}"
+      data-tab="all"
+      bindtap="onTabTap"
+    >全部</view>
+    <view
+      class="result-tab {{activeTab === 'channel' ? 'active' : ''}}"
+      data-tab="channel"
+      bindtap="onTabTap"
+    >渠道</view>
+    <view
+      class="result-tab {{activeTab === 'script' ? 'active' : ''}}"
+      data-tab="script"
+      bindtap="onTabTap"
+    >话术</view>
+  </view>
+
+  <!-- 结果数量 -->
+  <view class="result-count" wx:if="{{resultCount > 0}}">
+    共找到 {{resultCount}} 条结果
+  </view>
+
+  <!-- 结果列表 -->
+  <view class="result-list" wx:if="{{filteredResults.length > 0}}">
+    <view
+      class="result-item"
+      wx:for="{{filteredResults}}"
+      wx:key="id"
+      data-item="{{item}}"
+      bindtap="onResultTap"
+    >
+      <view class="ri-title">
+        <text class="ri-type {{item.type}}">{{item.type === 'channel' ? '渠道' : '话术'}}</text>
+        <text class="ri-name">{{item.highlightedName || item.name}}</text>
+      </view>
+      <view class="ri-desc">{{item.highlightedDesc || item.desc}}</view>
+      <view class="ri-meta">
+        <text wx:if="{{item.type === 'channel'}}">📞 官方渠道</text>
+        <text wx:if="{{item.type === 'script'}}">💬 投诉话术</text>
+        <text>匹配度 {{item.score > 10 ? 10 : item.score}}/10</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 无结果 -->
+  <view class="empty-state" wx:if="{{filteredResults.length === 0 && resultCount > 0}}">
+    <view class="empty-icon">📭</view>
+    <view class="empty-title">该分类下暂无结果</view>
+    <view class="empty-desc">试试切换其他分类</view>
+  </view>
+
+  <view class="empty-state" wx:if="{{resultCount === 0}}">
+    <view class="empty-icon">🔍</view>
+    <view class="empty-title">未找到相关结果</view>
+    <view class="empty-desc">试试换个关键词，或查看全部分类</view>
+    <view class="empty-actions">
+      <view class="btn btn-primary" bindtap="onBack">返回重新搜索</view>
+    </view>
+  </view>
+</view>

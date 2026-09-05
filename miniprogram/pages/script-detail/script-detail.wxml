@@ -1,0 +1,79 @@
+<!--pages/script-detail/script-detail.wxml-->
+<view class="container" wx:if="{{script}}">
+  <!-- 绿色渐变头部 -->
+  <view class="script-hero">
+    <view class="sh-name">{{script.name}}</view>
+    <view class="sh-desc">{{script.desc || script.description}}</view>
+  </view>
+
+  <!-- Tab切换 -->
+  <view class="script-tabs">
+    <view
+      class="script-tab {{activeTab === 'phone' ? 'active' : ''}}"
+      data-tab="phone"
+      bindtap="onTabTap"
+    >📞 电话版</view>
+    <view
+      class="script-tab {{activeTab === 'written' ? 'active' : ''}}"
+      data-tab="written"
+      bindtap="onTabTap"
+    >📝 书面版</view>
+  </view>
+
+  <!-- 话术内容 -->
+  <view class="script-content">
+    <view class="sc-label">
+      💡 {{activeTab === 'phone' ? '电话投诉时，按照以下话术表达，条理清晰、有理有据' : '书面投诉时，按照以下格式撰写，可直接复制修改'}}
+    </view>
+    <view class="script-text">
+      <rich-text nodes="{{activeTab === 'phone' ? phoneContent : writtenContent}}"></rich-text>
+    </view>
+  </view>
+
+  <!-- 证据清单 -->
+  <view class="evidence-list" wx:if="{{script.evidence_list || script.evidences}}">
+    <view class="el-title">📎 投诉前请准备好以下证据</view>
+    <view
+      class="evidence-item"
+      wx:for="{{script.evidence_list || script.evidences || []}}"
+      wx:key="index"
+    >
+      <view class="ev-num">{{index + 1}}</view>
+      <view class="ev-text">{{item}}</view>
+    </view>
+  </view>
+
+  <!-- 关联渠道 -->
+  <view class="section-block" wx:if="{{relatedChannels.length > 0}}">
+    <view class="sb-title">📞 关联投诉渠道</view>
+    <view class="related-scripts">
+      <view
+        class="rs-item"
+        wx:for="{{relatedChannels}}"
+        wx:key="id"
+        data-id="{{item.id}}"
+        bindtap="onChannelTap"
+      >
+        <view class="rs-icon">📞</view>
+        <view class="rs-name">{{item.name}}</view>
+        <view class="rs-arrow">›</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部占位 -->
+  <view style="height: 140rpx;"></view>
+
+  <!-- 底部操作栏 -->
+  <view class="bottom-action-bar">
+    <view class="btn btn-outline" bindtap="onCopyScript">📋 复制话术</view>
+    <view class="btn btn-primary" bindtap="onToggleFavorite">
+      {{isFavorite ? '⭐ 已收藏' : '☆ 收藏话术'}}
+    </view>
+  </view>
+</view>
+
+<!-- 加载中 -->
+<view class="loading" wx:else>
+  <view>加载中...</view>
+</view>

@@ -1,0 +1,99 @@
+<!--pages/channel-detail/channel-detail.wxml-->
+<view class="container" wx:if="{{channel}}">
+  <!-- 蓝色渐变头部 -->
+  <view class="channel-hero">
+    <view class="ch-name">{{channel.name}}</view>
+    <view class="ch-desc">{{channel.desc || channel.description}}</view>
+    <view class="ch-tags">
+      <text class="ch-tag" wx:for="{{channel.tags || channel.category || []}}" wx:key="*this">{{item}}</text>
+      <text class="ch-tag" wx:if="{{channel.is_official}}">官方渠道</text>
+      <text class="ch-tag">免费</text>
+    </view>
+  </view>
+
+  <!-- 联系方式卡片 -->
+  <view class="contact-section">
+    <view class="contact-card">
+      <view class="cc-title">📞 联系方式</view>
+      <view
+        class="contact-item"
+        wx:for="{{contactItems}}"
+        wx:key="label"
+        data-item="{{item}}"
+        bindtap="onContactAction"
+      >
+        <view class="ci-icon">{{item.icon}}</view>
+        <view class="ci-content">
+          <view class="ci-label">{{item.label}}</view>
+          <view class="ci-value">{{item.value}}</view>
+        </view>
+        <view class="ci-action" wx:if="{{item.action}}">
+          {{item.action === 'call' ? '拨打' : '复制'}}
+        </view>
+      </view>
+      <view class="contact-empty" wx:if="{{contactItems.length === 0}}">
+        暂无联系方式，请查看官方网站
+      </view>
+    </view>
+  </view>
+
+  <!-- 投诉流程 -->
+  <view class="section-block" wx:if="{{channel.complaint_process || channel.process}}">
+    <view class="sb-title">📋 投诉流程</view>
+    <view class="law-list">
+      <view
+        class="law-item process-item"
+        wx:for="{{channel.complaint_process || channel.process || []}}"
+        wx:key="index"
+      >
+        <view class="law-name">第{{index + 1}}步：{{item.title || item.step}}</view>
+        <view class="law-content">{{item.content || item.desc}}</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 法律依据 -->
+  <view class="section-block" wx:if="{{laws.length > 0}}">
+    <view class="sb-title">⚖️ 法律依据</view>
+    <view class="law-list">
+      <view class="law-item" wx:for="{{laws}}" wx:key="id">
+        <view class="law-name">{{item.name}}</view>
+        <view class="law-content">{{item.content || item.description}}</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 关联话术 -->
+  <view class="section-block" wx:if="{{relatedScripts.length > 0}}">
+    <view class="sb-title">💬 关联话术</view>
+    <view class="related-scripts">
+      <view
+        class="rs-item"
+        wx:for="{{relatedScripts}}"
+        wx:key="id"
+        data-id="{{item.id}}"
+        bindtap="onScriptTap"
+      >
+        <view class="rs-icon">📞</view>
+        <view class="rs-name">{{item.name}}</view>
+        <view class="rs-arrow">›</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部占位 -->
+  <view style="height: 140rpx;"></view>
+
+  <!-- 底部操作栏 -->
+  <view class="bottom-action-bar">
+    <view class="btn btn-outline" bindtap="onToggleFavorite">
+      {{isFavorite ? '⭐ 已收藏' : '☆ 收藏'}}
+    </view>
+    <view class="btn btn-primary" bindtap="onComplain">📞 立即投诉</view>
+  </view>
+</view>
+
+<!-- 加载中 -->
+<view class="loading" wx:else>
+  <view>加载中...</view>
+</view>

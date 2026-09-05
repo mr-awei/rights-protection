@@ -1,0 +1,101 @@
+<!--pages/index/index.wxml-->
+<view class="container">
+  <!-- 蓝色渐变头部 -->
+  <view class="hero">
+    <!-- 状态栏占位 -->
+    <view class="status-bar-placeholder"></view>
+
+    <view class="hero-content">
+      <view class="greeting">你好，维权人</view>
+      <view class="slogan">遇到问题，一键找到维权渠道</view>
+
+      <!-- 搜索框 -->
+      <view class="search-box">
+        <view class="search-icon">
+          <svg width="36rpx" height="36rpx" viewBox="0 0 24 24" fill="none" stroke="#86909C" stroke-width="2">
+            <circle cx="11" cy="11" r="8"/>
+            <path d="m21 21-4.35-4.35"/>
+          </svg>
+        </view>
+        <input
+          class="search-input"
+          type="text"
+          placeholder="描述你遇到的问题，如：快递被偷了"
+          placeholder-class="search-placeholder"
+          value="{{searchKeyword}}"
+          bindinput="onSearchInput"
+          bindconfirm="onSearchConfirm"
+          confirm-type="search"
+        />
+        <view class="search-btn" bindtap="onSearchButtonTap">搜索</view>
+      </view>
+
+      <!-- 热门搜索 -->
+      <view class="hot-searches">
+        <view
+          class="hot-tag"
+          wx:for="{{hotSearches}}"
+          wx:key="*this"
+          data-keyword="{{item}}"
+          bindtap="onHotSearchTap"
+        >{{item}}</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 场景入口 -->
+  <view class="section-title">
+    <text>我遇到了什么问题</text>
+  </view>
+  <view class="scene-grid">
+    <view
+      class="scene-item"
+      wx:for="{{sceneEntries}}"
+      wx:key="label"
+      data-keyword="{{item.keyword}}"
+      bindtap="onSceneEntryTap"
+    >
+      <view class="scene-icon" style="background: {{item.color}};">{{item.icon}}</view>
+      <view class="scene-label">{{item.label}}</view>
+    </view>
+  </view>
+
+  <!-- 紧急电话栏 -->
+  <view class="emergency-bar" bindtap="onEmergencyCall">
+    <view class="em-icon">🚨</view>
+    <view class="em-text">
+      <view class="em-title">紧急维权电话</view>
+      <view class="em-desc">遇到紧急情况，立即拨打</view>
+    </view>
+    <view class="em-call">110</view>
+  </view>
+
+  <!-- 高频话术 -->
+  <view class="section-title">
+    <text>高频投诉话术</text>
+    <text class="more" bindtap="onMoreScriptsTap">更多 ›</text>
+  </view>
+  <view class="script-list">
+    <view
+      class="script-item"
+      wx:for="{{hotScripts}}"
+      wx:key="id"
+      data-id="{{item.id}}"
+      bindtap="onScriptTap"
+    >
+      <view class="s-icon">📞</view>
+      <view class="s-content">
+        <view class="s-title">{{item.name}}</view>
+        <view class="s-desc">{{item.desc || item.description}}</view>
+        <view class="s-meta">
+          <text wx:if="{{item.phone_version}}">📞 电话版</text>
+          <text wx:if="{{item.written_version}}">📝 书面版</text>
+          <text>⭐ {{item.usage_count || '1万人'}}使用</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部占位 -->
+  <view style="height: 40rpx;"></view>
+</view>
