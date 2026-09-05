@@ -1,4 +1,4 @@
-{
+﻿{
   "pages": [
     "pages/index/index",
     "pages/scene-picker/scene-picker",
@@ -11,7 +11,7 @@
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#1677FF",
-    "navigationBarTitleText": "维权通",
+    "navigationBarTitleText": "我不能被欺负",
     "navigationBarTextStyle": "white",
     "backgroundColor": "#F5F7FA"
   },

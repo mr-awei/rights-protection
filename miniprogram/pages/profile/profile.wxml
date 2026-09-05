@@ -1,14 +1,14 @@
-<!--pages/profile/profile.wxml-->
+﻿<!--pages/profile/profile.wxml-->
 <view class="container">
   <!-- 渐变头部 -->
   <view class="gradient-header">
     <view class="header-content">
       <view class="user-section">
         <view class="avatar">
-          <text class="avatar-icon">👤</text>
+          <image class="avatar-img" src="/images/logo.png" mode="aspectFill"></image>
         </view>
         <view class="user-info">
-          <text class="user-name">维权用户</text>
+          <text class="user-name">正义战士</text>
           <text class="user-desc">用法律维护自己的权益</text>
         </view>
         <view class="user-level">
@@ -94,7 +94,7 @@
 
     <!-- 底部版本信息 -->
     <view class="footer">
-      <text class="footer-version">维权通 v1.0.0 MVP</text>
+      <text class="footer-version">我不能被欺负 v1.0.0 MVP</text>
       <text class="footer-copyright">数据仅供参考，以官方平台为准</text>
     </view>
 

@@ -1,4 +1,4 @@
-// pages/profile/profile.js
+﻿// pages/profile/profile.js
 const app = getApp();
 
 Page({
@@ -64,8 +64,8 @@ Page({
       wx.showToast({ title: '收藏功能开发中', icon: 'none' });
     } else if (tool.name === '关于我们') {
       wx.showModal({
-        title: '关于维权通',
-        content: '维权通 v1.0.0 MVP版\n\n一款帮助消费者快速找到官方投诉渠道的工具。\n\n数据来源：公开官方信息\n免责声明：本工具仅供参考，具体投诉以官方渠道为准。',
+        title: '关于我不能被欺负',
+        content: '我不能被欺负 v1.0.0 MVP版\n\n一款帮助消费者快速找到官方投诉渠道的工具。\n\n数据来源：公开官方信息\n免责声明：本工具仅供参考，具体投诉以官方渠道为准。',
         showCancel: false,
         confirmText: '知道了'
       });

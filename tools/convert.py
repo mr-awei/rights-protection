@@ -1,6 +1,6 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 """
-维权通数据转换脚本
+我不能被欺负数据转换脚本
 功能：Word文档 → Excel(维护层) → JSON(运行层)
 支持：首次提取、增量更新(diff)、数据校验、一键转换
 
@@ -1753,7 +1753,7 @@ class DiffComparator:
 # ============================================================
 
 def main():
-    parser = argparse.ArgumentParser(description='维权通数据转换工具: Word → Excel → JSON')
+    parser = argparse.ArgumentParser(description='我不能被欺负数据转换工具: Word → Excel → JSON')
     parser.add_argument('--input', required=True, help='输入路径（Word目录或Excel文件）')
     parser.add_argument('--output', required=True, help='输出路径（目录或文件）')
     parser.add_argument('--mode', choices=['extract', 'build', 'all', 'validate'], default='all',
@@ -1769,7 +1769,7 @@ def main():
         logging.getLogger().setLevel(logging.DEBUG)
 
     logger.info("=" * 60)
-    logger.info("维权通数据转换工具")
+    logger.info("我不能被欺负数据转换工具")
     logger.info(f"模式: {args.mode}, 输入: {args.input}, 输出: {args.output}")
     logger.info("=" * 60)
 
@@ -1820,7 +1820,7 @@ def main():
             logger.info(f"Diff报告已保存: {diff_path}")
 
         # 生成Excel
-        excel_path = args.output if args.output.endswith('.xlsx') else os.path.join(args.output, '维权通数据_维护版.xlsx')
+        excel_path = args.output if args.output.endswith('.xlsx') else os.path.join(args.output, '我不能被欺负数据_维护版.xlsx')
         writer = ExcelWriter()
         writer.write_channels(channels)
         writer.write_scripts(scripts)

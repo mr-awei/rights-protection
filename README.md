@@ -1,10 +1,10 @@
-# 维权通 - 微信小程序
+﻿# 我不能被欺负 - 微信小程序
 
 > 遇到问题，一键找到维权渠道。基于122条官方投诉渠道、6套投诉话术、9部法律法规的本地搜索维权工具。
 
 ## 项目简介
 
-维权通是一款帮助普通消费者快速找到官方投诉渠道的微信小程序。用户输入遇到的问题（如"快递被偷了"），系统通过本地关键词提取匹配相关场景，展示对应的投诉渠道、投诉话术和投诉流程，全程无需AI、零API成本。
+我不能被欺负是一款帮助普通消费者快速找到官方投诉渠道的微信小程序。用户输入遇到的问题（如"快递被偷了"），系统通过本地关键词提取匹配相关场景，展示对应的投诉渠道、投诉话术和投诉流程，全程无需AI、零API成本。
 
 ## 核心特性
 
@@ -23,7 +23,7 @@ rights-protection/
 ├── docs/                    # 产品文档
 │   ├── 维权小程序_MVP版PRD.md          # 产品需求文档（大厂规范）
 │   ├── 维权小程序_远景规划.md           # 产品远景规划（V1.0-V3.0）
-│   └── 维权通_技术设计文档TDD.md        # 技术设计文档
+│   └── 我不能被欺负_技术设计文档TDD.md        # 技术设计文档
 ├── source/                  # 源数据（Word文档）
 │   ├── 官方投诉维权渠道大全（合并版·最终版）.docx
 │   ├── 生活投诉渠道大全（最终版）.docx
@@ -37,7 +37,7 @@ rights-protection/
 │   ├── search_index.json    # 预构建倒排索引（1411个term，保留文件）
 │   ├── suggest_trie.json    # 搜索联想Trie树（保留文件）
 │   ├── _manifest.json       # 数据清单
-│   └── 维权通数据_维护版.xlsx  # Excel维护层（可人工编辑）
+│   └── 我不能被欺负数据_维护版.xlsx  # Excel维护层（可人工编辑）
 ├── miniprogram/             # 微信小程序代码
 │   ├── app.js / app.json / app.wxss  # 全局配置
 │   ├── pages/               # 7个页面（首页/场景选项卡/搜索结果/渠道详情/话术详情/分类/我的）
@@ -56,7 +56,7 @@ rights-protection/
 │   ├── convert.py           # Word→Excel→JS分片转换工具（含法律法规去重、数据分片、增量diff）
 │   └── requirements.txt     # Python依赖
 ├── prototype/               # 产品原型
-│   └── 维权通_产品原型.html  # 高保真可交互原型（7页面）
+│   └── 我不能被欺负_产品原型.html  # 高保真可交互原型（7页面）
 ├── .gitignore
 └── README.md
 ```
@@ -78,21 +78,21 @@ pip install -r tools/requirements.txt
 
 ```bash
 # 1. Word → Excel（提取数据，生成维护层）
-python tools/convert.py --input "./source" --output "./data/维权通数据_维护版.xlsx" --mode extract
+python tools/convert.py --input "./source" --output "./data/我不能被欺负数据_维护版.xlsx" --mode extract
 
 # 2. Excel → JS分片数据（构建小程序运行层，生成分片+索引）
-python tools/convert.py --input "./data/维权通数据_维护版.xlsx" --output "./miniprogram/data" --mode build
+python tools/convert.py --input "./data/我不能被欺负数据_维护版.xlsx" --output "./miniprogram/data" --mode build
 
 # 3. 一键全流程
 python tools/convert.py --input "./source" --output "./miniprogram/data" --mode all
 
 # 4. 仅校验数据
-python tools/convert.py --input "./data/维权通数据_维护版.xlsx" --mode validate
+python tools/convert.py --input "./data/我不能被欺负数据_维护版.xlsx" --mode validate
 ```
 
 ### 查看产品原型
 
-用浏览器打开 `prototype/维权通_产品原型.html`，可体验完整交互流程。
+用浏览器打开 `prototype/我不能被欺负_产品原型.html`，可体验完整交互流程。
 
 ## 技术架构
 
@@ -169,7 +169,7 @@ MVP默认不接入AI，纯本地搜索零成本。架构预留AI接入抽象层�
 
 - [产品需求文档（PRD）](docs/维权小程序_MVP版PRD.md)
 - [产品远景规划](docs/维权小程序_远景规划.md)
-- [技术设计文档（TDD）](docs/维权通_技术设计文档TDD.md)
+- [技术设计文档（TDD）](docs/我不能被欺负_技术设计文档TDD.md)
 
 ## 许可证
 

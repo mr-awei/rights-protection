@@ -1,4 +1,4 @@
-// app.js
+﻿// app.js
 App({
   globalData: {
     userInfo: null,
@@ -23,10 +23,10 @@ App({
     const savedVersion = wx.getStorageSync('dataVersion');
     if (savedVersion !== this.globalData.dataVersion) {
       wx.setStorageSync('dataVersion', this.globalData.dataVersion);
-      console.log('[维权通] 数据版本已更新至', this.globalData.dataVersion);
+      console.log('[我不能被欺负] 数据版本已更新至', this.globalData.dataVersion);
     }
 
-    console.log('[维权通] 小程序启动，数据版本:', this.globalData.dataVersion);
+    console.log('[我不能被欺负] 小程序启动，数据版本:', this.globalData.dataVersion);
   },
 
   // 添加搜索历史

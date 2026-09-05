@@ -1,11 +1,11 @@
-<!--pages/index/index.wxml-->
+﻿<!--pages/index/index.wxml-->
 <view class="container">
   <!-- 渐变头部 -->
   <view class="gradient-header">
     <view class="header-content">
       <view class="header-top">
         <view class="header-title">
-          <text class="title-main">维权通</text>
+          <text class="title-main">我不能被欺负</text>
           <text class="title-sub">官方投诉渠道 · 一键直达</text>
         </view>
       </view>

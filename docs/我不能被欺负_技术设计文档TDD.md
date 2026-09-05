@@ -1,14 +1,14 @@
-# 维权通 · 技术设计文档（TDD）
+﻿# 我不能被欺负 · 技术设计文档（TDD）
 
 | 文档属性 | 内容 |
 |----------|------|
-| 产品名称 | 维权通 |
+| 产品名称 | 我不能被欺负 |
 | 文档版本 | v1.0 |
 | 文档状态 | 初稿 |
 | 创建日期 | 2026-09-05 |
 | 最后更新 | 2026-09-05 |
 | 产品阶段 | MVP（V1.0） |
-| 配套文档 | 《维权通 · MVP版PRD》《维权通 · 产品远景规划》 |
+| 配套文档 | 《我不能被欺负 · MVP版PRD》《我不能被欺负 · 产品远景规划》 |
 | 数据来源 | 三份维权文档（2026年8月30日验证） |
 
 ---
@@ -45,7 +45,7 @@
 
 ### 1.1 项目背景
 
-维权通是一款基于微信小程序的随身维权工具箱，核心功能是关键词搜索投诉渠道、话术模板和投诉流程。数据来源于三份Word文档（合计超11万字、260+表格、109+行业渠道、16个高层级平台、5套场景话术）。
+我不能被欺负是一款基于微信小程序的随身维权工具箱，核心功能是关键词搜索投诉渠道、话术模板和投诉流程。数据来源于三份Word文档（合计超11万字、260+表格、109+行业渠道、16个高层级平台、5套场景话术）。
 
 技术面临的核心挑战：
 1. **数据格式**：Word文档不便于程序读取和搜索，需要转换为结构化格式
@@ -455,7 +455,7 @@ JS分片数据（运行层，小程序打包使用）
 
 ### 4.3 Excel 结构设计（维护层）
 
-Excel文件 `维权通数据_维护版.xlsx`，包含以下sheet：
+Excel文件 `我不能被欺负数据_维护版.xlsx`，包含以下sheet：
 
 | Sheet名 | 对应JSON | 列数 | 说明 |
 |---------|----------|------|------|
@@ -580,13 +580,13 @@ Excel文件 `维权通数据_维护版.xlsx`，包含以下sheet：
 
 ```bash
 # 基本用法：提取指定目录下所有Word，输出Excel
-python extract.py --input "./docs" --output "./data/维权通数据_维护版.xlsx"
+python extract.py --input "./docs" --output "./data/我不能被欺负数据_维护版.xlsx"
 
 # 指定单个文件
 python extract.py --input "./docs/官方投诉维权渠道大全.docx" --output "./data/channels.xlsx"
 
 # 增量模式：与现有Excel对比，输出diff报告
-python extract.py --input "./docs" --output "./data/维权通数据_维护版.xlsx" --existing "./data/维权通数据_维护版.xlsx" --diff
+python extract.py --input "./docs" --output "./data/我不能被欺负数据_维护版.xlsx" --existing "./data/我不能被欺负数据_维护版.xlsx" --diff
 
 # 仅提取渠道（不提取话术/平台）
 python extract.py --input "./docs" --output "./data/channels.xlsx" --type channels
@@ -600,7 +600,7 @@ python extract.py --input "./docs" --output "./data/output.xlsx" --verbose
 提取完成后输出 `提取报告_YYYYMMDD.txt`：
 
 ```
-=== 维权通数据提取报告 ===
+=== 我不能被欺负数据提取报告 ===
 提取时间: 2026-09-05 14:30:00
 输入文件:
   - 官方投诉维权渠道大全（合并版·最终版）.docx
@@ -648,16 +648,16 @@ python extract.py --input "./docs" --output "./data/output.xlsx" --verbose
 
 ```bash
 # 基本用法：Excel转JSON
-python build.py --input "./data/维权通数据_维护版.xlsx" --output "./miniprogram/data/"
+python build.py --input "./data/我不能被欺负数据_维护版.xlsx" --output "./miniprogram/data/"
 
 # 仅校验不输出
-python build.py --input "./data/维权通数据_维护版.xlsx" --validate-only
+python build.py --input "./data/我不能被欺负数据_维护版.xlsx" --validate-only
 
 # 生成压缩版JSON
-python build.py --input "./data/维权通数据_维护版.xlsx" --output "./data/" --minify
+python build.py --input "./data/我不能被欺负数据_维护版.xlsx" --output "./data/" --minify
 
 # 严格模式（任何警告都视为失败）
-python build.py --input "./data/维权通数据_维护版.xlsx" --output "./data/" --strict
+python build.py --input "./data/我不能被欺负数据_维护版.xlsx" --output "./data/" --strict
 ```
 
 #### 5.4.3 校验规则
@@ -1517,13 +1517,13 @@ miniprogram/data/
 **convert.py 命令行用法**：
 ```bash
 # 完整构建：Excel → JS分片数据
-python tools/convert.py --input "./data/维权通数据_维护版.xlsx" --output "./miniprogram/data" --mode build
+python tools/convert.py --input "./data/我不能被欺负数据_维护版.xlsx" --output "./miniprogram/data" --mode build
 
 # 仅校验不输出
-python tools/convert.py --input "./data/维权通数据_维护版.xlsx" --validate-only
+python tools/convert.py --input "./data/我不能被欺负数据_维护版.xlsx" --validate-only
 
 # Word提取（增量模式）
-python tools/convert.py --input "./source" --output "./data/维权通数据_维护版.xlsx" --mode extract --diff
+python tools/convert.py --input "./source" --output "./data/我不能被欺负数据_维护版.xlsx" --mode extract --diff
 ```
 
 ### 7.4 功能开关机制
@@ -1679,7 +1679,7 @@ class FeatureFlag {
 ### 10.1 目录结构
 
 ```
-维权通/
+我不能被欺负/
 ├── miniprogram/                    # 小程序前端代码
 │   ├── app.js                      # 入口文件
 │   ├── app.json                    # 全局配置（页面路由/窗口/tabBar）
@@ -1749,7 +1749,7 @@ class FeatureFlag {
 │   │   ├── script.schema.json
 │   │   └── platform.schema.json
 │   ├── templates/                  # Excel模板
-│   │   └── 维权通数据_模板.xlsx
+│   │   └── 我不能被欺负数据_模板.xlsx
 │   └── requirements.txt            # Python依赖
 │
 ├── docs/                           # 文档
@@ -2115,8 +2115,8 @@ class Tracker {
 
 | 文档 | 说明 |
 |------|------|
-| 《维权通 · MVP版PRD》 | 产品需求文档 |
-| 《维权通 · 产品远景规划》 | 产品远景规划 |
+| 《我不能被欺负 · MVP版PRD》 | 产品需求文档 |
+| 《我不能被欺负 · 产品远景规划》 | 产品远景规划 |
 | 《官方投诉维权渠道大全（合并版·最终版）》 | 数据来源文档1 |
 | 《生活投诉渠道大全（最终版）》 | 数据来源文档2 |
 | 《群众诉求官方平台汇总（最终版）》 | 数据来源文档3 |
@@ -2166,7 +2166,7 @@ python -c "import docx; import openpyxl; import jsonschema; print('OK')"
 # 将docs目录下所有Word文档提取为Excel
 python tools/extract.py \
   --input "./docs" \
-  --output "./data/维权通数据_维护版.xlsx" \
+  --output "./data/我不能被欺负数据_维护版.xlsx" \
   --verbose
 
 # 输出：
@@ -2189,7 +2189,7 @@ python tools/extract.py \
 ```bash
 # 校验并生成JSON
 python tools/build.py \
-  --input "./data/维权通数据_维护版.xlsx" \
+  --input "./data/我不能被欺负数据_维护版.xlsx" \
   --output "./miniprogram/data/" \
   --minify
 
@@ -2203,7 +2203,7 @@ python tools/build.py \
 
 ```bash
 python tools/build.py \
-  --input "./data/维权通数据_维护版.xlsx" \
+  --input "./data/我不能被欺负数据_维护版.xlsx" \
   --validate-only
 ```
 
@@ -2213,8 +2213,8 @@ python tools/build.py \
 # 与现有Excel对比，输出diff报告
 python tools/extract.py \
   --input "./docs" \
-  --output "./data/维权通数据_维护版_new.xlsx" \
-  --existing "./data/维权通数据_维护版.xlsx" \
+  --output "./data/我不能被欺负数据_维护版_new.xlsx" \
+  --existing "./data/我不能被欺负数据_维护版.xlsx" \
   --diff
 
 # 输出diff报告：
@@ -2229,7 +2229,7 @@ python tools/extract.py \
 ```bash
 # 1. 编辑Excel（新增渠道/话术/法律条款）
 # 2. 构建JSON
-python tools/build.py --input "./data/维权通数据_维护版.xlsx" --output "./miniprogram/data/"
+python tools/build.py --input "./data/我不能被欺负数据_维护版.xlsx" --output "./miniprogram/data/"
 # 3. 微信开发者工具上传小程序
 ```
 
@@ -2270,7 +2270,7 @@ python tools/build.py --input "./data/维权通数据_维护版.xlsx" --output "
 
 ### 16.1 多端架构总览
 
-维权通的核心价值在于**数据**和**搜索算法**，而非UI。因此采用**核心层跨端复用，UI层按需适配**的架构：
+我不能被欺负的核心价值在于**数据**和**搜索算法**，而非UI。因此采用**核心层跨端复用，UI层按需适配**的架构：
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
@@ -3359,7 +3359,7 @@ class HybridSearch {
 #### 17.4.2 AI Prompt设计
 
 ```
-系统角色：你是维权通的AI助手，专门帮助用户分析投诉问题并推荐最佳维权渠道和话术。
+系统角色：你是我不能被欺负的AI助手，专门帮助用户分析投诉问题并推荐最佳维权渠道和话术。
 
 任务：根据用户描述的问题，提取关键信息，推荐投诉渠道和话术，给出操作步骤。
 
@@ -3453,7 +3453,7 @@ AI反馈闭环（V2.0）：
 ---
 
 > **文档结束**
-> 本文档为维权通 V1.0 MVP 技术设计文档，涵盖技术选型、架构设计、数据管线、核心模块、扩展性、性能、安全、工程化、测试、上线、监控全流程。
+> 本文档为我不能被欺负 V1.0 MVP 技术设计文档，涵盖技术选型、架构设计、数据管线、核心模块、扩展性、性能、安全、工程化、测试、上线、监控全流程。
 > 新增第16章（多端技术架构）和第17章（搜索算法升级），应对未来APP/网站/EXE多端发布和用户千奇百怪搜索描述的需求。
 > 所有技术决策均考虑 V2.0/V3.0 扩展性，预留接口和占位，确保平滑升级不推倒重来。
-> 配套文档：《维权通 · MVP版PRD》《维权通 · 产品远景规划》
+> 配套文档：《我不能被欺负 · MVP版PRD》《我不能被欺负 · 产品远景规划》
