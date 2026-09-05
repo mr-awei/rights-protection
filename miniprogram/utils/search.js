@@ -1,32 +1,9 @@
 // utils/search.js
 // 搜索逻辑（关键词提取+场景匹配+名称匹配兜底）
+// 使用data.js的分片加载，支持扩展到几千条数据
 
 const { extractKeywords } = require('./keyword-extractor');
-
-// 数据缓存
-let channelsData = null;
-let scriptsData = null;
-
-/**
- * 加载数据（只用JS文件，确保100%加载成功）
- */
-function loadData() {
-  if (channelsData && scriptsData) return;
-
-  try {
-    channelsData = require('../data/channels.js');
-  } catch (e) {
-    console.error('[搜索] 加载channels失败:', e);
-    channelsData = [];
-  }
-
-  try {
-    scriptsData = require('../data/scripts.js');
-  } catch (e) {
-    console.error('[搜索] 加载scripts失败:', e);
-    scriptsData = [];
-  }
-}
+const data = require('./data');
 
 /**
  * 搜索流程入口
@@ -35,7 +12,7 @@ function loadData() {
  * type: 'single' | 'multi' | 'search' | 'empty'
  */
 function search(query) {
-  loadData();
+  data.loadAllData();
 
   if (!query || !query.trim()) {
     return { type: 'empty', scenes: [], results: [], keywords: [] };
@@ -68,7 +45,7 @@ function search(query) {
     };
   }
 
-  // 3. 无场景匹配 → 名称匹配搜索（兜底）
+  // 3. 无场景匹配 → 名称匹配搜索（兜底，用索引数据，轻量快速）
   const results = fallbackSearch(query, keywords);
   if (results.length === 0) {
     return { type: 'empty', scenes: [], results: [], keywords: keywords };
@@ -77,30 +54,31 @@ function search(query) {
 }
 
 /**
- * 名称匹配搜索（兜底方案，不依赖倒排索引）
+ * 名称匹配搜索（兜底方案，用索引数据，不加载详细内容）
  */
 function fallbackSearch(query, keywords) {
-  loadData();
+  data.loadAllData();
   const results = [];
   const queryLower = query.toLowerCase();
 
-  // 搜索渠道
-  for (const channel of channelsData) {
+  // 搜索渠道（用索引数据，只有name/phone/tags，轻量快速）
+  const channels = data.getChannels();
+  for (const channel of channels) {
     let score = 0;
     const name = (channel.name || '').toLowerCase();
-    const scope = (channel.scope || '').toLowerCase();
+    const phone = (channel.phone || '').toLowerCase();
     const tags = (channel.tags || []).join(' ').toLowerCase();
 
     // 完整查询词匹配（权重最高）
     if (name.includes(queryLower)) score += 10;
-    if (scope.includes(queryLower)) score += 3;
+    if (phone.includes(queryLower)) score += 5;
     if (tags.includes(queryLower)) score += 5;
 
     // 关键词匹配
     for (const kw of keywords) {
       const kwLower = kw.toLowerCase();
       if (name.includes(kwLower)) score += 5;
-      if (scope.includes(kwLower)) score += 1;
+      if (phone.includes(kwLower)) score += 3;
       if (tags.includes(kwLower)) score += 3;
     }
 
@@ -109,8 +87,8 @@ function fallbackSearch(query, keywords) {
         type: 'channel',
         id: channel.id,
         name: channel.name,
-        scope: channel.scope,
-        desc: channel.scope || '',
+        phone: channel.phone,
+        desc: channel.name + ' ' + (channel.phone || ''),
         score: score,
         matchedTerms: keywords
       });
@@ -118,7 +96,8 @@ function fallbackSearch(query, keywords) {
   }
 
   // 搜索话术
-  for (const script of scriptsData) {
+  const scripts = data.getScripts();
+  for (const script of scripts) {
     let score = 0;
     const sceneName = (script.scene_name || '').toLowerCase();
     const applicable = (script.applicable || '').toLowerCase();
@@ -154,33 +133,31 @@ function fallbackSearch(query, keywords) {
 }
 
 /**
- * 查找渠道
+ * 查找渠道详细信息（按需加载分片）
  */
 function findChannelById(id) {
-  loadData();
-  return channelsData.find(c => c.id === id);
+  return data.getChannelById(id);
 }
 
 /**
  * 查找话术
  */
 function findScriptById(id) {
-  loadData();
-  return scriptsData.find(s => s.id === id);
+  return data.getScriptById(id);
 }
 
 /**
- * 搜索联想（简单前缀匹配）
+ * 搜索联想（简单前缀匹配，用索引数据）
  */
 function suggest(prefix) {
-  loadData();
+  data.loadAllData();
   if (!prefix || prefix.length < 1) return [];
 
   const results = [];
   const prefixLower = prefix.toLowerCase();
 
-  // 从渠道名称中提取
-  for (const channel of channelsData) {
+  const channels = data.getChannels();
+  for (const channel of channels) {
     const name = channel.name || '';
     if (name.toLowerCase().includes(prefixLower)) {
       results.push(name);
@@ -212,6 +189,5 @@ module.exports = {
   findChannelById,
   findScriptById,
   highlightKeywords,
-  loadData,
   fallbackSearch
 };

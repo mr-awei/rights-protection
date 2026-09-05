@@ -1,5 +1,6 @@
 // utils/data.js
-// 数据管理（加载、查询、分类）
+// 数据管理（分片加载 + 内存缓存 + 按需查询）
+// 设计目标：支持扩展到几千条数据，单文件不超过500KB，启动速度快
 
 // 预设分类与关键词映射（用于分类页匹配渠道）
 const CATEGORY_KEYWORDS = {
@@ -15,61 +16,122 @@ const CATEGORY_KEYWORDS = {
   '网络安全': ['反诈', '96110', '110', '网络', '12321', '诈骗', '个人信息']
 };
 
-let channelsData = null;
+// 数据缓存
+let channelIndex = null;      // 轻量索引（启动时加载）
+let channelParts = {};        // 已加载的分片缓存 {part_num: [channels]}
 let scriptsData = null;
 let lawsData = null;
 let categoriesData = null;
 let configData = null;
+let shardConfig = null;       // 分片配置
 
 /**
- * 加载所有数据
+ * 初始化：加载索引和轻量数据（启动时调用，速度快）
  */
 function loadAllData() {
-  if (channelsData && scriptsData) return;
+  if (channelIndex && scriptsData) return;
 
+  // 1. 加载渠道索引（轻量，约50-100KB）
   try {
-    channelsData = require('../data/channels.js');
+    channelIndex = require('../data/channels_index.js');
   } catch (e) {
-    console.error('[data] 加载channels失败:', e);
-    channelsData = [];
+    console.warn('[data] 渠道索引不存在，回退到完整数据模式:', e.message);
+    channelIndex = null;
   }
 
+  // 2. 加载分片配置
+  try {
+    shardConfig = require('../data/channels_config.js');
+  } catch (e) {
+    shardConfig = null;
+  }
+
+  // 3. 如果索引不存在，回退到完整数据模式（兼容旧版本）
+  if (!channelIndex) {
+    try {
+      const fullData = require('../data/channels.js');
+      // 将完整数据转换为索引格式
+      channelIndex = fullData.map(c => ({
+        id: c.id,
+        name: c.name,
+        category_l1: c.category_l1,
+        category_l2: c.category_l2,
+        tags: c.tags || [],
+        hot_level: c.hot_level || 0,
+        phone: c.phone || '',
+        part_num: 0,
+        _full: c  // 缓存完整数据
+      }));
+      // 同时缓存完整数据到part 0
+      channelParts[0] = fullData;
+    } catch (e) {
+      console.error('[data] 加载渠道数据失败:', e);
+      channelIndex = [];
+    }
+  }
+
+  // 4. 加载话术（数量少，直接加载完整数据）
   try {
     scriptsData = require('../data/scripts.js');
   } catch (e) {
-    console.error('[data] 加载scripts失败:', e);
+    console.error('[data] 加载话术失败:', e);
     scriptsData = [];
   }
 
-  try {
-    lawsData = require('../data/laws.js');
-  } catch (e) {
-    lawsData = [];
-  }
+  // 5. 加载其他轻量数据
+  try { lawsData = require('../data/laws.js'); } catch (e) { lawsData = []; }
+  try { categoriesData = require('../data/categories.js'); } catch (e) { categoriesData = []; }
+  try { configData = require('../data/config.js'); } catch (e) { configData = {}; }
+}
+
+/**
+ * 按需加载指定分片（点击详情时调用）
+ */
+function loadPart(partNum) {
+  if (channelParts[partNum]) return channelParts[partNum];
+  if (partNum === 0) return channelParts[0] || [];
 
   try {
-    categoriesData = require('../data/categories.js');
+    const part = require(`../data/channels_part_${partNum}.js`);
+    channelParts[partNum] = part;
+    console.log(`[data] 已加载分片 ${partNum}，共 ${part.length} 条`);
+    return part;
   } catch (e) {
-    categoriesData = [];
-  }
-
-  try {
-    configData = require('../data/config.js');
-  } catch (e) {
-    configData = {};
+    console.error(`[data] 加载分片 ${partNum} 失败:`, e);
+    return [];
   }
 }
 
 /**
- * 获取所有渠道
+ * 根据ID获取渠道详细信息（按需加载分片）
+ */
+function getChannelById(id) {
+  loadAllData();
+  if (!channelIndex) return null;
+
+  // 1. 从索引中查找
+  const idxItem = channelIndex.find(c => c.id === id);
+  if (!idxItem) return null;
+
+  // 2. 如果是完整数据模式（part_num=0且有_full），直接返回
+  if (idxItem._full) return idxItem._full;
+
+  // 3. 按需加载对应分片
+  const partNum = idxItem.part_num || 1;
+  const part = loadPart(partNum);
+  return part.find(c => c.id === id) || null;
+}
+
+/**
+ * 获取所有渠道索引（用于列表展示，轻量快速）
  */
 function getChannels() {
   loadAllData();
-  return channelsData || [];
+  return channelIndex || [];
 }
 
 /**
- * 获取所有话术
+ * 获取所有话术（数量少，完整数据）
  */
 function getScripts() {
   loadAllData();
@@ -88,7 +150,6 @@ function getLaws() {
  * 获取分类树
  */
 function getCategories() {
-  // 返回预设的10个分类
   return Object.keys(CATEGORY_KEYWORDS).map(name => ({
     name: name,
     icon: getCategoryIcon(name)
@@ -97,15 +158,9 @@ function getCategories() {
 
 function getCategoryIcon(name) {
   const icons = {
-    '快递物流': '📦',
-    '电信运营': '📱',
-    '消费购物': '🛒',
-    '金融保险': '💰',
-    '房产物业': '🏠',
-    '劳动用工': '💼',
-    '医疗教育': '🏥',
-    '环保城管': '🌿',
-    '政务纪检': '⚖️',
+    '快递物流': '📦', '电信运营': '📱', '消费购物': '🛒',
+    '金融保险': '💰', '房产物业': '🏠', '劳动用工': '💼',
+    '医疗教育': '🏥', '环保城管': '🌿', '政务纪检': '⚖️',
     '网络安全': '🛡️'
   };
   return icons[name] || '📋';
@@ -117,14 +172,6 @@ function getCategoryIcon(name) {
 function getConfig() {
   loadAllData();
   return configData || {};
-}
-
-/**
- * 根据ID获取渠道
- */
-function getChannelById(id) {
-  loadAllData();
-  return channelsData.find(c => c.id === id);
 }
 
 /**
@@ -144,33 +191,29 @@ function getLawById(id) {
 }
 
 /**
- * 根据分类获取渠道（用关键词匹配渠道名称和scope）
+ * 根据分类获取渠道索引（用关键词匹配，轻量）
  */
 function getChannelsByCategory(category) {
   loadAllData();
   const keywords = CATEGORY_KEYWORDS[category] || [];
-  if (keywords.length === 0) return [];
+  if (keywords.length === 0 || !channelIndex) return [];
 
-  return channelsData.filter(c => {
+  return channelIndex.filter(c => {
     const name = c.name || '';
-    const scope = c.scope || '';
+    const phone = c.phone || '';
     const tags = (c.tags || []).join(' ');
-    const text = name + ' ' + scope + ' ' + tags;
+    const text = name + ' ' + phone + ' ' + tags;
     return keywords.some(kw => text.includes(kw));
   });
 }
 
 /**
- * 获取热门渠道
+ * 获取热门渠道（按hot_level排序，返回索引数据）
  */
 function getHotChannels(limit = 10) {
   loadAllData();
-  // 按hot_level排序，没有的按原顺序
-  const sorted = [...channelsData].sort((a, b) => {
-    const ha = a.hot_level || 0;
-    const hb = b.hot_level || 0;
-    return hb - ha;
-  });
+  if (!channelIndex) return [];
+  const sorted = [...channelIndex].sort((a, b) => (b.hot_level || 0) - (a.hot_level || 0));
   return sorted.slice(0, limit);
 }
 
@@ -179,34 +222,23 @@ function getHotChannels(limit = 10) {
  */
 function getHotScripts(limit = 3) {
   loadAllData();
-  // 所有话术都是热门，直接返回前N条
-  return scriptsData.slice(0, limit);
+  return (scriptsData || []).slice(0, limit);
 }
 
 /**
  * 根据渠道ID获取关联话术
- * 由于related_channel_id字段为空，用话术名称中的关键词匹配渠道
  */
 function getRelatedScripts(channelId) {
   loadAllData();
-  const channel = channelsData.find(c => c.id === channelId);
+  const channel = getChannelById(channelId);
   if (!channel) return [];
 
-  const channelName = channel.name || '';
   const channelPhone = channel.phone || '';
-
-  return scriptsData.filter(s => {
+  return (scriptsData || []).filter(s => {
     const sceneName = s.scene_name || '';
-    // 匹配话术名称中是否包含渠道电话或名称关键词
-    if (channelPhone && sceneName.includes(channelPhone.replace(/[^0-9]/g, ''))) {
-      return true;
-    }
-    // 匹配关键词
-    const keywords = ['12305', '12300', '12315', '12378', '12345', '12333'];
-    for (const kw of keywords) {
-      if (channelPhone.includes(kw) && sceneName.includes(kw)) {
-        return true;
-      }
+    const phones = ['12305', '12300', '12315', '12378', '12345', '12333'];
+    for (const p of phones) {
+      if (channelPhone.includes(p) && sceneName.includes(p)) return true;
     }
     return false;
   });
@@ -218,45 +250,29 @@ function getRelatedScripts(channelId) {
 function getRelatedChannels(scriptId) {
   loadAllData();
   const script = scriptsData.find(s => s.id === scriptId);
-  if (!script) return [];
+  if (!script || !channelIndex) return [];
 
   const sceneName = script.scene_name || '';
-
-  return channelsData.filter(c => {
+  return channelIndex.filter(c => {
     const phone = c.phone || '';
-    const name = c.name || '';
-    // 匹配电话
     const phones = ['12305', '12300', '12315', '12378', '12345', '12333', '96110', '12321'];
     for (const p of phones) {
-      if (phone.includes(p) && sceneName.includes(p)) {
-        return true;
-      }
+      if (phone.includes(p) && sceneName.includes(p)) return true;
     }
     return false;
   });
 }
 
 /**
- * 根据法律ID获取关联渠道
- */
-function getChannelsByLaw(lawId) {
-  loadAllData();
-  return channelsData.filter(c => {
-    const lawIds = c.law_ids || [];
-    return lawIds.includes(lawId);
-  });
-}
-
-/**
- * 搜索渠道
+ * 搜索渠道（用索引数据，轻量快速）
  */
 function searchChannels(keyword) {
   loadAllData();
-  if (!keyword) return channelsData;
+  if (!keyword || !channelIndex) return channelIndex || [];
   const kw = keyword.toLowerCase();
-  return channelsData.filter(c =>
+  return channelIndex.filter(c =>
     (c.name && c.name.toLowerCase().includes(kw)) ||
-    (c.scope && c.scope.toLowerCase().includes(kw)) ||
+    (c.phone && c.phone.toLowerCase().includes(kw)) ||
     (c.tags && c.tags.some(t => t.toLowerCase().includes(kw)))
   );
 }
@@ -266,9 +282,9 @@ function searchChannels(keyword) {
  */
 function searchScripts(keyword) {
   loadAllData();
-  if (!keyword) return scriptsData;
+  if (!keyword) return scriptsData || [];
   const kw = keyword.toLowerCase();
-  return scriptsData.filter(s =>
+  return (scriptsData || []).filter(s =>
     (s.scene_name && s.scene_name.toLowerCase().includes(kw)) ||
     (s.applicable && s.applicable.toLowerCase().includes(kw)) ||
     (s.keywords && s.keywords.some(k => k.toLowerCase().includes(kw)))
@@ -295,6 +311,18 @@ function getScriptWrittenContent(script) {
   return parts.join('\n\n');
 }
 
+/**
+ * 获取分片统计信息（用于调试）
+ */
+function getShardStats() {
+  loadAllData();
+  return {
+    total: channelIndex ? channelIndex.length : 0,
+    loadedParts: Object.keys(channelParts).length,
+    partConfig: shardConfig
+  };
+}
+
 module.exports = {
   loadAllData,
   getChannels,
@@ -310,9 +338,10 @@ module.exports = {
   getHotScripts,
   getRelatedScripts,
   getRelatedChannels,
-  getChannelsByLaw,
   searchChannels,
   searchScripts,
   getScriptPhoneContent,
-  getScriptWrittenContent
+  getScriptWrittenContent,
+  getShardStats,
+  loadPart
 };

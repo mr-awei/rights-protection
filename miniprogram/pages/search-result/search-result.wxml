@@ -35,9 +35,9 @@
     >
       <view class="ri-title">
         <text class="ri-type {{item.type}}">{{item.type === 'channel' ? '渠道' : '话术'}}</text>
-        <text class="ri-name">{{item.highlightedName || item.name}}</text>
+        <rich-text class="ri-name" nodes="{{item.highlightedName || item.name}}"></rich-text>
       </view>
-      <view class="ri-desc">{{item.highlightedDesc || item.desc}}</view>
+      <rich-text class="ri-desc" nodes="{{item.highlightedDesc || item.desc}}"></rich-text>
       <view class="ri-meta">
         <text wx:if="{{item.type === 'channel'}}">📞 官方渠道</text>
         <text wx:if="{{item.type === 'script'}}">💬 投诉话术</text>
