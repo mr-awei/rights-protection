@@ -61,9 +61,17 @@ Page({
   buildContactItems(channel) {
     const items = [];
     if (channel.phone) {
-      // 提取第一个纯电话号码
-      const phoneMatch = channel.phone.match(/\d{3,4}-?\d{7,8}|\d{10,11}/);
-      const cleanPhone = phoneMatch ? phoneMatch[0] : channel.phone.replace(/[^0-9-]/g, '');
+      // 提取第一个有效的电话号码
+      // 支持：5位短号码(12305/12315)、带区号号码(010-12345678)、11位手机号
+      const phoneMatch = channel.phone.match(/\d{5}|\d{3,4}-?\d{7,8}|\d{11}/);
+      let cleanPhone = '';
+      if (phoneMatch) {
+        cleanPhone = phoneMatch[0];
+      } else {
+        // 回退逻辑：提取第一个连续的数字序列（至少3位），避免把所有数字拼在一起
+        const firstNumMatch = channel.phone.match(/\d{3,}/);
+        cleanPhone = firstNumMatch ? firstNumMatch[0] : channel.phone.replace(/[^0-9-]/g, '');
+      }
       items.push({ icon: '📞', label: '投诉电话', value: channel.phone, cleanPhone: cleanPhone, action: 'call' });
     }
     if (channel.website || channel.url) {
@@ -82,8 +90,14 @@ Page({
     const item = e.currentTarget.dataset.item;
     if (item.action === 'call') {
       // 电话点击 → 跳转拨号页
+      let phoneNumber = item.cleanPhone;
+      if (!phoneNumber) {
+        // 回退逻辑：从value中提取第一个有效的电话号码
+        const match = item.value.match(/\d{5}|\d{3,4}-?\d{7,8}|\d{11}/);
+        phoneNumber = match ? match[0] : item.value.replace(/[^0-9-]/g, '');
+      }
       wx.makePhoneCall({
-        phoneNumber: item.cleanPhone || item.value.replace(/[^0-9-]/g, ''),
+        phoneNumber: phoneNumber,
         fail: () => {
           wx.showToast({ title: '拨打失败，请手动拨打', icon: 'none' });
         }
