@@ -11,12 +11,23 @@ Page({
     loading: false
   },
 
+  // 内部状态：数据是否已加载（避免tab切换时重复加载）
+  _dataLoaded: false,
+  _lastCategoryIndex: -1,
+  _lastSubCategoryIndex: -1,
+
   onLoad() {
     this.loadCategories();
   },
 
   onShow() {
-    // 页面显示时刷新当前分类数据
+    // 只有在分类真正变化时才重新加载数据
+    // tab切换时如果分类没变，直接使用缓存数据，避免重复渲染导致卡顿
+    if (this._dataLoaded &&
+        this._lastCategoryIndex === this.data.activeCategory &&
+        this._lastSubCategoryIndex === this.data.activeSubCategory) {
+      return;
+    }
     if (this.data.categories.length > 0) {
       this.loadChannels();
     }
@@ -62,7 +73,11 @@ Page({
   loadChannels() {
     const { categories, activeCategory, activeSubCategory, subCategories } = this.data;
     if (!categories[activeCategory] || !subCategories[activeSubCategory]) {
-      this.setData({ channels: [] });
+      this.setData({ channels: [] }, () => {
+        this._dataLoaded = true;
+        this._lastCategoryIndex = activeCategory;
+        this._lastSubCategoryIndex = activeSubCategory;
+      });
       return;
     }
 
@@ -73,7 +88,11 @@ Page({
     const allChannels = getChannelsByCategory(l1Name);
     const filtered = allChannels.filter(c => c.category_user_l2 === l2Name);
 
-    this.setData({ channels: filtered });
+    this.setData({ channels: filtered }, () => {
+      this._dataLoaded = true;
+      this._lastCategoryIndex = activeCategory;
+      this._lastSubCategoryIndex = activeSubCategory;
+    });
   },
 
   // 点击一级分类

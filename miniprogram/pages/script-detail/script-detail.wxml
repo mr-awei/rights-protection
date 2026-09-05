@@ -1,79 +1,120 @@
 <!--pages/script-detail/script-detail.wxml-->
-<view class="container" wx:if="{{script}}">
-  <!-- 绿色渐变头部 -->
-  <view class="script-hero">
-    <view class="sh-name">{{script.scene_name}}</view>
-    <view class="sh-desc" wx:if="{{applicableText}}">{{applicableText}}</view>
-  </view>
+<!-- 加载状态 -->
+<view class="loading-container" wx:if="{{loading}}">
+  <view class="loading-spinner"></view>
+  <text class="loading-text">加载中...</text>
+</view>
 
-  <!-- Tab切换 -->
-  <view class="script-tabs">
-    <view
-      class="script-tab {{activeTab === 'phone' ? 'active' : ''}}"
-      data-tab="phone"
-      bindtap="onTabTap"
-    >📞 电话版</view>
-    <view
-      class="script-tab {{activeTab === 'written' ? 'active' : ''}}"
-      data-tab="written"
-      bindtap="onTabTap"
-    >📝 书面版</view>
-  </view>
-
-  <!-- 话术内容 -->
-  <view class="script-content">
-    <view class="sc-label">
-      💡 {{activeTab === 'phone' ? '电话投诉时，按照以下话术表达，条理清晰、有理有据' : '书面投诉时，按照以下格式撰写，可直接复制修改'}}
-    </view>
-    <view class="script-text">
-      <rich-text nodes="{{activeTab === 'phone' ? phoneContent : writtenContent}}"></rich-text>
-    </view>
-  </view>
-
-  <!-- 证据清单 -->
-  <view class="evidence-list" wx:if="{{evidenceList.length > 0}}">
-    <view class="el-title">📎 投诉前请准备好以下证据</view>
-    <view
-      class="evidence-item"
-      wx:for="{{evidenceList}}"
-      wx:key="index"
-    >
-      <view class="ev-num">{{index + 1}}</view>
-      <view class="ev-text">{{item}}</view>
-    </view>
-  </view>
-
-  <!-- 关联渠道 -->
-  <view class="section-block" wx:if="{{relatedChannels.length > 0}}">
-    <view class="sb-title">📞 关联投诉渠道</view>
-    <view class="related-scripts">
-      <view
-        class="rs-item"
-        wx:for="{{relatedChannels}}"
-        wx:key="id"
-        data-id="{{item.id}}"
-        bindtap="onChannelTap"
-      >
-        <view class="rs-icon">📞</view>
-        <view class="rs-name">{{item.name}}</view>
-        <view class="rs-arrow">›</view>
+<view class="container" wx:if="{{script && !loading}}">
+  <!-- 渐变头部 -->
+  <view class="gradient-header">
+    <view class="header-content">
+      <view class="script-badge">
+        <text class="badge-icon">📝</text>
+        <text class="badge-text">投诉话术</text>
+      </view>
+      <text class="script-title">{{script.scene_name}}</text>
+      <view class="script-meta" wx:if="{{applicableText}}">
+        <text class="meta-text">{{applicableText}}</text>
       </view>
     </view>
   </view>
 
-  <!-- 底部占位 -->
-  <view style="height: 140rpx;"></view>
+  <!-- 内容区 -->
+  <view class="content">
+    <!-- Tab切换 -->
+    <view class="tab-bar">
+      <view
+        class="tab-item {{activeTab === 'phone' ? 'active' : ''}}"
+        data-tab="phone"
+        bindtap="onTabTap"
+      >
+        <text class="tab-icon">📞</text>
+        <text class="tab-text">电话版</text>
+      </view>
+      <view
+        class="tab-item {{activeTab === 'written' ? 'active' : ''}}"
+        data-tab="written"
+        bindtap="onTabTap"
+      >
+        <text class="tab-icon">📝</text>
+        <text class="tab-text">书面版</text>
+      </view>
+    </view>
+
+    <!-- 话术内容卡片 -->
+    <view class="section">
+      <view class="section-header">
+        <text class="section-title">{{activeTab === 'phone' ? '💡 电话投诉话术' : '💡 书面投诉模板'}}</text>
+      </view>
+      <view class="script-card">
+        <view class="script-tip">
+          {{activeTab === 'phone' ? '电话投诉时，按照以下话术表达，条理清晰、有理有据' : '书面投诉时，按照以下格式撰写，可直接复制修改'}}
+        </view>
+        <view class="script-divider"></view>
+        <view class="script-text">
+          <rich-text nodes="{{activeTab === 'phone' ? phoneContent : writtenContent}}"></rich-text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 证据清单 -->
+    <view class="section" wx:if="{{evidenceList.length > 0}}">
+      <view class="section-header">
+        <text class="section-title">📎 证据清单</text>
+        <text class="section-count">{{evidenceList.length}}项</text>
+      </view>
+      <view class="evidence-card">
+        <view
+          class="evidence-item"
+          wx:for="{{evidenceList}}"
+          wx:key="index"
+        >
+          <view class="ev-num">{{index + 1}}</view>
+          <view class="ev-text">{{item}}</view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 关联渠道 -->
+    <view class="section" wx:if="{{relatedChannels.length > 0}}">
+      <view class="section-header">
+        <text class="section-title">📞 关联投诉渠道</text>
+        <text class="section-count">{{relatedChannels.length}}个</text>
+      </view>
+      <view class="channel-list">
+        <view
+          class="channel-card"
+          wx:for="{{relatedChannels}}"
+          wx:key="id"
+          data-id="{{item.id}}"
+          bindtap="onChannelTap"
+          hover-class="channel-card-hover"
+        >
+          <view class="channel-icon">
+            <text>🏛️</text>
+          </view>
+          <view class="channel-info">
+            <text class="channel-name">{{item.name}}</text>
+            <text class="channel-phone" wx:if="{{item.phone}}">📞 {{item.phone}}</text>
+          </view>
+          <text class="channel-arrow">›</text>
+        </view>
+      </view>
+    </view>
+
+    <view style="height: 160rpx;"></view>
+  </view>
 
   <!-- 底部操作栏 -->
-  <view class="bottom-action-bar">
-    <view class="btn btn-outline" bindtap="onCopyScript">📋 复制话术</view>
-    <view class="btn btn-primary" bindtap="onToggleFavorite">
-      {{isFavorite ? '⭐ 已收藏' : '☆ 收藏话术'}}
+  <view class="bottom-bar">
+    <view class="bottom-btn btn-secondary" bindtap="onCopyScript">
+      <text class="btn-icon">📋</text>
+      <text class="btn-text">复制话术</text>
+    </view>
+    <view class="bottom-btn btn-primary" bindtap="onToggleFavorite">
+      <text class="btn-icon">{{isFavorite ? '⭐' : '☆'}}</text>
+      <text class="btn-text">{{isFavorite ? '已收藏' : '收藏'}}</text>
     </view>
   </view>
-</view>
-
-<!-- 加载中 -->
-<view class="loading" wx:else>
-  <view>加载中...</view>
 </view>

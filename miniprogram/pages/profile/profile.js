@@ -18,6 +18,9 @@ Page({
     ]
   },
 
+  // 内部状态：缓存的统计数据（避免tab切换时重复setData）
+  _cachedStats: { channels: -1, scripts: -1, history: -1 },
+
   onLoad() {
     this.loadStats();
   },
@@ -29,10 +32,27 @@ Page({
   loadStats() {
     const favorites = app.globalData.favorites;
     const history = app.globalData.searchHistory;
+    const channelCount = favorites.channels.length;
+    const scriptCount = favorites.scripts.length;
+    const historyCount = history.length;
+
+    // 只有在数据真正变化时才setData，避免不必要的渲染
+    if (this._cachedStats.channels === channelCount &&
+        this._cachedStats.scripts === scriptCount &&
+        this._cachedStats.history === historyCount) {
+      return;
+    }
+
+    this._cachedStats = {
+      channels: channelCount,
+      scripts: scriptCount,
+      history: historyCount
+    };
+
     this.setData({
-      favoriteChannels: favorites.channels.length,
-      favoriteScripts: favorites.scripts.length,
-      searchCount: history.length
+      favoriteChannels: channelCount,
+      favoriteScripts: scriptCount,
+      searchCount: historyCount
     });
   },
 
