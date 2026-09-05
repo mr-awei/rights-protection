@@ -107,6 +107,9 @@ Page({
   onResultTap(e) {
     const item = e.currentTarget.dataset.item;
     if (item.type === 'channel') {
+      // 预加载分片，跳转后直接使用缓存
+      const { preloadChannelPart } = require('../../utils/data');
+      preloadChannelPart(item.id);
       wx.navigateTo({
         url: `/pages/channel-detail/channel-detail?id=${item.id}`
       });

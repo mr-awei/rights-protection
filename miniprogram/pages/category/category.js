@@ -1,5 +1,5 @@
 // pages/category/category.js
-const { getCategories, getChannelsByCategory, getChannelById } = require('../../utils/data.js');
+const { getCategories, getChannelsByCategory, preloadChannelPart } = require('../../utils/data.js');
 
 Page({
   data: {
@@ -95,11 +95,9 @@ Page({
   // 点击渠道
   onChannelTap(e) {
     const id = e.currentTarget.dataset.id;
-    const channel = getChannelById(id);
-    if (!channel) {
-      wx.showToast({ title: '渠道不存在', icon: 'none' });
-      return;
-    }
+    // 预加载分片（轻量操作，只加载约60KB的分片文件，不做完整数据处理）
+    // 这样跳转后详情页可以直接使用缓存，避免同步加载导致的卡顿
+    preloadChannelPart(id);
     wx.navigateTo({
       url: `/pages/channel-detail/channel-detail?id=${id}`
     });

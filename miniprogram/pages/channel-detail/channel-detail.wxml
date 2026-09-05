@@ -1,5 +1,11 @@
 <!--pages/channel-detail/channel-detail.wxml-->
-<view class="container" wx:if="{{channel}}">
+<!-- 加载状态 -->
+<view class="loading-container" wx:if="{{loading}}">
+  <view class="loading-spinner"></view>
+  <text class="loading-text">加载中...</text>
+</view>
+
+<view class="container" wx:if="{{channel && !loading}}">
   <!-- 渐变头部 -->
   <view class="gradient-header">
     <view class="header-content">

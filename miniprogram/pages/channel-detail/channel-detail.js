@@ -11,13 +11,18 @@ Page({
     isFavorite: false,
     contactItems: [],
     tipsText: '',
-    preconditionText: ''
+    preconditionText: '',
+    loading: true  // 加载状态
   },
 
   onLoad(options) {
     const id = options.id;
-    this.setData({ channelId: id });
-    this.loadChannel(id);
+    this.setData({ channelId: id, loading: true });
+    // 异步加载数据，避免阻塞页面渲染
+    // 列表页点击时已经预加载了分片，这里通常可以直接从缓存读取
+    setTimeout(() => {
+      this.loadChannel(id);
+    }, 16);
   },
 
   loadChannel(id) {
@@ -28,24 +33,29 @@ Page({
       return;
     }
 
-    const relatedScripts = getRelatedScripts(id);
-    const laws = getLaws();
-
-    // 构建联系方式列表
+    // 第一批：先设置关键信息（标题、联系方式），让用户快速看到核心内容
     const contactItems = this.buildContactItems(channel);
-
     this.setData({
       channel,
-      relatedScripts,
-      laws: laws.slice(0, 3),
       contactItems,
-      tipsText: channel.tips || '',
-      preconditionText: channel.precondition || '',
+      loading: false,
       isFavorite: app.isFavorite('channels', id)
     });
 
     // 设置导航栏标题
     wx.setNavigationBarTitle({ title: channel.name || '渠道详情' });
+
+    // 第二批：异步加载关联内容（话术、法律依据），不阻塞首屏渲染
+    setTimeout(() => {
+      const relatedScripts = getRelatedScripts(id);
+      const laws = getLaws();
+      this.setData({
+        relatedScripts,
+        laws: laws.slice(0, 3),
+        tipsText: channel.tips || '',
+        preconditionText: channel.precondition || ''
+      });
+    }, 50);
   },
 
   buildContactItems(channel) {

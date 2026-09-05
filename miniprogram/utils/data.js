@@ -117,6 +117,29 @@ function getChannels() {
 }
 
 /**
+ * 从索引中获取渠道基本信息（轻量，不加载分片，用于预加载和快速判断）
+ */
+function getChannelIndexItem(id) {
+  loadAllData();
+  if (!channelIndex) return null;
+  return channelIndex.find(c => c.id === id) || null;
+}
+
+/**
+ * 预加载渠道分片（在列表页点击时调用，跳转后直接使用缓存）
+ */
+function preloadChannelPart(id) {
+  const idxItem = getChannelIndexItem(id);
+  if (!idxItem) return false;
+  const partNum = idxItem.part_num || 1;
+  if (partNum > 0) {
+    loadPart(partNum);
+    return true;
+  }
+  return false;
+}
+
+/**
  * 获取所有话术（数量少，完整数据）
  */
 function getScripts() {
@@ -314,6 +337,8 @@ module.exports = {
   getCategories,
   getConfig,
   getChannelById,
+  getChannelIndexItem,
+  preloadChannelPart,
   getScriptById,
   getLawById,
   getChannelsByCategory,
