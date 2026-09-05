@@ -103,6 +103,22 @@
       </view>
     </view>
 
+    <!-- 依法维权提示 -->
+    <view class="section">
+      <view class="legal-notice-card">
+        <view class="legal-notice-header">
+          <text class="legal-notice-icon">⚖️</text>
+          <text class="legal-notice-title">依法维权 · 理性表达</text>
+        </view>
+        <view class="legal-notice-content">
+          <text class="legal-notice-text">本话术模板仅供参考，请根据实际情况客观真实地表达诉求。《宪法》第四十一条赋予公民申诉、控告、检举的权利，同时规定不得捏造或歪曲事实进行诬告陷害。</text>
+          <text class="legal-notice-text">• 建议先向企业内部投诉，明确诉求并索取工单号，约80%的常规问题在此层级即可解决。</text>
+          <text class="legal-notice-text">• 捏造事实诬告陷害他人：依据《治安管理处罚法》处5日以下拘留或1000元以下罚款；情节严重的触犯《刑法》诬告陷害罪，最高可处10年有期徒刑。</text>
+          <text class="legal-notice-text">• 依法维权、理性维权，既是对自己负责，也是对社会法治秩序的维护。</text>
+        </view>
+      </view>
+    </view>
+
     <view style="height: 160rpx;"></view>
   </view>
 

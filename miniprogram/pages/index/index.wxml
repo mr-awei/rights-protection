@@ -82,6 +82,34 @@
       </view>
     </view>
 
+    <!-- 维权须知 -->
+    <view class="section">
+      <view class="notice-card">
+        <view class="notice-header">
+          <text class="notice-icon">⚖️</text>
+          <text class="notice-title">维权须知</text>
+        </view>
+        <view class="notice-step">
+          <view class="step-badge">第一步</view>
+          <view class="step-content">
+            <text class="step-title">先向企业内部投诉</text>
+            <text class="step-desc">拨打企业客服热线或通过官方APP、网站投诉，明确诉求并索取工单号。约80%的常规问题在此层级即可解决，且企业投诉记录是后续向监管部门申诉的前置条件。</text>
+          </view>
+        </view>
+        <view class="notice-divider"></view>
+        <view class="notice-warning">
+          <text class="warning-icon">⚠️</text>
+          <view class="warning-content">
+            <text class="warning-title">依法维权 · 虚假举报须担责</text>
+            <text class="warning-text">《宪法》第四十一条赋予公民申诉、控告、检举的权利，同时规定不得捏造或歪曲事实进行诬告陷害。</text>
+            <text class="warning-text">• 报假警、谎报警情：依据《治安管理处罚法》处5-10日拘留，可并处1000元以下罚款；情节严重的触犯《刑法》编造、故意传播虚假信息罪。</text>
+            <text class="warning-text">• 捏造事实诬告陷害他人：依据《治安管理处罚法》处5日以下拘留或1000元以下罚款；情节严重的触犯《刑法》诬告陷害罪，最高可处10年有期徒刑。</text>
+            <text class="warning-text">• 12345、12315等政务热线对恶意投诉设有识别和处置机制，可列入异常诉求名录，限制拨打权限。</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
     <!-- 紧急电话 -->
     <view class="section">
       <view class="emergency-card" bindtap="onEmergencyCall" hover-class="emergency-card-hover">

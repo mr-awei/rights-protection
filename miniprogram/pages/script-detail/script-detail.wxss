@@ -323,6 +323,44 @@
   margin-left: 12rpx;
 }
 
+/* ========== 依法维权提示卡片 ========== */
+.legal-notice-card {
+  background: linear-gradient(135deg, #F0FDF4 0%, #DCFCE7 100%);
+  border: 1rpx solid #BBF7D0;
+  border-radius: 20rpx;
+  padding: 24rpx;
+  border-left: 6rpx solid #10B981;
+}
+
+.legal-notice-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 14rpx;
+}
+
+.legal-notice-icon {
+  font-size: 28rpx;
+  margin-right: 8rpx;
+}
+
+.legal-notice-title {
+  font-size: 26rpx;
+  font-weight: 700;
+  color: #059669;
+}
+
+.legal-notice-content {
+  padding-left: 4rpx;
+}
+
+.legal-notice-text {
+  font-size: 22rpx;
+  color: #064E3B;
+  line-height: 1.7;
+  display: block;
+  margin-bottom: 6rpx;
+}
+
 /* ========== 底部操作栏 ========== */
 .bottom-bar {
   position: fixed;

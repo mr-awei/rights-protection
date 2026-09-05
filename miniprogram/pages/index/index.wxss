@@ -253,6 +253,107 @@
   text-align: center;
 }
 
+/* ========== 维权须知卡片 ========== */
+.notice-card {
+  background: #FFFFFF;
+  border-radius: 20rpx;
+  padding: 28rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.04);
+  border-left: 6rpx solid #3B82F6;
+}
+
+.notice-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.notice-icon {
+  font-size: 32rpx;
+  margin-right: 10rpx;
+}
+
+.notice-title {
+  font-size: 30rpx;
+  font-weight: 700;
+  color: #1E293B;
+}
+
+.notice-step {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 8rpx;
+}
+
+.step-badge {
+  background: linear-gradient(135deg, #10B981, #059669);
+  color: #FFFFFF;
+  font-size: 20rpx;
+  font-weight: 600;
+  padding: 6rpx 14rpx;
+  border-radius: 8rpx;
+  margin-right: 14rpx;
+  flex-shrink: 0;
+  margin-top: 4rpx;
+}
+
+.step-content {
+  flex: 1;
+}
+
+.step-title {
+  font-size: 26rpx;
+  font-weight: 600;
+  color: #059669;
+  display: block;
+  margin-bottom: 6rpx;
+}
+
+.step-desc {
+  font-size: 24rpx;
+  color: #475569;
+  line-height: 1.6;
+  display: block;
+}
+
+.notice-divider {
+  height: 1rpx;
+  background: #F1F5F9;
+  margin: 20rpx 0;
+}
+
+.notice-warning {
+  display: flex;
+  align-items: flex-start;
+}
+
+.warning-icon {
+  font-size: 28rpx;
+  margin-right: 12rpx;
+  flex-shrink: 0;
+  margin-top: 2rpx;
+}
+
+.warning-content {
+  flex: 1;
+}
+
+.warning-title {
+  font-size: 26rpx;
+  font-weight: 700;
+  color: #DC2626;
+  display: block;
+  margin-bottom: 10rpx;
+}
+
+.warning-text {
+  font-size: 22rpx;
+  color: #64748B;
+  line-height: 1.7;
+  display: block;
+  margin-bottom: 6rpx;
+}
+
 /* ========== 紧急电话卡片 ========== */
 .emergency-card {
   display: flex;

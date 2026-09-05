@@ -115,6 +115,22 @@
       </view>
     </view>
 
+    <!-- 依法维权提示 -->
+    <view class="section">
+      <view class="legal-notice-card">
+        <view class="legal-notice-header">
+          <text class="legal-notice-icon">⚖️</text>
+          <text class="legal-notice-title">依法维权 · 虚假举报须担责</text>
+        </view>
+        <view class="legal-notice-content">
+          <text class="legal-notice-text">《宪法》第四十一条赋予公民申诉、控告、检举的权利，同时规定不得捏造或歪曲事实进行诬告陷害。权利与义务对等，法律保护合法维权，也绝不纵容借维权之名行违法之实。</text>
+          <text class="legal-notice-text">• 报假警、谎报警情：依据《治安管理处罚法》处5-10日拘留，可并处1000元以下罚款；情节严重的触犯《刑法》编造、故意传播虚假信息罪。</text>
+          <text class="legal-notice-text">• 捏造事实诬告陷害他人：依据《治安管理处罚法》处5日以下拘留或1000元以下罚款；情节严重的触犯《刑法》诬告陷害罪，最高可处10年有期徒刑。</text>
+          <text class="legal-notice-text">• 建议先向企业内部投诉，约80%的常规问题在此层级即可解决，且企业投诉记录是后续向监管部门申诉的前置条件。</text>
+        </view>
+      </view>
+    </view>
+
     <view style="height: 160rpx;"></view>
   </view>
 
