@@ -1,53 +1,103 @@
 <!--pages/profile/profile.wxml-->
 <view class="container">
-  <!-- 蓝色渐变头部 -->
-  <view class="profile-header">
-    <view class="avatar">👤</view>
-    <view class="p-info">
-      <view class="p-name">维权用户</view>
-      <view class="p-desc">已帮助 {{searchCount}} 次维权</view>
-    </view>
-  </view>
-
-  <!-- 统计数据 -->
-  <view class="stats-bar">
-    <view class="stat-item" bindtap="onFavoriteTap">
-      <view class="stat-num">{{favoriteChannels}}</view>
-      <view class="stat-label">收藏渠道</view>
-    </view>
-    <view class="stat-divider"></view>
-    <view class="stat-item" bindtap="onFavoriteTap">
-      <view class="stat-num">{{favoriteScripts}}</view>
-      <view class="stat-label">收藏话术</view>
-    </view>
-    <view class="stat-divider"></view>
-    <view class="stat-item">
-      <view class="stat-num">{{searchCount}}</view>
-      <view class="stat-label">搜索次数</view>
-    </view>
-  </view>
-
-  <!-- 工具箱 -->
-  <view class="tool-list">
-    <view
-      class="tool-item"
-      wx:for="{{toolList}}"
-      wx:key="name"
-      data-index="{{index}}"
-      bindtap="onToolTap"
-    >
-      <view class="t-icon" style="background: {{item.color}};">{{item.icon}}</view>
-      <view class="t-content">
-        <view class="t-name">{{item.name}}</view>
-        <view class="t-desc">{{item.desc}}</view>
+  <!-- 渐变头部 -->
+  <view class="gradient-header">
+    <view class="header-content">
+      <view class="user-section">
+        <view class="avatar">
+          <text class="avatar-icon">👤</text>
+        </view>
+        <view class="user-info">
+          <text class="user-name">维权用户</text>
+          <text class="user-desc">用法律维护自己的权益</text>
+        </view>
+        <view class="user-level">
+          <text class="level-text">MVP</text>
+        </view>
       </view>
-      <view class="t-arrow">›</view>
+
+      <!-- 统计数据 -->
+      <view class="stats-row">
+        <view class="stat-item" bindtap="onFavoriteTap">
+          <text class="stat-number">{{favoriteChannels}}</text>
+          <text class="stat-label">收藏渠道</text>
+        </view>
+        <view class="stat-divider"></view>
+        <view class="stat-item" bindtap="onFavoriteTap">
+          <text class="stat-number">{{favoriteScripts}}</text>
+          <text class="stat-label">收藏话术</text>
+        </view>
+        <view class="stat-divider"></view>
+        <view class="stat-item">
+          <text class="stat-number">{{searchCount}}</text>
+          <text class="stat-label">搜索次数</text>
+        </view>
+      </view>
     </view>
   </view>
 
-  <!-- 底部信息 -->
-  <view class="footer-info">
-    <text>维权通 v1.0.0 MVP版</text>
-    <text>数据仅供参考，以官方渠道为准</text>
+  <!-- 内容区 -->
+  <view class="content">
+    <!-- 工具箱 -->
+    <view class="section">
+      <view class="section-header">
+        <text class="section-title">工具箱</text>
+      </view>
+      <view class="tool-grid">
+        <view
+          class="tool-item"
+          wx:for="{{toolList}}"
+          wx:key="name"
+          data-index="{{index}}"
+          bindtap="onToolTap"
+          hover-class="tool-item-hover"
+        >
+          <view class="tool-icon" style="background: {{item.color}}">
+            <text>{{item.icon}}</text>
+          </view>
+          <view class="tool-info">
+            <text class="tool-name">{{item.name}}</text>
+            <text class="tool-desc">{{item.desc}}</text>
+          </view>
+          <text class="tool-arrow">›</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 数据说明 -->
+    <view class="section">
+      <view class="info-card">
+        <view class="info-header">
+          <text class="info-icon">📊</text>
+          <text class="info-title">数据概览</text>
+        </view>
+        <view class="info-stats">
+          <view class="info-stat">
+            <text class="info-stat-num">122</text>
+            <text class="info-stat-label">官方渠道</text>
+          </view>
+          <view class="info-stat">
+            <text class="info-stat-num">6</text>
+            <text class="info-stat-label">投诉话术</text>
+          </view>
+          <view class="info-stat">
+            <text class="info-stat-num">10</text>
+            <text class="info-stat-label">领域分类</text>
+          </view>
+          <view class="info-stat">
+            <text class="info-stat-num">40</text>
+            <text class="info-stat-label">二级分类</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 底部版本信息 -->
+    <view class="footer">
+      <text class="footer-version">维权通 v1.0.0 MVP</text>
+      <text class="footer-copyright">数据仅供参考，以官方平台为准</text>
+    </view>
+
+    <view style="height: 40rpx;"></view>
   </view>
 </view>
