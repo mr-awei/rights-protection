@@ -3,10 +3,10 @@
   <!-- 蓝色渐变头部 -->
   <view class="channel-hero">
     <view class="ch-name">{{channel.name}}</view>
-    <view class="ch-desc">{{channel.desc || channel.description}}</view>
+    <view class="ch-desc">{{channel.scope}}</view>
     <view class="ch-tags">
-      <text class="ch-tag" wx:for="{{channel.tags || channel.category || []}}" wx:key="*this">{{item}}</text>
-      <text class="ch-tag" wx:if="{{channel.is_official}}">官方渠道</text>
+      <text class="ch-tag" wx:for="{{channel.tags || []}}" wx:key="*this">{{item}}</text>
+      <text class="ch-tag">官方渠道</text>
       <text class="ch-tag">免费</text>
     </view>
   </view>
@@ -37,19 +37,16 @@
     </view>
   </view>
 
-  <!-- 投诉流程 -->
-  <view class="section-block" wx:if="{{channel.complaint_process || channel.process}}">
-    <view class="sb-title">📋 投诉流程</view>
-    <view class="law-list">
-      <view
-        class="law-item process-item"
-        wx:for="{{channel.complaint_process || channel.process || []}}"
-        wx:key="index"
-      >
-        <view class="law-name">第{{index + 1}}步：{{item.title || item.step}}</view>
-        <view class="law-content">{{item.content || item.desc}}</view>
-      </view>
-    </view>
+  <!-- 投诉前置条件 -->
+  <view class="section-block" wx:if="{{preconditionText}}">
+    <view class="sb-title">⚠️ 投诉前置条件</view>
+    <view class="text-content">{{preconditionText}}</view>
+  </view>
+
+  <!-- 投诉提示/技巧 -->
+  <view class="section-block" wx:if="{{tipsText}}">
+    <view class="sb-title">💡 投诉技巧</view>
+    <view class="text-content">{{tipsText}}</view>
   </view>
 
   <!-- 法律依据 -->
@@ -75,7 +72,7 @@
         bindtap="onScriptTap"
       >
         <view class="rs-icon">📞</view>
-        <view class="rs-name">{{item.name}}</view>
+        <view class="rs-name">{{item.scene_name}}</view>
         <view class="rs-arrow">›</view>
       </view>
     </view>

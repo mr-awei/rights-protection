@@ -40,3 +40,6 @@ prototype/_backup/
 # 本地配置
 .local.env
 .secrets
+
+# 微信开发者工具私有配置
+project.private.config.json

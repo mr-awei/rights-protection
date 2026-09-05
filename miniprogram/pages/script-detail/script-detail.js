@@ -1,6 +1,6 @@
 // pages/script-detail/script-detail.js
 const app = getApp();
-const { getScriptById, getRelatedChannels } = require('../../utils/data');
+const { getScriptById, getRelatedChannels, getScriptPhoneContent, getScriptWrittenContent } = require('../../utils/data');
 
 Page({
   data: {
@@ -10,7 +10,9 @@ Page({
     activeTab: 'phone',
     isFavorite: false,
     phoneContent: '',
-    writtenContent: ''
+    writtenContent: '',
+    evidenceList: [],
+    applicableText: ''
   },
 
   onLoad(options) {
@@ -29,25 +31,39 @@ Page({
 
     const relatedChannels = getRelatedChannels(id);
 
-    // 处理话术内容，高亮占位符
-    const phoneContent = this.highlightPlaceholders(script.phone_version || script.content || '');
-    const writtenContent = this.highlightPlaceholders(script.written_version || script.written_content || '');
+    // 获取话术内容
+    const phoneRaw = getScriptPhoneContent(script);
+    const writtenRaw = getScriptWrittenContent(script);
+
+    // 高亮占位符
+    const phoneContent = this.highlightPlaceholders(phoneRaw);
+    const writtenContent = this.highlightPlaceholders(writtenRaw);
+
+    // 证据清单
+    const evidenceList = script.evidence_list || [];
 
     this.setData({
       script,
       relatedChannels,
       phoneContent,
       writtenContent,
+      evidenceList,
+      applicableText: script.applicable || '',
       isFavorite: app.isFavorite('scripts', id)
     });
 
-    wx.setNavigationBarTitle({ title: script.name || '话术详情' });
+    wx.setNavigationBarTitle({ title: script.scene_name || '话术详情' });
   },
 
   highlightPlaceholders(text) {
     if (!text) return '';
+    // 高亮 【占位符】 格式
+    let result = text.replace(/【([^】]+)】/g, '<span class="placeholder">【$1】</span>');
     // 高亮 [占位符] 格式
-    return text.replace(/\[([^\]]+)\]/g, '<span class="placeholder">[$1]</span>');
+    result = result.replace(/\[([^\]]+)\]/g, '<span class="placeholder">[$1]</span>');
+    // 换行转 <br>
+    result = result.replace(/\n/g, '<br/>');
+    return result;
   },
 
   onTabTap(e) {
@@ -58,8 +74,8 @@ Page({
   onCopyScript() {
     const { activeTab, script } = this.data;
     const content = activeTab === 'phone'
-      ? (script.phone_version || script.content || '')
-      : (script.written_version || script.written_content || '');
+      ? getScriptPhoneContent(script)
+      : getScriptWrittenContent(script);
 
     wx.setClipboardData({
       data: content,

@@ -85,12 +85,12 @@
     >
       <view class="s-icon">📞</view>
       <view class="s-content">
-        <view class="s-title">{{item.name}}</view>
-        <view class="s-desc">{{item.desc || item.description}}</view>
+        <view class="s-title">{{item.scene_name}}</view>
+        <view class="s-desc">{{item.applicable}}</view>
         <view class="s-meta">
-          <text wx:if="{{item.phone_version}}">📞 电话版</text>
-          <text wx:if="{{item.written_version}}">📝 书面版</text>
-          <text>⭐ {{item.usage_count || '1万人'}}使用</text>
+          <text wx:if="{{item.phone_script}}">📞 电话版</text>
+          <text wx:if="{{item.written_request}}">📝 书面版</text>
+          <text>⭐ 热门话术</text>
         </view>
       </view>
     </view>

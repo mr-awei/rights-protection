@@ -9,7 +9,9 @@ Page({
     relatedScripts: [],
     laws: [],
     isFavorite: false,
-    contactItems: []
+    contactItems: [],
+    tipsText: '',
+    preconditionText: ''
   },
 
   onLoad(options) {
@@ -37,6 +39,8 @@ Page({
       relatedScripts,
       laws: laws.slice(0, 3),
       contactItems,
+      tipsText: channel.tips || '',
+      preconditionText: channel.precondition || '',
       isFavorite: app.isFavorite('channels', id)
     });
 
@@ -47,16 +51,19 @@ Page({
   buildContactItems(channel) {
     const items = [];
     if (channel.phone) {
-      items.push({ icon: '📞', label: '投诉电话', value: channel.phone, action: 'call' });
+      // 提取第一个纯电话号码
+      const phoneMatch = channel.phone.match(/\d{3,4}-?\d{7,8}|\d{10,11}/);
+      const cleanPhone = phoneMatch ? phoneMatch[0] : channel.phone.replace(/[^0-9-]/g, '');
+      items.push({ icon: '📞', label: '投诉电话', value: channel.phone, cleanPhone: cleanPhone, action: 'call' });
     }
     if (channel.website || channel.url) {
       items.push({ icon: '🌐', label: '官方网站', value: channel.website || channel.url, action: 'visit' });
     }
-    if (channel.work_time || channel.service_time) {
-      items.push({ icon: '⏰', label: '工作时间', value: channel.work_time || channel.service_time, action: '' });
+    if (channel.regulator) {
+      items.push({ icon: '🏛️', label: '主管单位', value: channel.regulator, action: '' });
     }
-    if (channel.address) {
-      items.push({ icon: '📍', label: '办公地址', value: channel.address, action: '' });
+    if (channel.phone_note) {
+      items.push({ icon: 'ℹ️', label: '电话说明', value: channel.phone_note, action: '' });
     }
     return items;
   },
@@ -65,7 +72,7 @@ Page({
     const item = e.currentTarget.dataset.item;
     if (item.action === 'call') {
       wx.makePhoneCall({
-        phoneNumber: item.value.replace(/[^0-9-]/g, ''),
+        phoneNumber: item.cleanPhone || item.value.replace(/[^0-9-]/g, ''),
         fail: () => {
           wx.showToast({ title: '拨打失败', icon: 'none' });
         }
@@ -98,16 +105,24 @@ Page({
   },
 
   onComplain() {
-    const { channel } = this.data;
-    if (channel && channel.phone) {
+    const { channel, contactItems } = this.data;
+    const phoneItem = contactItems.find(i => i.action === 'call');
+    if (phoneItem) {
       wx.makePhoneCall({
-        phoneNumber: channel.phone.replace(/[^0-9-]/g, ''),
+        phoneNumber: phoneItem.cleanPhone,
         fail: () => {
           wx.showToast({ title: '拨打失败，请手动拨打', icon: 'none' });
         }
       });
+    } else if (channel && channel.website) {
+      wx.setClipboardData({
+        data: channel.website,
+        success: () => {
+          wx.showToast({ title: '网址已复制，请浏览器打开', icon: 'success' });
+        }
+      });
     } else {
-      wx.showToast({ title: '暂无电话，请通过网站投诉', icon: 'none' });
+      wx.showToast({ title: '暂无联系方式', icon: 'none' });
     }
   },
 

@@ -30,18 +30,41 @@ Page({
       results = this.fallbackSearch(keyword);
     }
 
-    // 高亮关键词
-    const highlighted = results.map(item => ({
-      ...item,
-      highlightedName: highlightKeywords(item.name, result.keywords),
-      highlightedDesc: highlightKeywords(item.desc, result.keywords)
-    }));
+    // 统一字段映射 + 高亮关键词
+    const highlighted = results.map(item => {
+      const normalized = this.normalizeItem(item);
+      return {
+        ...normalized,
+        highlightedName: highlightKeywords(normalized.name, result.keywords),
+        highlightedDesc: highlightKeywords(normalized.desc, result.keywords)
+      };
+    });
 
     this.setData({
       results: highlighted,
       resultCount: highlighted.length
     });
     this.filterResults('all');
+  },
+
+  /**
+   * 统一渠道和话术的字段映射
+   */
+  normalizeItem(item) {
+    if (item.type === 'channel') {
+      return {
+        ...item,
+        name: item.name || '',
+        desc: item.scope || item.desc || item.description || ''
+      };
+    } else if (item.type === 'script') {
+      return {
+        ...item,
+        name: item.scene_name || item.name || '',
+        desc: item.applicable || item.desc || item.description || ''
+      };
+    }
+    return item;
   },
 
   fallbackSearch(keyword) {
@@ -51,14 +74,14 @@ Page({
       type: 'channel',
       id: c.id,
       name: c.name,
-      desc: c.desc || c.description || '',
+      scope: c.scope,
       score: 1
     }));
     const scripts = searchScripts(keyword).map(s => ({
       type: 'script',
       id: s.id,
-      name: s.name,
-      desc: s.desc || s.description || '',
+      scene_name: s.scene_name,
+      applicable: s.applicable,
       score: 1
     }));
     return [...channels, ...scripts];

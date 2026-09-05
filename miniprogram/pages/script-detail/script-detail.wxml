@@ -2,8 +2,8 @@
 <view class="container" wx:if="{{script}}">
   <!-- 绿色渐变头部 -->
   <view class="script-hero">
-    <view class="sh-name">{{script.name}}</view>
-    <view class="sh-desc">{{script.desc || script.description}}</view>
+    <view class="sh-name">{{script.scene_name}}</view>
+    <view class="sh-desc" wx:if="{{applicableText}}">{{applicableText}}</view>
   </view>
 
   <!-- Tab切换 -->
@@ -31,11 +31,11 @@
   </view>
 
   <!-- 证据清单 -->
-  <view class="evidence-list" wx:if="{{script.evidence_list || script.evidences}}">
+  <view class="evidence-list" wx:if="{{evidenceList.length > 0}}">
     <view class="el-title">📎 投诉前请准备好以下证据</view>
     <view
       class="evidence-item"
-      wx:for="{{script.evidence_list || script.evidences || []}}"
+      wx:for="{{evidenceList}}"
       wx:key="index"
     >
       <view class="ev-num">{{index + 1}}</view>

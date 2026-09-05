@@ -123,7 +123,8 @@ function invertedSearch(query, keywords) {
           type: 'channel',
           id: channel.id,
           name: channel.name,
-          desc: channel.desc || channel.description || '',
+          scope: channel.scope,
+          desc: channel.scope || '',
           score: data.score,
           matchedTerms: data.matchedTerms
         };
@@ -134,8 +135,10 @@ function invertedSearch(query, keywords) {
         item = {
           type: 'script',
           id: script.id,
-          name: script.name,
-          desc: script.desc || script.description || '',
+          scene_name: script.scene_name,
+          name: script.scene_name || '',
+          applicable: script.applicable,
+          desc: script.applicable || '',
           score: data.score,
           matchedTerms: data.matchedTerms
         };
@@ -157,10 +160,15 @@ function invertedSearch(query, keywords) {
 function getFieldBoost(field) {
   const boosts = {
     'name': 5.0,
+    'scene_name': 5.0,
     'tags': 3.0,
     'category': 2.0,
+    'category_l1': 2.0,
+    'category_l2': 2.0,
     'desc': 1.5,
     'description': 1.5,
+    'scope': 1.5,
+    'applicable': 1.5,
     'legal_basis': 1.0,
     'default': 1.0
   };
