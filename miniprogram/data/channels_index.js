@@ -1,5 +1,5 @@
-// channels_index.js - 渠道轻量索引（用于列表展示和搜索，不含详细内容）
-// 由split_data.py自动生成，共122条记录
+// channels_index.js - 渠道轻量索引（启动时加载，用于列表展示和搜索）
+// 由convert.py自动生成，共122条记录
 module.exports = [
   {
     "id": "ch_001",

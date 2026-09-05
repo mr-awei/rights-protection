@@ -7,5 +7,7 @@ module.exports = {
     "channels_part_1.js",
     "channels_part_2.js",
     "channels_part_3.js"
-  ]
+  ],
+  "index_file": "channels_index.js",
+  "generated_at": "2026-09-05T18:35:31.633778"
 };

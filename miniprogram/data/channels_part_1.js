@@ -1,5 +1,5 @@
 // channels_part_1.js - 渠道数据分片1/3（第1-50条）
-// 由split_data.py自动生成，请勿手动编辑
+// 由convert.py自动生成，点击详情时按需加载，请勿手动编辑
 module.exports = [
   {
     "id": "ch_001",

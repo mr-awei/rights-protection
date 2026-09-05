@@ -10,7 +10,8 @@
 
 - **本地关键词提取**：用户输入一大段自然语言，自动提取核心关键词（正向最大匹配算法）
 - **场景选项卡**：匹配到多个场景时，展示场景选项卡让用户选择，匹配度可视化
-- **纯本地搜索**：倒排索引+预构建，无需后端、无需AI、零API费用
+- **纯本地搜索**：轻量索引+关键词提取+场景选项卡，无需后端、无需AI、零API费用
+- **数据分片架构**：启动仅加载56KB轻量索引，详情按需加载60KB分片，单文件永不超500KB，支持扩展到2000+条渠道
 - **122条官方渠道**：覆盖快递、电信、消费、金融、物业、劳动、医疗等10大领域
 - **6套投诉话术**：电话版+书面版，占位符高亮，证据清单
 - **9部法律法规**：自动提取去重，场景关联法律依据
@@ -27,18 +28,32 @@ rights-protection/
 │   ├── 官方投诉维权渠道大全（合并版·最终版）.docx
 │   ├── 生活投诉渠道大全（最终版）.docx
 │   └── 群众诉求官方平台汇总（最终版）.docx
-├── data/                    # 运行层数据（转换脚本生成）
-│   ├── channels.json        # 渠道数据（122条）
+├── data/                    # 运行层数据（转换脚本生成，JSON格式用于交换）
+│   ├── channels.json        # 渠道数据（122条，完整数据）
 │   ├── scripts.json         # 话术数据（6条）
 │   ├── laws.json            # 法律法规（9部去重）
 │   ├── categories.json      # 分类树
 │   ├── config.json          # 配置文件（含AI可选接入）
-│   ├── search_index.json    # 预构建倒排索引（1411个term）
-│   ├── suggest_trie.json    # 搜索联想Trie树
+│   ├── search_index.json    # 预构建倒排索引（1411个term，保留文件）
+│   ├── suggest_trie.json    # 搜索联想Trie树（保留文件）
 │   ├── _manifest.json       # 数据清单
 │   └── 维权通数据_维护版.xlsx  # Excel维护层（可人工编辑）
+├── miniprogram/             # 微信小程序代码
+│   ├── app.js / app.json / app.wxss  # 全局配置
+│   ├── pages/               # 7个页面（首页/场景选项卡/搜索结果/渠道详情/话术详情/分类/我的）
+│   ├── utils/               # 工具类（data.js分片加载/search.js搜索/keyword-extractor.js关键词提取）
+│   ├── data/                # 小程序运行时数据（JS分片格式）
+│   │   ├── channels_index.js    # 轻量索引（56KB，启动加载）
+│   │   ├── channels_part_1.js   # 分片1（50条，60KB，按需加载）
+│   │   ├── channels_part_2.js   # 分片2（50条，60KB，按需加载）
+│   │   ├── channels_part_3.js   # 分片3（22条，27KB，按需加载）
+│   │   ├── channels_config.js   # 分片配置
+│   │   ├── channels.js          # 完整数据（兼容旧版）
+│   │   ├── scripts.js / laws.js / config.js / categories.js
+│   │   └── images/          # tabBar图标
+│   └── project.config.json  # 项目配置
 ├── tools/                   # 工具脚本
-│   ├── convert.py           # Word→Excel→JSON转换工具
+│   ├── convert.py           # Word→Excel→JS分片转换工具（含法律法规去重、数据分片、增量diff）
 │   └── requirements.txt     # Python依赖
 ├── prototype/               # 产品原型
 │   └── 维权通_产品原型.html  # 高保真可交互原型（7页面）
@@ -65,11 +80,11 @@ pip install -r tools/requirements.txt
 # 1. Word → Excel（提取数据，生成维护层）
 python tools/convert.py --input "./source" --output "./data/维权通数据_维护版.xlsx" --mode extract
 
-# 2. Excel → JSON（构建运行层，生成索引）
-python tools/convert.py --input "./data/维权通数据_维护版.xlsx" --output "./data/" --mode build
+# 2. Excel → JS分片数据（构建小程序运行层，生成分片+索引）
+python tools/convert.py --input "./data/维权通数据_维护版.xlsx" --output "./miniprogram/data" --mode build
 
 # 3. 一键全流程
-python tools/convert.py --input "./source" --output "./data/" --mode all
+python tools/convert.py --input "./source" --output "./miniprogram/data" --mode all
 
 # 4. 仅校验数据
 python tools/convert.py --input "./data/维权通数据_维护版.xlsx" --mode validate
@@ -81,12 +96,24 @@ python tools/convert.py --input "./data/维权通数据_维护版.xlsx" --mode v
 
 ## 技术架构
 
-### 双层数据架构
+### 三层数据架构
 
 ```
-Word源文档 → Excel维护层（人工可编辑） → JSON运行层（小程序加载）
-                                    ↓
-                          预构建倒排索引 + 搜索联想Trie
+Word源文档 → Excel维护层（人工可编辑） → JS分片运行层（小程序加载）
+                                          ↓
+                          轻量索引（56KB，启动加载）
+                          + 按需分片（60KB/片，详情加载）
+                          + 法律法规去重
+```
+
+### 数据分片架构
+
+```
+启动时加载：channels_index.js（56KB，只含id/name/phone/tags/part_num）
+搜索时：用索引数据做名称匹配+关键词权重，不加载详细内容
+点击详情时：根据part_num按需加载channels_part_N.js（60KB/片）
+已加载分片：内存缓存，重复访问<10ms
+扩展到2000条：自动新增40个分片，单文件永不超500KB
 ```
 
 ### 搜索流程
@@ -100,7 +127,7 @@ Word源文档 → Excel维护层（人工可编辑） → JSON运行层（小程
     ↓
 ├─ 1个场景 → 直接进入渠道详情
 ├─ 2-5个场景 → 场景选项卡（用户点选）
-└─ 无匹配 → 倒排索引搜索结果页
+└─ 无匹配 → 轻量索引名称匹配搜索结果页
 ```
 
 ### AI可选接入
@@ -125,15 +152,18 @@ MVP默认不接入AI，纯本地搜索零成本。架构预留AI接入抽象层�
 
 ## 数据规模
 
-| 数据项 | 数量 |
-|--------|------|
-| 官方投诉渠道 | 122条 |
-| 投诉话术 | 6套 |
-| 法律法规 | 9部（去重） |
-| 领域分类 | 10个 |
-| 搜索关键词 | 330+ |
-| 预设场景 | 20个 |
-| 倒排索引term | 1411个 |
+| 数据项 | 数量 | 说明 |
+|--------|------|------|
+| 官方投诉渠道 | 122条 | 覆盖10大领域 |
+| 投诉话术 | 6套 | 电话版+书面版 |
+| 法律法规 | 9部 | 自动提取去重 |
+| 领域分类 | 10个 | 一级分类 |
+| 搜索关键词 | 330+ | 正向最大匹配词库 |
+| 预设场景 | 20个 | 关键词组合→场景映射 |
+| 轻量索引 | 56KB | 启动加载，只含id/name/phone/tags/part_num |
+| 数据分片 | 3个 | 每片50条，60KB/片，按需加载 |
+| 单文件最大 | 60KB | 远低于500KB限制 |
+| 支持扩展 | 2000+条 | 分片自动扩展，无需改代码 |
 
 ## 文档导航
 

@@ -1408,6 +1408,11 @@ class JsonWriter:
             manifest.append({'file': filename, 'size': size, 'sha256': checksum})
             logger.info(f"JSON已生成: {filename} ({size} bytes)")
 
+        # 生成微信小程序专用分片JS数据（索引+按需加载分片）
+        # 解决单文件500KB限制，支持扩展到几千条数据
+        shard_info = JsonWriter.write_miniprogram_shards(channels, output_dir)
+        logger.info(f"小程序分片生成完成: {shard_info['num_parts']}个分片")
+
         # _manifest.json
         manifest_data = {
             'version': DEFAULT_CONFIG['data_version'],
@@ -1417,6 +1422,7 @@ class JsonWriter:
             'platform_count': len(platforms),
             'law_count': len(laws),
             'is_sharded': len(channels) > shard_threshold,
+            'miniprogram_shards': shard_info,
             'files': manifest
         }
         manifest_path = os.path.join(output_dir, '_manifest.json')
@@ -1425,6 +1431,90 @@ class JsonWriter:
         logger.info(f"清单已生成: _manifest.json")
 
         return manifest_data
+
+    @staticmethod
+    def write_miniprogram_shards(channels, output_dir, channels_per_part=50):
+        """
+        生成微信小程序专用的分片JS数据文件（索引+按需加载分片）
+        解决单文件500KB限制，支持扩展到几千条数据
+
+        生成文件：
+        - channels_index.js: 轻量索引（id/name/phone/tags/part_num），启动时加载
+        - channels_part_N.js: 详细数据分片，点击详情时按需加载
+        - channels_config.js: 分片配置信息
+
+        :param channels: 渠道数据列表
+        :param output_dir: 输出目录
+        :param channels_per_part: 每个分片的渠道数量（默认50条，约60KB）
+        :return: 分片统计信息
+        """
+        os.makedirs(output_dir, exist_ok=True)
+        total = len(channels)
+        num_parts = (total + channels_per_part - 1) // channels_per_part
+
+        logger.info(f"生成小程序分片数据: {total}条渠道, {num_parts}个分片, 每片{channels_per_part}条")
+
+        # 1. 生成轻量索引
+        index_data = []
+        for i, ch in enumerate(channels):
+            part_num = (i // channels_per_part) + 1
+            index_data.append({
+                'id': ch.get('id', ''),
+                'name': ch.get('name', ''),
+                'category_l1': ch.get('category_l1', ''),
+                'category_l2': ch.get('category_l2', ''),
+                'tags': ch.get('tags', []),
+                'hot_level': ch.get('hot_level', 0),
+                'phone': ch.get('phone', ''),
+                'part_num': part_num
+            })
+
+        index_path = os.path.join(output_dir, 'channels_index.js')
+        with open(index_path, 'w', encoding='utf-8') as f:
+            f.write(f"// channels_index.js - 渠道轻量索引（启动时加载，用于列表展示和搜索）\n")
+            f.write(f"// 由convert.py自动生成，共{len(index_data)}条记录\n")
+            f.write(f"module.exports = {json.dumps(index_data, ensure_ascii=False, indent=2)};\n")
+        logger.info(f"  索引文件: channels_index.js ({os.path.getsize(index_path)//1024}KB)")
+
+        # 2. 生成分片详细数据
+        part_files = []
+        for part_num in range(1, num_parts + 1):
+            start = (part_num - 1) * channels_per_part
+            end = min(start + channels_per_part, total)
+            part_channels = channels[start:end]
+
+            part_filename = f'channels_part_{part_num}.js'
+            part_path = os.path.join(output_dir, part_filename)
+            with open(part_path, 'w', encoding='utf-8') as f:
+                f.write(f"// channels_part_{part_num}.js - 渠道数据分片{part_num}/{num_parts}（第{start+1}-{end}条）\n")
+                f.write(f"// 由convert.py自动生成，点击详情时按需加载，请勿手动编辑\n")
+                f.write(f"module.exports = {json.dumps(part_channels, ensure_ascii=False, indent=2)};\n")
+
+            part_files.append(part_filename)
+            logger.info(f"  分片{part_num}: {part_filename} ({len(part_channels)}条, {os.path.getsize(part_path)//1024}KB)")
+
+        # 3. 生成分片配置
+        config_data = {
+            'total': total,
+            'num_parts': num_parts,
+            'channels_per_part': channels_per_part,
+            'part_files': part_files,
+            'index_file': 'channels_index.js',
+            'generated_at': datetime.now().isoformat()
+        }
+        config_path = os.path.join(output_dir, 'channels_config.js')
+        with open(config_path, 'w', encoding='utf-8') as f:
+            f.write(f"// channels_config.js - 渠道分片配置\n")
+            f.write(f"module.exports = {json.dumps(config_data, ensure_ascii=False, indent=2)};\n")
+        logger.info(f"  配置文件: channels_config.js")
+
+        return {
+            'total': total,
+            'num_parts': num_parts,
+            'channels_per_part': channels_per_part,
+            'index_size': os.path.getsize(index_path),
+            'part_files': part_files
+        }
 
     @staticmethod
     def _extract_categories(channels):
