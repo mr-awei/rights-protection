@@ -39,6 +39,7 @@
 .gradient-header {
   background: linear-gradient(135deg, #3B82F6 0%, #2563EB 50%, #1D4ED8 100%);
   padding: 0 0 48rpx;
+  padding-top: calc(88rpx + env(safe-area-inset-top));
   position: relative;
   overflow: hidden;
 }

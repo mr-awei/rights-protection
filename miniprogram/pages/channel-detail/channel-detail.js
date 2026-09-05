@@ -115,7 +115,7 @@ Page({
     });
   },
 
-  onToggleFavorite() {
+  onFavoriteTap() {
     const { channelId } = this.data;
     const isFavorite = app.toggleFavorite('channels', channelId);
     this.setData({ isFavorite });
@@ -125,7 +125,16 @@ Page({
     });
   },
 
-  onComplain() {
+  onShareTap() {
+    // 分享功能：调用小程序原生分享
+    wx.showShareMenu({
+      withShareTicket: true,
+      menus: ['shareAppMessage', 'shareTimeline']
+    });
+    wx.showToast({ title: '点击右上角分享', icon: 'none' });
+  },
+
+  onCallTap() {
     const { channel, contactItems } = this.data;
     const phoneItem = contactItems.find(i => i.action === 'call');
     if (phoneItem) {
@@ -147,7 +156,24 @@ Page({
     }
   },
 
-  onBack() {
+  onBackTap() {
     wx.navigateBack();
+  },
+
+  // 分享给朋友
+  onShareAppMessage() {
+    const { channel } = this.data;
+    return {
+      title: channel ? channel.name : '维权通 - 官方投诉渠道大全',
+      path: '/pages/index/index'
+    };
+  },
+
+  // 分享到朋友圈
+  onShareTimeline() {
+    const { channel } = this.data;
+    return {
+      title: channel ? channel.name : '维权通 - 官方投诉渠道大全'
+    };
   }
 });
