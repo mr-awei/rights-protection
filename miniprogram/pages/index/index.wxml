@@ -8,8 +8,21 @@
           <text class="title-main">维权通</text>
           <text class="title-sub">官方投诉渠道 · 一键直达</text>
         </view>
-        <view class="header-badge">
-          <text class="badge-text">122条</text>
+      </view>
+      <view class="header-stats">
+        <view class="stat-item">
+          <text class="stat-num">122</text>
+          <text class="stat-label">投诉渠道</text>
+        </view>
+        <view class="stat-divider"></view>
+        <view class="stat-item">
+          <text class="stat-num">6</text>
+          <text class="stat-label">投诉话术</text>
+        </view>
+        <view class="stat-divider"></view>
+        <view class="stat-item">
+          <text class="stat-num">10</text>
+          <text class="stat-label">维权分类</text>
         </view>
       </view>
 
