@@ -1,14 +1,15 @@
 /* pages/search-result/search-result.wxss */
 .container {
   min-height: 100vh;
-  background: #F5F7FA;
+  background: #F8FAFC;
 }
 
-/* Tab切换 */
+/* ========== Tab切换 ========== */
 .result-tabs {
   display: flex;
   background: #FFFFFF;
-  border-bottom: 2rpx solid #E5E6EB;
+  padding: 16rpx 24rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.04);
   position: sticky;
   top: 0;
   z-index: 10;
@@ -17,146 +18,175 @@
 .result-tab {
   flex: 1;
   text-align: center;
-  padding: 24rpx 0;
+  padding: 16rpx 0;
   font-size: 28rpx;
-  color: #4E5969;
+  color: #64748B;
+  font-weight: 500;
+  border-radius: 16rpx;
+  transition: all 0.2s ease;
   position: relative;
 }
 
 .result-tab.active {
-  color: #1677FF;
-  font-weight: 600;
+  color: #2563EB;
+  font-weight: 700;
+  background: #EFF6FF;
 }
 
 .result-tab.active::after {
   content: '';
   position: absolute;
-  bottom: 0;
+  bottom: 8rpx;
   left: 50%;
   transform: translateX(-50%);
-  width: 48rpx;
+  width: 40rpx;
   height: 6rpx;
-  background: #1677FF;
-  border-radius: 4rpx;
+  background: linear-gradient(90deg, #3B82F6, #2563EB);
+  border-radius: 3rpx;
 }
 
-/* 结果数量 */
+/* ========== 结果数量 ========== */
 .result-count {
-  padding: 24rpx 32rpx;
+  padding: 24rpx 32rpx 16rpx;
   font-size: 24rpx;
-  color: #86909C;
+  color: #94A3B8;
 }
 
-/* 结果列表 */
+/* ========== 结果列表 ========== */
 .result-list {
-  padding: 0 32rpx;
+  padding: 0 24rpx;
 }
 
 .result-item {
   background: #FFFFFF;
-  border-radius: 24rpx;
+  border-radius: 20rpx;
   padding: 28rpx;
   margin-bottom: 20rpx;
-  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.04);
+  box-shadow: 0 2rpx 12rpx rgba(0,0,0,0.04);
+  transition: all 0.2s ease;
+  border-left: 6rpx solid #3B82F6;
 }
 
 .result-item:active {
-  background: #F5F7FA;
+  transform: scale(0.98);
+  box-shadow: 0 4rpx 20rpx rgba(0,0,0,0.08);
 }
 
 .ri-title {
-  font-size: 30rpx;
-  font-weight: 600;
-  margin-bottom: 12rpx;
   display: flex;
   align-items: center;
-  gap: 12rpx;
-  color: #1F2329;
+  margin-bottom: 12rpx;
 }
 
 .ri-type {
   font-size: 20rpx;
-  padding: 4rpx 12rpx;
+  padding: 6rpx 14rpx;
   border-radius: 8rpx;
-  font-weight: 500;
+  font-weight: 600;
+  margin-right: 16rpx;
   flex-shrink: 0;
 }
 
 .ri-type.channel {
-  background: #E6F4FF;
-  color: #1677FF;
+  background: #EFF6FF;
+  color: #2563EB;
 }
 
 .ri-type.script {
-  background: #F6FFED;
-  color: #52C41A;
+  background: #F0FDF4;
+  color: #16A34A;
 }
 
 .ri-name {
   flex: 1;
-  min-width: 0;
+  font-size: 30rpx;
+  font-weight: 700;
+  color: #1E293B;
+  line-height: 1.4;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
 
 .ri-desc {
   font-size: 24rpx;
-  color: #86909C;
+  color: #64748B;
   line-height: 1.6;
   margin-bottom: 16rpx;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
   overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
 
 .ri-meta {
   display: flex;
-  gap: 24rpx;
+  align-items: center;
+  gap: 20rpx;
+  flex-wrap: wrap;
 }
 
 .ri-meta text {
   font-size: 22rpx;
-  color: #86909C;
+  color: #94A3B8;
 }
 
-/* 高亮 */
-.highlight {
-  color: #FF4D4F;
-  font-weight: 600;
-}
-
-/* 空状态 */
+/* ========== 空状态 ========== */
 .empty-state {
-  text-align: center;
-  padding: 120rpx 40rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 120rpx 48rpx;
 }
 
 .empty-icon {
   font-size: 96rpx;
-  margin-bottom: 32rpx;
-  opacity: 0.5;
+  margin-bottom: 24rpx;
+  opacity: 0.4;
 }
 
 .empty-title {
-  font-size: 32rpx;
+  font-size: 30rpx;
+  color: #64748B;
   font-weight: 600;
-  margin-bottom: 16rpx;
-  color: #4E5969;
+  margin-bottom: 12rpx;
 }
 
 .empty-desc {
-  font-size: 26rpx;
-  color: #86909C;
-  margin-bottom: 40rpx;
+  font-size: 24rpx;
+  color: #94A3B8;
+  text-align: center;
+  margin-bottom: 32rpx;
 }
 
 .empty-actions {
-  display: flex;
-  justify-content: center;
+  width: 100%;
+  max-width: 400rpx;
 }
 
-.empty-actions .btn {
-  min-width: 240rpx;
+/* ========== 按钮 ========== */
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24rpx 48rpx;
+  border-radius: 28rpx;
+  font-size: 28rpx;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #3B82F6, #2563EB);
+  color: #FFFFFF;
+  box-shadow: 0 4rpx 16rpx rgba(59,130,246,0.3);
+}
+
+.btn-primary:active {
+  transform: scale(0.96);
+  opacity: 0.9;
 }
