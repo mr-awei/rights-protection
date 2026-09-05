@@ -218,15 +218,6 @@
   line-height: 1.8;
 }
 
-.script-text >>> p {
-  margin: 0 0 16rpx;
-}
-
-.script-text >>> strong {
-  color: #059669;
-  font-weight: 600;
-}
-
 /* ========== 证据清单卡片 ========== */
 .evidence-card {
   background: #FFFFFF;
