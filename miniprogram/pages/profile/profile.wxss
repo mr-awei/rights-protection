@@ -135,7 +135,7 @@
 /* ========== 内容区 ========== */
 .content {
   padding: 0 24rpx;
-  margin-top: -24rpx;
+  margin-top: 0;
   position: relative;
   z-index: 2;
 }

@@ -71,17 +71,28 @@ Page({
   onContactAction(e) {
     const item = e.currentTarget.dataset.item;
     if (item.action === 'call') {
+      // 电话点击 → 跳转拨号页
       wx.makePhoneCall({
         phoneNumber: item.cleanPhone || item.value.replace(/[^0-9-]/g, ''),
         fail: () => {
-          wx.showToast({ title: '拨打失败', icon: 'none' });
+          wx.showToast({ title: '拨打失败，请手动拨打', icon: 'none' });
         }
       });
     } else if (item.action === 'visit') {
+      // 网站点击 → 复制网址 + 提示用外部浏览器打开
       wx.setClipboardData({
         data: item.value,
         success: () => {
-          wx.showToast({ title: '网址已复制', icon: 'success' });
+          wx.showModal({
+            title: '网址已复制',
+            content: '官方网站地址已复制到剪贴板。\n\n由于微信小程序限制，无法直接打开外部网站，请复制后在手机浏览器（如Safari、Chrome、QQ浏览器等）中粘贴打开。',
+            showCancel: false,
+            confirmText: '知道了',
+            confirmColor: '#3B82F6'
+          });
+        },
+        fail: () => {
+          wx.showToast({ title: '复制失败，请手动复制', icon: 'none' });
         }
       });
     }
