@@ -1,0 +1,1709 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>维权通 - 产品原型</title>
+<style>
+/* ===== 全局重置与变量 ===== */
+* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+:root {
+  --primary: #1677FF;
+  --primary-light: #E6F4FF;
+  --primary-dark: #0958D9;
+  --success: #52C41A;
+  --success-light: #F6FFED;
+  --warning: #FAAD14;
+  --warning-light: #FFFBE6;
+  --danger: #FF4D4F;
+  --danger-light: #FFF2F0;
+  --text-1: #1F2329;
+  --text-2: #4E5969;
+  --text-3: #86909C;
+  --text-4: #C9CDD4;
+  --bg-1: #FFFFFF;
+  --bg-2: #F5F7FA;
+  --bg-3: #E5E6EB;
+  --border: #E5E6EB;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+  --shadow-lg: 0 8px 24px rgba(0,0,0,0.12);
+}
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", "Microsoft YaHei", sans-serif;
+  background: #D8DCE3;
+  color: var(--text-1);
+  font-size: 14px;
+  line-height: 1.5;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 20px 0;
+}
+
+/* ===== 手机外壳 ===== */
+.phone-frame {
+  width: 375px;
+  min-height: 812px;
+  background: var(--bg-2);
+  border-radius: 40px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3), inset 0 0 0 2px #1a1a1a;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+.phone-notch {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 150px;
+  height: 28px;
+  background: #1a1a1a;
+  border-radius: 0 0 18px 18px;
+  z-index: 100;
+}
+.status-bar {
+  height: 44px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 24px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-1);
+  flex-shrink: 0;
+}
+.status-bar .right { display: flex; gap: 5px; align-items: center; }
+
+/* ===== 页面容器 ===== */
+.app-container {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: relative;
+  -webkit-overflow-scrolling: touch;
+}
+.page { display: none; min-height: 100%; padding-bottom: 70px; }
+.page.active { display: block; animation: fadeIn 0.2s ease; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ===== 底部TabBar ===== */
+.tab-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: var(--bg-1);
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 50;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+.tab-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  cursor: pointer;
+  color: var(--text-3);
+  font-size: 10px;
+  padding: 6px 16px;
+  transition: color 0.2s;
+}
+.tab-item.active { color: var(--primary); }
+.tab-item svg { width: 22px; height: 22px; }
+
+/* ===== 通用组件 ===== */
+.header {
+  background: var(--bg-1);
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.header .back-btn {
+  width: 32px; height: 32px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; border-radius: 50%;
+  transition: background 0.2s;
+}
+.header .back-btn:active { background: var(--bg-2); }
+.header .title { font-size: 17px; font-weight: 600; flex: 1; text-align: center; margin-right: 32px; }
+
+.card {
+  background: var(--bg-1);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  margin: 12px 16px;
+  box-shadow: var(--shadow-sm);
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px 20px;
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s;
+}
+.btn-primary { background: var(--primary); color: #fff; }
+.btn-primary:active { background: var(--primary-dark); }
+.btn-outline { background: var(--bg-1); color: var(--primary); border: 1px solid var(--primary); }
+.btn-block { width: 100%; }
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  background: var(--primary-light);
+  color: var(--primary);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.tag:active { opacity: 0.7; }
+.tag .remove { margin-left: 4px; opacity: 0.6; }
+
+/* ===== 首页 ===== */
+.home-hero {
+  background: linear-gradient(135deg, #1677FF 0%, #0958D9 100%);
+  padding: 20px 16px 24px;
+  color: #fff;
+}
+.home-hero .greeting { font-size: 13px; opacity: 0.85; margin-bottom: 4px; }
+.home-hero .slogan { font-size: 20px; font-weight: 700; margin-bottom: 16px; }
+.search-box {
+  background: #fff;
+  border-radius: var(--radius-md);
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: var(--shadow-md);
+}
+.search-box input {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  color: var(--text-1);
+  background: transparent;
+}
+.search-box input::placeholder { color: var(--text-3); }
+.search-box .search-btn {
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 13px;
+  cursor: pointer;
+}
+.hot-searches {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
+.hot-searches .hot-tag {
+  background: rgba(255,255,255,0.2);
+  color: #fff;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 11px;
+  cursor: pointer;
+}
+.section-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 20px 16px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.section-title .more { font-size: 12px; color: var(--text-3); font-weight: 400; cursor: pointer; }
+
+/* 场景入口网格 */
+.scene-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  padding: 0 16px;
+}
+.scene-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+.scene-item .icon {
+  width: 48px; height: 48px;
+  border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px;
+}
+.scene-item .label { font-size: 12px; color: var(--text-2); text-align: center; }
+
+/* 紧急电话栏 */
+.emergency-bar {
+  background: linear-gradient(135deg, #FFF2F0 0%, #FFECE8 100%);
+  margin: 16px;
+  border-radius: var(--radius-md);
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border: 1px solid #FFCCC7;
+}
+.emergency-bar .em-icon {
+  width: 40px; height: 40px;
+  background: var(--danger);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  color: #fff; font-size: 18px;
+  flex-shrink: 0;
+}
+.emergency-bar .em-text { flex: 1; }
+.emergency-bar .em-title { font-size: 14px; font-weight: 600; color: var(--danger); }
+.emergency-bar .em-desc { font-size: 11px; color: var(--text-2); margin-top: 2px; }
+.emergency-bar .em-call {
+  background: var(--danger);
+  color: #fff;
+  padding: 6px 14px;
+  border-radius: 16px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+/* 高频话术 */
+.script-list { padding: 0 16px; }
+.script-item {
+  background: var(--bg-1);
+  border-radius: var(--radius-md);
+  padding: 14px;
+  margin-bottom: 10px;
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+.script-item .s-icon {
+  width: 36px; height: 36px;
+  background: var(--success-light);
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.script-item .s-content { flex: 1; }
+.script-item .s-title { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+.script-item .s-desc { font-size: 12px; color: var(--text-3); line-height: 1.4; }
+.script-item .s-meta { display: flex; gap: 8px; margin-top: 6px; }
+.script-item .s-meta span { font-size: 11px; color: var(--text-3); }
+
+/* ===== 搜索页 ===== */
+.search-page-header {
+  background: var(--bg-1);
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 1px solid var(--border);
+}
+.search-page-header .back-btn {
+  width: 32px; height: 32px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; flex-shrink: 0;
+}
+.search-page-header .search-input-wrap {
+  flex: 1;
+  background: var(--bg-2);
+  border-radius: 20px;
+  padding: 8px 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.search-page-header .search-input-wrap input {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  background: transparent;
+}
+.search-page-header .search-action {
+  color: var(--primary);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.search-history, .search-hot { padding: 16px; }
+.search-history .sh-header, .search-hot .sh-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.search-history .sh-title, .search-hot .sh-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-2);
+}
+.search-history .sh-clear { font-size: 12px; color: var(--text-3); cursor: pointer; }
+.sh-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.sh-tags .sh-tag {
+  background: var(--bg-1);
+  padding: 6px 12px;
+  border-radius: 16px;
+  font-size: 12px;
+  color: var(--text-2);
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+}
+.sh-tags .sh-tag.hot { color: var(--danger); }
+
+/* ===== 场景选项卡页 ===== */
+.scene-picker {
+  padding: 16px;
+}
+.scene-picker .sp-header {
+  text-align: center;
+  margin-bottom: 16px;
+}
+.scene-picker .sp-title {
+  font-size: 17px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+.scene-picker .sp-subtitle {
+  font-size: 12px;
+  color: var(--text-3);
+}
+.keyword-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  margin: 12px 0 20px;
+}
+.keyword-tags .kw-tag {
+  background: var(--primary-light);
+  color: var(--primary);
+  padding: 5px 12px;
+  border-radius: 14px;
+  font-size: 13px;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+}
+.keyword-tags .kw-tag .remove {
+  opacity: 0.6;
+  font-size: 11px;
+}
+.scene-cards { display: flex; flex-direction: column; gap: 12px; }
+.scene-card {
+  background: var(--bg-1);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: all 0.2s;
+}
+.scene-card:active { border-color: var(--primary); transform: scale(0.98); }
+.scene-card .sc-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+.scene-card .sc-icon {
+  width: 40px; height: 40px;
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+.scene-card .sc-title { font-size: 15px; font-weight: 600; flex: 1; }
+.scene-card .sc-score {
+  font-size: 11px;
+  color: var(--success);
+  background: var(--success-light);
+  padding: 2px 8px;
+  border-radius: 10px;
+}
+.scene-card .sc-desc { font-size: 12px; color: var(--text-3); margin-bottom: 10px; line-height: 1.5; }
+.scene-card .sc-meta { display: flex; gap: 12px; }
+.scene-card .sc-meta .meta-item {
+  font-size: 11px;
+  color: var(--text-2);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.scene-picker .sp-footer {
+  text-align: center;
+  margin-top: 20px;
+  padding: 14px;
+  background: var(--bg-1);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  font-size: 13px;
+  color: var(--text-2);
+  box-shadow: var(--shadow-sm);
+}
+.scene-picker .sp-footer:active { background: var(--bg-2); }
+
+/* ===== 搜索结果页 ===== */
+.result-tabs {
+  display: flex;
+  background: var(--bg-1);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 5;
+}
+.result-tab {
+  flex: 1;
+  text-align: center;
+  padding: 12px 0;
+  font-size: 14px;
+  color: var(--text-2);
+  cursor: pointer;
+  position: relative;
+}
+.result-tab.active { color: var(--primary); font-weight: 600; }
+.result-tab.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 24px;
+  height: 3px;
+  background: var(--primary);
+  border-radius: 2px;
+}
+.result-count {
+  padding: 12px 16px;
+  font-size: 12px;
+  color: var(--text-3);
+}
+.result-item {
+  background: var(--bg-1);
+  margin: 0 16px 10px;
+  border-radius: var(--radius-md);
+  padding: 14px;
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+}
+.result-item .ri-title {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.result-item .ri-title .ri-type {
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: 500;
+}
+.result-item .ri-title .ri-type.channel { background: var(--primary-light); color: var(--primary); }
+.result-item .ri-title .ri-type.script { background: var(--success-light); color: var(--success); }
+.result-item .ri-desc { font-size: 12px; color: var(--text-3); line-height: 1.5; margin-bottom: 8px; }
+.result-item .ri-meta { display: flex; gap: 12px; }
+.result-item .ri-meta span { font-size: 11px; color: var(--text-3); }
+.highlight { color: var(--danger); font-weight: 600; }
+.no-result {
+  text-align: center;
+  padding: 60px 20px;
+}
+.no-result .nr-icon { font-size: 48px; margin-bottom: 16px; opacity: 0.5; }
+.no-result .nr-title { font-size: 16px; font-weight: 600; margin-bottom: 8px; color: var(--text-2); }
+.no-result .nr-desc { font-size: 13px; color: var(--text-3); margin-bottom: 20px; }
+.no-result .nr-suggestions { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+
+/* ===== 渠道详情页 ===== */
+.channel-hero {
+  background: linear-gradient(135deg, #1677FF 0%, #0958D9 100%);
+  padding: 20px 16px 24px;
+  color: #fff;
+}
+.channel-hero .ch-name { font-size: 20px; font-weight: 700; margin-bottom: 6px; }
+.channel-hero .ch-desc { font-size: 13px; opacity: 0.85; line-height: 1.5; }
+.channel-hero .ch-tags { display: flex; gap: 6px; margin-top: 12px; flex-wrap: wrap; }
+.channel-hero .ch-tags span {
+  background: rgba(255,255,255,0.2);
+  padding: 3px 10px;
+  border-radius: 10px;
+  font-size: 11px;
+}
+.contact-section { margin: -12px 16px 0; position: relative; z-index: 2; }
+.contact-card {
+  background: var(--bg-1);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  box-shadow: var(--shadow-md);
+  margin-bottom: 12px;
+}
+.contact-card .cc-title {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--bg-2);
+}
+.contact-item:last-child { border-bottom: none; }
+.contact-item .ci-icon {
+  width: 36px; height: 36px;
+  background: var(--primary-light);
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.contact-item .ci-content { flex: 1; }
+.contact-item .ci-label { font-size: 11px; color: var(--text-3); }
+.contact-item .ci-value { font-size: 14px; font-weight: 500; color: var(--text-1); margin-top: 2px; }
+.contact-item .ci-action {
+  color: var(--primary);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 6px 12px;
+  background: var(--primary-light);
+  border-radius: 14px;
+}
+.section-block { margin: 16px; }
+.section-block .sb-title {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.law-list { display: flex; flex-direction: column; gap: 8px; }
+.law-item {
+  background: var(--bg-1);
+  border-radius: var(--radius-sm);
+  padding: 12px;
+  border-left: 3px solid var(--warning);
+}
+.law-item .law-name { font-size: 13px; font-weight: 600; margin-bottom: 4px; }
+.law-item .law-content { font-size: 12px; color: var(--text-3); line-height: 1.5; }
+.related-scripts { display: flex; flex-direction: column; gap: 8px; }
+.rs-item {
+  background: var(--bg-1);
+  border-radius: var(--radius-sm);
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+.rs-item .rs-icon {
+  width: 32px; height: 32px;
+  background: var(--success-light);
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.rs-item .rs-name { font-size: 13px; font-weight: 500; flex: 1; }
+.rs-item .rs-arrow { color: var(--text-3); }
+.bottom-action-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--bg-1);
+  padding: 10px 16px;
+  display: flex;
+  gap: 10px;
+  border-top: 1px solid var(--border);
+  z-index: 20;
+}
+.bottom-action-bar .btn { flex: 1; }
+
+/* ===== 话术详情页 ===== */
+.script-hero {
+  background: linear-gradient(135deg, #52C41A 0%, #389E0D 100%);
+  padding: 20px 16px 24px;
+  color: #fff;
+}
+.script-hero .sh-name { font-size: 20px; font-weight: 700; margin-bottom: 6px; }
+.script-hero .sh-desc { font-size: 13px; opacity: 0.85; }
+.script-tabs {
+  display: flex;
+  background: var(--bg-1);
+  margin: -12px 16px 0;
+  border-radius: var(--radius-md);
+  padding: 4px;
+  box-shadow: var(--shadow-md);
+  position: relative;
+  z-index: 2;
+}
+.script-tab {
+  flex: 1;
+  text-align: center;
+  padding: 8px 0;
+  font-size: 13px;
+  color: var(--text-2);
+  cursor: pointer;
+  border-radius: 8px;
+  transition: all 0.2s;
+}
+.script-tab.active { background: var(--success); color: #fff; font-weight: 500; }
+.script-content {
+  margin: 16px;
+  background: var(--bg-1);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  box-shadow: var(--shadow-sm);
+}
+.script-content .sc-label {
+  font-size: 12px;
+  color: var(--text-3);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.script-text {
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--text-1);
+  white-space: pre-wrap;
+}
+.script-text .placeholder {
+  background: var(--warning-light);
+  color: var(--warning);
+  padding: 1px 4px;
+  border-radius: 3px;
+  font-weight: 500;
+}
+.evidence-list { margin: 16px; }
+.evidence-list .el-title {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+.evidence-item {
+  background: var(--bg-1);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+}
+.evidence-item .ev-num {
+  width: 20px; height: 20px;
+  background: var(--primary-light);
+  color: var(--primary);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+/* ===== 分类页 ===== */
+.category-layout { display: flex; height: 100%; }
+.category-sidebar {
+  width: 90px;
+  background: var(--bg-2);
+  flex-shrink: 0;
+  overflow-y: auto;
+}
+.cat-sidebar-item {
+  padding: 14px 8px;
+  text-align: center;
+  font-size: 12px;
+  color: var(--text-2);
+  cursor: pointer;
+  border-left: 3px solid transparent;
+  transition: all 0.2s;
+}
+.cat-sidebar-item.active {
+  background: var(--bg-1);
+  color: var(--primary);
+  font-weight: 600;
+  border-left-color: var(--primary);
+}
+.category-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 12px;
+}
+.cat-group-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-2);
+  margin: 8px 4px 10px;
+}
+.cat-channel-item {
+  background: var(--bg-1);
+  border-radius: var(--radius-sm);
+  padding: 12px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+}
+.cat-channel-item .cci-name { font-size: 13px; font-weight: 600; margin-bottom: 4px; }
+.cat-channel-item .cci-desc { font-size: 11px; color: var(--text-3); line-height: 1.4; }
+
+/* ===== 我的页 ===== */
+.profile-header {
+  background: linear-gradient(135deg, #1677FF 0%, #0958D9 100%);
+  padding: 30px 16px 40px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.profile-header .avatar {
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 24px;
+  flex-shrink: 0;
+}
+.profile-header .p-info .p-name { font-size: 18px; font-weight: 600; }
+.profile-header .p-info .p-desc { font-size: 12px; opacity: 0.8; margin-top: 4px; }
+.stats-bar {
+  margin: -20px 16px 0;
+  background: var(--bg-1);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  display: flex;
+  box-shadow: var(--shadow-md);
+  position: relative;
+  z-index: 2;
+}
+.stats-bar .stat-item {
+  flex: 1;
+  text-align: center;
+}
+.stats-bar .stat-num { font-size: 20px; font-weight: 700; color: var(--primary); }
+.stats-bar .stat-label { font-size: 11px; color: var(--text-3); margin-top: 4px; }
+.tool-list { margin: 16px; }
+.tool-item {
+  background: var(--bg-1);
+  border-radius: var(--radius-md);
+  padding: 14px 16px;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+}
+.tool-item .t-icon {
+  width: 36px; height: 36px;
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.tool-item .t-name { font-size: 14px; font-weight: 500; flex: 1; }
+.tool-item .t-desc { font-size: 11px; color: var(--text-3); }
+.tool-item .t-arrow { color: var(--text-4); }
+
+/* ===== Toast ===== */
+.toast {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0,0,0,0.75);
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 13px;
+  z-index: 999;
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+.toast.show { opacity: 1; }
+</style>
+</head>
+<body>
+
+<div class="phone-frame">
+  <div class="phone-notch"></div>
+  <div class="status-bar">
+    <span>9:41</span>
+    <div class="right">
+      <svg width="16" height="12" viewBox="0 0 16 12" fill="currentColor"><path d="M1 8h2v3H1zM5 6h2v5H5zM9 4h2v7H9zM13 1h2v10h-2z"/></svg>
+      <svg width="16" height="12" viewBox="0 0 16 12" fill="currentColor"><path d="M8 2C5.5 2 3.2 2.9 1.5 4.5L0 3C2.1 1.1 4.9 0 8 0s5.9 1.1 8 3l-1.5 1.5C12.8 2.9 10.5 2 8 2zm0 4c-1.4 0-2.7.5-3.7 1.4L2.8 6C4.2 4.7 6 4 8 4s3.8.7 5.2 2l-1.5 1.4C10.7 6.5 9.4 6 8 6zm0 4c-.7 0-1.3.3-1.8.7L8 14l1.8-1.3c-.5-.4-1.1-.7-1.8-.7z"/></svg>
+      <svg width="24" height="12" viewBox="0 0 24 12" fill="none"><rect x="1" y="1" width="20" height="10" rx="2" stroke="currentColor" opacity="0.4"/><rect x="3" y="3" width="15" height="6" rx="1" fill="currentColor"/><rect x="22" y="4" width="1.5" height="4" rx="0.5" fill="currentColor" opacity="0.4"/></svg>
+    </div>
+  </div>
+
+  <div class="app-container" id="appContainer">
+
+    <!-- ===== 首页 ===== -->
+    <section class="page active" id="page-home">
+      <div class="home-hero">
+        <div class="greeting">你好，维权人</div>
+        <div class="slogan">遇到问题，一键找到维权渠道</div>
+        <div class="search-box">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#86909C" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          <input type="text" id="homeSearchInput" placeholder="描述你遇到的问题，如：快递被偷了" onkeypress="if(event.key==='Enter')doHomeSearch()">
+          <button class="search-btn" onclick="doHomeSearch()">搜索</button>
+        </div>
+        <div class="hot-searches">
+          <span class="hot-tag" onclick="quickSearch('快递丢失')">快递丢失</span>
+          <span class="hot-tag" onclick="quickSearch('商家不退款')">商家不退款</span>
+          <span class="hot-tag" onclick="quickSearch('话费乱扣')">话费乱扣</span>
+          <span class="hot-tag" onclick="quickSearch('老板欠薪')">老板欠薪</span>
+        </div>
+      </div>
+
+      <div class="section-title">我遇到了什么问题</div>
+      <div class="scene-grid">
+        <div class="scene-item" onclick="quickSearch('快递丢失')">
+          <div class="icon" style="background:#E6F4FF;">📦</div>
+          <div class="label">快递问题</div>
+        </div>
+        <div class="scene-item" onclick="quickSearch('话费乱扣')">
+          <div class="icon" style="background:#F6FFED;">📱</div>
+          <div class="label">手机宽带</div>
+        </div>
+        <div class="scene-item" onclick="quickSearch('商家不退款')">
+          <div class="icon" style="background:#FFFBE6;">🛒</div>
+          <div class="label">消费购物</div>
+        </div>
+        <div class="scene-item" onclick="quickSearch('物业不作为')">
+          <div class="icon" style="background:#FFF2F0;">🏠</div>
+          <div class="label">房产物业</div>
+        </div>
+        <div class="scene-item" onclick="quickSearch('老板欠薪')">
+          <div class="icon" style="background:#F9F0FF;">💼</div>
+          <div class="label">劳动工资</div>
+        </div>
+        <div class="scene-item" onclick="quickSearch('银行误导')">
+          <div class="icon" style="background:#E6FFFB;">💰</div>
+          <div class="label">金融保险</div>
+        </div>
+        <div class="scene-item" onclick="quickSearch('医院乱收费')">
+          <div class="icon" style="background:#FFF0F6;">🏥</div>
+          <div class="label">医疗教育</div>
+        </div>
+        <div class="scene-item" onclick="quickSearch('电信诈骗')">
+          <div class="icon" style="background:#F0F5FF;">🛡️</div>
+          <div class="label">被骗举报</div>
+        </div>
+      </div>
+
+      <div class="emergency-bar">
+        <div class="em-icon">🚨</div>
+        <div class="em-text">
+          <div class="em-title">紧急维权电话</div>
+          <div class="em-desc">遇到紧急情况，立即拨打</div>
+        </div>
+        <div class="em-call" onclick="showToast('正在拨打110...')">110</div>
+      </div>
+
+      <div class="section-title">高频投诉话术 <span class="more" onclick="switchTab('profile')">更多 ›</span></div>
+      <div class="script-list">
+        <div class="script-item" onclick="goScriptDetail('sc_001')">
+          <div class="s-icon">📞</div>
+          <div class="s-content">
+            <div class="s-title">快递丢失投诉话术</div>
+            <div class="s-desc">适用于快递丢失、破损、延误等场景，含电话版和书面版</div>
+            <div class="s-meta"><span>📞 电话版</span><span>📝 书面版</span><span>⭐ 1.2万人使用</span></div>
+          </div>
+        </div>
+        <div class="script-item" onclick="goScriptDetail('sc_002')">
+          <div class="s-icon">📞</div>
+          <div class="s-content">
+            <div class="s-title">运营商乱扣费投诉话术</div>
+            <div class="s-desc">适用于话费莫名被扣、未经同意开通业务等场景</div>
+            <div class="s-meta"><span>📞 电话版</span><span>📝 书面版</span><span>⭐ 8千人使用</span></div>
+          </div>
+        </div>
+        <div class="script-item" onclick="goScriptDetail('sc_003')">
+          <div class="s-icon">📞</div>
+          <div class="s-content">
+            <div class="s-title">商家不退款投诉话术</div>
+            <div class="s-desc">适用于网购退款难、商家拒绝退货等场景</div>
+            <div class="s-meta"><span>📞 电话版</span><span>📝 书面版</span><span>⭐ 1.5万人使用</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 场景选项卡页 ===== -->
+    <section class="page" id="page-scene-picker">
+      <div class="header">
+        <div class="back-btn" onclick="goBack()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg>
+        </div>
+        <div class="title">选择你的场景</div>
+      </div>
+      <div class="scene-picker">
+        <div class="sp-header">
+          <div class="sp-title">为你找到以下相关场景</div>
+          <div class="sp-subtitle">根据你描述的关键词匹配，请选择最符合的场景</div>
+        </div>
+        <div class="keyword-tags" id="keywordTags"></div>
+        <div class="scene-cards" id="sceneCards"></div>
+        <div class="sp-footer" onclick="switchTab('category')">以上都不是，查看全部分类 ›</div>
+      </div>
+    </section>
+
+    <!-- ===== 搜索结果页 ===== -->
+    <section class="page" id="page-result">
+      <div class="header">
+        <div class="back-btn" onclick="goBack()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg>
+        </div>
+        <div class="title" id="resultTitle">搜索结果</div>
+      </div>
+      <div class="result-tabs">
+        <div class="result-tab active" onclick="switchResultTab(this,'all')">全部</div>
+        <div class="result-tab" onclick="switchResultTab(this,'channel')">渠道</div>
+        <div class="result-tab" onclick="switchResultTab(this,'script')">话术</div>
+      </div>
+      <div class="result-count" id="resultCount">共找到 3 条结果</div>
+      <div id="resultList"></div>
+    </section>
+
+    <!-- ===== 渠道详情页 ===== -->
+    <section class="page" id="page-channel-detail">
+      <div class="channel-hero">
+        <div class="ch-name" id="channelName">12305 邮政业消费者申诉</div>
+        <div class="ch-desc" id="channelDesc">国家邮政局申诉网站，专门处理快递、邮政服务投诉，是快递维权最有效的渠道</div>
+        <div class="ch-tags">
+          <span>快递物流</span>
+          <span>官方渠道</span>
+          <span>免费</span>
+        </div>
+      </div>
+      <div class="contact-section">
+        <div class="contact-card">
+          <div class="cc-title">📞 联系方式</div>
+          <div class="contact-item">
+            <div class="ci-icon">📞</div>
+            <div class="ci-content">
+              <div class="ci-label">投诉电话</div>
+              <div class="ci-value">12305</div>
+            </div>
+            <div class="ci-action" onclick="showToast('正在拨打12305...')">拨打</div>
+          </div>
+          <div class="contact-item">
+            <div class="ci-icon">🌐</div>
+            <div class="ci-content">
+              <div class="ci-label">官方网站</div>
+              <div class="ci-value">sswz.spb.gov.cn</div>
+            </div>
+            <div class="ci-action" onclick="showToast('正在打开网站...')">访问</div>
+          </div>
+          <div class="contact-item">
+            <div class="ci-icon">⏰</div>
+            <div class="ci-content">
+              <div class="ci-label">工作时间</div>
+              <div class="ci-value">工作日 8:30-17:30</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-block">
+        <div class="sb-title">📋 投诉流程</div>
+        <div class="law-list">
+          <div class="law-item" style="border-left-color:var(--primary);">
+            <div class="law-name">第一步：先向快递公司投诉</div>
+            <div class="law-content">拨打快递公司客服电话，要求处理并记录工单号。如7日内未处理或对结果不满意，再向12305申诉。</div>
+          </div>
+          <div class="law-item" style="border-left-color:var(--primary);">
+            <div class="law-name">第二步：登录12305网站或拨打电话</div>
+            <div class="law-content">提供快递单号、快递公司名称、投诉事项、联系方式、期望处理结果。</div>
+          </div>
+          <div class="law-item" style="border-left-color:var(--primary);">
+            <div class="law-name">第三步：等待处理结果</div>
+            <div class="law-content">一般15个工作日内处理完毕，处理结果会通过电话或短信通知。</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-block">
+        <div class="sb-title">⚖️ 法律依据</div>
+        <div class="law-list">
+          <div class="law-item">
+            <div class="law-name">《快递暂行条例》第二十七条</div>
+            <div class="law-content">快件延误、丢失、损毁或者内件短少的，对保价的快件，应当按照经营快递业务的企业与寄件人约定的保价规则确定赔偿责任；对未保价的快件，依照民事法律的有关规定确定赔偿责任。</div>
+          </div>
+          <div class="law-item">
+            <div class="law-name">《邮政法》第四十七条</div>
+            <div class="law-content">邮政企业对给据邮件的损失依照下列规定赔偿：保价的给据邮件丢失或者全部损毁的，按照保价额赔偿。</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-block">
+        <div class="sb-title">💬 关联话术</div>
+        <div class="related-scripts">
+          <div class="rs-item" onclick="goScriptDetail('sc_001')">
+            <div class="rs-icon">📞</div>
+            <div class="rs-name">快递丢失投诉话术</div>
+            <div class="rs-arrow">›</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bottom-action-bar">
+        <button class="btn btn-outline" onclick="showToast('已收藏')">⭐ 收藏</button>
+        <button class="btn btn-primary" onclick="showToast('正在拨打12305...')">📞 立即投诉</button>
+      </div>
+    </section>
+
+    <!-- ===== 话术详情页 ===== -->
+    <section class="page" id="page-script-detail">
+      <div class="script-hero">
+        <div class="sh-name" id="scriptName">快递丢失投诉话术</div>
+        <div class="sh-desc">适用于快递丢失、破损、延误等场景</div>
+      </div>
+      <div class="script-tabs">
+        <div class="script-tab active" onclick="switchScriptTab(this,'phone')">📞 电话版</div>
+        <div class="script-tab" onclick="switchScriptTab(this,'written')">📝 书面版</div>
+      </div>
+      <div class="script-content" id="scriptContent">
+        <div class="sc-label">💡 电话投诉时，按照以下话术表达，条理清晰、有理有据</div>
+        <div class="script-text" id="scriptText">您好，我要投诉。
+
+我的快递单号是<span class="placeholder">[快递单号]</span>，由<span class="placeholder">[快递公司名称]</span>承运，于<span class="placeholder">[日期]</span>从<span class="placeholder">[发货地]</span>发往<span class="placeholder">[收货地]</span>。
+
+该快递于<span class="placeholder">[日期]</span>显示已签收，但我本人并未收到，也未接到快递员电话。我联系了快递公司客服，对方表示无法处理/只愿意赔偿运费三倍。
+
+根据《快递暂行条例》第二十七条，快件丢失的，快递公司应当承担赔偿责任。我要求：
+1. 立即查找快递下落；
+2. 如确认丢失，按照物品实际价值<span class="placeholder">[金额]</span>元赔偿；
+3. 书面道歉并说明处理结果。
+
+请在7个工作日内给予答复，否则我将向国家邮政局12305申诉。
+
+我的联系方式是<span class="placeholder">[电话号码]</span>，工单号请记录为<span class="placeholder">[工单号]</span>。</div>
+      </div>
+
+      <div class="evidence-list">
+        <div class="el-title">📎 投诉前请准备好以下证据</div>
+        <div class="evidence-item"><div class="ev-num">1</div>快递单号截图</div>
+        <div class="evidence-item"><div class="ev-num">2</div>物流信息截图（显示已签收）</div>
+        <div class="evidence-item"><div class="ev-num">3</div>物品价值证明（购买记录/发票）</div>
+        <div class="evidence-item"><div class="ev-num">4</div>与快递公司客服的沟通记录</div>
+        <div class="evidence-item"><div class="ev-num">5</div>未收到快递的证明（监控/邻居证言）</div>
+      </div>
+
+      <div class="bottom-action-bar">
+        <button class="btn btn-outline" onclick="showToast('已复制话术')">📋 复制话术</button>
+        <button class="btn btn-primary" onclick="showToast('已收藏')">⭐ 收藏话术</button>
+      </div>
+    </section>
+
+    <!-- ===== 分类页 ===== -->
+    <section class="page" id="page-category">
+      <div class="header">
+        <div class="title" style="margin-right:0;">全部分类</div>
+      </div>
+      <div class="category-layout" style="height: calc(100% - 53px);">
+        <div class="category-sidebar" id="catSidebar">
+          <div class="cat-sidebar-item active" onclick="switchCategory(this,0)">快递物流</div>
+          <div class="cat-sidebar-item" onclick="switchCategory(this,1)">电信运营</div>
+          <div class="cat-sidebar-item" onclick="switchCategory(this,2)">消费购物</div>
+          <div class="cat-sidebar-item" onclick="switchCategory(this,3)">金融保险</div>
+          <div class="cat-sidebar-item" onclick="switchCategory(this,4)">房产物业</div>
+          <div class="cat-sidebar-item" onclick="switchCategory(this,5)">劳动用工</div>
+          <div class="cat-sidebar-item" onclick="switchCategory(this,6)">医疗教育</div>
+          <div class="cat-sidebar-item" onclick="switchCategory(this,7)">环保城管</div>
+          <div class="cat-sidebar-item" onclick="switchCategory(this,8)">政务纪检</div>
+          <div class="cat-sidebar-item" onclick="switchCategory(this,9)">网络安全</div>
+        </div>
+        <div class="category-content" id="catContent"></div>
+      </div>
+    </section>
+
+    <!-- ===== 我的页 ===== -->
+    <section class="page" id="page-profile">
+      <div class="profile-header">
+        <div class="avatar">👤</div>
+        <div class="p-info">
+          <div class="p-name">维权用户</div>
+          <div class="p-desc">已帮助 12 次维权</div>
+        </div>
+      </div>
+      <div class="stats-bar">
+        <div class="stat-item">
+          <div class="stat-num">12</div>
+          <div class="stat-label">收藏渠道</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">8</div>
+          <div class="stat-label">收藏话术</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">23</div>
+          <div class="stat-label">搜索次数</div>
+        </div>
+      </div>
+      <div class="tool-list">
+        <div class="tool-item" onclick="showToast('功能开发中')">
+          <div class="t-icon" style="background:#E6F4FF;">📋</div>
+          <div class="t-name">我的投诉记录</div>
+          <div class="t-arrow">›</div>
+        </div>
+        <div class="tool-item" onclick="showToast('功能开发中')">
+          <div class="t-icon" style="background:#F6FFED;">⭐</div>
+          <div class="t-name">我的收藏</div>
+          <div class="t-arrow">›</div>
+        </div>
+        <div class="tool-item" onclick="showToast('功能开发中')">
+          <div class="t-icon" style="background:#FFFBE6;">📝</div>
+          <div class="t-name">证据管理</div>
+          <div class="t-arrow">›</div>
+        </div>
+        <div class="tool-item" onclick="showToast('功能开发中')">
+          <div class="t-icon" style="background:#FFF2F0;">⏰</div>
+          <div class="t-name">投诉进度提醒</div>
+          <div class="t-arrow">›</div>
+        </div>
+        <div class="tool-item" onclick="showToast('功能开发中')">
+          <div class="t-icon" style="background:#F9F0FF;">⚖️</div>
+          <div class="t-name">法律法规库</div>
+          <div class="t-arrow">›</div>
+        </div>
+        <div class="tool-item" onclick="showToast('功能开发中')">
+          <div class="t-icon" style="background:#E6FFFB;">💬</div>
+          <div class="t-name">意见反馈</div>
+          <div class="t-arrow">›</div>
+        </div>
+        <div class="tool-item" onclick="showToast('维权通 v1.0.0 MVP版')">
+          <div class="t-icon" style="background:#F0F5FF;">ℹ️</div>
+          <div class="t-name">关于我们</div>
+          <div class="t-arrow">›</div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- ===== 底部TabBar ===== -->
+  <div class="tab-bar">
+    <div class="tab-item active" data-page="home" onclick="switchTab('home')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      <span>首页</span>
+    </div>
+    <div class="tab-item" data-page="category" onclick="switchTab('category')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+      <span>分类</span>
+    </div>
+    <div class="tab-item" data-page="profile" onclick="switchTab('profile')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      <span>我的</span>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ===== 关键词词库 =====
+const KEYWORDS = {
+  domain: {
+    '快递物流': ['快递','快件','包裹','物流','圆通','中通','申通','韵达','顺丰','极兔','邮政','EMS','驿站','快递员','快递站','快递柜','丰巢'],
+    '电信运营': ['电信','话费','流量','宽带','运营商','移动','联通','扣费','增值业务','手机卡','套餐','信号','网速'],
+    '消费购物': ['消费','购物','商家','退款','退货','假货','虚假宣传','淘宝','京东','拼多多','外卖','电商','网购','卖家','店铺','客服','平台'],
+    '金融保险': ['银行','保险','证券','基金','理财','贷款','信用卡','金融','误导销售','扣费','转账'],
+    '房产物业': ['物业','房产','租房','房东','业主','电梯','小区','物业费','房屋质量','中介','房租','押金'],
+    '劳动用工': ['劳动','工资','欠薪','老板','公司','工厂','社保','公积金','加班','辞退','工伤','入职','离职'],
+    '医疗教育': ['医院','医疗','医生','药品','教育','学校','老师','学费','培训','补课','挂号','手术'],
+    '环保城管': ['环保','污染','噪音','噪声','城管','占道','垃圾','臭气','污水','油烟'],
+    '政务纪检': ['政府','公职','官员','不作为','推诿','纪检','举报','信访','督查','办事','审批'],
+    '网络安全': ['诈骗','被骗','个人信息','骚扰电话','短信','网络','账号','盗号','刷单','传销']
+  },
+  issue: {
+    '丢失': ['丢失','丢了','被偷','不见了','遗失','没收到','签收未收到','被盗'],
+    '破损': ['破损','坏了','损坏','碎了','变形','污染','少件','漏了'],
+    '延误': ['延误','延迟','慢','迟迟不到','卡了','停滞','不更新','超时'],
+    '乱收费': ['乱收费','多收钱','加价','扣费','莫名其妙扣钱','强制收费','变相收费','乱扣钱'],
+    '不退款': ['不退款','不给退','拒绝退款','不退钱','拖延退款','退款难','不肯退'],
+    '假货': ['假货','山寨','假冒','伪劣','翻新','以次充好','虚假宣传','货不对板'],
+    '不作为': ['不作为','不管','没人管','推诿','踢皮球','拖延','敷衍','慢作为','不处理'],
+    '欠薪': ['欠薪','拖欠工资','不发工资','克扣工资','少发工资','工资条'],
+    '服务态度': ['态度差','骂人','凶','不耐烦','拒绝服务','挂电话','辱骂'],
+    '安全': ['诈骗','被骗','盗刷','偷钱','威胁','恐吓','人身安全','被打'],
+    '质量': ['质量差','有问题','故障','不达标','不合格','次品'],
+    '合同': ['违约','不履行','霸王条款','格式条款','单方面变更','毁约']
+  },
+  target: {
+    '快递公司': ['快递公司','快递员','快递站','驿站','网点'],
+    '运营商': ['运营商','移动公司','联通公司','电信公司','营业厅'],
+    '商家': ['商家','卖家','店铺','网店','客服','平台'],
+    '物业': ['物业','物业公司','物业管家','物业经理','业委会'],
+    '雇主': ['老板','公司','用人单位','工厂','主管','HR','人事'],
+    '医院': ['医院','医生','护士','诊所','药店','药企'],
+    '学校': ['学校','老师','培训机构','校长','教育局']
+  }
+};
+
+// 场景映射
+const SCENES = [
+  { id:'scene_001', name:'快递丢失/被偷', icon:'📦', color:'#E6F4FF', desc:'快递丢失、被偷、签收未收到，推荐12305邮政申诉', keywords:['快递','丢失'], matchMode:'all', channels:['ch_002'], scripts:['sc_001'], priority:100 },
+  { id:'scene_002', name:'快递破损/少件', icon:'📦', color:'#FFFBE6', desc:'快递破损、损坏、少件，推荐12305邮政申诉', keywords:['快递','破损'], matchMode:'all', channels:['ch_002'], scripts:['sc_001'], priority:95 },
+  { id:'scene_003', name:'快递延误/停滞', icon:'📦', color:'#F6FFED', desc:'快递延误、物流停滞、迟迟不到，推荐12305邮政申诉', keywords:['快递','延误'], matchMode:'all', channels:['ch_002'], scripts:['sc_001'], priority:90 },
+  { id:'scene_004', name:'快递员服务态度差', icon:'📦', color:'#FFF2F0', desc:'快递员态度差、骂人、拒绝送货上门，推荐12305', keywords:['快递','服务态度'], matchMode:'all', channels:['ch_002'], scripts:[], priority:80 },
+  { id:'scene_005', name:'运营商乱扣费', icon:'📱', color:'#E6F4FF', desc:'话费莫名被扣、未经同意开通业务，推荐12300工信部', keywords:['电信','乱收费'], matchMode:'all', channels:['ch_001'], scripts:['sc_002'], priority:100 },
+  { id:'scene_006', name:'宽带/网速问题', icon:'📱', color:'#F6FFED', desc:'宽带故障、网速不达标、运营商不处理，推荐12300', keywords:['电信','质量'], matchMode:'all', channels:['ch_001'], scripts:[], priority:85 },
+  { id:'scene_007', name:'商家不退款/退货难', icon:'🛒', color:'#FFFBE6', desc:'商家拒绝退款、拖延退款，推荐12315市场监管', keywords:['消费','不退款'], matchMode:'all', channels:['ch_004'], scripts:['sc_003'], priority:100 },
+  { id:'scene_008', name:'买到假货/虚假宣传', icon:'🛒', color:'#FFF2F0', desc:'买到假货、山寨、虚假宣传，推荐12315市场监管', keywords:['消费','假货'], matchMode:'all', channels:['ch_004'], scripts:['sc_003'], priority:95 },
+  { id:'scene_009', name:'外卖/食品安全', icon:'🛒', color:'#F6FFED', desc:'外卖有异物、食品变质、商家不处理，推荐12315', keywords:['消费','质量'], matchMode:'all', channels:['ch_004'], scripts:[], priority:80 },
+  { id:'scene_010', name:'物业不作为/乱收费', icon:'🏠', color:'#E6F4FF', desc:'物业不作为、乱收费、服务差，推荐12345+住建部门', keywords:['物业','不作为'], matchMode:'all', channels:['ch_007'], scripts:['sc_005'], priority:100 },
+  { id:'scene_011', name:'租房纠纷/押金不退', icon:'🏠', color:'#FFFBE6', desc:'房东不退押金、租房纠纷，推荐12345+法院起诉', keywords:['房产','合同'], matchMode:'all', channels:['ch_007'], scripts:[], priority:85 },
+  { id:'scene_012', name:'老板欠薪/拖欠工资', icon:'💼', color:'#F9F0FF', desc:'老板拖欠工资、不发工资，推荐全国根治欠薪平台', keywords:['劳动','欠薪'], matchMode:'all', channels:['ch_006'], scripts:[], priority:100 },
+  { id:'scene_013', name:'违法辞退/不签合同', icon:'💼', color:'#E6FFFB', desc:'公司违法辞退、不签劳动合同，推荐劳动仲裁', keywords:['劳动','合同'], matchMode:'all', channels:['ch_006'], scripts:[], priority:90 },
+  { id:'scene_014', name:'银行误导/保险坑人', icon:'💰', color:'#FFF0F6', desc:'银行误导销售、保险退保难，推荐12378银保监会', keywords:['金融','不作为'], matchMode:'all', channels:['ch_005'], scripts:[], priority:85 },
+  { id:'scene_015', name:'医院乱收费/医疗纠纷', icon:'🏥', color:'#FFF2F0', desc:'医院乱收费、医疗事故，推荐12320卫健委', keywords:['医疗','乱收费'], matchMode:'all', channels:['ch_008'], scripts:[], priority:90 },
+  { id:'scene_016', name:'教育乱收费/培训跑路', icon:'🏥', color:'#E6F4FF', desc:'教育乱收费、培训机构跑路，推荐教育局+12315', keywords:['教育','乱收费'], matchMode:'all', channels:['ch_008'], scripts:[], priority:85 },
+  { id:'scene_017', name:'噪音/环境污染', icon:'🌿', color:'#F6FFED', desc:'噪音扰民、环境污染，推荐12369环保举报', keywords:['环保','安全'], matchMode:'all', channels:['ch_009'], scripts:[], priority:80 },
+  { id:'scene_018', name:'电信诈骗/被骗钱', icon:'🛡️', color:'#F0F5FF', desc:'遭遇电信诈骗、被骗钱，立即拨打96110+110', keywords:['诈骗'], matchMode:'any', channels:['ch_099'], scripts:[], priority:100 },
+  { id:'scene_019', name:'骚扰电话/个人信息泄露', icon:'🛡️', color:'#E6FFFB', desc:'骚扰电话、个人信息泄露，推荐12321', keywords:['网络安全','安全'], matchMode:'all', channels:['ch_010'], scripts:[], priority:75 },
+  { id:'scene_020', name:'政府部门不作为', icon:'⚖️', color:'#FFFBE6', desc:'政府部门不作为、推诿扯皮，推荐12345+国务院督查', keywords:['政务','不作为'], matchMode:'all', channels:['ch_011'], scripts:[], priority:90 }
+];
+
+// 构建全量词库（用于正向最大匹配）
+const ALL_KEYWORDS = new Set();
+Object.values(KEYWORDS.domain).forEach(arr => arr.forEach(w => ALL_KEYWORDS.add(w)));
+Object.values(KEYWORDS.issue).forEach(arr => arr.forEach(w => ALL_KEYWORDS.add(w)));
+Object.values(KEYWORDS.target).forEach(arr => arr.forEach(w => ALL_KEYWORDS.add(w)));
+const MAX_KW_LENGTH = Math.max(...Array.from(ALL_KEYWORDS).map(w => w.length), 6);
+
+// ===== 关键词提取（正向最大匹配）=====
+function extractKeywords(text) {
+  if (!text || !text.trim()) return { domains:[], issues:[], targets:[], all:[], scenes:[] };
+  const matched = new Set();
+  let i = 0;
+  while (i < text.length) {
+    let matchedWord = null;
+    for (let len = Math.min(MAX_KW_LENGTH, text.length - i); len >= 1; len--) {
+      const word = text.substring(i, i + len);
+      if (ALL_KEYWORDS.has(word)) { matchedWord = word; break; }
+    }
+    if (matchedWord) { matched.add(matchedWord); i += matchedWord.length; }
+    else { i++; }
+  }
+  // 分类
+  const domains = classifyKeywords(matched, KEYWORDS.domain);
+  const issues = classifyKeywords(matched, KEYWORDS.issue);
+  const targets = classifyKeywords(matched, KEYWORDS.target);
+  // 场景匹配
+  const matchedScenes = matchScenes(matched);
+  return { domains, issues, targets, all: Array.from(matched), scenes: matchedScenes };
+}
+
+function classifyKeywords(matchedSet, categoryMap) {
+  const result = [];
+  for (const [category, keywords] of Object.entries(categoryMap)) {
+    for (const kw of keywords) {
+      if (matchedSet.has(kw)) result.push({ category, keyword: kw });
+    }
+  }
+  return result;
+}
+
+function matchScenes(matchedSet) {
+  const results = [];
+  for (const scene of SCENES) {
+    const sceneKeywords = scene.keywords || [];
+    const matchMode = scene.matchMode || 'all';
+    let matchedCount = 0;
+    for (const kw of sceneKeywords) {
+      if (matchedSet.has(kw)) matchedCount++;
+    }
+    let isMatch = false;
+    if (matchMode === 'all') isMatch = matchedCount === sceneKeywords.length;
+    else if (matchMode === 'any') isMatch = matchedCount >= 1;
+    if (isMatch) {
+      results.push({ ...scene, matchScore: matchedCount * (scene.priority || 50) });
+    }
+  }
+  return results.sort((a, b) => b.matchScore - a.matchScore);
+}
+
+// ===== 模拟渠道数据 =====
+const CHANNELS = {
+  'ch_001': { name:'12300 工信部电信用户申诉', desc:'工业和信息化部电信用户申诉受理中心，处理电信运营服务投诉' },
+  'ch_002': { name:'12305 邮政业消费者申诉', desc:'国家邮政局申诉网站，专门处理快递、邮政服务投诉' },
+  'ch_004': { name:'12315 市场监管投诉举报', desc:'全国12315平台，处理消费纠纷、假货、虚假宣传等' },
+  'ch_005': { name:'12378 银行保险消费者投诉', desc:'银保监会消费者投诉维权热线，处理银行保险纠纷' },
+  'ch_006': { name:'全国根治欠薪平台', desc:'人力资源和社会保障部全国根治欠薪线索反映平台' },
+  'ch_007': { name:'12345 政务服务便民热线', desc:'全市政务服务热线，处理物业、房产、民生等各类投诉' },
+  'ch_008': { name:'12320 卫生健康热线', desc:'国家卫生健康委员会热线，处理医疗纠纷、医院乱收费等' },
+  'ch_009': { name:'12369 环保举报热线', desc:'生态环境部举报热线，处理环境污染、噪音扰民等' },
+  'ch_010': { name:'12321 网络不良信息举报', desc:'工信部网络不良与垃圾信息举报受理中心' },
+  'ch_011': { name:'国务院"互联网+督查"平台', desc:'国务院办公厅督查室，处理政府部门不作为、政策不落实等' },
+  'ch_099': { name:'96110 反诈专线 + 110 报警', desc:'公安部反诈预警专线，遇到电信诈骗立即拨打' }
+};
+
+// 分类数据
+const CATEGORY_DATA = [
+  { name:'快递物流', items:[
+    {name:'12305 邮政业消费者申诉',desc:'快递丢失、破损、延误、服务态度'},
+    {name:'国家邮政局官网',desc:'邮政行业监管、政策查询'},
+    {name:'各快递公司总部客服',desc:'先向企业投诉，不满意再申诉'}
+  ]},
+  { name:'电信运营', items:[
+    {name:'12300 工信部电信申诉',desc:'话费乱扣、宽带故障、服务态度'},
+    {name:'工信部官网',desc:'电信行业监管'},
+    {name:'三大运营商总部客服',desc:'移动10086/联通10010/电信10000'}
+  ]},
+  { name:'消费购物', items:[
+    {name:'12315 市场监管投诉',desc:'假货、不退款、虚假宣传、食品安全'},
+    {name:'全国12315平台',desc:'在线投诉举报'},
+    {name:'各电商平台客服',desc:'淘宝/京东/拼多多官方客服'}
+  ]},
+  { name:'金融保险', items:[
+    {name:'12378 银保监会投诉',desc:'银行误导、保险纠纷、信用卡'},
+    {name:'证监会12386',desc:'证券、基金、期货纠纷'},
+    {name:'中国人民银行',desc:'支付、征信、反洗钱'}
+  ]},
+  { name:'房产物业', items:[
+    {name:'12345 政务热线',desc:'物业不作为、乱收费、房屋质量'},
+    {name:'住建局',desc:'房产开发、物业监管'},
+    {name:'消费者协会',desc:'租房、中介纠纷'}
+  ]},
+  { name:'劳动用工', items:[
+    {name:'全国根治欠薪平台',desc:'拖欠工资、欠薪线索反映'},
+    {name:'12333 人社热线',desc:'社保、劳动合同、工伤'},
+    {name:'劳动人事争议仲裁院',desc:'劳动仲裁、违法辞退'}
+  ]},
+  { name:'医疗教育', items:[
+    {name:'12320 卫生健康热线',desc:'医院乱收费、医疗纠纷'},
+    {name:'教育局',desc:'教育乱收费、培训机构'},
+    {name:'市场监管12315',desc:'药品、医疗器械'}
+  ]},
+  { name:'环保城管', items:[
+    {name:'12369 环保举报',desc:'污染、噪音、臭气、污水'},
+    {name:'城管热线',desc:'占道经营、违建、市容'},
+    {name:'12345 政务热线',desc:'综合民生投诉'}
+  ]},
+  { name:'政务纪检', items:[
+    {name:'国务院"互联网+督查"',desc:'政府不作为、政策不落实'},
+    {name:'12388 纪检监察',desc:'公职人员违纪、腐败举报'},
+    {name:'12345 政务热线',desc:'政务服务、办事难'}
+  ]},
+  { name:'网络安全', items:[
+    {name:'96110 反诈专线',desc:'电信诈骗预警、劝阻'},
+    {name:'110 报警电话',desc:'诈骗、盗刷、网络犯罪'},
+    {name:'12321 不良信息举报',desc:'骚扰电话、垃圾短信、个人信息泄露'}
+  ]}
+];
+
+// ===== 页面路由 =====
+let currentPage = 'home';
+let pageHistory = ['home'];
+
+function switchTab(page) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + page).classList.add('active');
+  document.querySelectorAll('.tab-item').forEach(t => t.classList.remove('active'));
+  const tabItem = document.querySelector(`.tab-item[data-page="${page}"]`);
+  if (tabItem) tabItem.classList.add('active');
+  currentPage = page;
+  if (pageHistory[pageHistory.length-1] !== page) pageHistory.push(page);
+  document.getElementById('appContainer').scrollTop = 0;
+  if (page === 'category') renderCategory(0);
+}
+
+function goBack() {
+  if (pageHistory.length > 1) {
+    pageHistory.pop();
+    const prev = pageHistory[pageHistory.length - 1];
+    switchTab(prev);
+  } else {
+    switchTab('home');
+  }
+}
+
+function navigateTo(page) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + page).classList.add('active');
+  currentPage = page;
+  pageHistory.push(page);
+  document.getElementById('appContainer').scrollTop = 0;
+}
+
+// ===== 搜索逻辑 =====
+function doHomeSearch() {
+  const input = document.getElementById('homeSearchInput');
+  const query = input.value.trim();
+  if (!query) { showToast('请输入搜索内容'); return; }
+  processSearch(query);
+}
+
+function quickSearch(query) {
+  document.getElementById('homeSearchInput').value = query;
+  processSearch(query);
+}
+
+function processSearch(query) {
+  // 关键词提取
+  const result = extractKeywords(query);
+  console.log('提取关键词:', result.all);
+  console.log('匹配场景:', result.scenes.map(s => s.name));
+
+  if (result.scenes.length === 1) {
+    // 1个场景 → 直接进入渠道详情
+    const scene = result.scenes[0];
+    if (scene.channels && scene.channels.length > 0) {
+      goChannelDetail(scene.channels[0]);
+    } else if (scene.scripts && scene.scripts.length > 0) {
+      goScriptDetail(scene.scripts[0]);
+    }
+  } else if (result.scenes.length >= 2) {
+    // 2+场景 → 场景选项卡
+    renderScenePicker(result);
+    navigateTo('scene-picker');
+  } else {
+    // 无匹配 → 搜索结果页（倒排索引模拟）
+    renderSearchResult(query, result.all);
+    navigateTo('result');
+  }
+}
+
+// ===== 场景选项卡渲染 =====
+function renderScenePicker(result) {
+  // 关键词标签
+  const tagsHtml = result.all.map(kw =>
+    `<span class="kw-tag" onclick="removeKeyword('${kw}')">${kw}<span class="remove">✕</span></span>`
+  ).join('');
+  document.getElementById('keywordTags').innerHTML = tagsHtml;
+
+  // 场景卡片（最多5个）
+  const scenes = result.scenes.slice(0, 5);
+  const cardsHtml = scenes.map(scene => `
+    <div class="scene-card" onclick="selectScene('${scene.id}')">
+      <div class="sc-header">
+        <div class="sc-icon" style="background:${scene.color};">${scene.icon}</div>
+        <div class="sc-title">${scene.name}</div>
+        <div class="sc-score">匹配度 ${Math.min(99, Math.round(scene.matchScore / 2))}%</div>
+      </div>
+      <div class="sc-desc">${scene.desc}</div>
+      <div class="sc-meta">
+        ${scene.channels.length > 0 ? `<span class="meta-item">📞 ${scene.channels.length}个渠道</span>` : ''}
+        ${scene.scripts.length > 0 ? `<span class="meta-item">💬 ${scene.scripts.length}套话术</span>` : ''}
+      </div>
+    </div>
+  `).join('');
+  document.getElementById('sceneCards').innerHTML = cardsHtml;
+}
+
+function selectScene(sceneId) {
+  const scene = SCENES.find(s => s.id === sceneId);
+  if (!scene) return;
+  if (scene.channels && scene.channels.length > 0) {
+    goChannelDetail(scene.channels[0]);
+  } else if (scene.scripts && scene.scripts.length > 0) {
+    goScriptDetail(scene.scripts[0]);
+  }
+}
+
+function removeKeyword(kw) {
+  showToast('已移除关键词：' + kw);
+  goBack();
+}
+
+// ===== 搜索结果渲染 =====
+function renderSearchResult(query, keywords) {
+  document.getElementById('resultTitle').textContent = '"' + query + '" 的搜索结果';
+  // 模拟搜索结果
+  const results = [
+    { type:'channel', id:'ch_002', name:'12305 邮政业消费者申诉', desc:'国家邮政局申诉网站，处理快递丢失、破损、延误等投诉', meta:['快递物流','官方渠道','免费'] },
+    { type:'script', id:'sc_001', name:'快递丢失投诉话术', desc:'适用于快递丢失、破损、延误等场景，含电话版和书面版', meta:['电话版','书面版','1.2万人使用'] },
+    { type:'channel', id:'ch_004', name:'12315 市场监管投诉举报', desc:'全国12315平台，处理消费纠纷、假货、虚假宣传等', meta:['消费购物','官方渠道','免费'] }
+  ];
+  document.getElementById('resultCount').textContent = `共找到 ${results.length} 条结果`;
+  const listHtml = results.map(item => {
+    const highlightedName = highlightKeywords(item.name, keywords);
+    const highlightedDesc = highlightKeywords(item.desc, keywords);
+    return `
+      <div class="result-item" onclick="${item.type==='channel'?`goChannelDetail('${item.id}')`:`goScriptDetail('${item.id}')`}">
+        <div class="ri-title">
+          <span class="ri-type ${item.type}">${item.type==='channel'?'渠道':'话术'}</span>
+          ${highlightedName}
+        </div>
+        <div class="ri-desc">${highlightedDesc}</div>
+        <div class="ri-meta">${item.meta.map(m=>`<span>${m}</span>`).join('')}</div>
+      </div>
+    `;
+  }).join('');
+  document.getElementById('resultList').innerHTML = listHtml;
+}
+
+function highlightKeywords(text, keywords) {
+  let result = text;
+  keywords.forEach(kw => {
+    if (kw.length >= 2) {
+      const regex = new RegExp(kw.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g');
+      result = result.replace(regex, `<span class="highlight">${kw}</span>`);
+    }
+  });
+  return result;
+}
+
+function switchResultTab(el, type) {
+  document.querySelectorAll('.result-tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  // 简化：不做实际筛选
+}
+
+// ===== 详情页 =====
+function goChannelDetail(channelId) {
+  const channel = CHANNELS[channelId];
+  if (channel) {
+    document.getElementById('channelName').textContent = channel.name;
+    document.getElementById('channelDesc').textContent = channel.desc;
+  }
+  navigateTo('channel-detail');
+}
+
+function goScriptDetail(scriptId) {
+  navigateTo('script-detail');
+}
+
+function switchScriptTab(el, type) {
+  document.querySelectorAll('.script-tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  const phoneText = `您好，我要投诉。
+
+我的快递单号是[快递单号]，由[快递公司名称]承运，于[日期]从[发货地]发往[收货地]。
+
+该快递于[日期]显示已签收，但我本人并未收到，也未接到快递员电话。我联系了快递公司客服，对方表示无法处理/只愿意赔偿运费三倍。
+
+根据《快递暂行条例》第二十七条，快件丢失的，快递公司应当承担赔偿责任。我要求：
+1. 立即查找快递下落；
+2. 如确认丢失，按照物品实际价值[金额]元赔偿；
+3. 书面道歉并说明处理结果。
+
+请在7个工作日内给予答复，否则我将向国家邮政局12305申诉。
+
+我的联系方式是[电话号码]，工单号请记录为[工单号]。`;
+
+  const writtenText = `申诉书
+
+申诉人：[姓名]
+联系电话：[电话号码]
+通讯地址：[地址]
+
+被申诉人：[快递公司名称]
+快递单号：[快递单号]
+
+申诉事项：
+快递丢失，要求赔偿物品实际损失。
+
+事实与理由：
+本人于[日期]通过[快递公司名称]寄送物品，快递单号为[快递单号]，物品为[物品名称]，价值[金额]元。该快递于[日期]显示已签收，但申诉人并未收到，也未接到快递员电话通知。
+
+申诉人多次联系被申诉人客服，对方仅同意赔偿运费三倍，拒绝按照物品实际价值赔偿。
+
+根据《快递暂行条例》第二十七条规定："快件延误、丢失、损毁或者内件短少的，对保价的快件，应当按照经营快递业务的企业与寄件人约定的保价规则确定赔偿责任；对未保价的快件，依照民事法律的有关规定确定赔偿责任。"
+
+被申诉人作为快递服务提供者，应当对快递丢失承担赔偿责任。运费三倍的赔偿标准属于格式条款，免除了被申诉人的主要责任，应属无效。
+
+申诉请求：
+1. 责令被申诉人赔偿申诉人物品损失[金额]元；
+2. 责令被申诉人书面道歉；
+3. 对被申诉人的服务质量问题进行监管。
+
+证据清单：
+1. 快递单号截图
+2. 物流信息截图
+3. 物品购买记录/发票
+4. 与客服沟通记录
+
+此致
+国家邮政局申诉中心
+
+申诉人：[姓名]
+日期：[日期]`;
+
+  const text = type === 'phone' ? phoneText : writtenText;
+  const formatted = text.replace(/\[([^\]]+)\]/g, '<span class="placeholder">[$1]</span>');
+  document.getElementById('scriptText').innerHTML = formatted;
+}
+
+// ===== 分类页 =====
+function switchCategory(el, index) {
+  document.querySelectorAll('.cat-sidebar-item').forEach(i => i.classList.remove('active'));
+  el.classList.add('active');
+  renderCategory(index);
+}
+
+function renderCategory(index) {
+  const cat = CATEGORY_DATA[index];
+  const html = `
+    <div class="cat-group-title">${cat.name}</div>
+    ${cat.items.map(item => `
+      <div class="cat-channel-item" onclick="showToast('查看渠道详情')">
+        <div class="cci-name">${item.name}</div>
+        <div class="cci-desc">${item.desc}</div>
+      </div>
+    `).join('')}
+  `;
+  document.getElementById('catContent').innerHTML = html;
+}
+
+// ===== 工具函数 =====
+function showToast(msg) {
+  const toast = document.getElementById('toast');
+  toast.textContent = msg;
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 2000);
+}
+
+function clearHistory() {
+  showToast('已清空搜索历史');
+}
+
+// 初始化
+document.addEventListener('DOMContentLoaded', () => {
+  renderCategory(0);
+});
+</script>
+</body>
+</html>

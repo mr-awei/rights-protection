@@ -1,0 +1,42 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+*.egg
+
+# 虚拟环境
+.venv/
+venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# 操作系统
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# 备份文件
+*.bak
+*.tmp
+*.log
+*_backup/
+prototype/_backup/
+
+# 转换临时输出（data目录已纳入版本控制，这里忽略临时文件）
+*.tmp.json
+*.tmp.xlsx
+
+# 本地配置
+.local.env
+.secrets

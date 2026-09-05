@@ -1,0 +1,51 @@
+{
+  "version": "2026.08",
+  "generated_at": "2026-09-05T17:07:21.439325",
+  "channel_count": 122,
+  "script_count": 6,
+  "platform_count": 0,
+  "law_count": 9,
+  "is_sharded": false,
+  "files": [
+    {
+      "file": "laws.json",
+      "size": 1428,
+      "sha256": "e1ede45a7bee94b9"
+    },
+    {
+      "file": "channels.json",
+      "size": 156364,
+      "sha256": "b9a2c6aafbc0b005"
+    },
+    {
+      "file": "scripts.json",
+      "size": 11986,
+      "sha256": "997817e16d347090"
+    },
+    {
+      "file": "platforms.json",
+      "size": 2,
+      "sha256": "4f53cda18c2baa0c"
+    },
+    {
+      "file": "config.json",
+      "size": 1641,
+      "sha256": "326c74ad83b14705"
+    },
+    {
+      "file": "categories.json",
+      "size": 1399,
+      "sha256": "db7f3e694e84eb15"
+    },
+    {
+      "file": "search_index.json",
+      "size": 713499,
+      "sha256": "d3bc25c603465ecd"
+    },
+    {
+      "file": "suggest_trie.json",
+      "size": 409446,
+      "sha256": "3375aad57906da8f"
+    }
+  ]
+}
