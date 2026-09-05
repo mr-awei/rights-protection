@@ -6,6 +6,7 @@ const { getHotScripts } = require('../../utils/data');
 Page({
   data: {
     searchKeyword: '',
+    statusBarHeight: 0,
     hotSearches: ['快递丢失', '商家不退款', '话费乱扣', '老板欠薪'],
     sceneEntries: [
       { icon: '📦', label: '快递问题', color: '#E6F4FF', keyword: '快递丢失' },
@@ -21,6 +22,13 @@ Page({
   },
 
   onLoad() {
+    // 动态获取状态栏高度，用于自定义导航栏适配
+    try {
+      const systemInfo = wx.getSystemInfoSync();
+      this.setData({ statusBarHeight: systemInfo.statusBarHeight || 20 });
+    } catch (e) {
+      this.setData({ statusBarHeight: 20 });
+    }
     this.loadHotScripts();
   },
 
