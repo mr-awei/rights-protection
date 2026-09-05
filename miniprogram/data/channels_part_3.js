@@ -1,5 +1,4 @@
-// channels_part_3.js - 渠道数据分片3/3（第101-122条）
-// 由convert.py自动生成，点击详情时按需加载，请勿手动编辑
+// channels_part_3.js - 渠道分片3（101-122条，已修正分类）
 module.exports = [
   {
     "id": "ch_101",
@@ -13,10 +12,9 @@ module.exports = [
     "legal_basis": "",
     "tips": "",
     "source": "https://m.thepaper.cn/newsDetail_forward_24591998",
-    "category_l1": "第二编  各行业领域投诉渠道",
+    "category_l1": "四川省 / 成都市地方渠道专章",
     "category_l2": "四川省 / 成都市地方渠道专章",
     "tags": [
-      "四川省 / 成都市地方渠道专章",
       "渠道1：成都市12345热线平台",
       "028-12345（成都市内可直接拨12345",
       "7×24小时人工）",
@@ -37,7 +35,8 @@ module.exports = [
     "penalty_power": "",
     "success_rate": "",
     "user_feedback_count": "",
-    "ext": ""
+    "ext": "",
+    "category_user": "政务纪检"
   },
   {
     "id": "ch_102",
@@ -51,10 +50,9 @@ module.exports = [
     "legal_basis": "",
     "tips": "",
     "source": "https://www.sc.gov.cn/10462/10778/14180/14182/2018/11/7/10462380.shtml",
-    "category_l1": "第二编  各行业领域投诉渠道",
+    "category_l1": "四川省 / 成都市地方渠道专章",
     "category_l2": "四川省 / 成都市地方渠道专章",
     "tags": [
-      "四川省 / 成都市地方渠道专章",
       "12345（四川省内直接拨打",
       "24小时在线）",
       "渠道2：四川省12345政务服务便民热线",
@@ -72,7 +70,8 @@ module.exports = [
     "penalty_power": "",
     "success_rate": "",
     "user_feedback_count": "",
-    "ext": ""
+    "ext": "",
+    "category_user": "政务纪检"
   },
   {
     "id": "ch_103",
@@ -86,10 +85,9 @@ module.exports = [
     "legal_basis": "",
     "tips": "",
     "source": "国家金融监督管理总局官网",
-    "category_l1": "第二编  各行业领域投诉渠道",
+    "category_l1": "四川省 / 成都市地方渠道专章",
     "category_l2": "四川省 / 成都市地方渠道专章",
     "tags": [
-      "四川省 / 成都市地方渠道专章",
       "银行",
       "投诉",
       "渠道3：国家金融监督管理总局四川监管局",
@@ -109,7 +107,8 @@ module.exports = [
     "penalty_power": "",
     "success_rate": "",
     "user_feedback_count": "",
-    "ext": ""
+    "ext": "",
+    "category_user": "金融保险"
   },
   {
     "id": "ch_104",
@@ -123,11 +122,10 @@ module.exports = [
     "legal_basis": "",
     "tips": "",
     "source": "https://www.csrc.gov.cn/sichuan/c104897/c7632808/content.shtml",
-    "category_l1": "第二编  各行业领域投诉渠道",
+    "category_l1": "四川省 / 成都市地方渠道专章",
     "category_l2": "四川省 / 成都市地方渠道专章",
     "tags": [
       "投诉",
-      "四川省 / 成都市地方渠道专章",
       "渠道4：中国证监会四川监管局",
       "12386（全国统一平台",
       "按属地转四川监管局）"
@@ -144,7 +142,8 @@ module.exports = [
     "penalty_power": "",
     "success_rate": "",
     "user_feedback_count": "",
-    "ext": ""
+    "ext": "",
+    "category_user": "金融保险"
   },
   {
     "id": "ch_105",
@@ -158,10 +157,9 @@ module.exports = [
     "legal_basis": "",
     "tips": "",
     "source": "https://www.samr.gov.cn/xw/df/art/2023/art_19d54bdc340049f9be83c5817d87736e.html",
-    "category_l1": "第二编  各行业领域投诉渠道",
+    "category_l1": "四川省 / 成都市地方渠道专章",
     "category_l2": "四川省 / 成都市地方渠道专章",
     "tags": [
-      "四川省 / 成都市地方渠道专章",
       "举报",
       "投诉",
       "纠纷",
@@ -182,7 +180,8 @@ module.exports = [
     "penalty_power": "",
     "success_rate": "",
     "user_feedback_count": "",
-    "ext": ""
+    "ext": "",
+    "category_user": "金融保险"
   },
   {
     "id": "ch_106",
@@ -196,10 +195,9 @@ module.exports = [
     "legal_basis": "",
     "tips": "",
     "source": "https://wsjkw.sc.gov.cn/scwsjkw/gzdt/2014/3/19/e76172d3b44443adabad726919bcbec9.shtml",
-    "category_l1": "第二编  各行业领域投诉渠道",
+    "category_l1": "四川省 / 成都市地方渠道专章",
     "category_l2": "四川省 / 成都市地方渠道专章",
     "tags": [
-      "四川省 / 成都市地方渠道专章",
       "举报",
       "四川",
       "卫生热线",
@@ -221,7 +219,8 @@ module.exports = [
     "penalty_power": "",
     "success_rate": "",
     "user_feedback_count": "",
-    "ext": ""
+    "ext": "",
+    "category_user": "医疗教育"
   },
   {
     "id": "ch_107",
@@ -240,7 +239,6 @@ module.exports = [
     "tags": [
       "12395",
       "举报",
-      "城市公交 / 地铁",
       "违法"
     ],
     "city_code": "national",
@@ -255,7 +253,8 @@ module.exports = [
     "penalty_power": "",
     "success_rate": "",
     "user_feedback_count": "",
-    "ext": ""
+    "ext": "",
+    "category_user": "交通物流"
   },
   {
     "id": "ch_108",
@@ -274,7 +273,6 @@ module.exports = [
     "tags": [
       "举报",
       "通过国家市场监督管理总局官网提交",
-      "反垄断与经济违法举报",
       "反垄断举报"
     ],
     "city_code": "national",
@@ -289,7 +287,8 @@ module.exports = [
     "penalty_power": "",
     "success_rate": "",
     "user_feedback_count": "",
-    "ext": ""
+    "ext": "",
+    "category_user": "金融保险"
   },
   {
     "id": "ch_109",
@@ -308,7 +307,6 @@ module.exports = [
     "tags": [
       "会计违法举报",
       "通过财政部官网提交或12345转办",
-      "反垄断与经济违法举报",
       "举报"
     ],
     "city_code": "national",
@@ -323,7 +321,8 @@ module.exports = [
     "penalty_power": "",
     "success_rate": "",
     "user_feedback_count": "",
-    "ext": ""
+    "ext": "",
+    "category_user": "政务纪检"
   },
   {
     "id": "ch_110",
@@ -361,7 +360,8 @@ module.exports = [
     "penalty_power": "",
     "success_rate": "",
     "user_feedback_count": "",
-    "ext": ""
+    "ext": "",
+    "category_user": "医疗教育"
   },
   {
     "id": "ch_111",
@@ -380,7 +380,6 @@ module.exports = [
     "tags": [
       "举报",
       "违法",
-      "环保",
       "违规",
       "12314"
     ],
@@ -396,7 +395,8 @@ module.exports = [
     "penalty_power": "",
     "success_rate": "",
     "user_feedback_count": "",
-    "ext": ""
+    "ext": "",
+    "category_user": "政务纪检"
   },
   {
     "id": "ch_112",
@@ -417,8 +417,7 @@ module.exports = [
       "举报",
       "违法",
       "违规",
-      "12329",
-      "劳动用工 / 社保"
+      "12329"
     ],
     "city_code": "national",
     "channel_type": "hotline",
@@ -432,7 +431,8 @@ module.exports = [
     "penalty_power": "",
     "success_rate": "",
     "user_feedback_count": "",
-    "ext": ""
+    "ext": "",
+    "category_user": "劳动用工"
   },
   {
     "id": "ch_113",
@@ -465,7 +465,8 @@ module.exports = [
     "penalty_power": "",
     "success_rate": "",
     "user_feedback_count": "",
-    "ext": ""
+    "ext": "",
+    "category_user": "政务纪检"
   },
   {
     "id": "ch_114",
@@ -503,7 +504,8 @@ module.exports = [
     "penalty_power": "",
     "success_rate": "",
     "user_feedback_count": "",
-    "ext": ""
+    "ext": "",
+    "category_user": "政务纪检"
   },
   {
     "id": "ch_115",
@@ -541,7 +543,8 @@ module.exports = [
     "penalty_power": "",
     "success_rate": "",
     "user_feedback_count": "",
-    "ext": ""
+    "ext": "",
+    "category_user": "政务纪检"
   },
   {
     "id": "ch_116",
@@ -576,7 +579,8 @@ module.exports = [
     "penalty_power": "",
     "success_rate": "",
     "user_feedback_count": "",
-    "ext": ""
+    "ext": "",
+    "category_user": "政务纪检"
   },
   {
     "id": "ch_117",
@@ -612,7 +616,8 @@ module.exports = [
     "penalty_power": "",
     "success_rate": "",
     "user_feedback_count": "",
-    "ext": ""
+    "ext": "",
+    "category_user": "环保城管"
   },
   {
     "id": "ch_118",
@@ -646,7 +651,8 @@ module.exports = [
     "penalty_power": "",
     "success_rate": "",
     "user_feedback_count": "",
-    "ext": ""
+    "ext": "",
+    "category_user": "政务纪检"
   },
   {
     "id": "ch_119",
@@ -679,7 +685,8 @@ module.exports = [
     "penalty_power": "",
     "success_rate": "",
     "user_feedback_count": "",
-    "ext": ""
+    "ext": "",
+    "category_user": "政务纪检"
   },
   {
     "id": "ch_120",
@@ -697,7 +704,6 @@ module.exports = [
     "category_l2": "事业单位与公共服务",
     "tags": [
       "通过科技部官网提交",
-      "事业单位与公共服务",
       "科研诚信举报",
       "举报"
     ],
@@ -713,7 +719,8 @@ module.exports = [
     "penalty_power": "",
     "success_rate": "",
     "user_feedback_count": "",
-    "ext": ""
+    "ext": "",
+    "category_user": "医疗教育"
   },
   {
     "id": "ch_121",
@@ -734,7 +741,6 @@ module.exports = [
       "举报",
       "违法",
       "违规",
-      "事业单位与公共服务",
       "通过财政部官网提交或12345转办"
     ],
     "city_code": "national",
@@ -749,7 +755,8 @@ module.exports = [
     "penalty_power": "",
     "success_rate": "",
     "user_feedback_count": "",
-    "ext": ""
+    "ext": "",
+    "category_user": "政务纪检"
   },
   {
     "id": "ch_122",
@@ -784,6 +791,7 @@ module.exports = [
     "penalty_power": "",
     "success_rate": "",
     "user_feedback_count": "",
-    "ext": ""
+    "ext": "",
+    "category_user": "政务纪检"
   }
 ];

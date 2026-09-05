@@ -2,20 +2,6 @@
 // 数据管理（分片加载 + 内存缓存 + 按需查询）
 // 设计目标：支持扩展到几千条数据，单文件不超过500KB，启动速度快
 
-// 预设分类与关键词映射（用于分类页匹配渠道）
-const CATEGORY_KEYWORDS = {
-  '快递物流': ['快递', '邮政', '物流', '包裹', '12305'],
-  '电信运营': ['电信', '通信', '话费', '流量', '宽带', '运营商', '12300', '工信部'],
-  '消费购物': ['消费', '市场监管', '12315', '工商', '质量', '食品', '药品', '价格'],
-  '金融保险': ['金融', '银行', '保险', '证券', '12378', '12363', '银保监', '证监会'],
-  '房产物业': ['物业', '房产', '住建', '12345', '供水', '燃气', '供热', '房屋'],
-  '劳动用工': ['劳动', '人社', '12333', '欠薪', '工资', '社保', '公积金'],
-  '医疗教育': ['医疗', '卫生', '12320', '教育', '学校', '培训', '医院'],
-  '环保城管': ['环保', '12369', '城管', '污染', '噪音', '噪声'],
-  '政务纪检': ['政务', '12345', '纪检', '12388', '信访', '督查', '监察'],
-  '网络安全': ['反诈', '96110', '110', '网络', '12321', '诈骗', '个人信息']
-};
-
 // 数据缓存
 let channelIndex = null;      // 轻量索引（启动时加载）
 let channelParts = {};        // 已加载的分片缓存 {part_num: [channels]}
@@ -147,23 +133,26 @@ function getLaws() {
 }
 
 /**
- * 获取分类树
+ * 获取分类树（从categories.js读取用户视角分类配置）
  */
 function getCategories() {
-  return Object.keys(CATEGORY_KEYWORDS).map(name => ({
-    name: name,
-    icon: getCategoryIcon(name)
-  }));
-}
-
-function getCategoryIcon(name) {
-  const icons = {
-    '快递物流': '📦', '电信运营': '📱', '消费购物': '🛒',
-    '金融保险': '💰', '房产物业': '🏠', '劳动用工': '💼',
-    '医疗教育': '🏥', '环保城管': '🌿', '政务纪检': '⚖️',
-    '网络安全': '🛡️'
-  };
-  return icons[name] || '📋';
+  loadAllData();
+  if (categoriesData && categoriesData.length > 0) {
+    return categoriesData;
+  }
+  // 兜底默认分类
+  return [
+    { name: '交通物流', icon: '🚄' },
+    { name: '电信运营', icon: '📱' },
+    { name: '消费购物', icon: '🛒' },
+    { name: '金融保险', icon: '💰' },
+    { name: '房产物业', icon: '🏠' },
+    { name: '劳动用工', icon: '💼' },
+    { name: '医疗教育', icon: '🏥' },
+    { name: '环保城管', icon: '🌿' },
+    { name: '政务纪检', icon: '⚖️' },
+    { name: '网络安全', icon: '🛡️' }
+  ];
 }
 
 /**
@@ -191,20 +180,14 @@ function getLawById(id) {
 }
 
 /**
- * 根据分类获取渠道索引（用关键词匹配，轻量）
+ * 根据分类获取渠道索引（用category_user字段精准匹配，100%准确）
  */
 function getChannelsByCategory(category) {
   loadAllData();
-  const keywords = CATEGORY_KEYWORDS[category] || [];
-  if (keywords.length === 0 || !channelIndex) return [];
+  if (!channelIndex || !category) return [];
 
-  return channelIndex.filter(c => {
-    const name = c.name || '';
-    const phone = c.phone || '';
-    const tags = (c.tags || []).join(' ');
-    const text = name + ' ' + phone + ' ' + tags;
-    return keywords.some(kw => text.includes(kw));
-  });
+  // 用category_user字段精准匹配
+  return channelIndex.filter(c => c.category_user === category);
 }
 
 /**

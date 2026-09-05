@@ -1,5 +1,4 @@
-// channels_part_1.js - 渠道数据分片1/3（第1-50条）
-// 由convert.py自动生成，点击详情时按需加载，请勿手动编辑
+// channels_part_1.js - 渠道分片1（1-50条，已修正分类）
 module.exports = [
   {
     "id": "ch_001",
@@ -13,11 +12,10 @@ module.exports = [
     "legal_basis": "",
     "tips": "",
     "source": "工业和信息化部官网；用户提供并验证",
-    "category_l1": "第二编  各行业领域投诉渠道",
+    "category_l1": "基础民生与公共交通",
     "category_l2": "基础民生与公共交通",
     "tags": [
       "申诉",
-      "基础民生与公共交通",
       "收费",
       "投诉",
       "违规",
@@ -37,7 +35,8 @@ module.exports = [
     "penalty_power": "",
     "success_rate": "",
     "user_feedback_count": "",
-    "ext": ""
+    "ext": "",
+    "category_user": "电信运营"
   },
   {
     "id": "ch_002",
@@ -51,11 +50,10 @@ module.exports = [
     "legal_basis": "",
     "tips": "",
     "source": "https://sswz.spb.gov.cn/ ；国务院公报",
-    "category_l1": "第二编  各行业领域投诉渠道",
+    "category_l1": "基础民生与公共交通",
     "category_l2": "基础民生与公共交通",
     "tags": [
       "申诉",
-      "基础民生与公共交通",
       "延误",
       "投诉",
       "快递",
@@ -77,7 +75,8 @@ module.exports = [
     "penalty_power": "",
     "success_rate": "",
     "user_feedback_count": "",
-    "ext": ""
+    "ext": "",
+    "category_user": "交通物流"
   },
   {
     "id": "ch_003",
@@ -91,11 +90,10 @@ module.exports = [
     "legal_basis": "",
     "tips": "",
     "source": "用户提供并验证；国家电网官网",
-    "category_l1": "第二编  各行业领域投诉渠道",
+    "category_l1": "基础民生与公共交通",
     "category_l2": "基础民生与公共交通",
     "tags": [
       "95598",
-      "基础民生与公共交通",
       "国家电网",
       "供电",
       "投诉"
@@ -112,7 +110,8 @@ module.exports = [
     "penalty_power": "",
     "success_rate": "",
     "user_feedback_count": "",
-    "ext": ""
+    "ext": "",
+    "category_user": "房产物业"
   },
   {
     "id": "ch_004",
@@ -126,10 +125,9 @@ module.exports = [
     "legal_basis": "",
     "tips": "与95598供电服务热线互补，95598是企业客服，12398是政府监管，对供电企业有直接处罚权。",
     "source": "国家能源局官网；《电力监管条例》",
-    "category_l1": "第二编  各行业领域投诉渠道",
+    "category_l1": "基础民生与公共交通",
     "category_l2": "基础民生与公共交通",
     "tags": [
-      "基础民生与公共交通",
       "能源监管热线",
       "供电",
       "违法",
@@ -149,7 +147,8 @@ module.exports = [
     "penalty_power": "",
     "success_rate": "",
     "user_feedback_count": "",
-    "ext": ""
+    "ext": "",
+    "category_user": "房产物业"
   },
   {
     "id": "ch_005",
@@ -163,10 +162,9 @@ module.exports = [
     "legal_basis": "",
     "tips": "",
     "source": "https://www.gov.cn/zhengce/content/2021-01/06/content_5577419.htm",
-    "category_l1": "第二编  各行业领域投诉渠道",
+    "category_l1": "基础民生与公共交通",
     "category_l2": "基础民生与公共交通",
     "tags": [
-      "基础民生与公共交通",
       "12345",
       "收费",
       "投诉",
@@ -185,7 +183,8 @@ module.exports = [
     "penalty_power": "",
     "success_rate": "",
     "user_feedback_count": "",
-    "ext": ""
+    "ext": "",
+    "category_user": "房产物业"
   },
   {
     "id": "ch_006",
@@ -199,13 +198,12 @@ module.exports = [
     "legal_basis": "",
     "tips": "",
     "source": "https://www.cdwater.com.cn/htm/oneitem_020305.html",
-    "category_l1": "第二编  各行业领域投诉渠道",
+    "category_l1": "基础民生与公共交通",
     "category_l2": "基础民生与公共交通",
     "tags": [
       "投诉",
       "供水（自来水）",
-      "962965（24小时）",
-      "基础民生与公共交通"
+      "962965（24小时）"
     ],
     "city_code": "chengdu",
     "channel_type": "hotline",
@@ -219,7 +217,8 @@ module.exports = [
     "penalty_power": "",
     "success_rate": "",
     "user_feedback_count": "",
-    "ext": ""
+    "ext": "",
+    "category_user": "房产物业"
   },
   {
     "id": "ch_007",
@@ -233,10 +232,9 @@ module.exports = [
     "legal_basis": "",
     "tips": "",
     "source": "住建部及各地政府公告",
-    "category_l1": "第二编  各行业领域投诉渠道",
+    "category_l1": "基础民生与公共交通",
     "category_l2": "基础民生与公共交通",
     "tags": [
-      "基础民生与公共交通",
       "收费",
       "举报",
       "燃气诉求",
@@ -256,7 +254,8 @@ module.exports = [
     "penalty_power": "",
     "success_rate": "",
     "user_feedback_count": "",
-    "ext": ""
+    "ext": "",
+    "category_user": "房产物业"
   },
   {
     "id": "ch_008",
@@ -270,10 +269,9 @@ module.exports = [
     "legal_basis": "",
     "tips": "",
     "source": "https://www.cdgas.com/investor/online_advisory/index.html",
-    "category_l1": "第二编  各行业领域投诉渠道",
+    "category_l1": "基础民生与公共交通",
     "category_l2": "基础民生与公共交通",
     "tags": [
-      "基础民生与公共交通",
       "小时供气热线",
       "举报",
       "投诉",
@@ -292,7 +290,8 @@ module.exports = [
     "penalty_power": "",
     "success_rate": "",
     "user_feedback_count": "",
-    "ext": ""
+    "ext": "",
+    "category_user": "房产物业"
   },
   {
     "id": "ch_009",
@@ -306,10 +305,9 @@ module.exports = [
     "legal_basis": "",
     "tips": "",
     "source": "各地住建部门及政府公告",
-    "category_l1": "第二编  各行业领域投诉渠道",
+    "category_l1": "基础民生与公共交通",
     "category_l2": "基础民生与公共交通",
     "tags": [
-      "基础民生与公共交通",
       "收费",
       "供热诉求",
       "供热/供暖（北方地区）",
@@ -329,7 +327,8 @@ module.exports = [
     "penalty_power": "",
     "success_rate": "",
     "user_feedback_count": "",
-    "ext": ""
+    "ext": "",
+    "category_user": "房产物业"
   },
   {
     "id": "ch_010",
@@ -343,10 +342,9 @@ module.exports = [
     "legal_basis": "",
     "tips": "",
     "source": "https://www.12306.cn/mormhweb/tlkytst/",
-    "category_l1": "第二编  各行业领域投诉渠道",
+    "category_l1": "基础民生与公共交通",
     "category_l2": "基础民生与公共交通",
     "tags": [
-      "基础民生与公共交通",
       "客户服务中心",
       "铁路",
       "中国铁路",
@@ -365,7 +363,8 @@ module.exports = [
     "penalty_power": "",
     "success_rate": "",
     "user_feedback_count": "",
-    "ext": ""
+    "ext": "",
+    "category_user": "交通物流"
   },
   {
     "id": "ch_011",
@@ -379,13 +378,12 @@ module.exports = [
     "legal_basis": "",
     "tips": "",
     "source": "https://www.nra.gov.cn/ ；国务院公报2025年",
-    "category_l1": "第二编  各行业领域投诉渠道",
+    "category_l1": "基础民生与公共交通",
     "category_l2": "基础民生与公共交通",
     "tags": [
       "12327（工作日8:30-17:00人工",
       "全天候自助语音）",
       "邮箱：12327@nra.gov.cn",
-      "基础民生与公共交通",
       "铁路",
       "举报",
       "投诉"
@@ -402,7 +400,8 @@ module.exports = [
     "penalty_power": "",
     "success_rate": "",
     "user_feedback_count": "",
-    "ext": ""
+    "ext": "",
+    "category_user": "交通物流"
   },
   {
     "id": "ch_012",
@@ -416,11 +415,10 @@ module.exports = [
     "legal_basis": "",
     "tips": "",
     "source": "https://www.12326.cn ；https://www.caac.gov.cn/",
-    "category_l1": "第二编  各行业领域投诉渠道",
+    "category_l1": "基础民生与公共交通",
     "category_l2": "基础民生与公共交通",
     "tags": [
       "丢失",
-      "基础民生与公共交通",
       "12326",
       "投诉",
       "破损",
@@ -439,7 +437,8 @@ module.exports = [
     "penalty_power": "",
     "success_rate": "",
     "user_feedback_count": "",
-    "ext": ""
+    "ext": "",
+    "category_user": "交通物流"
   },
   {
     "id": "ch_013",
@@ -453,13 +452,12 @@ module.exports = [
     "legal_basis": "",
     "tips": "",
     "source": "https://xxgk.mot.gov.cn/jigou/ysfws/202109/t20210930_3620504.html",
-    "category_l1": "第二编  各行业领域投诉渠道",
+    "category_l1": "基础民生与公共交通",
     "category_l2": "基础民生与公共交通",
     "tags": [
       "12328（7×24小时",
       "全国统一公益号码",
       "部省市三级联网）",
-      "基础民生与公共交通",
       "举报",
       "投诉",
       "纠纷",
@@ -477,7 +475,8 @@ module.exports = [
     "penalty_power": "",
     "success_rate": "",
     "user_feedback_count": "",
-    "ext": ""
+    "ext": "",
+    "category_user": "交通物流"
   },
   {
     "id": "ch_014",
@@ -491,10 +490,9 @@ module.exports = [
     "legal_basis": "",
     "tips": "",
     "source": "交通运输部海事局官网；《海上交通安全法》",
-    "category_l1": "第二编  各行业领域投诉渠道",
+    "category_l1": "基础民生与公共交通",
     "category_l2": "基础民生与公共交通",
     "tags": [
-      "基础民生与公共交通",
       "举报",
       "违法",
       "水上搜救电话",
@@ -512,7 +510,8 @@ module.exports = [
     "penalty_power": "",
     "success_rate": "",
     "user_feedback_count": "",
-    "ext": ""
+    "ext": "",
+    "category_user": "交通物流"
   },
   {
     "id": "ch_015",
@@ -526,11 +525,9 @@ module.exports = [
     "legal_basis": "",
     "tips": "",
     "source": "交通运输部官网",
-    "category_l1": "第二编  各行业领域投诉渠道",
+    "category_l1": "基础民生与公共交通",
     "category_l2": "基础民生与公共交通",
     "tags": [
-      "基础民生与公共交通",
-      "城市公交 / 地铁",
       "举报",
       "投诉",
       "城市客运领域",
@@ -548,7 +545,8 @@ module.exports = [
     "penalty_power": "",
     "success_rate": "",
     "user_feedback_count": "",
-    "ext": ""
+    "ext": "",
+    "category_user": "交通物流"
   },
   {
     "id": "ch_016",
@@ -562,13 +560,11 @@ module.exports = [
     "legal_basis": "",
     "tips": "",
     "source": "https://www.cdgjbus.com/index.aspx",
-    "category_l1": "第二编  各行业领域投诉渠道",
+    "category_l1": "基础民生与公共交通",
     "category_l2": "基础民生与公共交通",
     "tags": [
       "投诉",
-      "028-85076868",
-      "基础民生与公共交通",
-      "城市公交 / 地铁"
+      "028-85076868"
     ],
     "city_code": "chengdu",
     "channel_type": "hotline",
@@ -582,7 +578,8 @@ module.exports = [
     "penalty_power": "",
     "success_rate": "",
     "user_feedback_count": "",
-    "ext": ""
+    "ext": "",
+    "category_user": "交通物流"
   },
   {
     "id": "ch_017",
@@ -596,12 +593,10 @@ module.exports = [
     "legal_basis": "",
     "tips": "",
     "source": "https://www.chengdurail.com/lxwm.htm",
-    "category_l1": "第二编  各行业领域投诉渠道",
+    "category_l1": "基础民生与公共交通",
     "category_l2": "基础民生与公共交通",
     "tags": [
       "投诉",
-      "基础民生与公共交通",
-      "城市公交 / 地铁",
       "028-61638000"
     ],
     "city_code": "chengdu",
@@ -616,7 +611,8 @@ module.exports = [
     "penalty_power": "",
     "success_rate": "",
     "user_feedback_count": "",
-    "ext": ""
+    "ext": "",
+    "category_user": "交通物流"
   },
   {
     "id": "ch_018",
@@ -630,10 +626,9 @@ module.exports = [
     "legal_basis": "",
     "tips": "",
     "source": "https://www.gov.cn/zhengce/zhengceku/202306/content_6884369.htm",
-    "category_l1": "第二编  各行业领域投诉渠道",
+    "category_l1": "金融与商业消费",
     "category_l2": "金融与商业消费",
     "tags": [
-      "金融与商业消费",
       "收费",
       "12378",
       "误导",
@@ -655,7 +650,8 @@ module.exports = [
     "penalty_power": "",
     "success_rate": "",
     "user_feedback_count": "",
-    "ext": ""
+    "ext": "",
+    "category_user": "金融保险"
   },
   {
     "id": "ch_019",
@@ -669,10 +665,9 @@ module.exports = [
     "legal_basis": "",
     "tips": "",
     "source": "中国人民银行官网；人民网财经",
-    "category_l1": "第二编  各行业领域投诉渠道",
+    "category_l1": "金融与商业消费",
     "category_l2": "金融与商业消费",
     "tags": [
-      "金融与商业消费",
       "银行",
       "投诉",
       "纠纷",
@@ -690,7 +685,8 @@ module.exports = [
     "penalty_power": "",
     "success_rate": "",
     "user_feedback_count": "",
-    "ext": ""
+    "ext": "",
+    "category_user": "金融保险"
   },
   {
     "id": "ch_020",
@@ -704,13 +700,12 @@ module.exports = [
     "legal_basis": "",
     "tips": "",
     "source": "中国互联网金融协会官网",
-    "category_l1": "第二编  各行业领域投诉渠道",
+    "category_l1": "金融与商业消费",
     "category_l2": "金融与商业消费",
     "tags": [
       "以网站在线实名举报为主",
       "可同时拨打12378",
       "12363",
-      "金融与商业消费",
       "违法",
       "银行",
       "违规",
@@ -729,7 +724,8 @@ module.exports = [
     "penalty_power": "",
     "success_rate": "",
     "user_feedback_count": "",
-    "ext": ""
+    "ext": "",
+    "category_user": "金融保险"
   },
   {
     "id": "ch_021",
@@ -743,10 +739,9 @@ module.exports = [
     "legal_basis": "",
     "tips": "",
     "source": "https://www.csrc.gov.cn/csrc/c100028/c6240013/content.shtml",
-    "category_l1": "第二编  各行业领域投诉渠道",
+    "category_l1": "金融与商业消费",
     "category_l2": "金融与商业消费",
     "tags": [
-      "金融与商业消费",
       "12386（工作日 9:00-11:30 / 13:00-16:30）",
       "证券 / 基金 / 期货",
       "举报",
@@ -764,7 +759,8 @@ module.exports = [
     "penalty_power": "",
     "success_rate": "",
     "user_feedback_count": "",
-    "ext": ""
+    "ext": "",
+    "category_user": "金融保险"
   },
   {
     "id": "ch_022",
@@ -778,10 +774,9 @@ module.exports = [
     "legal_basis": "",
     "tips": "",
     "source": "中证投服中心官网、《中华人民共和国证券法》第九十五条",
-    "category_l1": "第二编  各行业领域投诉渠道",
+    "category_l1": "金融与商业消费",
     "category_l2": "金融与商业消费",
     "tags": [
-      "金融与商业消费",
       "证券 / 基金 / 期货",
       "投服中心",
       "违规",
@@ -799,7 +794,8 @@ module.exports = [
     "penalty_power": "",
     "success_rate": "",
     "user_feedback_count": "",
-    "ext": ""
+    "ext": "",
+    "category_user": "金融保险"
   },
   {
     "id": "ch_023",
@@ -813,10 +809,9 @@ module.exports = [
     "legal_basis": "",
     "tips": "",
     "source": "上海、深圳、北京证券交易所官网",
-    "category_l1": "第二编  各行业领域投诉渠道",
+    "category_l1": "金融与商业消费",
     "category_l2": "金融与商业消费",
     "tags": [
-      "金融与商业消费",
       "不作为",
       "自律监管投诉",
       "证券 / 基金 / 期货",
@@ -839,7 +834,8 @@ module.exports = [
     "penalty_power": "",
     "success_rate": "",
     "user_feedback_count": "",
-    "ext": ""
+    "ext": "",
+    "category_user": "金融保险"
   },
   {
     "id": "ch_024",
@@ -853,10 +849,9 @@ module.exports = [
     "legal_basis": "",
     "tips": "",
     "source": "https://www.samr.gov.cn/xw/zj/art/2023/art_b5192eabd2f64569a0d1d1570232f632.html",
-    "category_l1": "第二编  各行业领域投诉渠道",
+    "category_l1": "金融与商业消费",
     "category_l2": "金融与商业消费",
     "tags": [
-      "金融与商业消费",
       "消费者权益（12315）",
       "欺诈",
       "平台",
@@ -879,7 +874,8 @@ module.exports = [
     "penalty_power": "",
     "success_rate": "",
     "user_feedback_count": "",
-    "ext": ""
+    "ext": "",
+    "category_user": "消费购物"
   },
   {
     "id": "ch_025",
@@ -893,10 +889,9 @@ module.exports = [
     "legal_basis": "",
     "tips": "",
     "source": "市场监管总局官网",
-    "category_l1": "第二编  各行业领域投诉渠道",
+    "category_l1": "金融与商业消费",
     "category_l2": "金融与商业消费",
     "tags": [
-      "金融与商业消费",
       "欺诈",
       "平台",
       "12315",
@@ -917,7 +912,8 @@ module.exports = [
     "penalty_power": "",
     "success_rate": "",
     "user_feedback_count": "",
-    "ext": ""
+    "ext": "",
+    "category_user": "消费购物"
   },
   {
     "id": "ch_026",
@@ -931,10 +927,9 @@ module.exports = [
     "legal_basis": "",
     "tips": "",
     "source": "https://www.gov.cn/gongbao/2026/issue_12686/202604/content_7066102.html",
-    "category_l1": "第二编  各行业领域投诉渠道",
+    "category_l1": "金融与商业消费",
     "category_l2": "金融与商业消费",
     "tags": [
-      "金融与商业消费",
       "欺诈",
       "举报",
       "平台",
@@ -956,7 +951,8 @@ module.exports = [
     "penalty_power": "",
     "success_rate": "",
     "user_feedback_count": "",
-    "ext": ""
+    "ext": "",
+    "category_user": "消费购物"
   },
   {
     "id": "ch_027",
@@ -970,10 +966,9 @@ module.exports = [
     "legal_basis": "",
     "tips": "",
     "source": "市场监管总局官网",
-    "category_l1": "第二编  各行业领域投诉渠道",
+    "category_l1": "金融与商业消费",
     "category_l2": "金融与商业消费",
     "tags": [
-      "金融与商业消费",
       "广告违法",
       "食品",
       "平台",
@@ -995,7 +990,8 @@ module.exports = [
     "penalty_power": "",
     "success_rate": "",
     "user_feedback_count": "",
-    "ext": ""
+    "ext": "",
+    "category_user": "消费购物"
   },
   {
     "id": "ch_028",
@@ -1009,10 +1005,9 @@ module.exports = [
     "legal_basis": "",
     "tips": "",
     "source": "市场监管总局官网；国务院公报",
-    "category_l1": "第二编  各行业领域投诉渠道",
+    "category_l1": "金融与商业消费",
     "category_l2": "金融与商业消费",
     "tags": [
-      "金融与商业消费",
       "产品质量",
       "平台",
       "举报",
@@ -1033,7 +1028,8 @@ module.exports = [
     "penalty_power": "",
     "success_rate": "",
     "user_feedback_count": "",
-    "ext": ""
+    "ext": "",
+    "category_user": "消费购物"
   },
   {
     "id": "ch_029",
@@ -1047,10 +1043,9 @@ module.exports = [
     "legal_basis": "",
     "tips": "",
     "source": "https://www.cnipa.gov.cn/art/2016/2/4/art_53_116983.html",
-    "category_l1": "第二编  各行业领域投诉渠道",
+    "category_l1": "金融与商业消费",
     "category_l2": "金融与商业消费",
     "tags": [
-      "金融与商业消费",
       "知识产权",
       "平台",
       "举报",
@@ -1071,7 +1066,8 @@ module.exports = [
     "penalty_power": "",
     "success_rate": "",
     "user_feedback_count": "",
-    "ext": ""
+    "ext": "",
+    "category_user": "消费购物"
   },
   {
     "id": "ch_030",
@@ -1085,10 +1081,9 @@ module.exports = [
     "legal_basis": "",
     "tips": "",
     "source": "https://www.mps.gov.cn/n2254098/n4904352/c10495270/content.html",
-    "category_l1": "第二编  各行业领域投诉渠道",
+    "category_l1": "金融与商业消费",
     "category_l2": "金融与商业消费",
     "tags": [
-      "金融与商业消费",
       "96110",
       "诈骗",
       "电信诈骗 / 金融诈骗",
@@ -1108,7 +1103,8 @@ module.exports = [
     "penalty_power": "",
     "success_rate": "",
     "user_feedback_count": "",
-    "ext": ""
+    "ext": "",
+    "category_user": "网络安全"
   },
   {
     "id": "ch_031",
@@ -1122,18 +1118,16 @@ module.exports = [
     "legal_basis": "",
     "tips": "",
     "source": "公安部官网",
-    "category_l1": "第二编  各行业领域投诉渠道",
+    "category_l1": "金融与商业消费",
     "category_l2": "金融与商业消费",
     "tags": [
-      "金融与商业消费",
       "报警服务台",
       "诈骗",
       "电信诈骗 / 金融诈骗",
       "违法",
       "电信",
       "公安警务",
-      "110",
-      "社会服务与政务司法"
+      "110"
     ],
     "city_code": "national",
     "channel_type": "official",
@@ -1147,7 +1141,8 @@ module.exports = [
     "penalty_power": "",
     "success_rate": "",
     "user_feedback_count": "",
-    "ext": ""
+    "ext": "",
+    "category_user": "网络安全"
   },
   {
     "id": "ch_032",
@@ -1161,10 +1156,9 @@ module.exports = [
     "legal_basis": "《反垄断法》，罚款可达上一年度销售额1%-10%，情节严重可处上一年度销售额10%以上50%以下罚款。",
     "tips": "直接处罚大型企业垄断行为，阿里巴巴\"二选一\"案被罚182亿就是典型案例。",
     "source": "",
-    "category_l1": "第二编  各行业领域投诉渠道",
+    "category_l1": "金融与商业消费",
     "category_l2": "金融与商业消费",
     "tags": [
-      "金融与商业消费",
       "举报",
       "反垄断举报",
       "无（网上举报）"
@@ -1181,7 +1175,8 @@ module.exports = [
     "penalty_power": "",
     "success_rate": "",
     "user_feedback_count": "",
-    "ext": ""
+    "ext": "",
+    "category_user": "金融保险"
   },
   {
     "id": "ch_033",
@@ -1195,12 +1190,10 @@ module.exports = [
     "legal_basis": "《公平竞争审查条例》",
     "tips": "",
     "source": "市场监管总局官网；国务院公报",
-    "category_l1": "第二编  各行业领域投诉渠道",
+    "category_l1": "金融与商业消费",
     "category_l2": "金融与商业消费",
     "tags": [
       "12315",
-      "金融与商业消费",
-      "反垄断与经济违法举报",
       "举报"
     ],
     "city_code": "national",
@@ -1215,7 +1208,8 @@ module.exports = [
     "penalty_power": "",
     "success_rate": "",
     "user_feedback_count": "",
-    "ext": ""
+    "ext": "",
+    "category_user": "金融保险"
   },
   {
     "id": "ch_034",
@@ -1229,16 +1223,14 @@ module.exports = [
     "legal_basis": "《税收违法行为检举管理办法》，实名举报有奖励。",
     "tips": "税务稽查直接上门查账，偷税漏税一查一个准，补税+滞纳金+罚款。",
     "source": "",
-    "category_l1": "第二编  各行业领域投诉渠道",
+    "category_l1": "金融与商业消费",
     "category_l2": "金融与商业消费",
     "tags": [
       "税务",
-      "金融与商业消费",
       "税收违法举报",
       "举报",
       "违法",
-      "12366（选\"违法举报\"）",
-      "反垄断与经济违法举报"
+      "12366（选\"违法举报\"）"
     ],
     "city_code": "national",
     "channel_type": "official",
@@ -1252,7 +1244,8 @@ module.exports = [
     "penalty_power": "",
     "success_rate": "",
     "user_feedback_count": "",
-    "ext": ""
+    "ext": "",
+    "category_user": "政务纪检"
   },
   {
     "id": "ch_035",
@@ -1266,11 +1259,10 @@ module.exports = [
     "legal_basis": "《会计法》，对单位处5000-10万罚款，对责任人处3000-5万罚款，构成犯罪追究刑事责任。",
     "tips": "",
     "source": "财政部官网；《会计法》",
-    "category_l1": "第二编  各行业领域投诉渠道",
+    "category_l1": "金融与商业消费",
     "category_l2": "金融与商业消费",
     "tags": [
       "会计违法举报",
-      "金融与商业消费",
       "举报",
       "无（网上举报）"
     ],
@@ -1286,7 +1278,8 @@ module.exports = [
     "penalty_power": "",
     "success_rate": "",
     "user_feedback_count": "",
-    "ext": ""
+    "ext": "",
+    "category_user": "政务纪检"
   },
   {
     "id": "ch_036",
@@ -1300,13 +1293,11 @@ module.exports = [
     "legal_basis": "《统计法》《统计法实施条例》",
     "tips": "",
     "source": "国家统计局官网",
-    "category_l1": "第二编  各行业领域投诉渠道",
+    "category_l1": "金融与商业消费",
     "category_l2": "金融与商业消费",
     "tags": [
-      "金融与商业消费",
       "统计违法举报",
       "举报",
-      "反垄断与经济违法举报",
       "010-68512113（举报邮箱：fgjc@stats.gov.cn）"
     ],
     "city_code": "national",
@@ -1321,7 +1312,8 @@ module.exports = [
     "penalty_power": "",
     "success_rate": "",
     "user_feedback_count": "",
-    "ext": ""
+    "ext": "",
+    "category_user": "政务纪检"
   },
   {
     "id": "ch_037",
@@ -1335,11 +1327,10 @@ module.exports = [
     "legal_basis": "《政府采购法》，可处采购金额5‰-10‰罚款，列入不良行为记录名单。",
     "tips": "",
     "source": "财政部官网；《政府采购法》",
-    "category_l1": "第二编  各行业领域投诉渠道",
+    "category_l1": "金融与商业消费",
     "category_l2": "金融与商业消费",
     "tags": [
       "政府采购举报",
-      "金融与商业消费",
       "无（网上举报）",
       "举报",
       "违法",
@@ -1357,7 +1348,8 @@ module.exports = [
     "penalty_power": "",
     "success_rate": "",
     "user_feedback_count": "",
-    "ext": ""
+    "ext": "",
+    "category_user": "政务纪检"
   },
   {
     "id": "ch_038",
@@ -1371,10 +1363,9 @@ module.exports = [
     "legal_basis": "",
     "tips": "",
     "source": "商务部；国办发〔2020〕53号",
-    "category_l1": "第二编  各行业领域投诉渠道",
+    "category_l1": "金融与商业消费",
     "category_l2": "金融与商业消费",
     "tags": [
-      "金融与商业消费",
       "商务领域投诉（预付卡 / 特许经营 / 二手车）",
       "举报",
       "违法",
@@ -1395,7 +1386,8 @@ module.exports = [
     "penalty_power": "",
     "success_rate": "",
     "user_feedback_count": "",
-    "ext": ""
+    "ext": "",
+    "category_user": "消费购物"
   },
   {
     "id": "ch_039",
@@ -1409,10 +1401,9 @@ module.exports = [
     "legal_basis": "",
     "tips": "",
     "source": "国家烟草专卖局；国办发〔2020〕53号",
-    "category_l1": "第二编  各行业领域投诉渠道",
+    "category_l1": "金融与商业消费",
     "category_l2": "金融与商业消费",
     "tags": [
-      "金融与商业消费",
       "12313（与12345双号并行）",
       "举报",
       "违法",
@@ -1430,7 +1421,8 @@ module.exports = [
     "penalty_power": "",
     "success_rate": "",
     "user_feedback_count": "",
-    "ext": ""
+    "ext": "",
+    "category_user": "消费购物"
   },
   {
     "id": "ch_040",
@@ -1444,11 +1436,10 @@ module.exports = [
     "legal_basis": "",
     "tips": "",
     "source": "农业农村部",
-    "category_l1": "第二编  各行业领域投诉渠道",
+    "category_l1": "金融与商业消费",
     "category_l2": "金融与商业消费",
     "tags": [
       "热线",
-      "金融与商业消费",
       "三农",
       "农业生产资料（假种子 / 假农药 / 假化肥）",
       "举报",
@@ -1467,7 +1458,8 @@ module.exports = [
     "penalty_power": "",
     "success_rate": "",
     "user_feedback_count": "",
-    "ext": ""
+    "ext": "",
+    "category_user": "消费购物"
   },
   {
     "id": "ch_041",
@@ -1481,10 +1473,9 @@ module.exports = [
     "legal_basis": "",
     "tips": "",
     "source": "香港交易所官网",
-    "category_l1": "第二编  各行业领域投诉渠道",
+    "category_l1": "金融与商业消费",
     "category_l2": "金融与商业消费",
     "tags": [
-      "金融与商业消费",
       "投诉",
       "跨境与境外维权（港股 / 美股 / 欧盟）",
       "违规",
@@ -1505,7 +1496,8 @@ module.exports = [
     "penalty_power": "",
     "success_rate": "",
     "user_feedback_count": "",
-    "ext": ""
+    "ext": "",
+    "category_user": "金融保险"
   },
   {
     "id": "ch_042",
@@ -1519,10 +1511,9 @@ module.exports = [
     "legal_basis": "",
     "tips": "",
     "source": "香港证监会官网、中国证监会跨境投诉指引",
-    "category_l1": "第二编  各行业领域投诉渠道",
+    "category_l1": "金融与商业消费",
     "category_l2": "金融与商业消费",
     "tags": [
-      "金融与商业消费",
       "投诉",
       "跨境与境外维权（港股 / 美股 / 欧盟）",
       "违规",
@@ -1542,7 +1533,8 @@ module.exports = [
     "penalty_power": "",
     "success_rate": "",
     "user_feedback_count": "",
-    "ext": ""
+    "ext": "",
+    "category_user": "金融保险"
   },
   {
     "id": "ch_043",
@@ -1556,10 +1548,9 @@ module.exports = [
     "legal_basis": "",
     "tips": "",
     "source": "香港消费者委员会官网",
-    "category_l1": "第二编  各行业领域投诉渠道",
+    "category_l1": "金融与商业消费",
     "category_l2": "金融与商业消费",
     "tags": [
-      "金融与商业消费",
       "收费",
       "（852）2929 2222（消费者咨询及投诉热线）",
       "跨境与境外维权（港股 / 美股 / 欧盟）",
@@ -1577,7 +1568,8 @@ module.exports = [
     "penalty_power": "",
     "success_rate": "",
     "user_feedback_count": "",
-    "ext": ""
+    "ext": "",
+    "category_user": "消费购物"
   },
   {
     "id": "ch_044",
@@ -1591,10 +1583,9 @@ module.exports = [
     "legal_basis": "",
     "tips": "",
     "source": "欧盟委员会、欧洲数据保护委员会、爱尔兰数据保护委员会官网",
-    "category_l1": "第二编  各行业领域投诉渠道",
+    "category_l1": "金融与商业消费",
     "category_l2": "金融与商业消费",
     "tags": [
-      "金融与商业消费",
       "投诉",
       "跨境与境外维权（港股 / 美股 / 欧盟）",
       "违规",
@@ -1613,7 +1604,8 @@ module.exports = [
     "penalty_power": "",
     "success_rate": "",
     "user_feedback_count": "",
-    "ext": ""
+    "ext": "",
+    "category_user": "金融保险"
   },
   {
     "id": "ch_045",
@@ -1627,10 +1619,9 @@ module.exports = [
     "legal_basis": "",
     "tips": "",
     "source": "美国证券交易委员会官网",
-    "category_l1": "第二编  各行业领域投诉渠道",
+    "category_l1": "金融与商业消费",
     "category_l2": "金融与商业消费",
     "tags": [
-      "金融与商业消费",
       "欺诈",
       "举报",
       "跨境与境外维权（港股 / 美股 / 欧盟）",
@@ -1651,7 +1642,8 @@ module.exports = [
     "penalty_power": "",
     "success_rate": "",
     "user_feedback_count": "",
-    "ext": ""
+    "ext": "",
+    "category_user": "金融保险"
   },
   {
     "id": "ch_046",
@@ -1665,11 +1657,10 @@ module.exports = [
     "legal_basis": "",
     "tips": "",
     "source": "美国联邦贸易委员会、FBI官网",
-    "category_l1": "第二编  各行业领域投诉渠道",
+    "category_l1": "金融与商业消费",
     "category_l2": "金融与商业消费",
     "tags": [
       "以网站在线提交为主（FTC美国境内电话1-877-FTC-HELP）",
-      "金融与商业消费",
       "诈骗",
       "欺诈",
       "举报",
@@ -1690,7 +1681,8 @@ module.exports = [
     "penalty_power": "",
     "success_rate": "",
     "user_feedback_count": "",
-    "ext": ""
+    "ext": "",
+    "category_user": "金融保险"
   },
   {
     "id": "ch_047",
@@ -1704,7 +1696,7 @@ module.exports = [
     "legal_basis": "",
     "tips": "",
     "source": "https://www.nhc.gov.cn/zwgkzt/pzhgl1/200806/36749.shtml",
-    "category_l1": "第二编  各行业领域投诉渠道",
+    "category_l1": "社会服务与政务司法",
     "category_l2": "社会服务与政务司法",
     "tags": [
       "举报",
@@ -1712,7 +1704,6 @@ module.exports = [
       "卫生热线",
       "12320",
       "全国",
-      "社会服务与政务司法",
       "医疗"
     ],
     "city_code": "sichuan",
@@ -1727,7 +1718,8 @@ module.exports = [
     "penalty_power": "",
     "success_rate": "",
     "user_feedback_count": "",
-    "ext": ""
+    "ext": "",
+    "category_user": "医疗教育"
   },
   {
     "id": "ch_048",
@@ -1741,12 +1733,11 @@ module.exports = [
     "legal_basis": "",
     "tips": "",
     "source": "https://www.gov.cn/zhengce/content/2018-08/31/content_5318057.htm",
-    "category_l1": "第二编  各行业领域投诉渠道",
+    "category_l1": "社会服务与政务司法",
     "category_l2": "社会服务与政务司法",
     "tags": [
       "各地不同（需查询当地卫健委公布）",
       "纠纷",
-      "社会服务与政务司法",
       "医疗",
       "医调委"
     ],
@@ -1762,7 +1753,8 @@ module.exports = [
     "penalty_power": "",
     "success_rate": "",
     "user_feedback_count": "",
-    "ext": ""
+    "ext": "",
+    "category_user": "医疗教育"
   },
   {
     "id": "ch_049",
@@ -1776,7 +1768,7 @@ module.exports = [
     "legal_basis": "",
     "tips": "",
     "source": "国家医保局官网；国务院公报",
-    "category_l1": "第二编  各行业领域投诉渠道",
+    "category_l1": "社会服务与政务司法",
     "category_l2": "社会服务与政务司法",
     "tags": [
       "诈骗",
@@ -1784,8 +1776,7 @@ module.exports = [
       "举报",
       "违规",
       "12393",
-      "医保举报",
-      "社会服务与政务司法"
+      "医保举报"
     ],
     "city_code": "national",
     "channel_type": "official",
@@ -1799,7 +1790,8 @@ module.exports = [
     "penalty_power": "",
     "success_rate": "",
     "user_feedback_count": "",
-    "ext": ""
+    "ext": "",
+    "category_user": "医疗教育"
   },
   {
     "id": "ch_050",
@@ -1813,7 +1805,7 @@ module.exports = [
     "legal_basis": "",
     "tips": "",
     "source": "https://www.moe.gov.cn/jyb_xwfb/gzdt_gzdt/s5987/201209/t20120903_141522.html",
-    "category_l1": "第二编  各行业领域投诉渠道",
+    "category_l1": "社会服务与政务司法",
     "category_l2": "社会服务与政务司法",
     "tags": [
       "乱收费",
@@ -1822,8 +1814,7 @@ module.exports = [
       "举报",
       "010-66092315",
       "010-66093315（24小时）",
-      "违规",
-      "社会服务与政务司法"
+      "违规"
     ],
     "city_code": "national",
     "channel_type": "hotline",
@@ -1837,6 +1828,7 @@ module.exports = [
     "penalty_power": "",
     "success_rate": "",
     "user_feedback_count": "",
-    "ext": ""
+    "ext": "",
+    "category_user": "医疗教育"
   }
 ];

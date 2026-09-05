@@ -20,7 +20,7 @@ Page({
     const categories = getCategories();
     // 如果没有分类数据，使用默认分类
     const defaultCategories = [
-      { name: '快递物流', icon: '📦' },
+      { name: '交通物流', icon: '🚄' },
       { name: '电信运营', icon: '📱' },
       { name: '消费购物', icon: '🛒' },
       { name: '金融保险', icon: '💰' },
