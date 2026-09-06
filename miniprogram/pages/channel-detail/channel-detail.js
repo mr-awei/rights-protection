@@ -12,6 +12,7 @@ Page({
     contactItems: [],
     tipsText: '',
     preconditionText: '',
+    statusInfo: null,
     loading: true  // 加载状态
   },
 
@@ -33,11 +34,16 @@ Page({
       return;
     }
 
+    // 写入浏览历史
+    app.addViewHistory('channel', id, channel.name, channel.phone || '');
+
     // 第一批：先设置关键信息（标题、联系方式），让用户快速看到核心内容
     const contactItems = this.buildContactItems(channel);
+    const statusInfo = this.buildStatusInfo(channel);
     this.setData({
       channel,
       contactItems,
+      statusInfo,
       loading: false,
       isFavorite: app.isFavorite('channels', id)
     });
@@ -91,6 +97,44 @@ Page({
     return matchedLaws.slice(0, 3);
   },
 
+  // 构建渠道状态信息（已整合/停用提示）
+  buildStatusInfo(channel) {
+    const status = channel.status || 'active';
+    if (status === 'active') return null;
+
+    let info = {
+      type: status,
+      title: '',
+      message: '',
+      replacementName: '',
+      replacementPhone: '',
+      replacementId: ''
+    };
+
+    if (status === 'merged') {
+      info.title = '该热线已整合';
+      info.message = '该热线已整合至其他渠道，建议直接拨打替代渠道';
+    } else if (status === 'discontinued') {
+      info.title = '该渠道已停用';
+      info.message = '该渠道已停止使用，请使用以下替代渠道';
+    } else if (status === 'merging') {
+      info.title = '该热线正在整合';
+      info.message = '该热线正在逐步整合，部分地区可能已无法使用，建议优先使用替代渠道';
+    }
+
+    // 查找替代渠道
+    if (channel.merged_to) {
+      const replacement = getChannelById(channel.merged_to);
+      if (replacement) {
+        info.replacementName = replacement.name;
+        info.replacementPhone = replacement.phone || '';
+        info.replacementId = replacement.id;
+      }
+    }
+
+    return info;
+  },
+
   // 法律法规点击事件
   onLawTap(e) {
     const law = e.currentTarget.dataset.law;
@@ -130,6 +174,16 @@ Page({
       items.push({ icon: 'ℹ️', label: '电话说明', value: channel.phone_note, action: '' });
     }
     return items;
+  },
+
+  // 点击替代渠道跳转
+  onReplacementTap() {
+    const { statusInfo } = this.data;
+    if (statusInfo && statusInfo.replacementId) {
+      wx.redirectTo({
+        url: `/pages/channel-detail/channel-detail?id=${statusInfo.replacementId}`
+      });
+    }
   },
 
   onContactAction(e) {

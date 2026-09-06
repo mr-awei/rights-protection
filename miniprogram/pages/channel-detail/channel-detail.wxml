@@ -22,6 +22,25 @@
 
   <!-- 内容区 -->
   <view class="content">
+    <!-- 已整合/停用渠道提示条 -->
+    <view class="section" wx:if="{{statusInfo}}">
+      <view class="status-banner status-{{statusInfo.type}}">
+        <view class="status-banner-header">
+          <text class="status-banner-icon">{{statusInfo.type === 'discontinued' ? '🚫' : statusInfo.type === 'merged' ? '🔄' : '⚠️'}}</text>
+          <text class="status-banner-title">{{statusInfo.title}}</text>
+        </view>
+        <text class="status-banner-message">{{statusInfo.message}}</text>
+        <view class="status-replacement" wx:if="{{statusInfo.replacementName}}" bindtap="onReplacementTap" hover-class="status-replacement-hover">
+          <view class="status-replacement-info">
+            <text class="status-replacement-label">推荐替代渠道：</text>
+            <text class="status-replacement-name">{{statusInfo.replacementName}}</text>
+            <text class="status-replacement-phone" wx:if="{{statusInfo.replacementPhone}}">📞 {{statusInfo.replacementPhone}}</text>
+          </view>
+          <text class="status-replacement-arrow">›</text>
+        </view>
+      </view>
+    </view>
+
     <!-- 联系方式卡片 -->
     <view class="section" wx:if="{{contactItems.length > 0}}">
       <view class="section-header">
@@ -62,6 +81,16 @@
       </view>
       <view class="info-card">
         <rich-text nodes="{{channel.scope}}"></rich-text>
+      </view>
+    </view>
+
+    <!-- 前置条件 -->
+    <view class="section" wx:if="{{preconditionText}}">
+      <view class="section-header">
+        <text class="section-title">⚠️ 投诉前请注意</text>
+      </view>
+      <view class="precondition-card">
+        <rich-text nodes="{{preconditionText}}"></rich-text>
       </view>
     </view>
 
@@ -129,6 +158,15 @@
           <text class="legal-notice-text">• 捏造事实诬告陷害他人：依据《治安管理处罚法》处5日以下拘留或1000元以下罚款；情节严重的触犯《刑法》诬告陷害罪，最高可处10年有期徒刑。</text>
           <text class="legal-notice-text">• 建议先向企业内部投诉，约80%的常规问题在此层级即可解决，且企业投诉记录是后续向监管部门申诉的前置条件。</text>
         </view>
+      </view>
+    </view>
+
+    <!-- 信息来源 -->
+    <view class="section">
+      <view class="source-card">
+        <text class="source-text">📅 数据验证日期：2026年8月30日</text>
+        <text class="source-text">📋 信息来源：三份维权文档整理，所有信息来源于政府官网公开渠道</text>
+        <text class="source-tip">本工具为便民信息汇总，非政府官方应用，具体以各监管部门官方公布为准</text>
       </view>
     </view>
 

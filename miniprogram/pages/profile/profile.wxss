@@ -295,3 +295,208 @@
   color: #CBD5E1;
   display: block;
 }
+
+/* ========== 收藏Tab切换 ========== */
+.fav-tabs {
+  display: flex;
+  background: #FFFFFF;
+  border-radius: 16rpx;
+  padding: 8rpx;
+  margin-bottom: 16rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.04);
+}
+
+.fav-tab {
+  flex: 1;
+  text-align: center;
+  padding: 16rpx 0;
+  font-size: 26rpx;
+  color: #64748B;
+  font-weight: 500;
+  border-radius: 12rpx;
+  transition: all 0.2s ease;
+}
+
+.fav-tab.active {
+  background: linear-gradient(135deg, #3B82F6, #2563EB);
+  color: #FFFFFF;
+  font-weight: 600;
+  box-shadow: 0 4rpx 12rpx rgba(59,130,246,0.3);
+}
+
+/* ========== 收藏列表 ========== */
+.fav-list {
+  background: #FFFFFF;
+  border-radius: 20rpx;
+  overflow: hidden;
+  box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.04);
+}
+
+.fav-item {
+  display: flex;
+  align-items: center;
+  padding: 24rpx;
+  border-bottom: 1rpx solid #F1F5F9;
+  transition: all 0.2s ease;
+}
+
+.fav-item:last-child {
+  border-bottom: none;
+}
+
+.fav-item-hover {
+  background: #F8FAFC;
+}
+
+.fav-item-icon {
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: 16rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32rpx;
+  margin-right: 16rpx;
+  flex-shrink: 0;
+}
+
+.fav-item-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.fav-item-name {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #1E293B;
+  margin-bottom: 4rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.fav-item-meta {
+  font-size: 22rpx;
+  color: #94A3B8;
+}
+
+.fav-item-remove {
+  width: 48rpx;
+  height: 48rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #F1F5F9;
+  border-radius: 50%;
+  margin-left: 12rpx;
+  flex-shrink: 0;
+}
+
+.fav-item-remove text {
+  font-size: 24rpx;
+  color: #94A3B8;
+  font-weight: 600;
+}
+
+/* ========== 浏览历史 ========== */
+.clear-btn {
+  background: #F1F5F9;
+  padding: 8rpx 20rpx;
+  border-radius: 12rpx;
+  margin-left: auto;
+}
+
+.clear-btn text {
+  font-size: 22rpx;
+  color: #64748B;
+  font-weight: 500;
+}
+
+.history-list {
+  background: #FFFFFF;
+  border-radius: 20rpx;
+  overflow: hidden;
+  box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.04);
+}
+
+.history-item {
+  display: flex;
+  align-items: center;
+  padding: 20rpx 24rpx;
+  border-bottom: 1rpx solid #F1F5F9;
+  transition: all 0.2s ease;
+}
+
+.history-item:last-child {
+  border-bottom: none;
+}
+
+.history-item-hover {
+  background: #F8FAFC;
+}
+
+.history-type {
+  padding: 6rpx 16rpx;
+  border-radius: 10rpx;
+  margin-right: 16rpx;
+  flex-shrink: 0;
+}
+
+.history-type text {
+  font-size: 20rpx;
+  font-weight: 600;
+}
+
+.history-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.history-name {
+  font-size: 26rpx;
+  color: #1E293B;
+  font-weight: 500;
+  margin-bottom: 2rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.history-time {
+  font-size: 20rpx;
+  color: #94A3B8;
+}
+
+.history-arrow {
+  font-size: 28rpx;
+  color: #CBD5E1;
+  margin-left: 12rpx;
+}
+
+/* ========== 空状态 ========== */
+.empty-state {
+  padding: 48rpx 24rpx;
+  text-align: center;
+}
+
+.empty-icon {
+  font-size: 64rpx;
+  margin-bottom: 16rpx;
+  opacity: 0.5;
+}
+
+.empty-title {
+  font-size: 28rpx;
+  color: #64748B;
+  font-weight: 600;
+  margin-bottom: 8rpx;
+}
+
+.empty-desc {
+  font-size: 24rpx;
+  color: #94A3B8;
+}

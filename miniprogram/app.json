@@ -6,7 +6,11 @@
     "pages/channel-detail/channel-detail",
     "pages/script-detail/script-detail",
     "pages/category/category",
-    "pages/profile/profile"
+    "pages/profile/profile",
+    "pages/general-template/general-template",
+    "pages/hotline-change/hotline-change",
+    "pages/followup-schedule/followup-schedule",
+    "pages/enterprise-query/enterprise-query"
   ],
   "window": {
     "backgroundTextStyle": "light",

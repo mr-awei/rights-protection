@@ -1,0 +1,48 @@
+<!--pages/followup-schedule/followup-schedule.wxml-->
+<view class="container" style="--status-bar-height: {{statusBarHeight}}px;">
+  <!-- 渐变头部 -->
+  <view class="gradient-header">
+    <view class="header-content">
+      <view class="header-icon">⏰</view>
+      <view class="header-title">投诉跟进时间表</view>
+      <view class="header-desc">法定时限+升级路径，掌握投诉节奏</view>
+    </view>
+  </view>
+
+  <!-- 内容区 -->
+  <view class="content">
+    <!-- 时间线 -->
+    <view class="timeline">
+      <view
+        class="timeline-item"
+        wx:for="{{list}}"
+        wx:key="id"
+        data-index="{{index}}"
+        bindtap="onItemTap"
+        hover-class="timeline-item-hover"
+      >
+        <view class="timeline-dot">
+          <view class="dot-inner" style="background: {{item.color || '#06B6D4'}};"></view>
+        </view>
+        <view class="timeline-line" wx:if="{{index < list.length - 1}}"></view>
+        <view class="timeline-content">
+          <view class="timeline-time">{{item.time}}</view>
+          <view class="timeline-title">{{item.title}}</view>
+          <view class="timeline-desc">{{item.description}}</view>
+          <view class="timeline-action" wx:if="{{item.action}}">
+            <text class="action-label">建议动作：</text>
+            <text class="action-text">{{item.action}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 提示 -->
+    <view class="tip-card">
+      <view class="tip-icon">💡</view>
+      <view class="tip-text">以上时限为一般规定，具体以各监管部门实际处理流程为准。如遇超期未处理，可向上级部门投诉或申请行政复议。保留好所有沟通记录和证据。</view>
+    </view>
+
+    <view style="height: 40rpx;"></view>
+  </view>
+</view>

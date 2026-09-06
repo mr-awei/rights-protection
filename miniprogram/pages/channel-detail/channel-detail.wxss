@@ -461,3 +461,143 @@
   font-size: 28rpx;
   color: #94A3B8;
 }
+
+/* ========== 渠道状态提示条 ========== */
+.status-banner {
+  border-radius: 20rpx;
+  padding: 24rpx;
+  border-left: 6rpx solid;
+}
+
+.status-banner.status-merged {
+  background: linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 100%);
+  border-color: #F59E0B;
+  border-left-color: #F59E0B;
+}
+
+.status-banner.status-discontinued {
+  background: linear-gradient(135deg, #FEF2F2 0%, #FEE2E2 100%);
+  border-color: #FECACA;
+  border-left-color: #EF4444;
+}
+
+.status-banner.status-merging {
+  background: linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 100%);
+  border-color: #FDE68A;
+  border-left-color: #F59E0B;
+}
+
+.status-banner-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12rpx;
+}
+
+.status-banner-icon {
+  font-size: 28rpx;
+  margin-right: 8rpx;
+}
+
+.status-banner-title {
+  font-size: 28rpx;
+  font-weight: 700;
+  color: #92400E;
+}
+
+.status-discontinued .status-banner-title {
+  color: #991B1B;
+}
+
+.status-banner-message {
+  font-size: 24rpx;
+  color: #78350F;
+  line-height: 1.6;
+  display: block;
+  margin-bottom: 16rpx;
+}
+
+.status-discontinued .status-banner-message {
+  color: #7F1D1D;
+}
+
+.status-replacement {
+  display: flex;
+  align-items: center;
+  background: #FFFFFF;
+  border-radius: 12rpx;
+  padding: 16rpx 20rpx;
+  transition: all 0.2s ease;
+}
+
+.status-replacement-hover {
+  transform: scale(0.98);
+  box-shadow: 0 4rpx 12rpx rgba(0,0,0,0.1);
+}
+
+.status-replacement-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.status-replacement-label {
+  font-size: 20rpx;
+  color: #94A3B8;
+  margin-bottom: 4rpx;
+}
+
+.status-replacement-name {
+  font-size: 26rpx;
+  font-weight: 600;
+  color: #1E293B;
+  margin-bottom: 2rpx;
+}
+
+.status-replacement-phone {
+  font-size: 22rpx;
+  color: #3B82F6;
+  font-weight: 500;
+}
+
+.status-replacement-arrow {
+  font-size: 32rpx;
+  color: #CBD5E1;
+  margin-left: 12rpx;
+}
+
+/* ========== 前置条件卡片 ========== */
+.precondition-card {
+  background: linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 100%);
+  border: 1rpx solid #FDE68A;
+  border-radius: 20rpx;
+  padding: 24rpx;
+  font-size: 26rpx;
+  color: #78350F;
+  line-height: 1.8;
+}
+
+/* ========== 信息来源卡片 ========== */
+.source-card {
+  background: #F8FAFC;
+  border-radius: 16rpx;
+  padding: 20rpx 24rpx;
+  border: 1rpx solid #E2E8F0;
+}
+
+.source-text {
+  font-size: 22rpx;
+  color: #64748B;
+  line-height: 1.6;
+  display: block;
+  margin-bottom: 6rpx;
+}
+
+.source-tip {
+  font-size: 20rpx;
+  color: #94A3B8;
+  line-height: 1.5;
+  display: block;
+  margin-top: 8rpx;
+  padding-top: 12rpx;
+  border-top: 1rpx solid #E2E8F0;
+}

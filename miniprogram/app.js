@@ -3,6 +3,7 @@ App({
   globalData: {
     userInfo: null,
     searchHistory: [],
+    viewHistory: [],
     favorites: {
       channels: [],
       scripts: []
@@ -18,6 +19,10 @@ App({
     // 加载收藏
     const favorites = wx.getStorageSync('favorites') || { channels: [], scripts: [] };
     this.globalData.favorites = favorites;
+
+    // 加载浏览历史
+    const viewHistory = wx.getStorageSync('viewHistory') || [];
+    this.globalData.viewHistory = viewHistory;
 
     // 检查数据版本
     const savedVersion = wx.getStorageSync('dataVersion');
@@ -79,5 +84,41 @@ App({
   // 获取搜索历史
   getSearchHistory() {
     return this.globalData.searchHistory || [];
+  },
+
+  // 添加浏览历史
+  addViewHistory(itemType, itemId, itemName, itemExtra) {
+    if (!itemType || !itemId) return;
+    const history = this.globalData.viewHistory;
+    // 去重：同一类型同一ID只保留最新一条
+    const existingIndex = history.findIndex(h => h.item_type === itemType && h.item_id === itemId);
+    if (existingIndex > -1) {
+      history.splice(existingIndex, 1);
+    }
+    // 插入到最前面
+    history.unshift({
+      item_type: itemType,
+      item_id: itemId,
+      item_name: itemName || '',
+      item_extra: itemExtra || '',
+      viewed_at: Date.now()
+    });
+    // 最多保留20条
+    if (history.length > 20) {
+      history.length = 20;
+    }
+    this.globalData.viewHistory = history;
+    wx.setStorageSync('viewHistory', history);
+  },
+
+  // 获取浏览历史
+  getViewHistory() {
+    return this.globalData.viewHistory || [];
+  },
+
+  // 清空浏览历史
+  clearViewHistory() {
+    this.globalData.viewHistory = [];
+    wx.setStorageSync('viewHistory', []);
   }
 });

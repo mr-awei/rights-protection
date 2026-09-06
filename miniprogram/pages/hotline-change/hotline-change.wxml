@@ -1,0 +1,53 @@
+<!--pages/hotline-change/hotline-change.wxml-->
+<view class="container" style="--status-bar-height: {{statusBarHeight}}px;">
+  <!-- 渐变头部 -->
+  <view class="gradient-header">
+    <view class="header-content">
+      <view class="header-icon">🔄</view>
+      <view class="header-title">热线变更速查</view>
+      <view class="header-desc">已取消/整合/变更热线一览，避免拨打无效号码</view>
+    </view>
+  </view>
+
+  <!-- 内容区 -->
+  <view class="content">
+    <!-- 筛选Tab -->
+    <view class="filter-tabs">
+      <view class="filter-tab {{activeFilter === 'all' ? 'active' : ''}}" data-filter="all" bindtap="onFilterTap">全部</view>
+      <view class="filter-tab {{activeFilter === 'discontinued' ? 'active' : ''}}" data-filter="discontinued" bindtap="onFilterTap">已取消</view>
+      <view class="filter-tab {{activeFilter === 'merged' ? 'active' : ''}}" data-filter="merged" bindtap="onFilterTap">已整合</view>
+      <view class="filter-tab {{activeFilter === 'merging' ? 'active' : ''}}" data-filter="merging" bindtap="onFilterTap">整合中</view>
+    </view>
+
+    <!-- 变更列表 -->
+    <view class="change-list">
+      <view class="change-item" wx:for="{{filteredList}}" wx:key="id">
+        <view class="change-header">
+          <view class="change-name">{{item.old_name}}</view>
+          <view class="change-status status-{{item.status}}">
+            {{item.status === 'discontinued' ? '已取消' : item.status === 'merged' ? '已整合' : '整合中'}}
+          </view>
+        </view>
+        <view class="change-old-phone" wx:if="{{item.old_phone}}">原号码：{{item.old_phone}}</view>
+        <view class="change-reason" wx:if="{{item.reason}}">{{item.reason}}</view>
+        <view class="change-replacement" wx:if="{{item.new_name}}">
+          <view class="replacement-label">替代渠道：</view>
+          <view class="replacement-name">{{item.new_name}}</view>
+          <view class="replacement-phone" wx:if="{{item.new_phone}}">
+            <text class="phone-text" bindtap="onCopyPhone" data-phone="{{item.new_phone}}">📋 {{item.new_phone}}</text>
+            <text class="call-text" bindtap="onCallPhone" data-phone="{{item.new_phone}}">📞 拨打</text>
+          </view>
+        </view>
+        <view class="change-date" wx:if="{{item.effective_date}}">生效日期：{{item.effective_date}}</view>
+      </view>
+    </view>
+
+    <!-- 提示 -->
+    <view class="tip-card">
+      <view class="tip-icon">💡</view>
+      <view class="tip-text">部分地区热线可能存在差异，建议拨打前先确认当地最新号码。如遇号码无法接通，请拨打12345政务服务便民热线咨询。</view>
+    </view>
+
+    <view style="height: 40rpx;"></view>
+  </view>
+</view>

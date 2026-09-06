@@ -1,0 +1,64 @@
+<!--pages/general-template/general-template.wxml-->
+<view class="container" style="--status-bar-height: {{statusBarHeight}}px;">
+  <!-- 渐变头部 -->
+  <view class="gradient-header">
+    <view class="header-content">
+      <view class="header-icon">📝</view>
+      <view class="header-title">通用投诉信模板</view>
+      <view class="header-desc">结构化模板，按块填写，一键复制</view>
+      <view class="copy-all-btn" bindtap="onCopyAll" hover-class="copy-all-btn-hover">
+        <text>📋 复制完整模板</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 内容区 -->
+  <view class="content">
+    <!-- 使用说明 -->
+    <view class="tip-card">
+      <view class="tip-header">
+        <text class="tip-icon">💡</text>
+        <text class="tip-title">使用说明</text>
+      </view>
+      <view class="tip-content">
+        <text class="tip-text">1. 按照模板结构，逐块填写您的实际情况</text>
+        <text class="tip-text">2. 每个分块可单独复制，也可一键复制完整模板</text>
+        <text class="tip-text">3. 事实与理由部分请客观陈述，避免情绪化表达</text>
+        <text class="tip-text">4. 证据清单请列明证据名称、来源、证明事项</text>
+        <text class="tip-text">5. 提交前请仔细核对被投诉方信息和投诉请求</text>
+      </view>
+    </view>
+
+    <!-- 模板分块 -->
+    <view class="section" wx:for="{{sections}}" wx:key="id">
+      <view class="section-header">
+        <view class="section-num">{{index + 1}}</view>
+        <text class="section-title">{{item.title}}</text>
+        <view class="copy-btn" bindtap="onCopySection" data-section="{{item}}" hover-class="copy-btn-hover">
+          <text>复制</text>
+        </view>
+      </view>
+      <view class="content-card">
+        <view class="content-text">
+          <rich-text nodes="{{item.content}}"></rich-text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 依法维权提示 -->
+    <view class="legal-notice">
+      <view class="legal-notice-header">
+        <text class="legal-icon">⚖️</text>
+        <text class="legal-title">依法维权提示</text>
+      </view>
+      <view class="legal-content">
+        <text class="legal-text">• 投诉应当基于真实事实，不得捏造、歪曲事实</text>
+        <text class="legal-text">• 不得诬告、陷害他人，否则将承担相应法律责任</text>
+        <text class="legal-text">• 建议先向企业内部投诉，无法解决再向监管部门投诉</text>
+        <text class="legal-text">• 保留好所有证据，包括聊天记录、合同、票据等</text>
+      </view>
+    </view>
+
+    <view style="height: 40rpx;"></view>
+  </view>
+</view>

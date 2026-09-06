@@ -1,4 +1,4 @@
-﻿<!--pages/profile/profile.wxml-->
+<!--pages/profile/profile.wxml-->
 <view class="container" style="--status-bar-height: {{statusBarHeight}}px;">
   <!-- 渐变头部 -->
   <view class="gradient-header">
@@ -28,6 +28,11 @@
           <text class="stat-label">收藏话术</text>
         </view>
         <view class="stat-divider"></view>
+        <view class="stat-item" bindtap="onStatTap" data-type="viewHistory" hover-class="stat-item-hover">
+          <text class="stat-number">{{viewHistoryCount}}</text>
+          <text class="stat-label">浏览历史</text>
+        </view>
+        <view class="stat-divider"></view>
         <view class="stat-item" bindtap="onStatTap" data-type="search" hover-class="stat-item-hover">
           <text class="stat-number">{{searchCount}}</text>
           <text class="stat-label">搜索次数</text>
@@ -38,10 +43,117 @@
 
   <!-- 内容区 -->
   <view class="content">
+    <!-- 我的收藏 -->
+    <view class="section" id="favorite-section">
+      <view class="section-header">
+        <text class="section-title">⭐ 我的收藏</text>
+      </view>
+      <!-- 收藏Tab切换 -->
+      <view class="fav-tabs">
+        <view
+          class="fav-tab {{activeFavTab === 'channels' ? 'active' : ''}}"
+          data-tab="channels"
+          bindtap="onFavTabTap"
+        >渠道 ({{favoriteChannels}})</view>
+        <view
+          class="fav-tab {{activeFavTab === 'scripts' ? 'active' : ''}}"
+          data-tab="scripts"
+          bindtap="onFavTabTap"
+        >话术 ({{favoriteScripts}})</view>
+      </view>
+
+      <!-- 收藏的渠道列表 -->
+      <view class="fav-list" wx:if="{{activeFavTab === 'channels'}}">
+        <view
+          class="fav-item"
+          wx:for="{{favoriteChannelList}}"
+          wx:key="id"
+          data-id="{{item.id}}"
+          bindtap="onFavoriteChannelTap"
+          hover-class="fav-item-hover"
+        >
+          <view class="fav-item-icon" style="background: #EFF6FF; color: #3B82F6;">🏛️</view>
+          <view class="fav-item-info">
+            <text class="fav-item-name">{{item.name}}</text>
+            <text class="fav-item-meta" wx:if="{{item.phone}}">📞 {{item.phone}}</text>
+            <text class="fav-item-meta" wx:else>{{item.category}}</text>
+          </view>
+          <view class="fav-item-remove" catchtap="onRemoveFavoriteChannel" data-id="{{item.id}}">
+            <text>✕</text>
+          </view>
+        </view>
+        <view class="empty-state" wx:if="{{favoriteChannelList.length === 0}}">
+          <view class="empty-icon">⭐</view>
+          <view class="empty-title">还没有收藏渠道</view>
+          <view class="empty-desc">看到有用的渠道就点⭐收藏吧</view>
+        </view>
+      </view>
+
+      <!-- 收藏的话术列表 -->
+      <view class="fav-list" wx:if="{{activeFavTab === 'scripts'}}">
+        <view
+          class="fav-item"
+          wx:for="{{favoriteScriptList}}"
+          wx:key="id"
+          data-id="{{item.id}}"
+          bindtap="onFavoriteScriptTap"
+          hover-class="fav-item-hover"
+        >
+          <view class="fav-item-icon" style="background: #F0FDF4; color: #10B981;">📝</view>
+          <view class="fav-item-info">
+            <text class="fav-item-name">{{item.name}}</text>
+            <text class="fav-item-meta">{{item.applicable || '投诉话术'}}</text>
+          </view>
+          <view class="fav-item-remove" catchtap="onRemoveFavoriteScript" data-id="{{item.id}}">
+            <text>✕</text>
+          </view>
+        </view>
+        <view class="empty-state" wx:if="{{favoriteScriptList.length === 0}}">
+          <view class="empty-icon">📝</view>
+          <view class="empty-title">还没有收藏话术</view>
+          <view class="empty-desc">看到有用的话术就点⭐收藏吧</view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 浏览历史 -->
+    <view class="section" id="history-section">
+      <view class="section-header">
+        <text class="section-title">👀 浏览历史</text>
+        <view class="clear-btn" bindtap="onClearViewHistory" wx:if="{{viewHistoryList.length > 0}}">
+          <text>清空</text>
+        </view>
+      </view>
+      <view class="history-list" wx:if="{{viewHistoryList.length > 0}}">
+        <view
+          class="history-item"
+          wx:for="{{viewHistoryList}}"
+          wx:key="item_id"
+          data-item="{{item}}"
+          bindtap="onViewHistoryTap"
+          hover-class="history-item-hover"
+        >
+          <view class="history-type" style="background: {{item.typeColor}}15; color: {{item.typeColor}};">
+            <text>{{item.typeLabel}}</text>
+          </view>
+          <view class="history-info">
+            <text class="history-name">{{item.item_name}}</text>
+            <text class="history-time">{{item.timeStr}}</text>
+          </view>
+          <text class="history-arrow">›</text>
+        </view>
+      </view>
+      <view class="empty-state" wx:if="{{viewHistoryList.length === 0}}">
+        <view class="empty-icon">👀</view>
+        <view class="empty-title">还没有浏览记录</view>
+        <view class="empty-desc">去看看有哪些投诉渠道吧</view>
+      </view>
+    </view>
+
     <!-- 工具箱 -->
     <view class="section">
       <view class="section-header">
-        <text class="section-title">工具箱</text>
+        <text class="section-title">🛠️ 工具箱</text>
       </view>
       <view class="tool-grid">
         <view

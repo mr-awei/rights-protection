@@ -95,16 +95,32 @@
       </view>
     </view>
 
-    <!-- 紧急电话 -->
+    <!-- 紧急电话条 -->
     <view class="section">
-      <view class="emergency-card" bindtap="onEmergencyCall" hover-class="emergency-card-hover">
-        <view class="emergency-icon">🚨</view>
-        <view class="emergency-info">
-          <text class="emergency-title">紧急报警</text>
-          <text class="emergency-desc">遇到紧急情况，一键拨打110</text>
+      <view class="emergency-bar">
+        <view class="emergency-bar-title">
+          <text class="emergency-bar-icon">🚨</text>
+          <text class="emergency-bar-text">紧急电话 · 一键拨打</text>
         </view>
-        <view class="emergency-btn">
-          <text class="emergency-btn-text">立即拨打</text>
+        <view class="emergency-phone-list">
+          <view
+            class="emergency-phone-item"
+            wx:for="{{emergencyPhones}}"
+            wx:key="name"
+            data-phone="{{item.name}}"
+            data-label="{{item.label}}"
+            bindtap="onEmergencyCall"
+            hover-class="emergency-phone-hover"
+          >
+            <view class="emergency-phone-icon" style="background: {{item.color}}15; color: {{item.color}}">
+              <text>{{item.icon}}</text>
+            </view>
+            <text class="emergency-phone-number">{{item.name}}</text>
+            <text class="emergency-phone-label">{{item.label}}</text>
+          </view>
+        </view>
+        <view class="emergency-bar-tip">
+          <text>紧急情况请直接拨打，不走投诉流程</text>
         </view>
       </view>
     </view>

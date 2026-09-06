@@ -10,6 +10,10 @@ let lawsData = null;
 let categoriesData = null;
 let configData = null;
 let shardConfig = null;       // 分片配置
+let hotlineChangeData = null;  // 热线变更数据
+let followupScheduleData = null; // 跟进时间表数据
+let enterpriseQueryData = null;  // 企业查询数据
+let generalTemplateData = null;  // 通用投诉信模板数据
 
 /**
  * 初始化：加载索引和轻量数据（启动时调用，速度快）
@@ -68,6 +72,10 @@ function loadAllData() {
   try { lawsData = require('../data/laws.js'); } catch (e) { lawsData = []; }
   try { categoriesData = require('../data/categories.js'); } catch (e) { categoriesData = []; }
   try { configData = require('../data/config.js'); } catch (e) { configData = {}; }
+  try { hotlineChangeData = require('../data/hotline_change.js'); } catch (e) { hotlineChangeData = []; }
+  try { followupScheduleData = require('../data/followup_schedule.js'); } catch (e) { followupScheduleData = []; }
+  try { enterpriseQueryData = require('../data/enterprise_query.js'); } catch (e) { enterpriseQueryData = []; }
+  try { generalTemplateData = require('../data/general_template.js'); } catch (e) { generalTemplateData = null; }
 }
 
 /**
@@ -329,6 +337,38 @@ function getShardStats() {
   };
 }
 
+/**
+ * 获取热线变更数据
+ */
+function getHotlineChanges() {
+  loadAllData();
+  return hotlineChangeData || [];
+}
+
+/**
+ * 获取跟进时间表数据
+ */
+function getFollowupSchedule() {
+  loadAllData();
+  return followupScheduleData || [];
+}
+
+/**
+ * 获取企业查询数据
+ */
+function getEnterpriseQueries() {
+  loadAllData();
+  return enterpriseQueryData || [];
+}
+
+/**
+ * 获取通用投诉信模板
+ */
+function getGeneralTemplate() {
+  loadAllData();
+  return generalTemplateData;
+}
+
 module.exports = {
   loadAllData,
   getChannels,
@@ -351,5 +391,9 @@ module.exports = {
   getScriptPhoneContent,
   getScriptWrittenContent,
   getShardStats,
-  loadPart
+  loadPart,
+  getHotlineChanges,
+  getFollowupSchedule,
+  getEnterpriseQueries,
+  getGeneralTemplate
 };

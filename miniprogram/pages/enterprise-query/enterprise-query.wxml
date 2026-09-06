@@ -1,0 +1,78 @@
+<!--pages/enterprise-query/enterprise-query.wxml-->
+<view class="container" style="--status-bar-height: {{statusBarHeight}}px;">
+  <!-- 渐变头部 -->
+  <view class="gradient-header">
+    <view class="header-content">
+      <view class="header-icon">🏢</view>
+      <view class="header-title">企业信息查询</view>
+      <view class="header-desc">4个官方查询平台，核实企业资质与信用</view>
+    </view>
+  </view>
+
+  <!-- 内容区 -->
+  <view class="content">
+    <!-- 使用说明 -->
+    <view class="tip-card">
+      <view class="tip-icon">💡</view>
+      <view class="tip-text">投诉前先核实企业信息，确认企业全称、统一社会信用代码、法定代表人等信息，有助于提高投诉成功率。点击卡片查看详情，点击网址可复制。</view>
+    </view>
+
+    <!-- 平台列表 -->
+    <view class="platform-list">
+      <view
+        class="platform-item"
+        wx:for="{{list}}"
+        wx:key="id"
+        data-index="{{index}}"
+        bindtap="onItemTap"
+        hover-class="platform-item-hover"
+      >
+        <view class="platform-icon" style="background: {{item.color || '#FEF2F2'}};">
+          <text>{{item.icon || '🏢'}}</text>
+        </view>
+        <view class="platform-info">
+          <view class="platform-name">{{item.name}}</view>
+          <view class="platform-desc">{{item.short_desc || item.description}}</view>
+          <view class="platform-url" catchtap="onCopyUrl" data-url="{{item.url}}">
+            <text class="url-icon">🔗</text>
+            <text class="url-text">{{item.url}}</text>
+            <text class="url-copy">复制</text>
+          </view>
+        </view>
+        <text class="platform-arrow">›</text>
+      </view>
+    </view>
+
+    <!-- 查询要点 -->
+    <view class="points-card">
+      <view class="points-header">
+        <text class="points-icon">📋</text>
+        <text class="points-title">查询要点</text>
+      </view>
+      <view class="points-list">
+        <view class="point-item">
+          <text class="point-num">1</text>
+          <text class="point-text">核实企业全称，避免简称或错别字</text>
+        </view>
+        <view class="point-item">
+          <text class="point-num">2</text>
+          <text class="point-text">记录统一社会信用代码（18位）</text>
+        </view>
+        <view class="point-item">
+          <text class="point-num">3</text>
+          <text class="point-text">查看企业经营状态（存续/注销/吊销）</text>
+        </view>
+        <view class="point-item">
+          <text class="point-num">4</text>
+          <text class="point-text">查看行政处罚和经营异常记录</text>
+        </view>
+        <view class="point-item">
+          <text class="point-num">5</text>
+          <text class="point-text">截图保存查询结果作为证据</text>
+        </view>
+      </view>
+    </view>
+
+    <view style="height: 40rpx;"></view>
+  </view>
+</view>

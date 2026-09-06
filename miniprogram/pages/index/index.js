@@ -7,7 +7,13 @@ Page({
   data: {
     searchKeyword: '',
     statusBarHeight: 0,
-    hotSearches: ['快递丢失', '商家不退款', '话费乱扣', '老板欠薪'],
+    hotSearches: ['快递丢失', '商家不退款', '话费乱扣', '老板欠薪', '物业乱收费', '电信诈骗', '噪音扰民', '医院乱收费', '出租车拒载', '个人信息泄露'],
+    emergencyPhones: [
+      { name: '110', label: '报警', icon: '🚨', color: '#EF4444' },
+      { name: '119', label: '火警', icon: '🔥', color: '#F97316' },
+      { name: '120', label: '急救', icon: '🚑', color: '#EC4899' },
+      { name: '96110', label: '反诈', icon: '🛡️', color: '#8B5CF6' }
+    ],
     sceneEntries: [
       { icon: '📦', label: '快递问题', color: '#E6F4FF', keyword: '快递丢失' },
       { icon: '📱', label: '手机宽带', color: '#F6FFED', keyword: '话费乱扣' },
@@ -37,7 +43,7 @@ Page({
   },
 
   loadHotScripts() {
-    const scripts = getHotScripts(3);
+    const scripts = getHotScripts(5);
     // 预处理话术数据，生成预览文本
     const processed = scripts.map(s => {
       let preview = '点击查看完整话术';
@@ -121,11 +127,25 @@ Page({
     this.doSearch();
   },
 
-  onEmergencyCall() {
-    wx.makePhoneCall({
-      phoneNumber: '110',
-      fail: () => {
-        wx.showToast({ title: '拨打失败，请手动拨打110', icon: 'none' });
+  onEmergencyCall(e) {
+    const phone = e.currentTarget.dataset.phone;
+    const label = e.currentTarget.dataset.label;
+    if (!phone) return;
+    wx.showModal({
+      title: '确认拨打',
+      content: `确认拨打${label}电话 ${phone}？\n\n紧急情况请直接拨打，本工具仅提供快捷入口。`,
+      confirmText: '确认拨打',
+      cancelText: '取消',
+      confirmColor: '#EF4444',
+      success: (res) => {
+        if (res.confirm) {
+          wx.makePhoneCall({
+            phoneNumber: phone,
+            fail: () => {
+              wx.showToast({ title: `拨打失败，请手动拨打${phone}`, icon: 'none' });
+            }
+          });
+        }
       }
     });
   },

@@ -1,4 +1,4 @@
-﻿// pages/profile/profile.js
+// pages/profile/profile.js
 const app = getApp();
 const { getChannelById, getScriptById } = require('../../utils/data.js');
 
@@ -8,23 +8,30 @@ Page({
     favoriteChannels: 0,
     favoriteScripts: 0,
     searchCount: 0,
+    viewHistoryCount: 0,
     statusBarHeight: 20,
+    // 收藏列表
+    activeFavTab: 'channels',
+    favoriteChannelList: [],
+    favoriteScriptList: [],
+    // 浏览历史
+    viewHistoryList: [],
+    // 工具箱
     toolList: [
-      { icon: '📋', name: '我的投诉记录', desc: '查看投诉进度', color: '#E6F4FF' },
-      { icon: '⭐', name: '我的收藏', desc: '收藏的渠道和话术', color: '#F6FFED' },
-      { icon: '📝', name: '证据管理', desc: '保存投诉证据', color: '#FFFBE6' },
-      { icon: '⏰', name: '投诉进度提醒', desc: '重要节点提醒', color: '#FFF2F0' },
-      { icon: '⚖️', name: '法律法规库', desc: '查询相关法律', color: '#F9F0FF' },
-      { icon: '💬', name: '意见反馈', desc: '帮助我们改进', color: '#E6FFFB' },
-      { icon: 'ℹ️', name: '关于我们', desc: '版本信息', color: '#F0F5FF' }
+      { icon: '📝', name: '通用投诉信模板', desc: '结构化模板，一键复制', color: '#E6F4FF', page: 'general-template' },
+      { icon: '🔄', name: '热线变更速查', desc: '已取消/整合热线查询', color: '#F6FFED', page: 'hotline-change' },
+      { icon: '⏰', name: '投诉跟进时间表', desc: '法定时限+升级路径', color: '#FFFBE6', page: 'followup-schedule' },
+      { icon: '🏢', name: '企业信息查询', desc: '4个官方查询平台', color: '#FFF2F0', page: 'enterprise-query' },
+      { icon: '⚖️', name: '法律法规库', desc: '查询相关法律条文', color: '#F9F0FF', page: '' },
+      { icon: '💬', name: '意见反馈', desc: '帮助我们改进', color: '#E6FFFB', page: '' },
+      { icon: 'ℹ️', name: '关于我们', desc: '版本信息与免责声明', color: '#F0F5FF', page: 'about' }
     ]
   },
 
-  // 内部状态：缓存的统计数据（避免tab切换时重复setData）
-  _cachedStats: { channels: -1, scripts: -1, history: -1 },
+  // 内部状态：缓存的统计数据
+  _cachedStats: { channels: -1, scripts: -1, history: -1, viewHistory: -1 },
 
   onLoad() {
-    // 动态获取状态栏高度
     try {
       const systemInfo = wx.getSystemInfoSync();
       this.setData({ statusBarHeight: systemInfo.statusBarHeight || 20 });
@@ -36,104 +43,199 @@ Page({
 
   onShow() {
     this.loadStats();
+    this.loadFavoriteLists();
+    this.loadViewHistory();
   },
 
   loadStats() {
     const favorites = app.globalData.favorites;
     const history = app.globalData.searchHistory;
+    const viewHistory = app.globalData.viewHistory;
     const channelCount = favorites.channels.length;
     const scriptCount = favorites.scripts.length;
     const historyCount = history.length;
+    const viewHistoryCount = viewHistory.length;
 
-    // 只有在数据真正变化时才setData，避免不必要的渲染
     if (this._cachedStats.channels === channelCount &&
         this._cachedStats.scripts === scriptCount &&
-        this._cachedStats.history === historyCount) {
+        this._cachedStats.history === historyCount &&
+        this._cachedStats.viewHistory === viewHistoryCount) {
       return;
     }
 
     this._cachedStats = {
       channels: channelCount,
       scripts: scriptCount,
-      history: historyCount
+      history: historyCount,
+      viewHistory: viewHistoryCount
     };
 
     this.setData({
       favoriteChannels: channelCount,
       favoriteScripts: scriptCount,
-      searchCount: historyCount
+      searchCount: historyCount,
+      viewHistoryCount: viewHistoryCount
     });
   },
 
-  onToolTap(e) {
-    const index = e.currentTarget.dataset.index;
-    const tool = this.data.toolList[index];
+  // 加载收藏列表
+  loadFavoriteLists() {
+    const favorites = app.globalData.favorites;
+    // 收藏的渠道
+    const channelList = favorites.channels.map(id => {
+      const channel = getChannelById(id);
+      return channel ? {
+        id: channel.id,
+        name: channel.name,
+        phone: channel.phone || '',
+        category: channel.category_user || ''
+      } : { id, name: '渠道已删除', phone: '', category: '' };
+    });
+    // 收藏的话术
+    const scriptList = favorites.scripts.map(id => {
+      const script = getScriptById(id);
+      return script ? {
+        id: script.id,
+        name: script.scene_name || script.name || '投诉话术',
+        applicable: script.applicable || ''
+      } : { id, name: '话术已删除', applicable: '' };
+    });
 
-    if (tool.name === '我的收藏') {
-      wx.showToast({ title: '收藏功能开发中', icon: 'none' });
-    } else if (tool.name === '关于我们') {
-      wx.showModal({
-        title: '关于我不能被欺负',
-        content: '我不能被欺负 v1.0.0 MVP版\n\n一款帮助消费者快速找到官方投诉渠道的工具。\n\n数据来源：公开官方信息\n免责声明：本工具仅供参考，具体投诉以官方渠道为准。',
-        showCancel: false,
-        confirmText: '知道了'
+    this.setData({
+      favoriteChannelList: channelList,
+      favoriteScriptList: scriptList
+    });
+  },
+
+  // 加载浏览历史
+  loadViewHistory() {
+    const history = app.getViewHistory();
+    const processed = history.map(item => {
+      let name = item.item_name || '';
+      let extra = item.item_extra || '';
+      let typeLabel = item.item_type === 'channel' ? '渠道' : '话术';
+      let typeColor = item.item_type === 'channel' ? '#3B82F6' : '#10B981';
+      // 格式化时间
+      let timeStr = '';
+      if (item.viewed_at) {
+        const date = new Date(item.viewed_at);
+        timeStr = `${date.getMonth() + 1}/${date.getDate()} ${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`;
+      }
+      return {
+        ...item,
+        typeLabel,
+        typeColor,
+        timeStr
+      };
+    });
+    this.setData({ viewHistoryList: processed });
+  },
+
+  // 收藏Tab切换
+  onFavTabTap(e) {
+    const tab = e.currentTarget.dataset.tab;
+    this.setData({ activeFavTab: tab });
+  },
+
+  // 点击收藏的渠道
+  onFavoriteChannelTap(e) {
+    const id = e.currentTarget.dataset.id;
+    wx.navigateTo({
+      url: `/pages/channel-detail/channel-detail?id=${id}`
+    });
+  },
+
+  // 点击收藏的话术
+  onFavoriteScriptTap(e) {
+    const id = e.currentTarget.dataset.id;
+    wx.navigateTo({
+      url: `/pages/script-detail/script-detail?id=${id}`
+    });
+  },
+
+  // 取消收藏渠道
+  onRemoveFavoriteChannel(e) {
+    const id = e.currentTarget.dataset.id;
+    wx.showModal({
+      title: '取消收藏',
+      content: '确定取消收藏该渠道吗？',
+      success: (res) => {
+        if (res.confirm) {
+          app.toggleFavorite('channels', id);
+          this._cachedStats = { channels: -1, scripts: -1, history: -1, viewHistory: -1 };
+          this.loadStats();
+          this.loadFavoriteLists();
+          wx.showToast({ title: '已取消收藏', icon: 'success' });
+        }
+      }
+    });
+  },
+
+  // 取消收藏话术
+  onRemoveFavoriteScript(e) {
+    const id = e.currentTarget.dataset.id;
+    wx.showModal({
+      title: '取消收藏',
+      content: '确定取消收藏该话术吗？',
+      success: (res) => {
+        if (res.confirm) {
+          app.toggleFavorite('scripts', id);
+          this._cachedStats = { channels: -1, scripts: -1, history: -1, viewHistory: -1 };
+          this.loadStats();
+          this.loadFavoriteLists();
+          wx.showToast({ title: '已取消收藏', icon: 'success' });
+        }
+      }
+    });
+  },
+
+  // 点击浏览历史
+  onViewHistoryTap(e) {
+    const item = e.currentTarget.dataset.item;
+    if (item.item_type === 'channel') {
+      wx.navigateTo({
+        url: `/pages/channel-detail/channel-detail?id=${item.item_id}`
       });
-    } else {
-      wx.showToast({ title: `${tool.name}开发中`, icon: 'none' });
+    } else if (item.item_type === 'script') {
+      wx.navigateTo({
+        url: `/pages/script-detail/script-detail?id=${item.item_id}`
+      });
     }
   },
 
-  onFavoriteTap() {
-    wx.showToast({ title: '收藏功能开发中', icon: 'none' });
+  // 清空浏览历史
+  onClearViewHistory() {
+    wx.showModal({
+      title: '清空浏览历史',
+      content: '确定清空所有浏览历史吗？此操作不可恢复。',
+      success: (res) => {
+        if (res.confirm) {
+          app.clearViewHistory();
+          this._cachedStats = { channels: -1, scripts: -1, history: -1, viewHistory: -1 };
+          this.loadStats();
+          this.loadViewHistory();
+          wx.showToast({ title: '浏览历史已清空', icon: 'success' });
+        }
+      }
+    });
   },
 
   // 统计栏点击
   onStatTap(e) {
     const type = e.currentTarget.dataset.type;
-    
     if (type === 'channels') {
-      const favorites = app.getFavorites('channels');
-      if (favorites.length === 0) {
-        wx.showToast({ title: '暂无收藏渠道', icon: 'none' });
-      } else {
-        // 获取渠道实际名称
-        const channelNames = favorites.map((id, i) => {
-          const channel = getChannelById(id);
-          return `${i+1}. ${channel ? channel.name : '渠道ID: ' + id}`;
-        }).join('\n');
-        
-        wx.showModal({
-          title: `收藏的渠道（${favorites.length}个）`,
-          content: channelNames,
-          showCancel: false,
-          confirmText: '知道了'
-        });
-      }
+      this.setData({ activeFavTab: 'channels' });
+      wx.pageScrollTo({ selector: '#favorite-section', duration: 300 });
     } else if (type === 'scripts') {
-      const favorites = app.getFavorites('scripts');
-      if (favorites.length === 0) {
-        wx.showToast({ title: '暂无收藏话术', icon: 'none' });
-      } else {
-        // 获取话术实际名称
-        const scriptNames = favorites.map((id, i) => {
-          const script = getScriptById(id);
-          return `${i+1}. ${script ? script.title || script.name : '话术ID: ' + id}`;
-        }).join('\n');
-        
-        wx.showModal({
-          title: `收藏的话术（${favorites.length}个）`,
-          content: scriptNames,
-          showCancel: false,
-          confirmText: '知道了'
-        });
-      }
+      this.setData({ activeFavTab: 'scripts' });
+      wx.pageScrollTo({ selector: '#favorite-section', duration: 300 });
     } else if (type === 'search') {
       const history = app.getSearchHistory();
       if (history.length === 0) {
         wx.showToast({ title: '暂无搜索记录', icon: 'none' });
       } else {
         wx.showModal({
-          title: `搜索历史（共${this.data.searchCount}条）`,
+          title: `搜索历史（共${history.length}条）`,
           content: '最近搜索：\n' + history.slice(0, 10).map((k, i) => `${i+1}. ${k}`).join('\n'),
           showCancel: true,
           cancelText: '清空历史',
@@ -141,13 +243,39 @@ Page({
           success: (res) => {
             if (res.cancel) {
               app.clearSearchHistory();
-              this._cachedStats = { channels: -1, scripts: -1, history: -1 };
-              this.onShow();
+              this._cachedStats = { channels: -1, scripts: -1, history: -1, viewHistory: -1 };
+              this.loadStats();
               wx.showToast({ title: '搜索历史已清空', icon: 'success' });
             }
           }
         });
       }
+    } else if (type === 'viewHistory') {
+      wx.pageScrollTo({ selector: '#history-section', duration: 300 });
     }
   },
+
+  // 工具箱点击
+  onToolTap(e) {
+    const index = e.currentTarget.dataset.index;
+    const tool = this.data.toolList[index];
+
+    if (tool.page === 'about') {
+      wx.showModal({
+        title: '关于我不能被欺负',
+        content: '我不能被欺负 v1.0.0 MVP版\n\n一款帮助消费者快速找到官方投诉渠道的随身维权工具箱。\n\n数据来源：三份维权文档整理，所有信息来源于政府官网公开渠道\n数据验证日期：2026年8月30日\n\n免责声明：本工具为便民信息汇总，非政府官方应用，所有信息仅供参考，不构成法律意见。具体投诉流程和受理范围以各监管部门官方公布为准。',
+        showCancel: false,
+        confirmText: '知道了'
+      });
+    } else if (tool.page === '') {
+      wx.showToast({ title: `${tool.name}功能开发中`, icon: 'none' });
+    } else {
+      wx.navigateTo({
+        url: `/pages/${tool.page}/${tool.page}`,
+        fail: () => {
+          wx.showToast({ title: `${tool.name}功能开发中`, icon: 'none' });
+        }
+      });
+    }
+  }
 });

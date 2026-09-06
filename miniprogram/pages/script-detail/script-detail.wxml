@@ -46,14 +46,74 @@
     <view class="section">
       <view class="section-header">
         <text class="section-title">{{activeTab === 'phone' ? '💡 电话投诉话术' : '💡 书面投诉模板'}}</text>
+        <view class="copy-btn" bindtap="onCopyScript" hover-class="copy-btn-hover">
+          <text class="copy-btn-icon">📋</text>
+          <text class="copy-btn-text">复制全部</text>
+        </view>
       </view>
-      <view class="script-card">
+
+      <!-- 电话版 -->
+      <view class="script-card" wx:if="{{activeTab === 'phone'}}">
         <view class="script-tip">
-          {{activeTab === 'phone' ? '电话投诉时，按照以下话术表达，条理清晰、有理有据' : '书面投诉时，按照以下格式撰写，可直接复制修改'}}
+          电话投诉时，按照以下话术表达，条理清晰、有理有据
         </view>
         <view class="script-divider"></view>
         <view class="script-text">
-          <rich-text nodes="{{activeTab === 'phone' ? phoneContent : writtenContent}}"></rich-text>
+          <rich-text nodes="{{phoneContent}}"></rich-text>
+        </view>
+      </view>
+
+      <!-- 书面版分块展示 -->
+      <view class="written-sections" wx:if="{{activeTab === 'written' && writtenSections.length > 0}}">
+        <view class="script-tip" style="margin-bottom: 16rpx;">
+          书面投诉时，按照以下格式撰写，每块可单独复制
+        </view>
+        <view
+          class="written-section"
+          wx:for="{{writtenSections}}"
+          wx:key="id"
+        >
+          <view class="written-section-header">
+            <text class="written-section-title">{{item.title}}</text>
+            <view class="written-section-copy" bindtap="onCopySection" data-section="{{item}}" hover-class="written-section-copy-hover">
+              <text>复制</text>
+            </view>
+          </view>
+          <view class="written-section-content">
+            <rich-text nodes="{{item.content}}"></rich-text>
+          </view>
+        </view>
+      </view>
+
+      <!-- 书面版整体展示（无分块时） -->
+      <view class="script-card" wx:if="{{activeTab === 'written' && writtenSections.length === 0}}">
+        <view class="script-tip">
+          书面投诉时，按照以下格式撰写，可直接复制修改
+        </view>
+        <view class="script-divider"></view>
+        <view class="script-text">
+          <rich-text nodes="{{writtenContent}}"></rich-text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 法律依据 -->
+    <view class="section" wx:if="{{laws.length > 0 || legalBasisText}}">
+      <view class="section-header">
+        <text class="section-title">⚖️ 法律依据</text>
+      </view>
+      <view class="law-card">
+        <view class="law-basis-text" wx:if="{{legalBasisText}}">
+          <rich-text nodes="{{legalBasisText}}"></rich-text>
+        </view>
+        <view class="law-list" wx:if="{{laws.length > 0}}">
+          <view class="law-item" wx:for="{{laws}}" wx:key="id">
+            <view class="law-item-icon">📖</view>
+            <view class="law-item-info">
+              <text class="law-item-name">{{item.name}}</text>
+              <text class="law-item-desc">{{item.description || item.article || '点击查看相关法条'}}</text>
+            </view>
+          </view>
         </view>
       </view>
     </view>
