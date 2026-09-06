@@ -38,8 +38,7 @@
 /* ========== 渐变头部 ========== */
 .gradient-header {
   background: linear-gradient(135deg, #3B82F6 0%, #2563EB 50%, #1D4ED8 100%);
-  padding: 0 0 48rpx;
-  padding-top: calc(88rpx + env(safe-area-inset-top));
+  padding: 0 0 40rpx;
   position: relative;
   overflow: hidden;
 }
@@ -69,7 +68,7 @@
 .header-content {
   position: relative;
   z-index: 1;
-  padding: 48rpx 32rpx 0;
+  padding: 20rpx 32rpx 0;
 }
 
 .channel-badge {
@@ -95,11 +94,12 @@
 }
 
 .channel-title {
-  font-size: 40rpx;
+  font-size: 34rpx;
   font-weight: 800;
   color: #FFFFFF;
-  line-height: 1.4;
-  margin-bottom: 20rpx;
+  line-height: 1.3;
+  margin-bottom: 16rpx;
+  word-break: break-all;
 }
 
 .channel-tags {

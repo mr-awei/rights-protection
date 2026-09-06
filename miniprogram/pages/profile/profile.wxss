@@ -7,11 +7,11 @@
 /* ========== 渐变头部 ========== */
 .gradient-header {
   background: linear-gradient(135deg, #60A5FA 0%, #3B82F6 40%, #2563EB 70%, #1D4ED8 100%);
-  padding: 0 0 48rpx;
+  padding: 0 0 40rpx;
   position: relative;
   overflow: hidden;
   margin-top: -50rpx;
-  padding-top: 50rpx;
+  padding-top: 20rpx;
 }
 
 .gradient-header::before {
@@ -39,14 +39,14 @@
 .header-content {
   position: relative;
   z-index: 1;
-  padding: 32rpx 32rpx 0;
+  padding: 16rpx 32rpx 0;
 }
 
 /* ========== 用户信息 ========== */
 .user-section {
   display: flex;
   align-items: center;
-  margin-bottom: 32rpx;
+  margin-bottom: 20rpx;
 }
 
 .avatar {
@@ -104,7 +104,7 @@
   background: rgba(255,255,255,0.18);
   backdrop-filter: blur(10px);
   border-radius: 20rpx;
-  padding: 28rpx 0;
+  padding: 20rpx 0;
   border: 1rpx solid rgba(255,255,255,0.25);
 }
 
