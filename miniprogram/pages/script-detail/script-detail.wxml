@@ -46,10 +46,53 @@
     <view class="section">
       <view class="section-header">
         <text class="section-title">{{activeTab === 'phone' ? '💡 电话投诉话术' : '💡 书面投诉模板'}}</text>
-        <view class="copy-btn" bindtap="onCopyScript" hover-class="copy-btn-hover">
-          <text class="copy-btn-icon">📋</text>
-          <text class="copy-btn-text">复制全部</text>
+        <view class="header-actions">
+          <view class="fill-btn" bindtap="toggleFillForm" wx:if="{{!hasCustomContent}}">
+            <text>✏️ 填写信息</text>
+          </view>
+          <view class="reset-btn" bindtap="resetCustomScript" wx:if="{{hasCustomContent}}">
+            <text>🔄 重置</text>
+          </view>
+          <view class="copy-btn" bindtap="onCopyScript" hover-class="copy-btn-hover">
+            <text class="copy-btn-icon">📋</text>
+            <text class="copy-btn-text">{{hasCustomContent ? '复制个性化' : '复制全部'}}</text>
+          </view>
         </view>
+      </view>
+
+      <!-- 填充表单区域 -->
+      <view class="fill-form" wx:if="{{showFillForm && !hasCustomContent}}">
+        <view class="fill-form-title">
+          <text>📝 填写以下信息，自动生成个性化话术</text>
+        </view>
+        <view class="fill-form-list">
+          <view class="fill-form-item" wx:for="{{placeholders}}" wx:key="*this">
+            <text class="fill-form-label">{{item}}</text>
+            <input
+              class="fill-form-input"
+              type="text"
+              placeholder="请填写{{item}}"
+              placeholder-class="fill-placeholder"
+              value="{{formData[item]}}"
+              data-field="{{item}}"
+              bindinput="onFormInput"
+            />
+          </view>
+        </view>
+        <view class="fill-form-actions">
+          <view class="fill-cancel" bindtap="toggleFillForm">
+            <text>取消</text>
+          </view>
+          <view class="fill-generate" bindtap="generateCustomScript" hover-class="fill-generate-hover">
+            <text>✨ 生成个性化话术</text>
+          </view>
+        </view>
+      </view>
+
+      <!-- 个性化话术提示 -->
+      <view class="custom-tip" wx:if="{{hasCustomContent}}">
+        <text class="custom-tip-icon">✅</text>
+        <text class="custom-tip-text">已根据您填写的信息生成个性化话术，可直接复制使用</text>
       </view>
 
       <!-- 电话版 -->
@@ -59,7 +102,7 @@
         </view>
         <view class="script-divider"></view>
         <view class="script-text">
-          <rich-text nodes="{{phoneContent}}"></rich-text>
+          <rich-text nodes="{{hasCustomContent ? customPhoneContent : phoneContent}}"></rich-text>
         </view>
       </view>
 
@@ -85,14 +128,14 @@
         </view>
       </view>
 
-      <!-- 书面版整体展示（无分块时） -->
-      <view class="script-card" wx:if="{{activeTab === 'written' && writtenSections.length === 0}}">
+      <!-- 书面版整体展示（有个性化内容或无分块时） -->
+      <view class="script-card" wx:if="{{activeTab === 'written' && (hasCustomContent || writtenSections.length === 0)}}">
         <view class="script-tip">
           书面投诉时，按照以下格式撰写，可直接复制修改
         </view>
         <view class="script-divider"></view>
         <view class="script-text">
-          <rich-text nodes="{{writtenContent}}"></rich-text>
+          <rich-text nodes="{{hasCustomContent ? customWrittenContent : writtenContent}}"></rich-text>
         </view>
       </view>
     </view>

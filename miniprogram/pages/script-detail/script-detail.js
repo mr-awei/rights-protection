@@ -16,7 +16,14 @@ Page({
     evidenceList: [],
     applicableText: '',
     legalBasisText: '',
-    loading: true
+    loading: true,
+    // 占位符填充功能
+    showFillForm: false,
+    placeholders: [],
+    formData: {},
+    customPhoneContent: '',
+    customWrittenContent: '',
+    hasCustomContent: false
   },
 
   onLoad(options) {
@@ -47,6 +54,11 @@ Page({
     const evidenceList = script.evidence_list || [];
     const writtenSections = this.buildWrittenSections(script);
     const laws = this.getRelatedLaws(script);
+    // 提取所有占位符
+    const placeholders = this.extractPlaceholders(phoneRaw + '\n' + writtenRaw);
+    // 初始化表单数据
+    const formData = {};
+    placeholders.forEach(p => { formData[p] = ''; });
 
     // 第一批：先设置核心内容（话术基本信息+内容）
     this.setData({
@@ -58,6 +70,8 @@ Page({
       applicableText: script.applicable || '',
       legalBasisText: script.legal_basis || '',
       laws,
+      placeholders,
+      formData,
       isFavorite: app.isFavorite('scripts', id),
       loading: false
     });
@@ -152,15 +166,154 @@ Page({
   },
 
   onCopyScript() {
-    const { activeTab, script } = this.data;
-    const content = activeTab === 'phone'
-      ? getScriptPhoneContent(script)
-      : getScriptWrittenContent(script);
+    const { activeTab, script, hasCustomContent, customPhoneContent, customWrittenContent } = this.data;
+    // 如果有个性化内容，优先复制个性化内容
+    let content;
+    if (hasCustomContent) {
+      content = activeTab === 'phone' ? customPhoneContent : customWrittenContent;
+    } else {
+      content = activeTab === 'phone'
+        ? getScriptPhoneContent(script)
+        : getScriptWrittenContent(script);
+    }
 
     wx.setClipboardData({
       data: content,
       success: () => {
         wx.showToast({ title: '话术已复制', icon: 'success' });
+      }
+    });
+  },
+
+  // ===== 占位符自动填充功能 =====
+
+  /**
+   * 提取文本中的所有占位符【】
+   */
+  extractPlaceholders(text) {
+    if (!text) return [];
+    const regex = /【([^】]+)】/g;
+    const placeholders = new Set();
+    let match;
+    while ((match = regex.exec(text)) !== null) {
+      placeholders.add(match[1]);
+    }
+    return Array.from(placeholders);
+  },
+
+  /**
+   * 切换填充表单显示
+   */
+  toggleFillForm() {
+    const { showFillForm } = this.data;
+    this.setData({ showFillForm: !showFillForm });
+  },
+
+  /**
+   * 表单输入
+   */
+  onFormInput(e) {
+    const field = e.currentTarget.dataset.field;
+    const value = e.detail.value;
+    const formData = { ...this.data.formData };
+    formData[field] = value;
+    this.setData({ formData });
+  },
+
+  /**
+   * 生成个性化话术
+   */
+  generateCustomScript() {
+    const { script, formData } = this.data;
+
+    // 检查是否有未填写的占位符
+    const unfilled = [];
+    for (const [key, value] of Object.entries(formData)) {
+      if (!value || !value.trim()) {
+        unfilled.push(key);
+      }
+    }
+
+    if (unfilled.length > 0) {
+      wx.showModal({
+        title: '提示',
+        content: `还有 ${unfilled.length} 项未填写：${unfilled.slice(0, 3).join('、')}${unfilled.length > 3 ? '等' : ''}，确定生成吗？`,
+        success: (res) => {
+          if (res.confirm) {
+            this.doGenerate();
+          }
+        }
+      });
+    } else {
+      this.doGenerate();
+    }
+  },
+
+  /**
+   * 执行生成
+   */
+  doGenerate() {
+    const { script, formData } = this.data;
+    const phoneRaw = getScriptPhoneContent(script);
+    const writtenRaw = getScriptWrittenContent(script);
+
+    // 替换占位符
+    let customPhone = phoneRaw;
+    let customWritten = writtenRaw;
+
+    for (const [key, value] of Object.entries(formData)) {
+      const placeholder = `【${key}】`;
+      const replaceValue = value || placeholder; // 未填写的保留原占位符
+      customPhone = customPhone.split(placeholder).join(replaceValue);
+      customWritten = customWritten.split(placeholder).join(replaceValue);
+    }
+
+    this.setData({
+      customPhoneContent: customPhone,
+      customWrittenContent: customWritten,
+      hasCustomContent: true,
+      showFillForm: false
+    });
+
+    wx.showToast({ title: '个性化话术已生成', icon: 'success' });
+  },
+
+  /**
+   * 重置个性化话术
+   */
+  resetCustomScript() {
+    wx.showModal({
+      title: '提示',
+      content: '确定要重置为原始话术吗？已填写的信息将被清空。',
+      success: (res) => {
+        if (res.confirm) {
+          const formData = {};
+          this.data.placeholders.forEach(p => { formData[p] = ''; });
+          this.setData({
+            hasCustomContent: false,
+            customPhoneContent: '',
+            customWrittenContent: '',
+            formData,
+            showFillForm: false
+          });
+          wx.showToast({ title: '已重置', icon: 'success' });
+        }
+      }
+    });
+  },
+
+  /**
+   * 复制个性化话术
+   */
+  copyCustomScript(e) {
+    const type = e.currentTarget.dataset.type;
+    const { customPhoneContent, customWrittenContent } = this.data;
+    const content = type === 'phone' ? customPhoneContent : customWrittenContent;
+
+    wx.setClipboardData({
+      data: content,
+      success: () => {
+        wx.showToast({ title: '个性化话术已复制', icon: 'success' });
       }
     });
   },
