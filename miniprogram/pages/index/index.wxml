@@ -47,7 +47,6 @@
     <view class="section">
       <view class="emergency-bar">
         <view class="emergency-bar-title">
-          <view class="emergency-bar-icon"></view>
           <text class="emergency-bar-text">紧急电话 · 一键拨打</text>
         </view>
         <view class="emergency-phone-list">
@@ -60,7 +59,7 @@
             bindtap="onEmergencyCall"
             hover-class="emergency-phone-hover"
           >
-            <text class="emergency-phone-number">{{item.name}}</text>
+            <text class="emergency-phone-number" style="color: {{item.color}};">{{item.name}}</text>
             <text class="emergency-phone-label">{{item.label}}</text>
           </view>
         </view>
@@ -85,8 +84,8 @@
           bindtap="onSceneEntryTap"
           hover-class="scene-item-hover"
         >
-          <view class="scene-icon" style="background: {{item.color}}15;">
-            <text style="font-size: 32rpx;">{{item.icon}}</text>
+          <view class="scene-icon" style="background: {{item.color}};">
+            <text class="scene-icon-text" style="color: {{item.textColor}};">{{item.short}}</text>
           </view>
           <text class="scene-name">{{item.label}}</text>
         </view>

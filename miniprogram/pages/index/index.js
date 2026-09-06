@@ -9,20 +9,20 @@ Page({
     statusBarHeight: 0,
     hotSearches: ['快递丢失', '商家不退款', '话费乱扣', '老板欠薪', '物业乱收费', '电信诈骗', '噪音扰民', '医院乱收费', '出租车拒载', '个人信息泄露'],
     emergencyPhones: [
-      { name: '110', label: '报警', icon: '🚨', color: '#EF4444' },
-      { name: '119', label: '火警', icon: '🔥', color: '#F97316' },
-      { name: '120', label: '急救', icon: '🚑', color: '#EC4899' },
-      { name: '96110', label: '反诈', icon: '🛡️', color: '#8B5CF6' }
+      { name: '110', label: '报警', color: '#FF4D4F' },
+      { name: '119', label: '火警', color: '#FA8C16' },
+      { name: '120', label: '急救', color: '#EB2F96' },
+      { name: '96110', label: '反诈', color: '#722ED1' }
     ],
     sceneEntries: [
-      { icon: '📦', label: '快递问题', color: '#E6F4FF', keyword: '快递丢失' },
-      { icon: '📱', label: '手机宽带', color: '#F6FFED', keyword: '话费乱扣' },
-      { icon: '🛒', label: '消费购物', color: '#FFFBE6', keyword: '商家不退款' },
-      { icon: '🏠', label: '房产物业', color: '#FFF2F0', keyword: '物业不作为' },
-      { icon: '💼', label: '劳动工资', color: '#F9F0FF', keyword: '老板欠薪' },
-      { icon: '💰', label: '金融保险', color: '#E6FFFB', keyword: '银行误导' },
-      { icon: '🏥', label: '医疗教育', color: '#FFF0F6', keyword: '医院乱收费' },
-      { icon: '🛡️', label: '被骗举报', color: '#F0F5FF', keyword: '电信诈骗' }
+      { short: '快', label: '快递问题', color: '#E6F4FF', textColor: '#1890FF', keyword: '快递丢失' },
+      { short: '手', label: '手机宽带', color: '#F6FFED', textColor: '#52C41A', keyword: '话费乱扣' },
+      { short: '消', label: '消费购物', color: '#FFFBE6', textColor: '#FAAD14', keyword: '商家不退款' },
+      { short: '房', label: '房产物业', color: '#FFF2F0', textColor: '#FF4D4F', keyword: '物业不作为' },
+      { short: '劳', label: '劳动工资', color: '#F9F0FF', textColor: '#722ED1', keyword: '老板欠薪' },
+      { short: '金', label: '金融保险', color: '#E6FFFB', textColor: '#13C2C2', keyword: '银行误导' },
+      { short: '医', label: '医疗教育', color: '#FFF0F6', textColor: '#EB2F96', keyword: '医院乱收费' },
+      { short: '骗', label: '被骗举报', color: '#F0F5FF', textColor: '#2F54EB', keyword: '电信诈骗' }
     ],
     hotScripts: [],
     recentViews: [],
