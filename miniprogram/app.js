@@ -69,5 +69,15 @@ App({
   // 检查是否已收藏
   isFavorite(type, id) {
     return this.globalData.favorites[type].indexOf(id) > -1;
+  },
+
+  // 获取收藏列表
+  getFavorites(type) {
+    return this.globalData.favorites[type] || [];
+  },
+
+  // 获取搜索历史
+  getSearchHistory() {
+    return this.globalData.searchHistory || [];
   }
 });

@@ -1,5 +1,6 @@
 ﻿// pages/profile/profile.js
 const app = getApp();
+const { getChannelById, getScriptById } = require('../../utils/data.js');
 
 Page({
   data: {
@@ -87,9 +88,15 @@ Page({
       if (favorites.length === 0) {
         wx.showToast({ title: '暂无收藏渠道', icon: 'none' });
       } else {
+        // 获取渠道实际名称
+        const channelNames = favorites.map((id, i) => {
+          const channel = getChannelById(id);
+          return `${i+1}. ${channel ? channel.name : '渠道ID: ' + id}`;
+        }).join('\n');
+        
         wx.showModal({
           title: `收藏的渠道（${favorites.length}个）`,
-          content: favorites.map((id, i) => `${i+1}. 渠道ID: ${id}`).join('\n'),
+          content: channelNames,
           showCancel: false,
           confirmText: '知道了'
         });
@@ -99,9 +106,15 @@ Page({
       if (favorites.length === 0) {
         wx.showToast({ title: '暂无收藏话术', icon: 'none' });
       } else {
+        // 获取话术实际名称
+        const scriptNames = favorites.map((id, i) => {
+          const script = getScriptById(id);
+          return `${i+1}. ${script ? script.title || script.name : '话术ID: ' + id}`;
+        }).join('\n');
+        
         wx.showModal({
           title: `收藏的话术（${favorites.length}个）`,
-          content: favorites.map((id, i) => `${i+1}. 话术ID: ${id}`).join('\n'),
+          content: scriptNames,
           showCancel: false,
           confirmText: '知道了'
         });
@@ -112,7 +125,7 @@ Page({
         wx.showToast({ title: '暂无搜索记录', icon: 'none' });
       } else {
         wx.showModal({
-          title: `搜索历史（共${this.data.searchCount}次）`,
+          title: `搜索历史（共${this.data.searchCount}条）`,
           content: '最近搜索：\n' + history.slice(0, 10).map((k, i) => `${i+1}. ${k}`).join('\n'),
           showCancel: true,
           cancelText: '清空历史',
@@ -120,6 +133,7 @@ Page({
           success: (res) => {
             if (res.cancel) {
               app.clearSearchHistory();
+              this._cachedStats = { channels: -1, scripts: -1, history: -1 };
               this.onShow();
               wx.showToast({ title: '搜索历史已清空', icon: 'success' });
             }
