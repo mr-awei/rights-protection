@@ -6,7 +6,7 @@
 const KEYWORDS = {
   domain: {
     // ===== 快递物流（35个）=====
-    '快递物流': ['快递', '快件', '包裹', '物流', '圆通', '中通', '申通', '韵达', '顺丰', '极兔', '邮政', 'EMS', '驿站', '快递员', '快递站', '快递柜', '丰巢', '菜鸟', '送货', '收件', '寄件', '发件', '到货', '签收', '派送', '配送', '送货上门', '快递丢失', '快递破损', '快递延误', '快递员态度', '物流信息', '物流停滞', '快递投诉'],
+    '快递物流': ['快递', '快件', '包裹', '物流', '圆通', '中通', '申通', '韵达', '顺丰', '极兔', '邮政', 'EMS', '驿站', '快递员', '快递站', '快递柜', '丰巢', '菜鸟', '送货', '收件', '寄件', '发件', '到货', '签收', '派送', '配送', '送货上门', '快递丢失', '快递破损', '快递延误', '物流信息', '物流停滞', '快递投诉'],
     // ===== 电信运营（30个）=====
     '电信运营': ['电信', '话费', '流量', '宽带', '运营商', '移动', '联通', '扣费', '增值业务', '手机卡', '套餐', '信号', '网速', '手机号', '电话号码', '销户', '携号转网', '过户', '补卡', '停机', '复机', '营业厅', '客服电话', '人工客服', '宽带安装', '宽带故障', '网速慢', '信号差', '话费余额'],
     // ===== 消费购物（40个）=====
@@ -20,7 +20,7 @@ const KEYWORDS = {
     // ===== 医疗教育（35个）=====
     '医疗教育': ['医院', '医疗', '医生', '药品', '教育', '学校', '老师', '学费', '培训', '补课', '挂号', '手术', '护士', '诊所', '药店', '药企', '医保', '医疗事故', '医疗纠纷', '误诊', '过度医疗', '乱开药', '医药费', '住院费', '检查费', '培训机构', '早教', '幼儿园', '小学', '中学', '大学', '教育局', '学区房'],
     // ===== 环保城管（25个）=====
-    '环保城管': ['环保', '污染', '噪音', '噪声', '城管', '占道', '垃圾', '臭气', '污水', '油烟', '环境污染', '空气污染', '水污染', '土壤污染', '光污染', '热污染', '振动污染', '工业污染', '建筑施工', '扬尘', '建筑垃圾', '生活垃圾', '垃圾分类', '违规搭建'],
+    '环保城管': ['环保', '污染', '噪音', '噪声', '城管', '占道', '垃圾', '臭气', '污水', '油烟', '环境污染', '空气污染', '水污染', '土壤污染', '光污染', '热污染', '振动污染', '工业污染', '建筑施工', '扬尘', '建筑垃圾', '生活垃圾', '垃圾分类', '违规搭建', '邻居', '楼上', '楼下', '太吵', '吵闹', '噪音扰民'],
     // ===== 政务纪检（25个）=====
     '政务纪检': ['政府', '公职', '官员', '推诿', '纪检', '举报', '信访', '督查', '办事', '审批', '政务服务', '行政复议', '行政诉讼', '国家赔偿', '信息公开', '政务公开', '公务员', '事业单位', '编制', '吃空饷', '贪污', '受贿', '腐败', '滥用职权'],
     // ===== 网络安全（30个）=====
@@ -42,9 +42,9 @@ const KEYWORDS = {
     // ===== 破损类（12个）=====
     '破损': ['破损', '坏了', '损坏', '碎了', '变形', '污染', '少件', '漏了', '压扁了', '刮花', '划痕', '开裂'],
     // ===== 延误类（12个）=====
-    '延误': ['延误', '延迟', '慢', '迟迟不到', '卡了', '停滞', '不更新', '超时', '超期', '逾期', '拖延', '一直不到'],
+    '延误': ['延误', '延迟', '慢', '迟迟不到', '卡了', '停滞', '不更新', '超时', '超期', '逾期', '拖延', '一直不到', '航班延误', '飞机延误', '火车晚点', '晚点'],
     // ===== 乱收费类（15个）=====
-    '乱收费': ['乱收费', '多收钱', '加价', '扣费', '莫名其妙扣钱', '强制收费', '变相收费', '乱扣钱', '收费不合理', '收费过高', '天价', '宰客', '坐地起价', '临时加价', '重复收费'],
+    '乱收费': ['乱收费', '多收钱', '加价', '扣费', '扣钱', '莫名其妙扣钱', '强制收费', '变相收费', '乱扣钱', '收费不合理', '收费过高', '天价', '宰客', '坐地起价', '临时加价', '重复收费', '被扣', '被扣费', '被扣钱'],
     // ===== 不退款类（12个）=====
     '不退款': ['不退款', '不给退', '拒绝退款', '不退钱', '拖延退款', '退款难', '不肯退', '退款被拒', '退款慢', '一直不退款', '只换不退', '退货运费'],
     // ===== 假货类（10个）=====
@@ -60,15 +60,15 @@ const KEYWORDS = {
     // ===== 质量类（12个）=====
     '质量': ['质量差', '有问题', '故障', '不达标', '不合格', '次品', '劣质', '做工差', '材料差', '不耐用', '容易坏', '质量问题'],
     // ===== 合同类（12个）=====
-    '合同': ['违约', '不履行', '霸王条款', '格式条款', '单方面变更', '毁约', '合同纠纷', '不按合同', '违反约定', '承诺不兑现', '说话不算数', '反悔', '跑路', '关门', '倒闭', '人去楼空'],
+    '合同': ['违约', '不履行', '霸王条款', '格式条款', '单方面变更', '毁约', '合同纠纷', '不按合同', '违反约定', '承诺不兑现', '说话不算数', '反悔', '跑路', '关门', '倒闭', '人去楼空', '辞退', '解雇', '开除', '不退押金', '押金不退', '押金'],
     // ===== 虚假宣传类（新增，10个）=====
-    '虚假宣传': ['虚假宣传', '夸大宣传', '误导宣传', '虚假广告', '欺骗消费者', '虚假描述', '图文不符', '实物与描述不符', '虚假承诺', '夸大效果', '误导', '误导销售', '销售误导'],
+    '虚假宣传': ['虚假宣传', '夸大宣传', '误导宣传', '虚假广告', '欺骗消费者', '虚假描述', '图文不符', '实物与描述不符', '虚假承诺', '夸大效果', '误导', '误导销售', '销售误导', '骗', '欺骗', '骗人', '坑人', '坑'],
     // ===== 强制交易类（新增，10个）=====
-    '强制交易': ['强制消费', '强制购买', '强制搭售', '捆绑销售', '强制开通', '强制续费', '自动续费', '默认勾选', '强制升级', '霸王条款'],
+    '强制交易': ['强制消费', '强制购买', '强制搭售', '捆绑销售', '强制开通', '强制续费', '自动续费', '默认勾选', '强制升级', '霸王条款', '强制购物', '强制消费'],
     // ===== 隐私泄露类（新增，10个）=====
     '隐私泄露': ['个人信息泄露', '隐私泄露', '信息被卖', '骚扰电话多', '垃圾短信多', '信息被盗用', '身份信息泄露', '电话号码泄露', '住址泄露', '被人肉'],
     // ===== 卫生问题类（新增，10个）=====
-    '卫生问题': ['不卫生', '脏乱差', '卫生差', '不干净', '有异味', '有虫子', '有蟑螂', '有老鼠', '消毒不彻底', '卫生不达标', '吃出虫子', '吃出异物', '有异物', '发霉', '变质'],
+    '卫生问题': ['不卫生', '脏乱差', '卫生差', '不干净', '有异味', '有虫子', '有蟑螂', '有老鼠', '消毒不彻底', '卫生不达标', '吃出虫子', '吃出异物', '有异物', '发霉', '变质', '太脏', '脏', '很脏'],
   },
   target: {
     // ===== 快递公司（10个）=====
@@ -100,26 +100,26 @@ const KEYWORDS = {
 
 // 场景映射
 const SCENES = [
-  { id: 'scene_001', name: '快递丢失/被偷', icon: '📦', color: '#E6F4FF', desc: '快递丢失、被偷、签收未收到，推荐12305邮政申诉', keywords: ['快递', '丢失'], matchMode: 'all', channels: ['ch_002'], scripts: ['sc_001'], priority: 100 },
-  { id: 'scene_002', name: '快递破损/少件', icon: '📦', color: '#FFFBE6', desc: '快递破损、损坏、少件，推荐12305邮政申诉', keywords: ['快递', '破损'], matchMode: 'all', channels: ['ch_002'], scripts: ['sc_001'], priority: 95 },
-  { id: 'scene_003', name: '快递延误/停滞', icon: '📦', color: '#F6FFED', desc: '快递延误、物流停滞、迟迟不到，推荐12305邮政申诉', keywords: ['快递', '延误'], matchMode: 'all', channels: ['ch_002'], scripts: ['sc_001'], priority: 90 },
-  { id: 'scene_004', name: '快递员服务态度差', icon: '📦', color: '#FFF2F0', desc: '快递员态度差、骂人、拒绝送货上门，推荐12305', keywords: ['快递', '服务态度'], matchMode: 'all', channels: ['ch_002'], scripts: [], priority: 80 },
-  { id: 'scene_005', name: '运营商乱扣费', icon: '📱', color: '#E6F4FF', desc: '话费莫名被扣、未经同意开通业务，推荐12300工信部', keywords: ['电信', '乱收费'], matchMode: 'all', channels: ['ch_001'], scripts: ['sc_002'], priority: 100 },
-  { id: 'scene_006', name: '宽带/网速问题', icon: '📱', color: '#F6FFED', desc: '宽带故障、网速不达标、运营商不处理，推荐12300', keywords: ['电信', '质量'], matchMode: 'all', channels: ['ch_001'], scripts: [], priority: 85 },
-  { id: 'scene_007', name: '商家不退款/退货难', icon: '🛒', color: '#FFFBE6', desc: '商家拒绝退款、拖延退款，推荐12315市场监管', keywords: ['消费', '不退款'], matchMode: 'all', channels: ['ch_024'], scripts: ['sc_003'], priority: 100 },
-  { id: 'scene_008', name: '买到假货/虚假宣传', icon: '🛒', color: '#FFF2F0', desc: '买到假货、山寨、虚假宣传，推荐12315市场监管', keywords: ['消费', '假货'], matchMode: 'all', channels: ['ch_024'], scripts: ['sc_003'], priority: 95 },
-  { id: 'scene_009', name: '外卖/食品安全', icon: '🛒', color: '#F6FFED', desc: '外卖有异物、食品变质、商家不处理，推荐12315', keywords: ['消费', '质量'], matchMode: 'all', channels: ['ch_024'], scripts: [], priority: 80 },
-  { id: 'scene_010', name: '物业不作为/乱收费', icon: '🏠', color: '#E6F4FF', desc: '物业不作为、乱收费、服务差，推荐12345+住建部门', keywords: ['物业', '不作为'], matchMode: 'all', channels: ['ch_056'], scripts: ['sc_005'], priority: 100 },
-  { id: 'scene_011', name: '租房纠纷/押金不退', icon: '🏠', color: '#FFFBE6', desc: '房东不退押金、租房纠纷，推荐12345+法院起诉', keywords: ['房产', '合同'], matchMode: 'all', channels: ['ch_056'], scripts: [], priority: 85 },
-  { id: 'scene_012', name: '老板欠薪/拖欠工资', icon: '💼', color: '#F9F0FF', desc: '老板拖欠工资、不发工资，推荐全国根治欠薪平台', keywords: ['劳动', '欠薪'], matchMode: 'all', channels: ['ch_065'], scripts: [], priority: 100 },
-  { id: 'scene_013', name: '违法辞退/不签合同', icon: '💼', color: '#E6FFFB', desc: '公司违法辞退、不签劳动合同，推荐劳动仲裁', keywords: ['劳动', '合同'], matchMode: 'all', channels: ['ch_063'], scripts: [], priority: 90 },
-  { id: 'scene_014', name: '银行误导/保险坑人', icon: '💰', color: '#FFF0F6', desc: '银行误导销售、保险退保难，推荐12378银保监会', keywords: ['金融', '不作为'], matchMode: 'all', channels: ['ch_018'], scripts: [], priority: 85 },
-  { id: 'scene_015', name: '医院乱收费/医疗纠纷', icon: '🏥', color: '#FFF2F0', desc: '医院乱收费、医疗事故，推荐12320卫健委', keywords: ['医疗', '乱收费'], matchMode: 'all', channels: ['ch_047'], scripts: [], priority: 90 },
-  { id: 'scene_016', name: '教育乱收费/培训跑路', icon: '🏥', color: '#E6F4FF', desc: '教育乱收费、培训机构跑路，推荐教育局+12315', keywords: ['教育', '乱收费'], matchMode: 'all', channels: ['ch_024'], scripts: [], priority: 85 },
-  { id: 'scene_017', name: '噪音/环境污染', icon: '🌿', color: '#F6FFED', desc: '噪音扰民、环境污染，推荐12345环保举报', keywords: ['环保', '安全'], matchMode: 'all', channels: ['ch_059'], scripts: [], priority: 80 },
+  { id: 'scene_001', name: '快递丢失/被偷', icon: '📦', color: '#E6F4FF', desc: '快递丢失、被偷、签收未收到，推荐12305邮政申诉', keywords: ['快递物流', '丢失'], matchMode: 'all', channels: ['ch_002'], scripts: ['sc_001'], priority: 100 },
+  { id: 'scene_002', name: '快递破损/少件', icon: '📦', color: '#FFFBE6', desc: '快递破损、损坏、少件，推荐12305邮政申诉', keywords: ['快递物流', '破损'], matchMode: 'all', channels: ['ch_002'], scripts: ['sc_001'], priority: 95 },
+  { id: 'scene_003', name: '快递延误/停滞', icon: '📦', color: '#F6FFED', desc: '快递延误、物流停滞、迟迟不到，推荐12305邮政申诉', keywords: ['快递物流', '延误'], matchMode: 'all', channels: ['ch_002'], scripts: ['sc_001'], priority: 90 },
+  { id: 'scene_004', name: '快递员服务态度差', icon: '📦', color: '#FFF2F0', desc: '快递员态度差、骂人、拒绝送货上门，推荐12305', keywords: ['快递物流', '服务态度'], matchMode: 'all', channels: ['ch_002'], scripts: [], priority: 80 },
+  { id: 'scene_005', name: '运营商乱扣费', icon: '📱', color: '#E6F4FF', desc: '话费莫名被扣、未经同意开通业务，推荐12300工信部', keywords: ['电信运营', '乱收费'], matchMode: 'all', channels: ['ch_001'], scripts: ['sc_002'], priority: 100 },
+  { id: 'scene_006', name: '宽带/网速问题', icon: '📱', color: '#F6FFED', desc: '宽带故障、网速不达标、运营商不处理，推荐12300', keywords: ['电信运营', '破损'], matchMode: 'all', channels: ['ch_001'], scripts: [], priority: 85 },
+  { id: 'scene_007', name: '商家不退款/退货难', icon: '🛒', color: '#FFFBE6', desc: '商家拒绝退款、拖延退款，推荐12315市场监管', keywords: ['消费购物', '不退款'], matchMode: 'all', channels: ['ch_024'], scripts: ['sc_003'], priority: 100 },
+  { id: 'scene_008', name: '买到假货/虚假宣传', icon: '🛒', color: '#FFF2F0', desc: '买到假货、山寨、虚假宣传，推荐12315市场监管', keywords: ['消费购物', '假货'], matchMode: 'all', channels: ['ch_024'], scripts: ['sc_003'], priority: 95 },
+  { id: 'scene_009', name: '外卖/食品安全', icon: '🛒', color: '#F6FFED', desc: '外卖有异物、食品变质、商家不处理，推荐12315', keywords: ['消费购物', '质量'], matchMode: 'all', channels: ['ch_024'], scripts: [], priority: 80 },
+  { id: 'scene_010', name: '物业不作为/乱收费', icon: '🏠', color: '#E6F4FF', desc: '物业不作为、乱收费、服务差，推荐12345+住建部门', keywords: ['房产物业', '不作为'], matchMode: 'all', channels: ['ch_056'], scripts: ['sc_005'], priority: 100 },
+  { id: 'scene_011', name: '租房纠纷/押金不退', icon: '🏠', color: '#FFFBE6', desc: '房东不退押金、租房纠纷，推荐12345+法院起诉', keywords: ['房产物业', '合同'], matchMode: 'all', channels: ['ch_056'], scripts: [], priority: 85 },
+  { id: 'scene_012', name: '老板欠薪/拖欠工资', icon: '💼', color: '#F9F0FF', desc: '老板拖欠工资、不发工资，推荐全国根治欠薪平台', keywords: ['劳动用工', '欠薪'], matchMode: 'all', channels: ['ch_065'], scripts: [], priority: 100 },
+  { id: 'scene_013', name: '违法辞退/不签合同', icon: '💼', color: '#E6FFFB', desc: '公司违法辞退、不签劳动合同，推荐劳动仲裁', keywords: ['劳动用工', '合同'], matchMode: 'all', channels: ['ch_063'], scripts: [], priority: 90 },
+  { id: 'scene_014', name: '银行误导/保险坑人', icon: '💰', color: '#FFF0F6', desc: '银行误导销售、保险退保难，推荐12378银保监会', keywords: ['金融保险', '虚假宣传'], matchMode: 'all', channels: ['ch_018'], scripts: [], priority: 85 },
+  { id: 'scene_015', name: '医院乱收费/医疗纠纷', icon: '🏥', color: '#FFF2F0', desc: '医院乱收费、医疗事故，推荐12320卫健委', keywords: ['医疗教育', '乱收费'], matchMode: 'all', channels: ['ch_047'], scripts: [], priority: 90 },
+  { id: 'scene_016', name: '教育乱收费/培训跑路', icon: '🏥', color: '#E6F4FF', desc: '教育乱收费、培训机构跑路，推荐教育局+12315', keywords: ['医疗教育', '乱收费', '合同'], matchMode: 'any', channels: ['ch_024'], scripts: [], priority: 90 },
+  { id: 'scene_017', name: '噪音/环境污染', icon: '🌿', color: '#F6FFED', desc: '噪音扰民、环境污染，推荐12345环保举报', keywords: ['环保城管'], matchMode: 'any', channels: ['ch_059'], scripts: [], priority: 80 },
   { id: 'scene_018', name: '电信诈骗/被骗钱', icon: '🛡️', color: '#F0F5FF', desc: '遭遇电信诈骗、被骗钱，立即拨打96110+110', keywords: ['诈骗'], matchMode: 'any', channels: ['ch_030'], scripts: [], priority: 100 },
   { id: 'scene_019', name: '骚扰电话/个人信息泄露', icon: '🛡️', color: '#E6FFFB', desc: '骚扰电话、个人信息泄露，推荐12321', keywords: ['网络安全'], matchMode: 'any', channels: ['ch_083'], scripts: [], priority: 75 },
-  { id: 'scene_020', name: '政府部门不作为', icon: '⚖️', color: '#FFFBE6', desc: '政府部门不作为、推诿扯皮，推荐12345+国务院督查', keywords: ['政务', '不作为'], matchMode: 'all', channels: ['ch_085'], scripts: [], priority: 90 },
+  { id: 'scene_020', name: '政府部门不作为', icon: '⚖️', color: '#FFFBE6', desc: '政府部门不作为、推诿扯皮，推荐12345+国务院督查', keywords: ['政务纪检', '不作为'], matchMode: 'all', channels: ['ch_085'], scripts: [], priority: 90 },
   // ===== 新增场景（10个）=====
   { id: 'scene_021', name: '出租车拒载/绕路', icon: '🚕', color: '#E6F4FF', desc: '出租车拒载、绕路、不打表、加价，推荐12328交通投诉', keywords: ['交通出行', '服务态度'], matchMode: 'all', channels: ['ch_085'], scripts: [], priority: 85 },
   { id: 'scene_022', name: '网约车问题', icon: '🚗', color: '#F6FFED', desc: '网约车加价、取消订单、司机态度差，推荐平台客服+12328', keywords: ['交通出行', '乱收费'], matchMode: 'all', channels: ['ch_085'], scripts: [], priority: 80 },
@@ -127,10 +127,10 @@ const SCENES = [
   { id: 'scene_024', name: '旅游强制购物', icon: '✈️', color: '#FFF2F0', desc: '旅行社强制购物、低价团陷阱、导游态度差，推荐12301旅游投诉', keywords: ['旅游住宿', '强制交易'], matchMode: 'all', channels: ['ch_085'], scripts: [], priority: 85 },
   { id: 'scene_025', name: '酒店卫生问题', icon: '🏨', color: '#E6FFFB', desc: '酒店卫生差、床单不换、设施故障，推荐平台客服+12315', keywords: ['旅游住宿', '卫生问题'], matchMode: 'all', channels: ['ch_024'], scripts: [], priority: 80 },
   { id: 'scene_026', name: '健身房/美容院跑路', icon: '💪', color: '#F9F0FF', desc: '健身房、美容院关门跑路，预付卡不退，推荐12315+报警', keywords: ['美容健身', '合同'], matchMode: 'all', channels: ['ch_024'], scripts: [], priority: 90 },
-  { id: 'scene_027', name: '预付卡/储值卡纠纷', icon: '💳', color: '#E6F4FF', desc: '预付卡不退、商家关门、余额无法使用，推荐12315', keywords: ['强制交易', '合同'], matchMode: 'all', channels: ['ch_024'], scripts: [], priority: 85 },
+  { id: 'scene_027', name: '预付卡/储值卡纠纷', icon: '💳', color: '#E6F4FF', desc: '预付卡不退、商家关门、余额无法使用，推荐12315', keywords: ['强制交易', '合同', '不退款'], matchMode: 'any', channels: ['ch_024'], scripts: [], priority: 85 },
   { id: 'scene_028', name: '水电燃气故障', icon: '🔧', color: '#F6FFED', desc: '停水停电停气、故障维修不及时，推荐12345+公用事业公司', keywords: ['公用事业', '不作为'], matchMode: 'all', channels: ['ch_085'], scripts: [], priority: 75 },
-  { id: 'scene_029', name: '航班延误/退改签', icon: '🛫', color: '#FFFBE6', desc: '航班延误、取消、退改签难，推荐航空公司客服+12326', keywords: ['旅游住宿', '延误'], matchMode: 'all', channels: ['ch_085'], scripts: [], priority: 80 },
-  { id: 'scene_030', name: '刷单/兼职诈骗', icon: '⚠️', color: '#FFF2F0', desc: '刷单兼职被骗、网络诈骗，立即拨打96110+110报警', keywords: ['网络安全', '安全'], matchMode: 'all', channels: ['ch_030'], scripts: [], priority: 95 }
+  { id: 'scene_029', name: '航班延误/退改签', icon: '🛫', color: '#FFFBE6', desc: '航班延误、取消、退改签难，推荐航空公司客服+12326', keywords: ['交通出行', '延误'], matchMode: 'all', channels: ['ch_085'], scripts: [], priority: 80 },
+  { id: 'scene_030', name: '刷单/兼职诈骗', icon: '⚠️', color: '#FFF2F0', desc: '刷单兼职被骗、网络诈骗，立即拨打96110+110报警', keywords: ['网络安全'], matchMode: 'any', channels: ['ch_030'], scripts: [], priority: 95 }
 ];
 
 // 构建全量词库

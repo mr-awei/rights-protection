@@ -7,10 +7,10 @@
 /* 自定义导航栏 */
 .nav-bar {
   background: linear-gradient(135deg, #60A5FA 0%, #3B82F6 50%, #2563EB 100%);
-  padding-top: var(--status-bar-height);
+  padding-top: var(--status-bar-height, 44px);
   display: flex;
   align-items: center;
-  height: calc(88rpx + var(--status-bar-height));
+  height: calc(88rpx + var(--status-bar-height, 44px));
   position: sticky;
   top: 0;
   z-index: 100;
