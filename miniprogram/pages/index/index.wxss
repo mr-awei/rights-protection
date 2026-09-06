@@ -201,7 +201,7 @@
 }
 
 .section:first-child {
-  margin-top: 0;
+  margin-top: 16rpx;
 }
 
 .section-header {
@@ -421,25 +421,12 @@
   padding: 24rpx;
   border: 2rpx solid #FECACA;
   box-shadow: 0 4rpx 16rpx rgba(239,68,68,0.08);
-  position: relative;
-  overflow: hidden;
-}
-
-.emergency-bar::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 6rpx;
-  background: linear-gradient(90deg, #EF4444, #F97316, #EF4444);
 }
 
 .emergency-bar-title {
   display: flex;
   align-items: center;
   margin-bottom: 20rpx;
-  padding-top: 8rpx;
 }
 
 .emergency-bar-icon {
