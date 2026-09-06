@@ -3,6 +3,7 @@
   <!-- 渐变头部 -->
   <view class="gradient-header">
     <view class="header-content">
+      <!-- 用户信息 -->
       <view class="user-section">
         <view class="avatar">
           <image class="avatar-img" src="/images/logo.png" mode="aspectFill"></image>
@@ -44,179 +45,183 @@
   <!-- 内容区 -->
   <view class="content">
     <!-- 我的收藏 -->
-    <view class="section" id="favorite-section">
-      <view class="section-header">
-        <text class="section-title">⭐ 我的收藏</text>
-        <view class="view-all-btn" bindtap="onViewAllFavorites">
+    <view class="card">
+      <view class="card-header">
+        <text class="card-title">我的收藏</text>
+        <view class="card-more" bindtap="onViewAllFavorites">
           <text>查看全部</text>
-          <text class="view-all-arrow">›</text>
+          <text class="more-arrow">›</text>
         </view>
       </view>
+
       <!-- 收藏Tab切换 -->
-      <view class="fav-tabs">
+      <view class="tab-row">
         <view
-          class="fav-tab {{activeFavTab === 'channels' ? 'active' : ''}}"
+          class="tab-item {{activeFavTab === 'channels' ? 'active' : ''}}"
           data-tab="channels"
           bindtap="onFavTabTap"
-        >渠道 ({{favoriteChannels}})</view>
+        >渠道</view>
         <view
-          class="fav-tab {{activeFavTab === 'scripts' ? 'active' : ''}}"
+          class="tab-item {{activeFavTab === 'scripts' ? 'active' : ''}}"
           data-tab="scripts"
           bindtap="onFavTabTap"
-        >话术 ({{favoriteScripts}})</view>
+        >话术</view>
       </view>
 
       <!-- 收藏的渠道列表（只显示最近3条） -->
-      <view class="fav-list" wx:if="{{activeFavTab === 'channels'}}">
+      <view class="item-list" wx:if="{{activeFavTab === 'channels'}}">
         <view
-          class="fav-item"
+          class="item-row"
           wx:for="{{favoriteChannelList.slice(0, 3)}}"
           wx:key="id"
           data-id="{{item.id}}"
           bindtap="onFavoriteChannelTap"
-          hover-class="fav-item-hover"
+          hover-class="item-row-hover"
         >
-          <view class="fav-item-icon" style="background: #EFF6FF; color: #3B82F6;">🏛️</view>
-          <view class="fav-item-info">
-            <text class="fav-item-name">{{item.name}}</text>
-            <text class="fav-item-meta" wx:if="{{item.phone}}">📞 {{item.phone}}</text>
-            <text class="fav-item-meta" wx:else>{{item.category}}</text>
+          <view class="item-icon channel-icon"></view>
+          <view class="item-info">
+            <text class="item-name">{{item.name}}</text>
+            <text class="item-desc" wx:if="{{item.phone}}">{{item.phone}}</text>
+            <text class="item-desc" wx:else>{{item.category}}</text>
           </view>
-          <view class="fav-item-remove" catchtap="onRemoveFavoriteChannel" data-id="{{item.id}}">
+          <view class="item-remove" catchtap="onRemoveFavoriteChannel" data-id="{{item.id}}">
             <text>✕</text>
           </view>
         </view>
-        <view class="empty-state" wx:if="{{favoriteChannelList.length === 0}}">
-          <view class="empty-icon">⭐</view>
-          <view class="empty-title">还没有收藏渠道</view>
-          <view class="empty-desc">看到有用的渠道就点⭐收藏吧</view>
+
+        <!-- 空状态 -->
+        <view class="empty-box" wx:if="{{favoriteChannelList.length === 0}}">
+          <text class="empty-title">还没有收藏渠道</text>
+          <text class="empty-desc">看到有用的渠道就收藏吧</text>
         </view>
+
         <!-- 更多提示 -->
-        <view class="more-tip" wx:if="{{favoriteChannelList.length > 3}}" bindtap="onViewAllFavorites" data-tab="channels">
-          <text>还有 {{favoriteChannelList.length - 3}} 条收藏，点击查看全部 ›</text>
+        <view class="more-row" wx:if="{{favoriteChannelList.length > 3}}" bindtap="onViewAllFavorites" data-tab="channels">
+          <text>还有 {{favoriteChannelList.length - 3}} 条，查看全部</text>
+          <text class="more-arrow">›</text>
         </view>
       </view>
 
       <!-- 收藏的话术列表（只显示最近3条） -->
-      <view class="fav-list" wx:if="{{activeFavTab === 'scripts'}}">
+      <view class="item-list" wx:if="{{activeFavTab === 'scripts'}}">
         <view
-          class="fav-item"
+          class="item-row"
           wx:for="{{favoriteScriptList.slice(0, 3)}}"
           wx:key="id"
           data-id="{{item.id}}"
           bindtap="onFavoriteScriptTap"
-          hover-class="fav-item-hover"
+          hover-class="item-row-hover"
         >
-          <view class="fav-item-icon" style="background: #F0FDF4; color: #10B981;">📝</view>
-          <view class="fav-item-info">
-            <text class="fav-item-name">{{item.name}}</text>
-            <text class="fav-item-meta">{{item.applicable || '投诉话术'}}</text>
+          <view class="item-icon script-icon"></view>
+          <view class="item-info">
+            <text class="item-name">{{item.name}}</text>
+            <text class="item-desc">{{item.applicable || '投诉话术'}}</text>
           </view>
-          <view class="fav-item-remove" catchtap="onRemoveFavoriteScript" data-id="{{item.id}}">
+          <view class="item-remove" catchtap="onRemoveFavoriteScript" data-id="{{item.id}}">
             <text>✕</text>
           </view>
         </view>
-        <view class="empty-state" wx:if="{{favoriteScriptList.length === 0}}">
-          <view class="empty-icon">📝</view>
-          <view class="empty-title">还没有收藏话术</view>
-          <view class="empty-desc">看到有用的话术就点⭐收藏吧</view>
+
+        <!-- 空状态 -->
+        <view class="empty-box" wx:if="{{favoriteScriptList.length === 0}}">
+          <text class="empty-title">还没有收藏话术</text>
+          <text class="empty-desc">看到有用的话术就收藏吧</text>
         </view>
+
         <!-- 更多提示 -->
-        <view class="more-tip" wx:if="{{favoriteScriptList.length > 3}}" bindtap="onViewAllFavorites" data-tab="scripts">
-          <text>还有 {{favoriteScriptList.length - 3}} 条收藏，点击查看全部 ›</text>
+        <view class="more-row" wx:if="{{favoriteScriptList.length > 3}}" bindtap="onViewAllFavorites" data-tab="scripts">
+          <text>还有 {{favoriteScriptList.length - 3}} 条，查看全部</text>
+          <text class="more-arrow">›</text>
         </view>
       </view>
     </view>
 
     <!-- 浏览历史 -->
-    <view class="section" id="history-section">
-      <view class="section-header">
-        <text class="section-title">👀 浏览历史</text>
-        <view class="view-all-btn" bindtap="onViewAllHistory">
+    <view class="card">
+      <view class="card-header">
+        <text class="card-title">浏览历史</text>
+        <view class="card-more" bindtap="onViewAllHistory">
           <text>查看全部</text>
-          <text class="view-all-arrow">›</text>
+          <text class="more-arrow">›</text>
         </view>
       </view>
-      <view class="history-list" wx:if="{{viewHistoryList.length > 0}}">
+
+      <view class="item-list" wx:if="{{viewHistoryList.length > 0}}">
         <view
-          class="history-item"
+          class="item-row"
           wx:for="{{viewHistoryList.slice(0, 3)}}"
           wx:key="item_id"
           data-item="{{item}}"
           bindtap="onViewHistoryTap"
-          hover-class="history-item-hover"
+          hover-class="item-row-hover"
         >
-          <view class="history-type" style="background: {{item.typeColor}}15; color: {{item.typeColor}};">
-            <text>{{item.typeLabel}}</text>
+          <view class="item-icon history-icon" style="background: {{item.typeColor}}15;"></view>
+          <view class="item-info">
+            <text class="item-name">{{item.item_name}}</text>
+            <text class="item-desc">{{item.typeLabel}} · {{item.timeStr}}</text>
           </view>
-          <view class="history-info">
-            <text class="history-name">{{item.item_name}}</text>
-            <text class="history-time">{{item.timeStr}}</text>
-          </view>
-          <text class="history-arrow">›</text>
+          <text class="item-arrow">›</text>
         </view>
+
         <!-- 更多提示 -->
-        <view class="more-tip" wx:if="{{viewHistoryList.length > 3}}" bindtap="onViewAllHistory">
-          <text>还有 {{viewHistoryList.length - 3}} 条历史，点击查看全部 ›</text>
+        <view class="more-row" wx:if="{{viewHistoryList.length > 3}}" bindtap="onViewAllHistory">
+          <text>还有 {{viewHistoryList.length - 3}} 条，查看全部</text>
+          <text class="more-arrow">›</text>
         </view>
       </view>
-      <view class="empty-state" wx:if="{{viewHistoryList.length === 0}}">
-        <view class="empty-icon">👀</view>
-        <view class="empty-title">还没有浏览记录</view>
-        <view class="empty-desc">去看看有哪些投诉渠道吧</view>
+
+      <!-- 空状态 -->
+      <view class="empty-box" wx:if="{{viewHistoryList.length === 0}}">
+        <text class="empty-title">还没有浏览记录</text>
+        <text class="empty-desc">去看看有哪些投诉渠道吧</text>
       </view>
     </view>
 
     <!-- 工具箱 -->
-    <view class="section">
-      <view class="section-header">
-        <text class="section-title">🛠️ 工具箱</text>
+    <view class="card">
+      <view class="card-header">
+        <text class="card-title">工具箱</text>
       </view>
-      <view class="tool-grid">
+      <view class="item-list">
         <view
-          class="tool-item"
+          class="item-row"
           wx:for="{{toolList}}"
           wx:key="name"
           data-index="{{index}}"
           bindtap="onToolTap"
-          hover-class="tool-item-hover"
+          hover-class="item-row-hover"
         >
-          <view class="tool-icon" style="background: {{item.color}}">
-            <text>{{item.icon}}</text>
+          <view class="item-icon tool-icon" style="background: {{item.color}}15;"></view>
+          <view class="item-info">
+            <text class="item-name">{{item.name}}</text>
+            <text class="item-desc">{{item.desc}}</text>
           </view>
-          <view class="tool-info">
-            <text class="tool-name">{{item.name}}</text>
-            <text class="tool-desc">{{item.desc}}</text>
-          </view>
-          <text class="tool-arrow">›</text>
+          <text class="item-arrow">›</text>
         </view>
       </view>
     </view>
 
-    <!-- 数据说明 -->
-    <view class="section">
-      <view class="info-card">
-        <view class="info-header">
-          <text class="info-icon">📊</text>
-          <text class="info-title">数据概览</text>
+    <!-- 数据概览 -->
+    <view class="card">
+      <view class="card-header">
+        <text class="card-title">数据概览</text>
+      </view>
+      <view class="stats-grid">
+        <view class="stats-cell">
+          <text class="stats-num">122</text>
+          <text class="stats-label">官方渠道</text>
         </view>
-        <view class="info-stats">
-          <view class="info-stat">
-            <text class="info-stat-num">122</text>
-            <text class="info-stat-label">官方渠道</text>
-          </view>
-          <view class="info-stat">
-            <text class="info-stat-num">6</text>
-            <text class="info-stat-label">投诉话术</text>
-          </view>
-          <view class="info-stat">
-            <text class="info-stat-num">10</text>
-            <text class="info-stat-label">领域分类</text>
-          </view>
-          <view class="info-stat">
-            <text class="info-stat-num">40</text>
-            <text class="info-stat-label">二级分类</text>
-          </view>
+        <view class="stats-cell">
+          <text class="stats-num">6</text>
+          <text class="stats-label">投诉话术</text>
+        </view>
+        <view class="stats-cell">
+          <text class="stats-num">10</text>
+          <text class="stats-label">领域分类</text>
+        </view>
+        <view class="stats-cell">
+          <text class="stats-num">40</text>
+          <text class="stats-label">二级分类</text>
         </view>
       </view>
     </view>
@@ -226,7 +231,5 @@
       <text class="footer-version">我不能被欺负 v1.0.0 MVP</text>
       <text class="footer-copyright">数据仅供参考，以官方平台为准</text>
     </view>
-
-    <view style="height: 40rpx;"></view>
   </view>
 </view>
