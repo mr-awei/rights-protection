@@ -58,15 +58,13 @@ Page({
         type: 'channel',
         id: item.id,
         name: item.name,
-        phone: item.phone || '',
-        icon: '🏛️'
+        phone: item.phone || ''
       })),
       ...scriptResults.map(item => ({
         type: 'script',
         id: item.id,
         name: item.scene_name || item.name,
-        phone: '',
-        icon: '📝'
+        phone: ''
       }))
     ].slice(0, 8);
 
@@ -136,8 +134,8 @@ Page({
     });
   },
 
-  // 取消返回
-  onCancel() {
+  // 返回上一页
+  onBack() {
     wx.navigateBack({ fail: () => wx.switchTab({ url: '/pages/index/index' }) });
   },
 

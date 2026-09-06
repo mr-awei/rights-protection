@@ -94,7 +94,15 @@ Page({
         displayName: displayName
       };
     });
-    this.setData({ hotScripts: processed });
+    this.setData({ 
+      hotScripts: processed,
+      displayScripts: processed.slice(0, 3)
+    });
+  },
+
+  // 查看全部话术
+  onViewAllScripts() {
+    wx.switchTab({ url: '/pages/category/category' });
   },
 
   // 点击搜索框跳转到搜索态页面

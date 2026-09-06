@@ -7,7 +7,7 @@
 /* ========== 渐变头部 ========== */
 .gradient-header {
   background: linear-gradient(180deg, #4A90D9 0%, #5B9BD5 100%);
-  padding: 0 0 16rpx;
+  padding: 0 0 32rpx;
   position: relative;
   overflow: hidden;
   z-index: 1;
@@ -120,7 +120,7 @@
 /* ========== 内容区 ========== */
 .content {
   padding: 20rpx 24rpx 40rpx;
-  margin-top: -24rpx;
+  margin-top: -16rpx;
   position: relative;
   z-index: 2;
 }
@@ -337,6 +337,25 @@
   color: #DDDDDD;
   margin-left: 8rpx;
   flex-shrink: 0;
+}
+
+.view-all-btn {
+  background: #FFFFFF;
+  padding: 20rpx;
+  text-align: center;
+  border-top: 1rpx solid #F8F8F8;
+  border-radius: 0 0 16rpx 16rpx;
+  transition: background 0.2s ease;
+}
+
+.view-all-btn text {
+  font-size: 26rpx;
+  color: #4A90D9;
+  font-weight: 500;
+}
+
+.view-all-hover {
+  background: #F5F6F8;
 }
 
 /* ========== 最近浏览 ========== */

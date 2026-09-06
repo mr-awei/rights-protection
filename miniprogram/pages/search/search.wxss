@@ -17,7 +17,23 @@
   display: flex;
   align-items: center;
   padding: 16rpx 24rpx;
-  gap: 16rpx;
+  gap: 12rpx;
+}
+
+.back-btn {
+  width: 56rpx;
+  height: 56rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.back-icon {
+  font-size: 48rpx;
+  color: #FFFFFF;
+  font-weight: 300;
+  line-height: 1;
 }
 
 .search-box {
@@ -65,16 +81,6 @@
   font-weight: 600;
 }
 
-.cancel-btn {
-  padding: 8rpx 16rpx;
-}
-
-.cancel-btn text {
-  font-size: 28rpx;
-  color: #FFFFFF;
-  font-weight: 500;
-}
-
 /* 联想建议列表 */
 .suggestion-list {
   background: #FFFFFF;
@@ -94,10 +100,35 @@
 }
 
 .suggestion-icon {
-  font-size: 32rpx;
-  margin-right: 16rpx;
   width: 48rpx;
-  text-align: center;
+  height: 48rpx;
+  border-radius: 12rpx;
+  margin-right: 16rpx;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.suggestion-icon-channel {
+  background: #E6F4FF;
+}
+
+.suggestion-icon-script {
+  background: #E8F8EF;
+}
+
+.suggestion-icon-text {
+  font-size: 22rpx;
+  font-weight: 600;
+}
+
+.suggestion-icon-channel .suggestion-icon-text {
+  color: #1890FF;
+}
+
+.suggestion-icon-script .suggestion-icon-text {
+  color: #52C41A;
 }
 
 .suggestion-info {

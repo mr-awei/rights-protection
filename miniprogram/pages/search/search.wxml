@@ -3,6 +3,9 @@
   <!-- 自定义导航栏 -->
   <view class="nav-bar">
     <view class="nav-content">
+      <view class="back-btn" bindtap="onBack">
+        <text class="back-icon">‹</text>
+      </view>
       <view class="search-box">
         <text class="search-icon"></text>
         <input
@@ -20,9 +23,6 @@
           <text>✕</text>
         </view>
       </view>
-      <view class="cancel-btn" bindtap="onCancel">
-        <text>取消</text>
-      </view>
     </view>
   </view>
 
@@ -36,7 +36,9 @@
       bindtap="onSuggestionTap"
       hover-class="suggestion-item-hover"
     >
-      <text class="suggestion-icon">{{item.icon}}</text>
+      <view class="suggestion-icon suggestion-icon-{{item.type}}">
+        <text class="suggestion-icon-text">{{item.type === 'channel' ? '渠' : '话'}}</text>
+      </view>
       <view class="suggestion-info">
         <text class="suggestion-name">{{item.name}}</text>
         <text class="suggestion-type" wx:if="{{item.type === 'channel'}}">投诉渠道</text>

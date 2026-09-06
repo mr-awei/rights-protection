@@ -96,12 +96,12 @@
     <view class="section" wx:if="{{hotScripts.length > 0}}">
       <view class="section-header">
         <text class="section-title">高频投诉话术</text>
-        <text class="section-more">共{{hotScripts.length}}套</text>
+        <text class="section-more" bindtap="onViewAllScripts">共{{hotScripts.length}}套 ›</text>
       </view>
       <view class="script-list">
         <view
           class="script-item"
-          wx:for="{{hotScripts}}"
+          wx:for="{{displayScripts}}"
           wx:key="id"
           data-id="{{item.id}}"
           bindtap="onScriptTap"
@@ -114,6 +114,9 @@
           </view>
           <text class="script-arrow">›</text>
         </view>
+      </view>
+      <view class="view-all-btn" wx:if="{{hotScripts.length > 3}}" bindtap="onViewAllScripts" hover-class="view-all-hover">
+        <text>查看全部{{hotScripts.length}}套话术</text>
       </view>
     </view>
 

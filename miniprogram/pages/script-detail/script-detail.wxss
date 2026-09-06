@@ -78,7 +78,7 @@
   backdrop-filter: blur(10px);
   padding: 8rpx 20rpx;
   border-radius: 20rpx;
-  margin-bottom: 12rpx;
+  margin-bottom: 20rpx;
 }
 
 .badge-text {
