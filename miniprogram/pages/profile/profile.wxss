@@ -10,8 +10,6 @@
   padding: 0 0 56rpx;
   position: relative;
   overflow: hidden;
-  margin-top: calc(var(--status-bar-height) * -1);
-  padding-top: var(--status-bar-height);
 }
 
 .gradient-header::before {
@@ -39,7 +37,7 @@
 .header-content {
   position: relative;
   z-index: 1;
-  padding: 56rpx 32rpx 0;
+  padding: 24rpx 32rpx 0;
 }
 
 /* 用户信息 */
