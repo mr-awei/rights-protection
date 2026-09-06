@@ -7,7 +7,7 @@
 /* ========== 搜索框 ========== */
 .search-header {
   background: linear-gradient(135deg, #60A5FA 0%, #3B82F6 50%, #2563EB 100%);
-  padding-top: var(--status-bar-height);
+  padding-top: var(--status-bar-height, 44px);
   padding-bottom: 16rpx;
 }
 

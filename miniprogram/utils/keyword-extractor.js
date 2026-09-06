@@ -24,7 +24,7 @@ const KEYWORDS = {
     // ===== 政务纪检（25个）=====
     '政务纪检': ['政府', '公职', '官员', '推诿', '纪检', '举报', '信访', '督查', '办事', '审批', '政务服务', '行政复议', '行政诉讼', '国家赔偿', '信息公开', '政务公开', '公务员', '事业单位', '编制', '吃空饷', '贪污', '受贿', '腐败', '滥用职权'],
     // ===== 网络安全（30个）=====
-    '网络安全': ['诈骗', '被骗', '个人信息', '骚扰电话', '短信', '网络', '账号', '盗号', '刷单', '传销', '电信诈骗', '网络诈骗', '杀猪盘', '套路贷', '钓鱼网站', '木马病毒', '黑客', '数据泄露', '隐私泄露', '骚扰短信', '垃圾短信', '电话轰炸', '短信轰炸', '冒充公检法', '冒充客服', '中奖诈骗', '兼职诈骗', '投资诈骗'],
+    '网络安全': ['诈骗', '被骗', '个人信息', '个人信息泄露', '骚扰电话', '短信', '网络', '账号', '盗号', '刷单', '传销', '电信诈骗', '网络诈骗', '杀猪盘', '套路贷', '钓鱼网站', '木马病毒', '黑客', '数据泄露', '隐私泄露', '骚扰短信', '垃圾短信', '电话轰炸', '短信轰炸', '冒充公检法', '冒充客服', '中奖诈骗', '兼职诈骗', '投资诈骗'],
     // ===== 交通出行（新增，25个）=====
     '交通出行': ['出租车', '网约车', '滴滴', '公交', '地铁', '高铁', '火车', '飞机', '机票', '航班', '停车', '停车场', '停车费', '交通违章', '罚单', '扣分', '驾驶证', '行驶证', '车管所', '交警', '拒载', '绕路', '不打表', '加价', '航班延误'],
     // ===== 食品餐饮（新增，20个）=====
@@ -118,7 +118,7 @@ const SCENES = [
   { id: 'scene_016', name: '教育乱收费/培训跑路', icon: '🏥', color: '#E6F4FF', desc: '教育乱收费、培训机构跑路，推荐教育局+12315', keywords: ['教育', '乱收费'], matchMode: 'all', channels: ['ch_024'], scripts: [], priority: 85 },
   { id: 'scene_017', name: '噪音/环境污染', icon: '🌿', color: '#F6FFED', desc: '噪音扰民、环境污染，推荐12345环保举报', keywords: ['环保', '安全'], matchMode: 'all', channels: ['ch_059'], scripts: [], priority: 80 },
   { id: 'scene_018', name: '电信诈骗/被骗钱', icon: '🛡️', color: '#F0F5FF', desc: '遭遇电信诈骗、被骗钱，立即拨打96110+110', keywords: ['诈骗'], matchMode: 'any', channels: ['ch_030'], scripts: [], priority: 100 },
-  { id: 'scene_019', name: '骚扰电话/个人信息泄露', icon: '🛡️', color: '#E6FFFB', desc: '骚扰电话、个人信息泄露，推荐12321', keywords: ['网络安全', '安全'], matchMode: 'all', channels: ['ch_083'], scripts: [], priority: 75 },
+  { id: 'scene_019', name: '骚扰电话/个人信息泄露', icon: '🛡️', color: '#E6FFFB', desc: '骚扰电话、个人信息泄露，推荐12321', keywords: ['网络安全'], matchMode: 'any', channels: ['ch_083'], scripts: [], priority: 75 },
   { id: 'scene_020', name: '政府部门不作为', icon: '⚖️', color: '#FFFBE6', desc: '政府部门不作为、推诿扯皮，推荐12345+国务院督查', keywords: ['政务', '不作为'], matchMode: 'all', channels: ['ch_085'], scripts: [], priority: 90 },
   // ===== 新增场景（10个）=====
   { id: 'scene_021', name: '出租车拒载/绕路', icon: '🚕', color: '#E6F4FF', desc: '出租车拒载、绕路、不打表、加价，推荐12328交通投诉', keywords: ['交通出行', '服务态度'], matchMode: 'all', channels: ['ch_085'], scripts: [], priority: 85 },
@@ -172,29 +172,25 @@ function extractKeywords(text) {
     }
   }
 
-  // 分类（问题分类优先，然后是领域分类，最后是对象分类）
+  // 分类（领域、问题、对象是不同维度，可以同时匹配）
   const domains = [];
   const issues = [];
   const targets = [];
 
   for (const word of matched) {
-    // 先匹配问题分类（优先级最高）
-    let matchedAsIssue = false;
+    // 匹配领域分类
+    for (const [domain, words] of Object.entries(KEYWORDS.domain)) {
+      if (words.includes(word) && !domains.includes(domain)) {
+        domains.push(domain);
+      }
+    }
+    // 匹配问题分类
     for (const [issue, words] of Object.entries(KEYWORDS.issue)) {
       if (words.includes(word) && !issues.includes(issue)) {
         issues.push(issue);
-        matchedAsIssue = true;
       }
     }
-    // 如果这个词没有匹配到问题分类，再匹配领域分类
-    if (!matchedAsIssue) {
-      for (const [domain, words] of Object.entries(KEYWORDS.domain)) {
-        if (words.includes(word) && !domains.includes(domain)) {
-          domains.push(domain);
-        }
-      }
-    }
-    // 匹配对象分类（独立判断，不受问题分类影响）
+    // 匹配对象分类
     for (const [target, words] of Object.entries(KEYWORDS.target)) {
       if (words.includes(word) && !targets.includes(target)) {
         targets.push(target);
