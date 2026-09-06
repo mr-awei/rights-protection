@@ -114,7 +114,7 @@
 .scene-list {
   display: flex;
   flex-direction: column;
-  gap: 20rpx;
+  gap: 24rpx;
 }
 
 .scene-card {
@@ -124,6 +124,7 @@
   box-shadow: 0 2rpx 12rpx rgba(0,0,0,0.04);
   transition: all 0.2s ease;
   border-left: 6rpx solid #3B82F6;
+  margin-bottom: 8rpx;
 }
 
 .scene-card:active {
