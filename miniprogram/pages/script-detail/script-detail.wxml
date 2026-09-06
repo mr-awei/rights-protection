@@ -1,4 +1,4 @@
-<!--pages/script-detail/script-detail.wxml-->
+﻿<!--pages/script-detail/script-detail.wxml-->
 <!-- 加载状态 -->
 <view class="loading-container" wx:if="{{loading}}">
   <view class="loading-spinner"></view>
@@ -10,7 +10,7 @@
   <view class="gradient-header">
     <view class="header-content">
       <view class="script-badge">
-        <text class="badge-icon">📝</text>
+        <text class="badge-icon"></text>
         <text class="badge-text">投诉话术</text>
       </view>
       <text class="script-title">{{script.scene_name}}</text>
@@ -29,7 +29,7 @@
         data-tab="phone"
         bindtap="onTabTap"
       >
-        <text class="tab-icon">📞</text>
+        <text class="tab-icon"></text>
         <text class="tab-text">电话版</text>
       </view>
       <view
@@ -37,7 +37,7 @@
         data-tab="written"
         bindtap="onTabTap"
       >
-        <text class="tab-icon">📝</text>
+        <text class="tab-icon"></text>
         <text class="tab-text">书面版</text>
       </view>
     </view>
@@ -45,16 +45,16 @@
     <!-- 话术内容卡片 -->
     <view class="section">
       <view class="section-header">
-        <text class="section-title">{{activeTab === 'phone' ? '💡 电话投诉话术' : '💡 书面投诉模板'}}</text>
+        <text class="section-title">{{activeTab === 'phone' ? ' 电话投诉话术' : ' 书面投诉模板'}}</text>
         <view class="header-actions">
           <view class="fill-btn" bindtap="toggleFillForm" wx:if="{{!hasCustomContent}}">
-            <text>✏️ 填写信息</text>
+            <text>✏ 填写信息</text>
           </view>
           <view class="reset-btn" bindtap="resetCustomScript" wx:if="{{hasCustomContent}}">
-            <text>🔄 重置</text>
+            <text>� 重置</text>
           </view>
           <view class="copy-btn" bindtap="onCopyScript" hover-class="copy-btn-hover">
-            <text class="copy-btn-icon">📋</text>
+            <text class="copy-btn-icon"></text>
             <text class="copy-btn-text">{{hasCustomContent ? '复制个性化' : '复制全部'}}</text>
           </view>
         </view>
@@ -63,7 +63,7 @@
       <!-- 填充表单区域 -->
       <view class="fill-form" wx:if="{{showFillForm && !hasCustomContent}}">
         <view class="fill-form-title">
-          <text>📝 填写以下信息，自动生成个性化话术</text>
+          <text> 填写以下信息，自动生成个性化话术</text>
         </view>
         <view class="fill-form-list">
           <view class="fill-form-item" wx:for="{{placeholders}}" wx:key="*this">
@@ -91,7 +91,7 @@
 
       <!-- 个性化话术提示 -->
       <view class="custom-tip" wx:if="{{hasCustomContent}}">
-        <text class="custom-tip-icon">✅</text>
+        <text class="custom-tip-icon"></text>
         <text class="custom-tip-text">已根据您填写的信息生成个性化话术，可直接复制使用</text>
       </view>
 
@@ -143,7 +143,7 @@
     <!-- 法律依据 -->
     <view class="section" wx:if="{{laws.length > 0 || legalBasisText}}">
       <view class="section-header">
-        <text class="section-title">⚖️ 法律依据</text>
+        <text class="section-title">⚖ 法律依据</text>
       </view>
       <view class="law-card">
         <view class="law-basis-text" wx:if="{{legalBasisText}}">
@@ -151,7 +151,7 @@
         </view>
         <view class="law-list" wx:if="{{laws.length > 0}}">
           <view class="law-item" wx:for="{{laws}}" wx:key="id">
-            <view class="law-item-icon">📖</view>
+            <view class="law-item-icon">�</view>
             <view class="law-item-info">
               <text class="law-item-name">{{item.name}}</text>
               <text class="law-item-desc">{{item.description || item.article || '点击查看相关法条'}}</text>
@@ -164,7 +164,7 @@
     <!-- 证据清单 -->
     <view class="section" wx:if="{{evidenceList.length > 0}}">
       <view class="section-header">
-        <text class="section-title">📎 证据清单</text>
+        <text class="section-title">� 证据清单</text>
         <text class="section-count">{{evidenceList.length}}项</text>
       </view>
       <view class="evidence-card">
@@ -182,7 +182,7 @@
     <!-- 关联渠道 -->
     <view class="section" wx:if="{{relatedChannels.length > 0}}">
       <view class="section-header">
-        <text class="section-title">📞 关联投诉渠道</text>
+        <text class="section-title"> 关联投诉渠道</text>
         <text class="section-count">{{relatedChannels.length}}个</text>
       </view>
       <view class="channel-list">
@@ -195,11 +195,11 @@
           hover-class="channel-card-hover"
         >
           <view class="channel-icon">
-            <text>🏛️</text>
+            <text></text>
           </view>
           <view class="channel-info">
             <text class="channel-name">{{item.name}}</text>
-            <text class="channel-phone" wx:if="{{item.phone}}">📞 {{item.phone}}</text>
+            <text class="channel-phone" wx:if="{{item.phone}}"> {{item.phone}}</text>
           </view>
           <text class="channel-arrow">›</text>
         </view>
@@ -210,7 +210,7 @@
     <view class="section">
       <view class="legal-notice-card">
         <view class="legal-notice-header">
-          <text class="legal-notice-icon">⚖️</text>
+          <text class="legal-notice-icon">⚖</text>
           <text class="legal-notice-title">依法维权 · 理性表达</text>
         </view>
         <view class="legal-notice-content">
@@ -228,11 +228,11 @@
   <!-- 底部操作栏 -->
   <view class="bottom-bar">
     <view class="bottom-btn btn-secondary" bindtap="onCopyScript">
-      <text class="btn-icon">📋</text>
+      <text class="btn-icon"></text>
       <text class="btn-text">复制话术</text>
     </view>
     <view class="bottom-btn btn-primary" bindtap="onToggleFavorite">
-      <text class="btn-icon">{{isFavorite ? '⭐' : '☆'}}</text>
+      <text class="btn-icon">{{isFavorite ? '' : '☆'}}</text>
       <text class="btn-text">{{isFavorite ? '已收藏' : '收藏'}}</text>
     </view>
   </view>

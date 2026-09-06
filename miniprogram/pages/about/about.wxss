@@ -1,12 +1,12 @@
-/* pages/about/about.wxss */
+﻿/* pages/about/about.wxss */
 .container {
   min-height: 100vh;
-  background: #F8FAFC;
+  background: #F5F6F8;
 }
 
 /* 自定义导航栏 */
 .nav-bar {
-  background: linear-gradient(135deg, #60A5FA 0%, #3B82F6 50%, #2563EB 100%);
+  background: linear-gradient(135deg, #5B9BD5 0%, #4A90D9 50%, #3A7BC8 100%);
   padding-top: var(--status-bar-height, 44px);
   display: flex;
   align-items: center;
@@ -49,7 +49,7 @@
 
 /* 应用信息 */
 .app-info {
-  background: linear-gradient(135deg, #60A5FA 0%, #3B82F6 50%, #2563EB 100%);
+  background: linear-gradient(135deg, #5B9BD5 0%, #4A90D9 50%, #3A7BC8 100%);
   border-radius: 24rpx;
   padding: 48rpx 32rpx;
   text-align: center;
@@ -127,7 +127,7 @@
 .card-title {
   font-size: 30rpx;
   font-weight: 700;
-  color: #1E293B;
+  color: #1A1A1A;
   margin-bottom: 20rpx;
 }
 
@@ -135,7 +135,7 @@
 .stats-title {
   font-size: 28rpx;
   font-weight: 700;
-  color: #1E293B;
+  color: #1A1A1A;
   margin-bottom: 20rpx;
 }
 
@@ -155,7 +155,7 @@
 .stat-num {
   font-size: 40rpx;
   font-weight: 800;
-  background: linear-gradient(135deg, #3B82F6, #1D4ED8);
+  background: linear-gradient(135deg, #4A90D9, #2E6BB8);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -163,17 +163,17 @@
 
 .stat-label {
   font-size: 22rpx;
-  color: #64748B;
+  color: #666666;
   margin-top: 4rpx;
 }
 
 .stats-footer {
   text-align: center;
   font-size: 20rpx;
-  color: #94A3B8;
+  color: #999999;
   margin-top: 16rpx;
   padding-top: 16rpx;
-  border-top: 1rpx solid #F1F5F9;
+  border-top: 1rpx solid #F5F5F5;
 }
 
 /* 功能列表 */
@@ -191,7 +191,7 @@
 .feature-icon {
   width: 64rpx;
   height: 64rpx;
-  background: linear-gradient(135deg, #EFF6FF, #DBEAFE);
+  background: linear-gradient(135deg, #E8F3FC, #E8F3FC);
   border-radius: 16rpx;
   display: flex;
   align-items: center;
@@ -210,13 +210,13 @@
 .feature-name {
   font-size: 28rpx;
   font-weight: 600;
-  color: #1E293B;
+  color: #1A1A1A;
   margin-bottom: 2rpx;
 }
 
 .feature-desc {
   font-size: 22rpx;
-  color: #94A3B8;
+  color: #999999;
 }
 
 /* 链接列表 */
@@ -229,7 +229,7 @@
   display: flex;
   align-items: center;
   padding: 20rpx 0;
-  border-bottom: 1rpx solid #F1F5F9;
+  border-bottom: 1rpx solid #F5F5F5;
   transition: all 0.2s ease;
 }
 
@@ -238,7 +238,7 @@
 }
 
 .link-item-hover {
-  background: #F8FAFC;
+  background: #F5F6F8;
   margin: 0 -24rpx;
   padding: 20rpx 24rpx;
 }
@@ -253,12 +253,12 @@
 .link-name {
   flex: 1;
   font-size: 28rpx;
-  color: #1E293B;
+  color: #1A1A1A;
 }
 
 .link-arrow {
   font-size: 32rpx;
-  color: #CBD5E1;
+  color: #CCCCCC;
 }
 
 /* 维权理念 */
@@ -295,7 +295,7 @@
 
 .footer-text {
   font-size: 22rpx;
-  color: #94A3B8;
+  color: #999999;
   display: block;
   margin-bottom: 6rpx;
 }

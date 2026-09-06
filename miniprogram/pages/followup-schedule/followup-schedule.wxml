@@ -1,4 +1,4 @@
-<!--pages/followup-schedule/followup-schedule.wxml-->
+﻿<!--pages/followup-schedule/followup-schedule.wxml-->
 <view class="container" style="--status-bar-height: {{statusBarHeight}}px;">
   <!-- 渐变头部 -->
   <view class="gradient-header">
@@ -39,7 +39,7 @@
 
     <!-- 提示 -->
     <view class="tip-card">
-      <view class="tip-icon">💡</view>
+      <view class="tip-icon"></view>
       <view class="tip-text">以上时限为一般规定，具体以各监管部门实际处理流程为准。如遇超期未处理，可向上级部门投诉或申请行政复议。保留好所有沟通记录和证据。</view>
     </view>
 

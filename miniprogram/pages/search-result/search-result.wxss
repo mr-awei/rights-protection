@@ -1,12 +1,12 @@
-/* pages/search-result/search-result.wxss */
+﻿/* pages/search-result/search-result.wxss */
 .container {
   min-height: 100vh;
-  background: #F8FAFC;
+  background: #F5F6F8;
 }
 
 /* ========== 搜索框 ========== */
 .search-header {
-  background: linear-gradient(135deg, #60A5FA 0%, #3B82F6 50%, #2563EB 100%);
+  background: linear-gradient(135deg, #5B9BD5 0%, #4A90D9 50%, #3A7BC8 100%);
   padding-top: var(--status-bar-height, 44px);
   padding-bottom: 16rpx;
 }
@@ -30,17 +30,17 @@
 .search-input {
   flex: 1;
   font-size: 28rpx;
-  color: #1E293B;
+  color: #1A1A1A;
   height: 48rpx;
 }
 
 .search-placeholder {
-  color: #94A3B8;
+  color: #999999;
   font-size: 26rpx;
 }
 
 .search-btn {
-  background: linear-gradient(135deg, #3B82F6, #2563EB);
+  background: linear-gradient(135deg, #4A90D9, #3A7BC8);
   padding: 10rpx 24rpx;
   border-radius: 16rpx;
   margin-left: 12rpx;
@@ -68,7 +68,7 @@
   text-align: center;
   padding: 16rpx 0;
   font-size: 28rpx;
-  color: #64748B;
+  color: #666666;
   font-weight: 500;
   border-radius: 16rpx;
   transition: all 0.2s ease;
@@ -76,9 +76,9 @@
 }
 
 .result-tab.active {
-  color: #2563EB;
+  color: #3A7BC8;
   font-weight: 700;
-  background: #EFF6FF;
+  background: #E8F3FC;
 }
 
 .result-tab.active::after {
@@ -89,7 +89,7 @@
   transform: translateX(-50%);
   width: 40rpx;
   height: 6rpx;
-  background: linear-gradient(90deg, #3B82F6, #2563EB);
+  background: linear-gradient(90deg, #4A90D9, #3A7BC8);
   border-radius: 3rpx;
 }
 
@@ -97,7 +97,7 @@
 .result-count {
   padding: 24rpx 32rpx 16rpx;
   font-size: 24rpx;
-  color: #94A3B8;
+  color: #999999;
 }
 
 /* ========== 结果列表 ========== */
@@ -112,7 +112,7 @@
   margin-bottom: 20rpx;
   box-shadow: 0 2rpx 12rpx rgba(0,0,0,0.04);
   transition: all 0.2s ease;
-  border-left: 6rpx solid #3B82F6;
+  border-left: 6rpx solid #4A90D9;
 }
 
 .result-item:active {
@@ -136,8 +136,8 @@
 }
 
 .ri-type.channel {
-  background: #EFF6FF;
-  color: #2563EB;
+  background: #E8F3FC;
+  color: #3A7BC8;
 }
 
 .ri-type.script {
@@ -149,7 +149,7 @@
   flex: 1;
   font-size: 30rpx;
   font-weight: 700;
-  color: #1E293B;
+  color: #1A1A1A;
   line-height: 1.4;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -160,7 +160,7 @@
 
 .ri-desc {
   font-size: 24rpx;
-  color: #64748B;
+  color: #666666;
   line-height: 1.6;
   margin-bottom: 16rpx;
   overflow: hidden;
@@ -179,7 +179,7 @@
 
 .ri-meta text {
   font-size: 22rpx;
-  color: #94A3B8;
+  color: #999999;
 }
 
 /* ========== 空状态 ========== */
@@ -199,14 +199,14 @@
 
 .empty-title {
   font-size: 30rpx;
-  color: #64748B;
+  color: #666666;
   font-weight: 600;
   margin-bottom: 12rpx;
 }
 
 .empty-desc {
   font-size: 24rpx;
-  color: #94A3B8;
+  color: #999999;
   text-align: center;
   margin-bottom: 32rpx;
 }
@@ -229,7 +229,7 @@
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, #3B82F6, #2563EB);
+  background: linear-gradient(135deg, #4A90D9, #3A7BC8);
   color: #FFFFFF;
   box-shadow: 0 4rpx 16rpx rgba(59,130,246,0.3);
 }

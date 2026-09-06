@@ -1,12 +1,12 @@
-/* pages/favorites-history/favorites-history.wxss */
+﻿/* pages/favorites-history/favorites-history.wxss */
 .container {
   min-height: 100vh;
-  background: #F1F5F9;
+  background: #F5F5F5;
 }
 
 /* ========== 自定义导航栏 ========== */
 .nav-bar {
-  background: linear-gradient(135deg, #60A5FA 0%, #3B82F6 35%, #2563EB 65%, #1E40AF 100%);
+  background: linear-gradient(135deg, #5B9BD5 0%, #4A90D9 35%, #3A7BC8 65%, #2E6BB8 100%);
   padding-top: var(--status-bar-height, 44px);
   height: calc(var(--status-bar-height, 44px) + 96rpx);
   display: flex;
@@ -72,7 +72,7 @@
   background: #FFFFFF;
   display: flex;
   padding: 0 24rpx;
-  border-bottom: 1rpx solid #F1F5F9;
+  border-bottom: 1rpx solid #F5F5F5;
   position: sticky;
   top: 0;
   z-index: 10;
@@ -97,34 +97,34 @@
   transform: translateX(-50%);
   width: 48rpx;
   height: 7rpx;
-  background: linear-gradient(90deg, #3B82F6, #2563EB);
+  background: linear-gradient(90deg, #4A90D9, #3A7BC8);
   border-radius: 4rpx;
 }
 
 .tab-text {
   font-size: 28rpx;
-  color: #94A3B8;
+  color: #999999;
   font-weight: 600;
   margin-bottom: 6rpx;
 }
 
 .tab-item.active .tab-text {
-  color: #0F172A;
+  color: #1A1A1A;
   font-weight: 800;
 }
 
 .tab-count {
   font-size: 22rpx;
-  color: #94A3B8;
-  background: #F1F5F9;
+  color: #999999;
+  background: #F5F5F5;
   padding: 4rpx 14rpx;
   border-radius: 20rpx;
   font-weight: 600;
 }
 
 .tab-item.active .tab-count {
-  color: #2563EB;
-  background: #EFF6FF;
+  color: #3A7BC8;
+  background: #E8F3FC;
 }
 
 /* ========== 内容区 ========== */
@@ -146,7 +146,7 @@
 
 .history-count {
   font-size: 24rpx;
-  color: #94A3B8;
+  color: #999999;
   font-weight: 500;
 }
 
@@ -166,14 +166,14 @@
   border-radius: 24rpx;
   overflow: hidden;
   box-shadow: 0 4rpx 24rpx rgba(0,0,0,0.06);
-  border: 1rpx solid #F1F5F9;
+  border: 1rpx solid #F5F5F5;
 }
 
 .list-item {
   display: flex;
   align-items: center;
   padding: 30rpx 24rpx;
-  border-bottom: 1rpx solid #F8FAFC;
+  border-bottom: 1rpx solid #F5F6F8;
   transition: all 0.2s ease;
 }
 
@@ -182,7 +182,7 @@
 }
 
 .list-item-hover {
-  background: #F8FAFC;
+  background: #F5F6F8;
 }
 
 .item-icon {
@@ -205,7 +205,7 @@
 .item-name {
   font-size: 30rpx;
   font-weight: 700;
-  color: #0F172A;
+  color: #1A1A1A;
   display: block;
   margin-bottom: 8rpx;
   overflow: hidden;
@@ -215,7 +215,7 @@
 
 .item-meta {
   font-size: 24rpx;
-  color: #94A3B8;
+  color: #999999;
   display: block;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -230,20 +230,20 @@
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  background: #F1F5F9;
+  background: #F5F5F5;
   margin-left: 20rpx;
   flex-shrink: 0;
 }
 
 .item-remove text {
   font-size: 26rpx;
-  color: #94A3B8;
+  color: #999999;
   font-weight: 700;
 }
 
 .item-arrow {
   font-size: 36rpx;
-  color: #CBD5E1;
+  color: #CCCCCC;
   margin-left: 16rpx;
   flex-shrink: 0;
   font-weight: 700;
@@ -262,7 +262,7 @@
   width: 140rpx;
   height: 140rpx;
   border-radius: 50%;
-  background: linear-gradient(135deg, #F8FAFC 0%, #EFF6FF 100%);
+  background: linear-gradient(135deg, #F5F6F8 0%, #E8F3FC 100%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -274,13 +274,13 @@
 .empty-title {
   font-size: 32rpx;
   font-weight: 800;
-  color: #475569;
+  color: #666666;
   margin-bottom: 12rpx;
 }
 
 .empty-desc {
   font-size: 26rpx;
-  color: #94A3B8;
+  color: #999999;
   text-align: center;
   line-height: 1.6;
 }
@@ -290,6 +290,6 @@
   text-align: center;
   padding: 36rpx 0;
   font-size: 24rpx;
-  color: #94A3B8;
+  color: #999999;
   font-weight: 500;
 }

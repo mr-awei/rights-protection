@@ -1,9 +1,9 @@
-<!--pages/search-result/search-result.wxml-->
+﻿<!--pages/search-result/search-result.wxml-->
 <view class="container" style="--status-bar-height: {{statusBarHeight}}px;">
   <!-- 搜索框 -->
   <view class="search-header">
     <view class="search-box">
-      <text class="search-icon">🔍</text>
+      <text class="search-icon"></text>
       <input
         class="search-input"
         type="text"
@@ -57,8 +57,8 @@
       </view>
       <rich-text class="ri-desc" nodes="{{item.highlightedDesc || item.desc}}"></rich-text>
       <view class="ri-meta">
-        <text wx:if="{{item.type === 'channel'}}">📞 官方渠道</text>
-        <text wx:if="{{item.type === 'script'}}">💬 投诉话术</text>
+        <text wx:if="{{item.type === 'channel'}}"> 官方渠道</text>
+        <text wx:if="{{item.type === 'script'}}"> 投诉话术</text>
         <text>匹配度 {{item.score > 10 ? 10 : item.score}}/10</text>
       </view>
     </view>
@@ -66,13 +66,13 @@
 
   <!-- 无结果 -->
   <view class="empty-state" wx:if="{{filteredResults.length === 0 && resultCount > 0}}">
-    <view class="empty-icon">📭</view>
+    <view class="empty-icon">�</view>
     <view class="empty-title">该分类下暂无结果</view>
     <view class="empty-desc">试试切换其他分类</view>
   </view>
 
   <view class="empty-state" wx:if="{{resultCount === 0}}">
-    <view class="empty-icon">🔍</view>
+    <view class="empty-icon"></view>
     <view class="empty-title">未找到相关结果</view>
     <view class="empty-desc">试试换个关键词，或查看全部分类</view>
     <view class="empty-actions">

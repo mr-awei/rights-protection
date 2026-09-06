@@ -1,7 +1,7 @@
-/* pages/general-template/general-template.wxss */
+﻿/* pages/general-template/general-template.wxss */
 .container {
   min-height: 100vh;
-  background: #F8FAFC;
+  background: #F5F6F8;
 }
 
 /* ========== 渐变头部 ========== */
@@ -103,7 +103,7 @@
 .section-title {
   font-size: 30rpx;
   font-weight: 700;
-  color: #1E293B;
+  color: #1A1A1A;
   flex: 1;
 }
 

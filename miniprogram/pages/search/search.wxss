@@ -1,12 +1,12 @@
-/* pages/search/search.wxss */
+﻿/* pages/search/search.wxss */
 .container {
   min-height: 100vh;
-  background: #F8FAFC;
+  background: #F5F6F8;
 }
 
 /* 自定义导航栏 */
 .nav-bar {
-  background: linear-gradient(135deg, #60A5FA 0%, #3B82F6 50%, #2563EB 100%);
+  background: linear-gradient(135deg, #5B9BD5 0%, #4A90D9 50%, #3A7BC8 100%);
   padding-top: var(--status-bar-height, 44px);
   position: sticky;
   top: 0;
@@ -39,19 +39,19 @@
 .search-input {
   flex: 1;
   font-size: 28rpx;
-  color: #1E293B;
+  color: #1A1A1A;
   height: 48rpx;
 }
 
 .search-placeholder {
-  color: #94A3B8;
+  color: #999999;
   font-size: 26rpx;
 }
 
 .clear-btn {
   width: 36rpx;
   height: 36rpx;
-  background: #E2E8F0;
+  background: #EEEEEE;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -61,7 +61,7 @@
 
 .clear-btn text {
   font-size: 20rpx;
-  color: #64748B;
+  color: #666666;
   font-weight: 600;
 }
 
@@ -85,12 +85,12 @@
   display: flex;
   align-items: center;
   padding: 24rpx;
-  border-bottom: 1rpx solid #F1F5F9;
+  border-bottom: 1rpx solid #F5F5F5;
   transition: all 0.2s ease;
 }
 
 .suggestion-item-hover {
-  background: #F8FAFC;
+  background: #F5F6F8;
 }
 
 .suggestion-icon {
@@ -109,7 +109,7 @@
 
 .suggestion-name {
   font-size: 28rpx;
-  color: #1E293B;
+  color: #1A1A1A;
   font-weight: 500;
   margin-bottom: 4rpx;
   overflow: hidden;
@@ -119,12 +119,12 @@
 
 .suggestion-type {
   font-size: 22rpx;
-  color: #94A3B8;
+  color: #999999;
 }
 
 .suggestion-arrow {
   font-size: 32rpx;
-  color: #CBD5E1;
+  color: #CCCCCC;
   margin-left: 12rpx;
 }
 
@@ -135,7 +135,7 @@
 
 .empty-suggestion text {
   font-size: 26rpx;
-  color: #94A3B8;
+  color: #999999;
 }
 
 /* 内容区 */
@@ -156,19 +156,19 @@
 .section-title {
   font-size: 30rpx;
   font-weight: 700;
-  color: #1E293B;
+  color: #1A1A1A;
 }
 
 .clear-history {
   margin-left: auto;
   padding: 6rpx 16rpx;
-  background: #F1F5F9;
+  background: #F5F5F5;
   border-radius: 12rpx;
 }
 
 .clear-history text {
   font-size: 22rpx;
-  color: #64748B;
+  color: #666666;
 }
 
 /* 搜索历史标签 */
@@ -182,7 +182,7 @@
   display: flex;
   align-items: center;
   background: #FFFFFF;
-  border: 1rpx solid #E2E8F0;
+  border: 1rpx solid #EEEEEE;
   border-radius: 20rpx;
   padding: 12rpx 16rpx 12rpx 20rpx;
   box-shadow: 0 2rpx 4rpx rgba(0,0,0,0.02);
@@ -190,13 +190,13 @@
 }
 
 .history-tag-hover {
-  background: #EFF6FF;
+  background: #E8F3FC;
   border-color: #93C5FD;
 }
 
 .tag-text {
   font-size: 26rpx;
-  color: #475569;
+  color: #666666;
 }
 
 .tag-delete {
@@ -210,7 +210,7 @@
 
 .tag-delete text {
   font-size: 20rpx;
-  color: #94A3B8;
+  color: #999999;
 }
 
 /* 热门搜索标签 */
@@ -224,7 +224,7 @@
   display: flex;
   align-items: center;
   background: #FFFFFF;
-  border: 1rpx solid #E2E8F0;
+  border: 1rpx solid #EEEEEE;
   border-radius: 20rpx;
   padding: 14rpx 24rpx;
   box-shadow: 0 2rpx 4rpx rgba(0,0,0,0.02);
@@ -247,16 +247,16 @@
 
 .hot-text {
   font-size: 26rpx;
-  color: #475569;
+  color: #666666;
 }
 
 /* 搜索技巧卡片 */
 .tip-card {
-  background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%);
-  border: 1rpx solid #BFDBFE;
+  background: linear-gradient(135deg, #E8F3FC 0%, #E8F3FC 100%);
+  border: 1rpx solid #B8D4F0;
   border-radius: 20rpx;
   padding: 24rpx;
-  border-left: 6rpx solid #3B82F6;
+  border-left: 6rpx solid #4A90D9;
 }
 
 .tip-header {
@@ -273,7 +273,7 @@
 .tip-title {
   font-size: 28rpx;
   font-weight: 700;
-  color: #1E40AF;
+  color: #2E6BB8;
 }
 
 .tip-content {

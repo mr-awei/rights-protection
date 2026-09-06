@@ -1,10 +1,10 @@
-<!--pages/search/search.wxml-->
+﻿<!--pages/search/search.wxml-->
 <view class="container" style="--status-bar-height: {{statusBarHeight}}px;">
   <!-- 自定义导航栏 -->
   <view class="nav-bar">
     <view class="nav-content">
       <view class="search-box">
-        <text class="search-icon">🔍</text>
+        <text class="search-icon"></text>
         <input
           class="search-input"
           type="text"
@@ -54,7 +54,7 @@
     <!-- 搜索历史 -->
     <view class="section" wx:if="{{searchHistory.length > 0}}">
       <view class="section-header">
-        <text class="section-title">🕐 搜索历史</text>
+        <text class="section-title">� 搜索历史</text>
         <view class="clear-history" bindtap="onClearHistory">
           <text>清空</text>
         </view>
@@ -79,7 +79,7 @@
     <!-- 热门搜索 -->
     <view class="section">
       <view class="section-header">
-        <text class="section-title">🔥 热门搜索</text>
+        <text class="section-title"> 热门搜索</text>
       </view>
       <view class="hot-tags">
         <view
@@ -99,7 +99,7 @@
     <!-- 搜索技巧 -->
     <view class="tip-card">
       <view class="tip-header">
-        <text class="tip-icon">💡</text>
+        <text class="tip-icon"></text>
         <text class="tip-title">搜索技巧</text>
       </view>
       <view class="tip-content">

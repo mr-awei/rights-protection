@@ -1,4 +1,4 @@
-<!--pages/favorites-history/favorites-history.wxml-->
+﻿<!--pages/favorites-history/favorites-history.wxml-->
 <view class="container" style="--status-bar-height: {{statusBarHeight}}px;">
   <!-- 自定义导航栏 -->
   <view class="nav-bar">
@@ -50,10 +50,10 @@
           bindtap="onChannelTap"
           hover-class="list-item-hover"
         >
-          <view class="item-icon" style="background: #EFF6FF; color: #3B82F6;">🏛️</view>
+          <view class="item-icon" style="background: #EFF6FF; color: #3B82F6;"></view>
           <view class="item-info">
             <text class="item-name">{{item.name}}</text>
-            <text class="item-meta" wx:if="{{item.phone}}">📞 {{item.phone}}</text>
+            <text class="item-meta" wx:if="{{item.phone}}"> {{item.phone}}</text>
             <text class="item-meta" wx:else>{{item.category}}</text>
           </view>
           <view class="item-remove" catchtap="onRemoveChannel" data-id="{{item.id}}">
@@ -64,9 +64,9 @@
 
       <!-- 空状态 -->
       <view class="empty-state" wx:if="{{channelList.length === 0}}">
-        <view class="empty-icon">⭐</view>
+        <view class="empty-icon"></view>
         <view class="empty-title">还没有收藏渠道</view>
-        <view class="empty-desc">看到有用的渠道就点⭐收藏吧</view>
+        <view class="empty-desc">看到有用的渠道就点收藏吧</view>
       </view>
 
       <!-- 加载更多 -->
@@ -88,7 +88,7 @@
           bindtap="onScriptTap"
           hover-class="list-item-hover"
         >
-          <view class="item-icon" style="background: #F0FDF4; color: #10B981;">📝</view>
+          <view class="item-icon" style="background: #F0FDF4; color: #10B981;"></view>
           <view class="item-info">
             <text class="item-name">{{item.name}}</text>
             <text class="item-meta">{{item.applicable || '投诉话术'}}</text>
@@ -101,9 +101,9 @@
 
       <!-- 空状态 -->
       <view class="empty-state" wx:if="{{scriptList.length === 0}}">
-        <view class="empty-icon">📝</view>
+        <view class="empty-icon"></view>
         <view class="empty-title">还没有收藏话术</view>
-        <view class="empty-desc">看到有用的话术就点⭐收藏吧</view>
+        <view class="empty-desc">看到有用的话术就点收藏吧</view>
       </view>
 
       <!-- 加载更多 -->
@@ -133,8 +133,8 @@
           hover-class="list-item-hover"
         >
           <view class="item-icon" style="background: {{item.typeColor}}15; color: {{item.typeColor}};">
-            <text wx:if="{{item.type === 'channel'}}">🏛️</text>
-            <text wx:else>📝</text>
+            <text wx:if="{{item.type === 'channel'}}"></text>
+            <text wx:else></text>
           </view>
           <view class="item-info">
             <text class="item-name">{{item.item_name}}</text>
@@ -146,7 +146,7 @@
 
       <!-- 空状态 -->
       <view class="empty-state" wx:if="{{historyList.length === 0}}">
-        <view class="empty-icon">👀</view>
+        <view class="empty-icon"></view>
         <view class="empty-title">还没有浏览记录</view>
         <view class="empty-desc">去看看有哪些投诉渠道吧</view>
       </view>

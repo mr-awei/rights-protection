@@ -1,7 +1,7 @@
-/* pages/enterprise-query/enterprise-query.wxss */
+﻿/* pages/enterprise-query/enterprise-query.wxss */
 .container {
   min-height: 100vh;
-  background: #F8FAFC;
+  background: #F5F6F8;
 }
 
 .gradient-header {
@@ -120,13 +120,13 @@
 .platform-name {
   font-size: 28rpx;
   font-weight: 700;
-  color: #1E293B;
+  color: #1A1A1A;
   margin-bottom: 4rpx;
 }
 
 .platform-desc {
   font-size: 22rpx;
-  color: #64748B;
+  color: #666666;
   line-height: 1.5;
   margin-bottom: 8rpx;
 }
@@ -134,7 +134,7 @@
 .platform-url {
   display: flex;
   align-items: center;
-  background: #F8FAFC;
+  background: #F5F6F8;
   border-radius: 8rpx;
   padding: 8rpx 12rpx;
 }
@@ -147,7 +147,7 @@
 .url-text {
   flex: 1;
   font-size: 20rpx;
-  color: #2563EB;
+  color: #3A7BC8;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -162,7 +162,7 @@
 
 .platform-arrow {
   font-size: 32rpx;
-  color: #CBD5E1;
+  color: #CCCCCC;
   margin-left: 12rpx;
 }
 
@@ -188,7 +188,7 @@
 .points-title {
   font-size: 28rpx;
   font-weight: 700;
-  color: #1E293B;
+  color: #1A1A1A;
 }
 
 .points-list {
@@ -220,7 +220,7 @@
 .point-text {
   flex: 1;
   font-size: 24rpx;
-  color: #475569;
+  color: #666666;
   line-height: 1.6;
   padding-top: 2rpx;
 }

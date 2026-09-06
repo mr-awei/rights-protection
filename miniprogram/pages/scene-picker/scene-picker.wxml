@@ -1,4 +1,4 @@
-<!--pages/scene-picker/scene-picker.wxml-->
+﻿<!--pages/scene-picker/scene-picker.wxml-->
 <view class="container">
   <!-- 头部说明 -->
   <view class="sp-header">
@@ -36,15 +36,15 @@
       </view>
       <view class="sc-desc">{{item.desc}}</view>
       <view class="sc-meta">
-        <text class="meta-item" wx:if="{{item.channels.length > 0}}">📞 {{item.channels.length}}个渠道</text>
-        <text class="meta-item" wx:if="{{item.scripts.length > 0}}">💬 {{item.scripts.length}}套话术</text>
+        <text class="meta-item" wx:if="{{item.channels.length > 0}}"> {{item.channels.length}}个渠道</text>
+        <text class="meta-item" wx:if="{{item.scripts.length > 0}}"> {{item.scripts.length}}套话术</text>
       </view>
     </view>
   </view>
 
   <!-- 无匹配提示 -->
   <view class="empty-state" wx:if="{{scenes.length === 0}}">
-    <view class="empty-icon">🔍</view>
+    <view class="empty-icon"></view>
     <view class="empty-title">未找到匹配场景</view>
     <view class="empty-desc">试试换个关键词，或查看全部分类</view>
   </view>

@@ -1,4 +1,4 @@
-<!--pages/category/category.wxml-->
+﻿<!--pages/category/category.wxml-->
 <view class="container">
   <view class="category-layout">
     <!-- 左侧一级分类侧边栏 -->
@@ -11,7 +11,7 @@
         bindtap="onCategoryTap"
       >
         <view class="cat-sidebar-icon" style="background: {{item.color || '#3B82F6'}}15; color: {{item.color || '#3B82F6'}}">
-          <text>{{item.icon || '📋'}}</text>
+          <text>{{item.icon || ''}}</text>
         </view>
         <text class="cat-sidebar-name">{{item.name}}</text>
         <view class="cat-sidebar-indicator" wx:if="{{activeCategory === index}}"></view>
@@ -55,14 +55,14 @@
           >
             <view class="channel-card-left">
               <view class="channel-icon" style="background: {{categories[activeCategory].color || '#3B82F6'}}15; color: {{categories[activeCategory].color || '#3B82F6'}}">
-                <text>{{categories[activeCategory].icon || '📋'}}</text>
+                <text>{{categories[activeCategory].icon || ''}}</text>
               </view>
             </view>
             <view class="channel-card-center">
               <view class="channel-name">{{item.name}}</view>
               <view class="channel-meta">
-                <text class="channel-phone" wx:if="{{item.phone}}">📞 {{item.phone}}</text>
-                <text class="channel-official" wx:if="{{item.is_official}}">✅ 官方</text>
+                <text class="channel-phone" wx:if="{{item.phone}}"> {{item.phone}}</text>
+                <text class="channel-official" wx:if="{{item.is_official}}"> 官方</text>
               </view>
             </view>
             <view class="channel-card-right">
@@ -73,7 +73,7 @@
 
         <!-- 空状态 -->
         <view class="empty-state" wx:if="{{channels.length === 0}}">
-          <view class="empty-icon">📭</view>
+          <view class="empty-icon">�</view>
           <view class="empty-title">该分类下暂无渠道</view>
           <view class="empty-desc">试试其他分类吧</view>
         </view>

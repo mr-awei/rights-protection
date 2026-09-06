@@ -1,7 +1,7 @@
-/* pages/followup-schedule/followup-schedule.wxss */
+﻿/* pages/followup-schedule/followup-schedule.wxss */
 .container {
   min-height: 100vh;
-  background: #F8FAFC;
+  background: #F5F6F8;
 }
 
 .gradient-header {
@@ -102,7 +102,7 @@
   top: 32rpx;
   bottom: 0;
   width: 2rpx;
-  background: #E2E8F0;
+  background: #EEEEEE;
 }
 
 .timeline-content {
@@ -120,13 +120,13 @@
 .timeline-title {
   font-size: 28rpx;
   font-weight: 700;
-  color: #1E293B;
+  color: #1A1A1A;
   margin-bottom: 6rpx;
 }
 
 .timeline-desc {
   font-size: 24rpx;
-  color: #64748B;
+  color: #666666;
   line-height: 1.6;
   margin-bottom: 8rpx;
 }

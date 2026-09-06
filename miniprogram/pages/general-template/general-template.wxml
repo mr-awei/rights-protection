@@ -1,13 +1,13 @@
-<!--pages/general-template/general-template.wxml-->
+﻿<!--pages/general-template/general-template.wxml-->
 <view class="container" style="--status-bar-height: {{statusBarHeight}}px;">
   <!-- 渐变头部 -->
   <view class="gradient-header">
     <view class="header-content">
-      <view class="header-icon">📝</view>
+      <view class="header-icon"></view>
       <view class="header-title">通用投诉信模板</view>
       <view class="header-desc">结构化模板，按块填写，一键复制</view>
       <view class="copy-all-btn" bindtap="onCopyAll" hover-class="copy-all-btn-hover">
-        <text>📋 复制完整模板</text>
+        <text> 复制完整模板</text>
       </view>
     </view>
   </view>
@@ -17,7 +17,7 @@
     <!-- 使用说明 -->
     <view class="tip-card">
       <view class="tip-header">
-        <text class="tip-icon">💡</text>
+        <text class="tip-icon"></text>
         <text class="tip-title">使用说明</text>
       </view>
       <view class="tip-content">
@@ -48,7 +48,7 @@
     <!-- 依法维权提示 -->
     <view class="legal-notice">
       <view class="legal-notice-header">
-        <text class="legal-icon">⚖️</text>
+        <text class="legal-icon">⚖</text>
         <text class="legal-title">依法维权提示</text>
       </view>
       <view class="legal-content">

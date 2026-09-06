@@ -12,7 +12,7 @@
 
       <!-- 搜索框 -->
       <view class="search-box" bindtap="onSearchBoxTap">
-        <view class="search-icon">🔍</view>
+        <view class="search-icon"></view>
         <input
           class="search-input"
           placeholder="搜索投诉渠道、话术、流程..."
@@ -27,7 +27,7 @@
 
       <!-- 热门搜索 -->
       <view class="hot-searches">
-        <text class="hot-label">🔥 热门搜索</text>
+        <text class="hot-label">热门搜索</text>
         <view class="hot-tags">
           <text
             class="hot-tag"
@@ -47,7 +47,7 @@
     <view class="section">
       <view class="emergency-bar">
         <view class="emergency-bar-title">
-          <text class="emergency-bar-icon">🚨</text>
+          <view class="emergency-bar-icon"></view>
           <text class="emergency-bar-text">紧急电话 · 一键拨打</text>
         </view>
         <view class="emergency-phone-list">
@@ -60,9 +60,6 @@
             bindtap="onEmergencyCall"
             hover-class="emergency-phone-hover"
           >
-            <view class="emergency-phone-icon" style="background: {{item.color}}15; color: {{item.color}}">
-              <text>{{item.icon}}</text>
-            </view>
             <text class="emergency-phone-number">{{item.name}}</text>
             <text class="emergency-phone-label">{{item.label}}</text>
           </view>
@@ -88,10 +85,10 @@
           bindtap="onSceneEntryTap"
           hover-class="scene-item-hover"
         >
-          <view class="scene-icon" style="background: {{item.color}}">
-            <text>{{item.icon}}</text>
+          <view class="scene-icon" style="background: {{item.color}}15;">
+            <text style="font-size: 32rpx;">{{item.icon}}</text>
           </view>
-          <text class="scene-label">{{item.label}}</text>
+          <text class="scene-name">{{item.label}}</text>
         </view>
       </view>
     </view>
@@ -104,29 +101,19 @@
       </view>
       <view class="script-list">
         <view
-          class="script-card"
+          class="script-item"
           wx:for="{{hotScripts}}"
           wx:key="id"
           data-id="{{item.id}}"
           bindtap="onScriptTap"
-          hover-class="script-card-hover"
+          hover-class="script-item-hover"
         >
-          <view class="script-card-header">
-            <view class="script-icon">📝</view>
-            <view class="script-info">
-              <text class="script-name">{{item.scene_name || item.name}}</text>
-              <text class="script-meta">{{item.scene || '通用场景'}} · 电话版+书面版</text>
-            </view>
-            <view class="script-arrow">›</view>
+          <view class="script-icon"></view>
+          <view class="script-info">
+            <text class="script-name">{{item.scene_name || item.name}}</text>
+            <text class="script-desc">{{item.scene || '通用场景'}} · 电话版+书面版</text>
           </view>
-          <view class="script-preview">
-            <text class="script-preview-text">{{item.preview || '点击查看完整话术'}}</text>
-          </view>
-          <view class="script-tags">
-            <text class="script-tag">📞 电话版</text>
-            <text class="script-tag">✉️ 书面版</text>
-            <text class="script-tag hot">🔥 高频</text>
-          </view>
+          <text class="script-arrow">›</text>
         </view>
       </view>
     </view>
@@ -134,7 +121,7 @@
     <!-- 最近浏览（个性化推荐） -->
     <view class="section" wx:if="{{recentViews.length > 0}}">
       <view class="section-header">
-        <text class="section-title">👀 最近浏览</text>
+        <text class="section-title">最近浏览</text>
         <text class="section-more">最近{{recentViews.length}}条</text>
       </view>
       <view class="recent-list">
@@ -149,61 +136,38 @@
           <view class="recent-type" style="background: {{item.typeColor}}15; color: {{item.typeColor}};">
             <text>{{item.typeLabel}}</text>
           </view>
-          <text class="recent-name">{{item.item_name}}</text>
+          <view class="recent-info">
+            <text class="recent-name">{{item.item_name}}</text>
+            <text class="recent-time">{{item.timeStr}}</text>
+          </view>
           <text class="recent-arrow">›</text>
         </view>
       </view>
     </view>
 
-    <!-- 维权须知（可折叠，重要但不紧急） -->
+    <!-- 维权须知（折叠） -->
     <view class="section">
       <view class="notice-card">
         <view class="notice-header" bindtap="onNoticeToggle">
-          <view class="notice-header-left">
-            <text class="notice-icon">⚖️</text>
-            <text class="notice-title">维权须知</text>
-          </view>
-          <view class="notice-toggle">
-            <text class="notice-toggle-text">{{noticeExpanded ? '收起' : '展开'}}</text>
-            <text class="notice-toggle-icon {{noticeExpanded ? 'expanded' : ''}}">▼</text>
-          </view>
+          <text class="notice-title">维权须知</text>
+          <text class="notice-arrow {{noticeExpanded ? 'expanded' : ''}}">›</text>
         </view>
-
-        <!-- 核心提示（始终显示） -->
         <view class="notice-core">
-          <text class="notice-core-text">💡 建议先向企业内部投诉，约80%问题可解决；依法维权，虚假举报须担责</text>
+          <text>依法维权 · 虚假举报须承担法律责任 · 倡导先企业内部投诉</text>
         </view>
-
-        <!-- 详细内容（折叠时隐藏） -->
-        <view class="notice-detail" wx:if="{{noticeExpanded}}">
-          <view class="notice-step">
-            <view class="step-badge">第一步</view>
-            <view class="step-content">
-              <text class="step-title">先向企业内部投诉</text>
-              <text class="step-desc">拨打企业客服热线或通过官方APP、网站投诉，明确诉求并索取工单号。约80%的常规问题在此层级即可解决，且企业投诉记录是后续向监管部门申诉的前置条件。</text>
-            </view>
-          </view>
-          <view class="notice-divider"></view>
-          <view class="notice-warning">
-            <text class="warning-icon">⚠️</text>
-            <view class="warning-content">
-              <text class="warning-title">依法维权 · 虚假举报须担责</text>
-              <text class="warning-text">《宪法》第四十一条赋予公民申诉、控告、检举的权利，同时规定不得捏造或歪曲事实进行诬告陷害。</text>
-              <text class="warning-text">• 报假警、谎报警情：依据《治安管理处罚法》处5-10日拘留，可并处1000元以下罚款；情节严重的触犯《刑法》编造、故意传播虚假信息罪。</text>
-              <text class="warning-text">• 捏造事实诬告陷害他人：依据《治安管理处罚法》处5日以下拘留或1000元以下罚款；情节严重的触犯《刑法》诬告陷害罪，最高可处10年有期徒刑。</text>
-              <text class="warning-text">• 12345、12315等政务热线对恶意投诉设有识别和处置机制，可列入异常诉求名录，限制拨打权限。</text>
-            </view>
-          </view>
+        <view class="notice-content" wx:if="{{noticeExpanded}}">
+          <text>1. 本平台提供的投诉渠道和话术仅供参考，具体以官方平台为准。</text>
+          <text>2. 投诉前请先收集好相关证据（合同、聊天记录、转账记录等）。</text>
+          <text>3. 建议先通过企业内部投诉渠道解决，无法解决再向监管部门投诉。</text>
+          <text>4. 请勿虚假举报、恶意投诉，否则可能承担相应的法律责任。</text>
+          <text>5. 紧急情况请直接拨打110、120、119等紧急电话。</text>
         </view>
       </view>
     </view>
 
     <!-- 底部提示 -->
     <view class="footer-tip">
-      <text class="footer-text">已收录 122 个投诉渠道 · 6 套话术 · 10 大分类</text>
-      <text class="footer-text">数据仅供参考，具体以官方平台为准</text>
+      <text>数据仅供参考，以官方平台为准</text>
     </view>
-
-    <view style="height: 40rpx;"></view>
   </view>
 </view>

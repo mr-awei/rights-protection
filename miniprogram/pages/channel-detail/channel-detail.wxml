@@ -1,4 +1,4 @@
-<!--pages/channel-detail/channel-detail.wxml-->
+﻿<!--pages/channel-detail/channel-detail.wxml-->
 <!-- 加载状态 -->
 <view class="loading-container" wx:if="{{loading}}">
   <view class="loading-spinner"></view>
@@ -10,7 +10,7 @@
   <view class="gradient-header">
     <view class="header-content">
       <view class="channel-badge">
-        <text class="badge-icon">🏛️</text>
+        <text class="badge-icon"></text>
         <text class="badge-text">官方渠道</text>
       </view>
       <text class="channel-title">{{channel.name}}</text>
@@ -26,7 +26,7 @@
     <view class="section" wx:if="{{statusInfo}}">
       <view class="status-banner status-{{statusInfo.type}}">
         <view class="status-banner-header">
-          <text class="status-banner-icon">{{statusInfo.type === 'discontinued' ? '🚫' : statusInfo.type === 'merged' ? '🔄' : '⚠️'}}</text>
+          <text class="status-banner-icon">{{statusInfo.type === 'discontinued' ? '�' : statusInfo.type === 'merged' ? '�' : ''}}</text>
           <text class="status-banner-title">{{statusInfo.title}}</text>
         </view>
         <text class="status-banner-message">{{statusInfo.message}}</text>
@@ -34,7 +34,7 @@
           <view class="status-replacement-info">
             <text class="status-replacement-label">推荐替代渠道：</text>
             <text class="status-replacement-name">{{statusInfo.replacementName}}</text>
-            <text class="status-replacement-phone" wx:if="{{statusInfo.replacementPhone}}">📞 {{statusInfo.replacementPhone}}</text>
+            <text class="status-replacement-phone" wx:if="{{statusInfo.replacementPhone}}"> {{statusInfo.replacementPhone}}</text>
           </view>
           <text class="status-replacement-arrow">›</text>
         </view>
@@ -44,7 +44,7 @@
     <!-- 联系方式卡片 -->
     <view class="section" wx:if="{{contactItems.length > 0}}">
       <view class="section-header">
-        <text class="section-title">📞 联系方式</text>
+        <text class="section-title"> 联系方式</text>
       </view>
       <view class="contact-card">
         <view
@@ -67,7 +67,7 @@
     <!-- 投诉流程 -->
     <view class="section" wx:if="{{channel.process || channel.complaint_process}}">
       <view class="section-header">
-        <text class="section-title">📋 投诉流程</text>
+        <text class="section-title"> 投诉流程</text>
       </view>
       <view class="process-card">
         <rich-text nodes="{{channel.process || channel.complaint_process}}"></rich-text>
@@ -77,7 +77,7 @@
     <!-- 受理范围 -->
     <view class="section" wx:if="{{channel.scope}}">
       <view class="section-header">
-        <text class="section-title">📌 受理范围</text>
+        <text class="section-title"> 受理范围</text>
       </view>
       <view class="info-card">
         <rich-text nodes="{{channel.scope}}"></rich-text>
@@ -87,7 +87,7 @@
     <!-- 前置条件 -->
     <view class="section" wx:if="{{preconditionText}}">
       <view class="section-header">
-        <text class="section-title">⚠️ 投诉前请注意</text>
+        <text class="section-title"> 投诉前请注意</text>
       </view>
       <view class="precondition-card">
         <rich-text nodes="{{preconditionText}}"></rich-text>
@@ -97,11 +97,11 @@
     <!-- 法律依据 -->
     <view class="section" wx:if="{{laws.length > 0}}">
       <view class="section-header">
-        <text class="section-title">⚖️ 相关法律法规</text>
+        <text class="section-title">⚖ 相关法律法规</text>
       </view>
       <view class="law-list">
         <view class="law-item" wx:for="{{laws}}" wx:key="id" bindtap="onLawTap" data-law="{{item}}" hover-class="law-item-hover">
-          <view class="law-icon">📖</view>
+          <view class="law-icon">�</view>
           <view class="law-info">
             <text class="law-name">{{item.name}}</text>
             <text class="law-desc">{{item.description || item.article || '点击复制法律名称'}}</text>
@@ -114,7 +114,7 @@
     <!-- 关联话术 -->
     <view class="section" wx:if="{{relatedScripts.length > 0}}">
       <view class="section-header">
-        <text class="section-title">💬 关联投诉话术</text>
+        <text class="section-title"> 关联投诉话术</text>
       </view>
       <view class="script-list">
         <view
@@ -125,7 +125,7 @@
           bindtap="onScriptTap"
           hover-class="script-card-hover"
         >
-          <view class="script-icon">📝</view>
+          <view class="script-icon"></view>
           <view class="script-info">
             <text class="script-name">{{item.scene_name || item.name}}</text>
             <text class="script-meta">电话版 + 书面版</text>
@@ -138,7 +138,7 @@
     <!-- 温馨提示 -->
     <view class="section" wx:if="{{tipsText}}">
       <view class="section-header">
-        <text class="section-title">💡 温馨提示</text>
+        <text class="section-title"> 温馨提示</text>
       </view>
       <view class="tips-card">
         <rich-text nodes="{{tipsText}}"></rich-text>
@@ -149,7 +149,7 @@
     <view class="section">
       <view class="legal-notice-card">
         <view class="legal-notice-header">
-          <text class="legal-notice-icon">⚖️</text>
+          <text class="legal-notice-icon">⚖</text>
           <text class="legal-notice-title">依法维权 · 虚假举报须担责</text>
         </view>
         <view class="legal-notice-content">
@@ -164,8 +164,8 @@
     <!-- 信息来源 -->
     <view class="section">
       <view class="source-card">
-        <text class="source-text">📅 数据验证日期：2026年8月30日</text>
-        <text class="source-text">📋 信息来源：三份维权文档整理，所有信息来源于政府官网公开渠道</text>
+        <text class="source-text">� 数据验证日期：2026年8月30日</text>
+        <text class="source-text"> 信息来源：三份维权文档整理，所有信息来源于政府官网公开渠道</text>
         <text class="source-tip">本工具为便民信息汇总，非政府官方应用，具体以各监管部门官方公布为准</text>
       </view>
     </view>
@@ -176,15 +176,15 @@
   <!-- 底部操作栏 -->
   <view class="bottom-bar">
     <view class="bottom-action" bindtap="onFavoriteTap">
-      <text class="bottom-icon">{{isFavorite ? '⭐' : '☆'}}</text>
+      <text class="bottom-icon">{{isFavorite ? '' : '☆'}}</text>
       <text class="bottom-label">{{isFavorite ? '已收藏' : '收藏'}}</text>
     </view>
     <view class="bottom-action" bindtap="onShareTap">
-      <text class="bottom-icon">📤</text>
+      <text class="bottom-icon">�</text>
       <text class="bottom-label">分享</text>
     </view>
     <view class="bottom-btn" wx:if="{{channel.phone}}" bindtap="onCallTap">
-      <text class="bottom-btn-icon">📞</text>
+      <text class="bottom-btn-icon"></text>
       <text class="bottom-btn-text">立即拨打</text>
     </view>
     <view class="bottom-btn" wx:else bindtap="onBackTap">
