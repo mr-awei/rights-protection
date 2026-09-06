@@ -73,7 +73,7 @@ Page({
 
   loadHotScripts() {
     const scripts = getHotScripts(5);
-    // 预处理话术数据，生成预览文本
+    // 预处理话术数据，生成预览文本，移除"场景X："前缀
     const processed = scripts.map(s => {
       let preview = '点击查看完整话术';
       if (s.phone_script && typeof s.phone_script === 'string') {
@@ -85,9 +85,13 @@ Page({
           preview = text;
         }
       }
+      // 移除"场景X："前缀，只显示场景名称
+      let displayName = s.scene_name || s.name || '';
+      displayName = displayName.replace(/^场景\d+：/, '');
       return {
         ...s,
-        preview: preview
+        preview: preview,
+        displayName: displayName
       };
     });
     this.setData({ hotScripts: processed });

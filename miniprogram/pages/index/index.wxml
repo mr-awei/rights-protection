@@ -109,7 +109,7 @@
         >
           <view class="script-icon"></view>
           <view class="script-info">
-            <text class="script-name">{{item.scene_name || item.name}}</text>
+            <text class="script-name">{{item.displayName || item.scene_name || item.name}}</text>
             <text class="script-desc">{{item.scene || '通用场景'}} · 电话版+书面版</text>
           </view>
           <text class="script-arrow">›</text>
