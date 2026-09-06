@@ -1,5 +1,5 @@
 ﻿<!--pages/profile/profile.wxml-->
-<view class="container">
+<view class="container" style="--status-bar-height: {{statusBarHeight}}px;">
   <!-- 渐变头部 -->
   <view class="gradient-header">
     <view class="header-content">

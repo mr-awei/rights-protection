@@ -67,31 +67,24 @@ Page({
     const category = channel.category_user || '';
     const tags = channel.tags || [];
     
-    // 分类到法律法规的映射
-    const categoryLawMap = {
-      '交通物流': ['中华人民共和国邮政法', '快递暂行条例', '消费者权益保护法'],
-      '电信运营': ['中华人民共和国电信条例', '电信服务规范', '消费者权益保护法'],
-      '消费购物': ['中华人民共和国消费者权益保护法', '产品质量法', '食品安全法'],
-      '金融保险': ['中华人民共和国商业银行法', '银行业监督管理法', '保险法'],
-      '房产物业': ['物业管理条例', '商品房销售管理办法', '消费者权益保护法'],
-      '劳动用工': ['中华人民共和国劳动法', '劳动合同法', '劳动争议调解仲裁法'],
-      '医疗教育': ['中华人民共和国基本医疗卫生与健康促进法', '教育法', '消费者权益保护法'],
-      '环保城管': ['中华人民共和国环境保护法', '大气污染防治法', '城市管理执法办法'],
-      '政务纪检': ['中华人民共和国行政监察法', '政府信息公开条例', '信访条例'],
-      '网络安全': ['中华人民共和国网络安全法', '反电信网络诈骗法', '个人信息保护法']
-    };
-    
-    // 获取该分类对应的法律法规名称
-    const lawNames = categoryLawMap[category] || ['中华人民共和国宪法', '消费者权益保护法', '信访条例'];
-    
-    // 从所有法律法规中匹配
+    // 优先根据category字段精确匹配
     let matchedLaws = allLaws.filter(law => 
-      lawNames.some(name => law.name.includes(name) || name.includes(law.name))
+      law.category && law.category.includes(category)
     );
     
-    // 如果匹配不到，用通用法律法规
+    // 如果匹配不到，根据tags模糊匹配
+    if (matchedLaws.length === 0 && tags.length > 0) {
+      matchedLaws = allLaws.filter(law => {
+        const lawName = law.name || '';
+        return tags.some(tag => lawName.includes(tag) || tag.includes(lawName));
+      });
+    }
+    
+    // 如果还是匹配不到，用通用法律法规
     if (matchedLaws.length === 0) {
-      matchedLaws = allLaws.slice(0, 3);
+      matchedLaws = allLaws.filter(law => 
+        law.category && law.category.includes('通用')
+      );
     }
     
     // 最多显示3条

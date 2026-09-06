@@ -8,6 +8,7 @@ Page({
     favoriteChannels: 0,
     favoriteScripts: 0,
     searchCount: 0,
+    statusBarHeight: 20,
     toolList: [
       { icon: '📋', name: '我的投诉记录', desc: '查看投诉进度', color: '#E6F4FF' },
       { icon: '⭐', name: '我的收藏', desc: '收藏的渠道和话术', color: '#F6FFED' },
@@ -23,6 +24,13 @@ Page({
   _cachedStats: { channels: -1, scripts: -1, history: -1 },
 
   onLoad() {
+    // 动态获取状态栏高度
+    try {
+      const systemInfo = wx.getSystemInfoSync();
+      this.setData({ statusBarHeight: systemInfo.statusBarHeight || 20 });
+    } catch (e) {
+      this.setData({ statusBarHeight: 20 });
+    }
     this.loadStats();
   },
 
