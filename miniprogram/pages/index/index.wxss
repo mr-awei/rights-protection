@@ -190,7 +190,7 @@
 /* ========== 内容区 ========== */
 .content {
   padding: 0 28rpx;
-  margin-top: -20rpx;
+  margin-top: 0;
   position: relative;
   z-index: 2;
 }
@@ -200,7 +200,7 @@
 }
 
 .section:first-child {
-  margin-top: 0;
+  margin-top: -8rpx;
 }
 
 .section-header {
@@ -415,16 +415,30 @@
 
 /* ========== 紧急电话条 ========== */
 .emergency-bar {
-  background: linear-gradient(135deg, #FEF2F2 0%, #FEE2E2 100%);
+  background: #FFFFFF;
   border-radius: 24rpx;
   padding: 24rpx;
-  border: 1rpx solid #FECACA;
+  border: 2rpx solid #FECACA;
+  box-shadow: 0 4rpx 16rpx rgba(239,68,68,0.08);
+  position: relative;
+  overflow: hidden;
+}
+
+.emergency-bar::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 6rpx;
+  background: linear-gradient(90deg, #EF4444, #F97316, #EF4444);
 }
 
 .emergency-bar-title {
   display: flex;
   align-items: center;
   margin-bottom: 20rpx;
+  padding-top: 8rpx;
 }
 
 .emergency-bar-icon {
