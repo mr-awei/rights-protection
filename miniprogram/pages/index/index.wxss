@@ -119,8 +119,7 @@
 
 /* ========== 内容区 ========== */
 .content {
-  padding: 20rpx 24rpx 40rpx;
-  margin-top: -16rpx;
+  padding: 24rpx 24rpx 40rpx;
   position: relative;
   z-index: 2;
 }
