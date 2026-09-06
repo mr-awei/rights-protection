@@ -10,8 +10,8 @@
   padding: 0 0 40rpx;
   position: relative;
   overflow: hidden;
-  margin-top: -80rpx;
-  padding-top: 24rpx;
+  margin-top: calc(var(--status-bar-height, 0px) * -1);
+  padding-top: var(--status-bar-height, 0px);
 }
 
 .gradient-header::before {

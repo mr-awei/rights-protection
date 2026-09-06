@@ -2,8 +2,11 @@
 // 搜索逻辑（关键词提取+场景匹配+名称匹配兜底）
 // 使用data.js的分片加载，支持扩展到几千条数据
 
-const { extractKeywords } = require('./keyword-extractor');
+const { extractKeywords, KEYWORDS } = require('./keyword-extractor');
 const data = require('./data');
+
+// 关键词词库引用（用于领域/问题匹配加权）
+const KEYWORDS_REF = KEYWORDS;
 
 /**
  * 搜索流程入口
@@ -22,8 +25,10 @@ function search(query) {
   const kwResult = extractKeywords(query);
   const keywords = kwResult.allKeywords;
   const scenes = kwResult.scenes;
+  const domains = kwResult.domains || [];
+  const issues = kwResult.issues || [];
 
-  console.log('[搜索] 提取关键词:', keywords, '匹配场景:', scenes.length);
+  console.log('[搜索] 提取关键词:', keywords, '领域:', domains, '问题:', issues, '匹配场景:', scenes.length);
 
   // 2. 场景匹配
   if (scenes.length === 1) {
@@ -46,7 +51,7 @@ function search(query) {
   }
 
   // 3. 无场景匹配 → 名称匹配搜索（兜底，用索引数据，轻量快速）
-  const results = fallbackSearch(query, keywords);
+  const results = fallbackSearch(query, keywords, domains, issues);
   if (results.length === 0) {
     return { type: 'empty', scenes: [], results: [], keywords: keywords };
   }
@@ -55,11 +60,23 @@ function search(query) {
 
 /**
  * 名称匹配搜索（兜底方案，用索引数据，不加载详细内容）
+ * @param {string} query - 用户搜索词
+ * @param {Array} keywords - 提取的关键词
+ * @param {Array} domains - 匹配的领域分类
+ * @param {Array} issues - 匹配的问题分类
  */
-function fallbackSearch(query, keywords) {
+function fallbackSearch(query, keywords, domains = [], issues = []) {
   data.loadAllData();
   const results = [];
   const queryLower = query.toLowerCase();
+
+  // 领域关键词集合（用于判断渠道是否属于用户搜索的领域）
+  const domainKeywords = new Set();
+  domains.forEach(d => {
+    if (KEYWORDS_REF.domain[d]) {
+      KEYWORDS_REF.domain[d].forEach(w => domainKeywords.add(w.toLowerCase()));
+    }
+  });
 
   // 搜索渠道（用索引数据，只有name/phone/tags，轻量快速）
   const channels = data.getChannels();
@@ -68,18 +85,63 @@ function fallbackSearch(query, keywords) {
     const name = (channel.name || '').toLowerCase();
     const phone = (channel.phone || '').toLowerCase();
     const tags = (channel.tags || []).join(' ').toLowerCase();
+    const categoryUser = (channel.category_user || '').toLowerCase();
+    const categoryUserL2 = (channel.category_user_l2 || '').toLowerCase();
 
     // 完整查询词匹配（权重最高）
-    if (name.includes(queryLower)) score += 10;
-    if (phone.includes(queryLower)) score += 5;
-    if (tags.includes(queryLower)) score += 5;
+    if (name.includes(queryLower)) score += 15;
+    if (phone.includes(queryLower)) score += 8;
+    if (tags.includes(queryLower)) score += 8;
+    if (categoryUser.includes(queryLower)) score += 10;
+    if (categoryUserL2.includes(queryLower)) score += 8;
 
-    // 关键词匹配
+    // 关键词匹配（区分领域关键词和问题关键词）
     for (const kw of keywords) {
       const kwLower = kw.toLowerCase();
-      if (name.includes(kwLower)) score += 5;
-      if (phone.includes(kwLower)) score += 3;
-      if (tags.includes(kwLower)) score += 3;
+      let kwWeight = 3; // 默认权重
+
+      // 检查是否是领域关键词（权重更高）
+      if (domainKeywords.has(kwLower)) {
+        kwWeight = 8;
+      }
+
+      if (name.includes(kwLower)) score += kwWeight + 2;
+      if (phone.includes(kwLower)) score += kwWeight;
+      if (tags.includes(kwLower)) score += kwWeight;
+      if (categoryUser.includes(kwLower)) score += kwWeight + 3;
+      if (categoryUserL2.includes(kwLower)) score += kwWeight + 2;
+    }
+
+    // 领域匹配加权：如果渠道的分类属于用户搜索的领域，额外加分
+    if (domains.length > 0) {
+      for (const domain of domains) {
+        const domainLower = domain.toLowerCase();
+        if (categoryUser.includes(domainLower) || categoryUserL2.includes(domainLower)) {
+          score += 20; // 领域匹配大幅加分
+          break;
+        }
+        // 检查tags中是否包含该领域的关键词
+        const domainWords = KEYWORDS_REF.domain[domain] || [];
+        for (const dw of domainWords) {
+          if (tags.includes(dw.toLowerCase()) || name.includes(dw.toLowerCase())) {
+            score += 10;
+            break;
+          }
+        }
+      }
+    }
+
+    // 问题匹配加权：如果渠道的tags中包含用户搜索的问题关键词，额外加分
+    if (issues.length > 0) {
+      for (const issue of issues) {
+        const issueWords = KEYWORDS_REF.issue[issue] || [];
+        for (const iw of issueWords) {
+          if (tags.includes(iw.toLowerCase()) || name.includes(iw.toLowerCase())) {
+            score += 8;
+            break;
+          }
+        }
+      }
     }
 
     if (score > 0) {
@@ -103,15 +165,54 @@ function fallbackSearch(query, keywords) {
     const applicable = (script.applicable || '').toLowerCase();
     const keywords_list = (script.keywords || []).join(' ').toLowerCase();
 
-    if (sceneName.includes(queryLower)) score += 10;
-    if (applicable.includes(queryLower)) score += 3;
-    if (keywords_list.includes(queryLower)) score += 5;
+    if (sceneName.includes(queryLower)) score += 15;
+    if (applicable.includes(queryLower)) score += 5;
+    if (keywords_list.includes(queryLower)) score += 8;
 
     for (const kw of keywords) {
       const kwLower = kw.toLowerCase();
-      if (sceneName.includes(kwLower)) score += 5;
-      if (applicable.includes(kwLower)) score += 1;
-      if (keywords_list.includes(kwLower)) score += 3;
+      let kwWeight = 3;
+
+      // 检查是否是领域关键词（权重更高）
+      if (domainKeywords.has(kwLower)) {
+        kwWeight = 8;
+      }
+
+      if (sceneName.includes(kwLower)) score += kwWeight + 2;
+      if (applicable.includes(kwLower)) score += kwWeight;
+      if (keywords_list.includes(kwLower)) score += kwWeight + 1;
+    }
+
+    // 领域匹配加权：如果话术的场景名称属于用户搜索的领域，额外加分
+    if (domains.length > 0) {
+      for (const domain of domains) {
+        const domainLower = domain.toLowerCase();
+        if (sceneName.includes(domainLower) || applicable.includes(domainLower)) {
+          score += 25; // 领域匹配大幅加分
+          break;
+        }
+        // 检查场景名称中是否包含该领域的关键词
+        const domainWords = KEYWORDS_REF.domain[domain] || [];
+        for (const dw of domainWords) {
+          if (sceneName.includes(dw.toLowerCase()) || applicable.includes(dw.toLowerCase())) {
+            score += 12;
+            break;
+          }
+        }
+      }
+    }
+
+    // 问题匹配加权
+    if (issues.length > 0) {
+      for (const issue of issues) {
+        const issueWords = KEYWORDS_REF.issue[issue] || [];
+        for (const iw of issueWords) {
+          if (sceneName.includes(iw.toLowerCase()) || applicable.includes(iw.toLowerCase())) {
+            score += 10;
+            break;
+          }
+        }
+      }
     }
 
     if (score > 0) {
