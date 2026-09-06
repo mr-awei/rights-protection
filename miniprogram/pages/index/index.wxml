@@ -80,7 +80,7 @@
           class="scene-item"
           wx:for="{{sceneEntries}}"
           wx:key="label"
-          data-keyword="{{item.keyword}}"
+          data-category="{{item.category}}"
           bindtap="onSceneEntryTap"
           hover-class="scene-item-hover"
         >

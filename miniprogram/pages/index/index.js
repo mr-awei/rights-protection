@@ -15,14 +15,14 @@ Page({
       { name: '96110', label: '反诈', color: '#722ED1' }
     ],
     sceneEntries: [
-      { short: '快', label: '快递问题', color: '#E6F4FF', textColor: '#1890FF', keyword: '快递丢失' },
-      { short: '手', label: '手机宽带', color: '#F6FFED', textColor: '#52C41A', keyword: '话费乱扣' },
-      { short: '消', label: '消费购物', color: '#FFFBE6', textColor: '#FAAD14', keyword: '商家不退款' },
-      { short: '房', label: '房产物业', color: '#FFF2F0', textColor: '#FF4D4F', keyword: '物业不作为' },
-      { short: '劳', label: '劳动工资', color: '#F9F0FF', textColor: '#722ED1', keyword: '老板欠薪' },
-      { short: '金', label: '金融保险', color: '#E6FFFB', textColor: '#13C2C2', keyword: '银行误导' },
-      { short: '医', label: '医疗教育', color: '#FFF0F6', textColor: '#EB2F96', keyword: '医院乱收费' },
-      { short: '骗', label: '被骗举报', color: '#F0F5FF', textColor: '#2F54EB', keyword: '电信诈骗' }
+      { short: '快', label: '快递问题', color: '#E6F4FF', textColor: '#1890FF', category: '交通物流' },
+      { short: '手', label: '手机宽带', color: '#F6FFED', textColor: '#52C41A', category: '电信运营' },
+      { short: '消', label: '消费购物', color: '#FFFBE6', textColor: '#FAAD14', category: '消费购物' },
+      { short: '房', label: '房产物业', color: '#FFF2F0', textColor: '#FF4D4F', category: '房产物业' },
+      { short: '劳', label: '劳动工资', color: '#F9F0FF', textColor: '#722ED1', category: '劳动用工' },
+      { short: '金', label: '金融保险', color: '#E6FFFB', textColor: '#13C2C2', category: '金融保险' },
+      { short: '医', label: '医疗教育', color: '#FFF0F6', textColor: '#EB2F96', category: '医疗教育' },
+      { short: '骗', label: '被骗举报', color: '#F0F5FF', textColor: '#2F54EB', category: '网络安全' }
     ],
     hotScripts: [],
     recentViews: [],
@@ -145,12 +145,13 @@ Page({
   },
 
   onSceneEntryTap(e) {
-    const keyword = e.currentTarget.dataset.keyword;
-    // 添加搜索历史
-    app.addSearchHistory(keyword);
-    // 统一跳转到搜索结果页，让用户看到该领域的所有相关渠道/话术
-    wx.navigateTo({
-      url: `/pages/search-result/search-result?keyword=${encodeURIComponent(keyword)}`
+    const category = e.currentTarget.dataset.category;
+    // 使用全局变量传递分类参数（TabBar页面switchTab不支持传参）
+    const app = getApp();
+    app.globalData.pendingCategory = category;
+    // 跳转到分类页，自动选中对应的分类
+    wx.switchTab({
+      url: '/pages/category/category'
     });
   },
 

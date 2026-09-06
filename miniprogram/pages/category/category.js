@@ -21,6 +21,20 @@ Page({
   },
 
   onShow() {
+    // 检查是否有待选中的分类（从首页常见场景跳转过来）
+    const app = getApp();
+    const pendingCategory = app.globalData.pendingCategory;
+    if (pendingCategory && this.data.categories.length > 0) {
+      // 找到对应的分类索引
+      const categoryIndex = this.data.categories.findIndex(c => c.name === pendingCategory);
+      if (categoryIndex >= 0 && categoryIndex !== this.data.activeCategory) {
+        this.loadSubCategories(categoryIndex);
+      }
+      // 清除待选中的分类
+      app.globalData.pendingCategory = null;
+      return;
+    }
+
     // 只有在分类真正变化时才重新加载数据
     // tab切换时如果分类没变，直接使用缓存数据，避免重复渲染导致卡顿
     if (this._dataLoaded &&

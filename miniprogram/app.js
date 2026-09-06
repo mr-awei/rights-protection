@@ -8,7 +8,8 @@ App({
       channels: [],
       scripts: []
     },
-    dataVersion: '2026.08'
+    dataVersion: '2026.08',
+    pendingCategory: null
   },
 
   onLaunch() {
