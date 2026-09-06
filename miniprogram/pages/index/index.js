@@ -25,7 +25,8 @@ Page({
       { icon: '🛡️', label: '被骗举报', color: '#F0F5FF', keyword: '电信诈骗' }
     ],
     hotScripts: [],
-    recentViews: []
+    recentViews: [],
+    noticeExpanded: false
   },
 
   onLoad() {
@@ -192,5 +193,12 @@ Page({
 
   onMoreScriptsTap() {
     wx.switchTab({ url: '/pages/category/category' });
+  },
+
+  // 维权须知折叠/展开
+  onNoticeToggle() {
+    this.setData({
+      noticeExpanded: !this.data.noticeExpanded
+    });
   }
 });
