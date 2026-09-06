@@ -58,21 +58,6 @@ Page({
     this.setData({ hotScripts: processed });
   },
 
-  // 数据统计栏点击
-  onStatTap(e) {
-    const type = e.currentTarget.dataset.type;
-    if (type === 'channels') {
-      wx.switchTab({ url: '/pages/category/category' });
-    } else if (type === 'scripts') {
-      // 跳转到搜索结果页，显示所有话术
-      wx.navigateTo({
-        url: '/pages/search-result/search-result?keyword=投诉话术&type=scripts'
-      });
-    } else if (type === 'categories') {
-      wx.switchTab({ url: '/pages/category/category' });
-    }
-  },
-
   onSearchInput(e) {
     this.setData({ searchKeyword: e.detail.value });
   },

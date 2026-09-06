@@ -67,6 +67,13 @@
   font-weight: 400;
 }
 
+.title-desc {
+  font-size: 22rpx;
+  color: rgba(255,255,255,0.6);
+  font-weight: 400;
+  margin-top: 8rpx;
+}
+
 /* 数据统计栏 */
 .header-stats {
   display: flex;

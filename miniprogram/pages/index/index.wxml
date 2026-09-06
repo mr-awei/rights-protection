@@ -7,22 +7,7 @@
         <view class="header-title">
           <text class="title-main">我不能被欺负</text>
           <text class="title-sub">官方投诉渠道 · 一键直达</text>
-        </view>
-      </view>
-      <view class="header-stats">
-        <view class="stat-item" bindtap="onStatTap" data-type="channels" hover-class="stat-item-hover">
-          <text class="stat-num">122</text>
-          <text class="stat-label">投诉渠道</text>
-        </view>
-        <view class="stat-divider"></view>
-        <view class="stat-item" bindtap="onStatTap" data-type="scripts" hover-class="stat-item-hover">
-          <text class="stat-num">6</text>
-          <text class="stat-label">投诉话术</text>
-        </view>
-        <view class="stat-divider"></view>
-        <view class="stat-item" bindtap="onStatTap" data-type="categories" hover-class="stat-item-hover">
-          <text class="stat-num">10</text>
-          <text class="stat-label">维权分类</text>
+          <text class="title-desc">已收录 122 个投诉渠道 · 6 套话术 · 10 大分类</text>
         </view>
       </view>
 
