@@ -37,6 +37,11 @@ Page({
     this.doSearch(keyword);
   },
 
+  // 返回上一页
+  onBack() {
+    wx.navigateBack({ fail: () => wx.switchTab({ url: '/pages/index/index' }) });
+  },
+
   // 点击搜索按钮
   onSearchButtonTap() {
     this.onSearchConfirm();
