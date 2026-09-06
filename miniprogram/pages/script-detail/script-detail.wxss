@@ -68,7 +68,7 @@
 .header-content {
   position: relative;
   z-index: 1;
-  padding: 32rpx 32rpx 0;
+  padding: 80rpx 32rpx 0;
 }
 
 .script-badge {
@@ -78,12 +78,7 @@
   backdrop-filter: blur(10px);
   padding: 8rpx 20rpx;
   border-radius: 20rpx;
-  margin-bottom: 20rpx;
-}
-
-.badge-icon {
-  font-size: 24rpx;
-  margin-right: 8rpx;
+  margin-bottom: 12rpx;
 }
 
 .badge-text {
@@ -93,12 +88,18 @@
 }
 
 .script-title {
-  font-size: 36rpx;
+  font-size: 30rpx;
   font-weight: 700;
   color: #FFFFFF;
   line-height: 1.4;
   margin-bottom: 12rpx;
   display: block;
+  word-break: break-all;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
 
 .script-meta {
