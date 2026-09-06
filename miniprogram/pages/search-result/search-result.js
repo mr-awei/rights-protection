@@ -1,5 +1,6 @@
 // pages/search-result/search-result.js
 const { search, highlightKeywords } = require('../../utils/search');
+const { getChannelById, getScriptById } = require('../../utils/data');
 
 Page({
   data: {
@@ -61,7 +62,52 @@ Page({
     const result = search(keyword);
     let results = result.results || [];
 
-    // 如果倒排索引没有结果，用简单名称匹配兜底
+    // 如果有场景匹配结果，把场景中的渠道和话术也加入结果
+    if (result.scenes && result.scenes.length > 0) {
+      const sceneResults = [];
+      result.scenes.forEach(scene => {
+        // 添加场景中的渠道
+        if (scene.channels && scene.channels.length > 0) {
+          scene.channels.forEach(channelId => {
+            // 检查是否已经存在
+            if (!sceneResults.find(r => r.id === channelId && r.type === 'channel')) {
+              const channel = getChannelById(channelId);
+              if (channel) {
+                sceneResults.push({
+                  ...channel,
+                  id: channelId,
+                  type: 'channel',
+                  sceneName: scene.name,
+                  matchRatio: scene.matchRatio || 100
+                });
+              }
+            }
+          });
+        }
+        // 添加场景中的话术
+        if (scene.scripts && scene.scripts.length > 0) {
+          scene.scripts.forEach(scriptId => {
+            // 检查是否已经存在
+            if (!sceneResults.find(r => r.id === scriptId && r.type === 'script')) {
+              const script = getScriptById(scriptId);
+              if (script) {
+                sceneResults.push({
+                  ...script,
+                  id: scriptId,
+                  type: 'script',
+                  sceneName: scene.name,
+                  matchRatio: scene.matchRatio || 100
+                });
+              }
+            }
+          });
+        }
+      });
+      // 场景匹配结果优先显示
+      results = [...sceneResults, ...results];
+    }
+
+    // 如果还是没有结果，用简单名称匹配兜底
     if (results.length === 0) {
       results = this.fallbackSearch(keyword);
     }

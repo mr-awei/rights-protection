@@ -9,11 +9,12 @@
   <!-- 渐变头部 -->
   <view class="gradient-header">
     <view class="header-content">
-      <view class="script-badge">
-        <text class="badge-icon"></text>
-        <text class="badge-text">投诉话术</text>
+      <view class="script-title-row">
+        <view class="script-badge">
+          <text class="badge-text">话</text>
+        </view>
+        <text class="script-title">{{script.scene_name}}</text>
       </view>
-      <text class="script-title">{{script.scene_name}}</text>
       <view class="script-meta" wx:if="{{applicableText}}">
         <text class="meta-text">{{applicableText}}</text>
       </view>

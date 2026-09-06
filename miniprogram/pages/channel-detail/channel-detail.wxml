@@ -9,10 +9,12 @@
   <!-- 渐变头部 -->
   <view class="gradient-header">
     <view class="header-content">
-      <view class="channel-badge">
-        <text class="badge-text">官方渠道</text>
+      <view class="channel-title-row">
+        <view class="channel-badge">
+          <text class="badge-text">官</text>
+        </view>
+        <text class="channel-title">{{channel.name}}</text>
       </view>
-      <text class="channel-title">{{channel.name}}</text>
       <view class="channel-tags" wx:if="{{channel.tags && channel.tags.length > 0}}">
         <text class="channel-tag" wx:for="{{channel.tags}}" wx:key="*this" wx:for-item="tag">{{tag}}</text>
       </view>

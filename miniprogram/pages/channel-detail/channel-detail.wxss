@@ -71,21 +71,31 @@
   padding: 20rpx 32rpx 0;
 }
 
+.channel-title-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 16rpx;
+  margin-bottom: 16rpx;
+}
+
 .channel-badge {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   background: rgba(255,255,255,0.2);
   backdrop-filter: blur(10px);
-  padding: 8rpx 20rpx;
-  border-radius: 20rpx;
+  padding: 6rpx 14rpx;
+  border-radius: 12rpx;
   border: 1rpx solid rgba(255,255,255,0.3);
-  margin-bottom: 20rpx;
+  flex-shrink: 0;
+  margin-top: 4rpx;
 }
 
 .badge-text {
-  font-size: 22rpx;
+  font-size: 24rpx;
   color: #FFFFFF;
-  font-weight: 500;
+  font-weight: 600;
+  line-height: 1.2;
 }
 
 .channel-title {
@@ -93,13 +103,14 @@
   font-weight: 700;
   color: #FFFFFF;
   line-height: 1.4;
-  margin-bottom: 16rpx;
   word-break: break-all;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+  flex: 1;
+  min-width: 0;
 }
 
 .channel-tags {
