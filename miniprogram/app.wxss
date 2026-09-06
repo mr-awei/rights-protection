@@ -374,3 +374,419 @@ view, text, image, scroll-view, swiper, button, input, textarea {
 .safe-top {
   padding-top: env(safe-area-inset-top);
 }
+
+/* ========== 统一Icon系统（纯CSS绘制，支持三态） ========== */
+.app-icon {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.app-icon::before,
+.app-icon::after {
+  content: '';
+  position: absolute;
+  transition: all 0.2s ease;
+}
+
+/* 默认态 */
+.app-icon-default {
+  background: var(--primary-bg);
+}
+.app-icon-default::before,
+.app-icon-default::after {
+  border-color: var(--primary);
+  background: var(--primary);
+}
+
+/* Hover态 */
+.app-icon-hover {
+  background: var(--primary);
+}
+.app-icon-hover::before,
+.app-icon-hover::after {
+  border-color: #FFFFFF;
+  background: #FFFFFF;
+}
+
+/* Active/选中态 */
+.app-icon-active {
+  background: var(--primary-dark);
+}
+.app-icon-active::before,
+.app-icon-active::after {
+  border-color: #FFFFFF;
+  background: #FFFFFF;
+}
+
+/* ===== 法律图标（天平） ===== */
+.icon-law::before {
+  width: 60%;
+  height: 2px;
+  top: 30%;
+  left: 20%;
+}
+.icon-law::after {
+  width: 2px;
+  height: 50%;
+  top: 30%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.icon-law {
+  overflow: visible;
+}
+.icon-law .icon-law-left,
+.icon-law .icon-law-right {
+  position: absolute;
+  width: 25%;
+  height: 20%;
+  border: 2px solid;
+  border-top: none;
+  border-radius: 0 0 50% 50%;
+  top: 30%;
+  transition: all 0.2s ease;
+}
+.icon-law .icon-law-left { left: 10%; }
+.icon-law .icon-law-right { right: 10%; }
+.app-icon-default .icon-law-left,
+.app-icon-default .icon-law-right { border-color: var(--primary); }
+.app-icon-hover .icon-law-left,
+.app-icon-hover .icon-law-right,
+.app-icon-active .icon-law-left,
+.app-icon-active .icon-law-right { border-color: #FFFFFF; }
+
+/* ===== 渠道/建筑图标 ===== */
+.icon-channel::before {
+  width: 50%;
+  height: 50%;
+  top: 35%;
+  left: 25%;
+  border: 2px solid;
+  background: transparent !important;
+}
+.icon-channel::after {
+  width: 0;
+  height: 0;
+  top: 15%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-left: 28% solid transparent;
+  border-right: 28% solid transparent;
+  border-bottom: 22% solid;
+  background: transparent !important;
+}
+
+/* ===== 复制图标 ===== */
+.icon-copy::before {
+  width: 45%;
+  height: 55%;
+  top: 20%;
+  left: 20%;
+  border: 2px solid;
+  background: transparent !important;
+  border-radius: 4rpx;
+}
+.icon-copy::after {
+  width: 45%;
+  height: 55%;
+  top: 30%;
+  left: 35%;
+  border: 2px solid;
+  background: var(--bg-card) !important;
+  border-radius: 4rpx;
+}
+
+/* ===== 收藏/星星图标 ===== */
+.icon-star::before {
+  width: 0;
+  height: 0;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-left: 30% solid transparent;
+  border-right: 30% solid transparent;
+  border-bottom: 25% solid;
+  background: transparent !important;
+}
+.icon-star::after {
+  width: 60%;
+  height: 35%;
+  top: 42%;
+  left: 20%;
+  clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+}
+
+/* ===== 电话图标 ===== */
+.icon-phone::before {
+  width: 60%;
+  height: 50%;
+  top: 25%;
+  left: 20%;
+  border: 2px solid;
+  background: transparent !important;
+  border-radius: 8rpx;
+  transform: rotate(-15deg);
+}
+.icon-phone::after {
+  width: 20%;
+  height: 8%;
+  bottom: 22%;
+  left: 40%;
+  border-radius: 4rpx;
+}
+
+/* ===== 文档/书本图标 ===== */
+.icon-doc::before {
+  width: 55%;
+  height: 60%;
+  top: 20%;
+  left: 22%;
+  border: 2px solid;
+  background: transparent !important;
+  border-radius: 4rpx;
+}
+.icon-doc::after {
+  width: 35%;
+  height: 2px;
+  top: 35%;
+  left: 32%;
+  box-shadow: 0 8rpx 0 currentColor, 0 16rpx 0 currentColor;
+}
+
+/* ===== 提示/信息图标 ===== */
+.icon-info::before {
+  width: 50%;
+  height: 50%;
+  top: 25%;
+  left: 25%;
+  border: 2px solid;
+  background: transparent !important;
+  border-radius: 50%;
+}
+.icon-info::after {
+  width: 2px;
+  height: 25%;
+  top: 40%;
+  left: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0 -12rpx 0 currentColor;
+}
+
+/* ===== 盒子/快递图标 ===== */
+.icon-box::before {
+  width: 60%;
+  height: 45%;
+  top: 30%;
+  left: 20%;
+  border: 2px solid;
+  background: transparent !important;
+  border-radius: 4rpx;
+}
+.icon-box::after {
+  width: 60%;
+  height: 2px;
+  top: 30%;
+  left: 20%;
+  box-shadow: 0 20rpx 0 currentColor;
+}
+
+/* ===== 手机图标 ===== */
+.icon-mobile::before {
+  width: 45%;
+  height: 65%;
+  top: 17%;
+  left: 27%;
+  border: 2px solid;
+  background: transparent !important;
+  border-radius: 8rpx;
+}
+.icon-mobile::after {
+  width: 15%;
+  height: 4%;
+  bottom: 22%;
+  left: 42%;
+  border-radius: 50%;
+}
+
+/* ===== 购物袋图标 ===== */
+.icon-shop::before {
+  width: 55%;
+  height: 50%;
+  top: 32%;
+  left: 22%;
+  border: 2px solid;
+  background: transparent !important;
+  border-radius: 0 0 8rpx 8rpx;
+}
+.icon-shop::after {
+  width: 30%;
+  height: 25%;
+  top: 18%;
+  left: 35%;
+  border: 2px solid;
+  border-bottom: none;
+  background: transparent !important;
+  border-radius: 50% 50% 0 0;
+}
+
+/* ===== 房子图标 ===== */
+.icon-home::before {
+  width: 0;
+  height: 0;
+  top: 18%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-left: 32% solid transparent;
+  border-right: 32% solid transparent;
+  border-bottom: 28% solid;
+  background: transparent !important;
+}
+.icon-home::after {
+  width: 45%;
+  height: 40%;
+  top: 45%;
+  left: 27%;
+  border: 2px solid;
+  background: transparent !important;
+  border-top: none;
+}
+
+/* ===== 公文包图标 ===== */
+.icon-briefcase::before {
+  width: 60%;
+  height: 45%;
+  top: 32%;
+  left: 20%;
+  border: 2px solid;
+  background: transparent !important;
+  border-radius: 6rpx;
+}
+.icon-briefcase::after {
+  width: 25%;
+  height: 15%;
+  top: 22%;
+  left: 37%;
+  border: 2px solid;
+  border-bottom: none;
+  background: transparent !important;
+  border-radius: 6rpx 6rpx 0 0;
+}
+
+/* ===== 钱币图标 ===== */
+.icon-coin::before {
+  width: 55%;
+  height: 55%;
+  top: 22%;
+  left: 22%;
+  border: 2px solid;
+  background: transparent !important;
+  border-radius: 50%;
+}
+.icon-coin::after {
+  width: 2px;
+  height: 30%;
+  top: 35%;
+  left: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0 0 0 2rpx currentColor;
+}
+
+/* ===== 医疗十字图标 ===== */
+.icon-medical::before {
+  width: 20%;
+  height: 55%;
+  top: 22%;
+  left: 40%;
+  border-radius: 4rpx;
+}
+.icon-medical::after {
+  width: 55%;
+  height: 20%;
+  top: 40%;
+  left: 22%;
+  border-radius: 4rpx;
+}
+
+/* ===== 盾牌图标 ===== */
+.icon-shield::before {
+  width: 55%;
+  height: 60%;
+  top: 18%;
+  left: 22%;
+  border: 2px solid;
+  background: transparent !important;
+  border-radius: 8rpx 8rpx 50% 50%;
+}
+.icon-shield::after {
+  width: 2px;
+  height: 25%;
+  top: 35%;
+  left: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0 0 0 2rpx currentColor;
+}
+
+/* ===== 时钟图标 ===== */
+.icon-clock::before {
+  width: 55%;
+  height: 55%;
+  top: 22%;
+  left: 22%;
+  border: 2px solid;
+  background: transparent !important;
+  border-radius: 50%;
+}
+.icon-clock::after {
+  width: 2px;
+  height: 20%;
+  top: 32%;
+  left: 50%;
+  transform: translateX(-50%);
+  transform-origin: bottom center;
+  box-shadow: 8rpx 12rpx 0 currentColor;
+}
+
+/* ===== 对话框/反馈图标 ===== */
+.icon-chat::before {
+  width: 60%;
+  height: 45%;
+  top: 22%;
+  left: 20%;
+  border: 2px solid;
+  background: transparent !important;
+  border-radius: 8rpx;
+}
+.icon-chat::after {
+  width: 0;
+  height: 0;
+  bottom: 22%;
+  left: 30%;
+  border-left: 12% solid transparent;
+  border-right: 12% solid transparent;
+  border-top: 15% solid;
+  background: transparent !important;
+}
+
+/* ===== 大楼/企业图标 ===== */
+.icon-building::before {
+  width: 30%;
+  height: 55%;
+  top: 25%;
+  left: 25%;
+  border: 2px solid;
+  background: transparent !important;
+  border-radius: 4rpx 4rpx 0 0;
+}
+.icon-building::after {
+  width: 30%;
+  height: 45%;
+  top: 35%;
+  right: 25%;
+  border: 2px solid;
+  background: transparent !important;
+  border-radius: 4rpx 4rpx 0 0;
+}

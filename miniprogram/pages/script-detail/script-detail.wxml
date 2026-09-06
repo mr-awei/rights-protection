@@ -152,8 +152,9 @@
         </view>
         <view class="law-list" wx:if="{{laws.length > 0}}">
           <view class="law-item" wx:for="{{laws}}" wx:key="id">
-            <view class="law-item-icon">
-              <text class="law-icon-text">法</text>
+            <view class="law-item-icon app-icon app-icon-default icon-law">
+              <view class="icon-law-left"></view>
+              <view class="icon-law-right"></view>
             </view>
             <view class="law-item-info">
               <text class="law-item-name">{{item.name}}</text>
@@ -197,9 +198,7 @@
           bindtap="onChannelTap"
           hover-class="channel-card-hover"
         >
-          <view class="channel-icon">
-            <text class="channel-icon-text">渠</text>
-          </view>
+          <view class="channel-icon app-icon app-icon-default icon-channel"></view>
           <view class="channel-info">
             <text class="channel-name">{{item.name}}</text>
             <text class="channel-phone" wx:if="{{item.phone}}"> {{item.phone}}</text>
@@ -232,12 +231,12 @@
 
   <!-- 底部操作栏 -->
   <view class="bottom-bar">
-    <view class="bottom-btn btn-secondary" bindtap="onCopyScript">
-      <text class="btn-icon">复</text>
+    <view class="bottom-btn btn-secondary" bindtap="onCopyScript" hover-class="bottom-btn-hover">
+      <view class="app-icon app-icon-default icon-copy" style="width:36rpx;height:36rpx;margin-right:10rpx;"></view>
       <text class="btn-text">复制话术</text>
     </view>
-    <view class="bottom-btn btn-primary" bindtap="onToggleFavorite">
-      <text class="btn-icon">{{isFavorite ? '已' : '藏'}}</text>
+    <view class="bottom-btn btn-primary" bindtap="onToggleFavorite" hover-class="bottom-btn-hover">
+      <view class="app-icon app-icon-hover icon-star" style="width:36rpx;height:36rpx;margin-right:10rpx;"></view>
       <text class="btn-text">{{isFavorite ? '已收藏' : '收藏'}}</text>
     </view>
   </view>
