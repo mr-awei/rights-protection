@@ -132,9 +132,8 @@
           bindtap="onHistoryTap"
           hover-class="list-item-hover"
         >
-          <view class="item-icon" style="background: {{item.typeColor}}15; color: {{item.typeColor}};">
-            <text wx:if="{{item.type === 'channel'}}"></text>
-            <text wx:else></text>
+          <view class="item-icon" style="background: {{item.typeColor}}15;">
+            <text class="icon-text" style="color: {{item.typeColor}};">{{item.item_type === 'channel' ? '渠' : '话'}}</text>
           </view>
           <view class="item-info">
             <text class="item-name">{{item.item_name}}</text>

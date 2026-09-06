@@ -22,8 +22,40 @@ App({
     this.globalData.favorites = favorites;
 
     // 加载浏览历史
-    const viewHistory = wx.getStorageSync('viewHistory') || [];
+    const rawViewHistory = wx.getStorageSync('viewHistory') || [];
+    // 数据迁移：确保浏览历史格式统一，兼容旧格式
+    const viewHistory = rawViewHistory.map(item => {
+      if (!item) return null;
+      // 新格式：直接使用
+      if (item.item_type && item.item_id) {
+        return {
+          item_type: item.item_type,
+          item_id: item.item_id,
+          item_name: item.item_name || '',
+          item_extra: item.item_extra || '',
+          viewed_at: item.viewed_at || Date.now()
+        };
+      }
+      // 旧格式兼容：尝试从各种可能的字段名中获取数据
+      const itemType = item.item_type || item.type || '';
+      const itemId = item.item_id || item.id || '';
+      const itemName = item.item_name || item.name || item.title || '';
+      const viewedAt = item.viewed_at || item.time || item.create_time || Date.now();
+      // 如果没有类型和ID，说明是无效数据，跳过
+      if (!itemType || !itemId) return null;
+      return {
+        item_type: itemType,
+        item_id: itemId,
+        item_name: itemName,
+        item_extra: item.item_extra || item.extra || '',
+        viewed_at: viewedAt
+      };
+    }).filter(item => item !== null);
     this.globalData.viewHistory = viewHistory;
+    // 如果数据有变化，保存回storage
+    if (JSON.stringify(viewHistory) !== JSON.stringify(rawViewHistory)) {
+      wx.setStorageSync('viewHistory', viewHistory);
+    }
 
     // 检查数据版本
     const savedVersion = wx.getStorageSync('dataVersion');

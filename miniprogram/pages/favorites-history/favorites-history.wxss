@@ -197,6 +197,12 @@
   flex-shrink: 0;
 }
 
+.icon-text {
+  font-size: 32rpx;
+  font-weight: 600;
+  line-height: 1;
+}
+
 .item-info {
   flex: 1;
   min-width: 0;

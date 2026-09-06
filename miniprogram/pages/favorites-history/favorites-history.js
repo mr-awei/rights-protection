@@ -156,7 +156,22 @@ Page({
     const allHistory = app.getViewHistory() || [];
     const start = (page - 1) * PAGE_SIZE;
     const end = start + PAGE_SIZE;
-    const pageList = allHistory.slice(start, end);
+    const pageList = allHistory.slice(start, end).map(item => {
+      const typeLabel = item.item_type === 'channel' ? '渠道' : '话术';
+      const typeColor = item.item_type === 'channel' ? '#3B82F6' : '#10B981';
+      // 格式化时间
+      let timeStr = '';
+      if (item.viewed_at) {
+        const date = new Date(item.viewed_at);
+        timeStr = `${date.getMonth() + 1}/${date.getDate()} ${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`;
+      }
+      return {
+        ...item,
+        typeLabel,
+        typeColor,
+        timeStr
+      };
+    });
 
     const newList = page === 1 ? pageList : [...this.data.historyList, ...pageList];
 
