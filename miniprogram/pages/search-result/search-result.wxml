@@ -2,10 +2,14 @@
 <view class="container" style="--status-bar-height: {{statusBarHeight}}px;">
   <!-- 搜索框 -->
   <view class="search-header">
-    <view class="search-header-content">
+    <view class="search-header-top">
       <view class="back-btn" bindtap="onBack">
         <text class="back-icon">‹</text>
       </view>
+      <text class="search-header-title">搜索结果</text>
+      <view class="search-header-placeholder"></view>
+    </view>
+    <view class="search-header-content">
       <view class="search-box">
         <text class="search-icon"></text>
         <input

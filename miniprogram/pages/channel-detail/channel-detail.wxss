@@ -68,7 +68,7 @@
 .header-content {
   position: relative;
   z-index: 1;
-  padding: 80rpx 32rpx 0;
+  padding: 20rpx 32rpx 0;
 }
 
 .channel-badge {

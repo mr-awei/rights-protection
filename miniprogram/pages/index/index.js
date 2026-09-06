@@ -132,33 +132,10 @@ Page({
     // 添加搜索历史
     app.addSearchHistory(keyword);
 
-    // 执行搜索
-    const result = search(keyword);
-    console.log('[首页搜索] 结果类型:', result.type, '关键词:', result.keywords);
-
-    if (result.type === 'single' && result.scene) {
-      // 单个场景 → 直接跳转渠道详情
-      const scene = result.scene;
-      if (scene.channels && scene.channels.length > 0) {
-        wx.navigateTo({
-          url: `/pages/channel-detail/channel-detail?id=${scene.channels[0]}`
-        });
-      } else if (scene.scripts && scene.scripts.length > 0) {
-        wx.navigateTo({
-          url: `/pages/script-detail/script-detail?id=${scene.scripts[0]}`
-        });
-      }
-    } else if (result.type === 'multi' && result.scenes.length > 0) {
-      // 多个场景 → 场景选项卡
-      wx.navigateTo({
-        url: `/pages/scene-picker/scene-picker?keyword=${encodeURIComponent(keyword)}`
-      });
-    } else {
-      // 搜索结果页
-      wx.navigateTo({
-        url: `/pages/search-result/search-result?keyword=${encodeURIComponent(keyword)}`
-      });
-    }
+    // 统一跳转到搜索结果页，体验一致
+    wx.navigateTo({
+      url: `/pages/search-result/search-result?keyword=${encodeURIComponent(keyword)}`
+    });
   },
 
   onHotSearchTap(e) {
