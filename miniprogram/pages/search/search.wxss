@@ -1,0 +1,289 @@
+/* pages/search/search.wxss */
+.container {
+  min-height: 100vh;
+  background: #F8FAFC;
+}
+
+/* 自定义导航栏 */
+.nav-bar {
+  background: linear-gradient(135deg, #60A5FA 0%, #3B82F6 50%, #2563EB 100%);
+  padding-top: var(--status-bar-height);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.nav-content {
+  display: flex;
+  align-items: center;
+  padding: 16rpx 24rpx;
+  gap: 16rpx;
+}
+
+.search-box {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  background: #FFFFFF;
+  border-radius: 24rpx;
+  padding: 12rpx 20rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.1);
+}
+
+.search-icon {
+  font-size: 28rpx;
+  margin-right: 12rpx;
+  opacity: 0.6;
+}
+
+.search-input {
+  flex: 1;
+  font-size: 28rpx;
+  color: #1E293B;
+  height: 48rpx;
+}
+
+.search-placeholder {
+  color: #94A3B8;
+  font-size: 26rpx;
+}
+
+.clear-btn {
+  width: 36rpx;
+  height: 36rpx;
+  background: #E2E8F0;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 12rpx;
+}
+
+.clear-btn text {
+  font-size: 20rpx;
+  color: #64748B;
+  font-weight: 600;
+}
+
+.cancel-btn {
+  padding: 8rpx 16rpx;
+}
+
+.cancel-btn text {
+  font-size: 28rpx;
+  color: #FFFFFF;
+  font-weight: 500;
+}
+
+/* 联想建议列表 */
+.suggestion-list {
+  background: #FFFFFF;
+  min-height: calc(100vh - 120rpx);
+}
+
+.suggestion-item {
+  display: flex;
+  align-items: center;
+  padding: 24rpx;
+  border-bottom: 1rpx solid #F1F5F9;
+  transition: all 0.2s ease;
+}
+
+.suggestion-item-hover {
+  background: #F8FAFC;
+}
+
+.suggestion-icon {
+  font-size: 32rpx;
+  margin-right: 16rpx;
+  width: 48rpx;
+  text-align: center;
+}
+
+.suggestion-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.suggestion-name {
+  font-size: 28rpx;
+  color: #1E293B;
+  font-weight: 500;
+  margin-bottom: 4rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.suggestion-type {
+  font-size: 22rpx;
+  color: #94A3B8;
+}
+
+.suggestion-arrow {
+  font-size: 32rpx;
+  color: #CBD5E1;
+  margin-left: 12rpx;
+}
+
+.empty-suggestion {
+  padding: 80rpx 24rpx;
+  text-align: center;
+}
+
+.empty-suggestion text {
+  font-size: 26rpx;
+  color: #94A3B8;
+}
+
+/* 内容区 */
+.content {
+  padding: 24rpx;
+}
+
+.section {
+  margin-bottom: 32rpx;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.section-title {
+  font-size: 30rpx;
+  font-weight: 700;
+  color: #1E293B;
+}
+
+.clear-history {
+  margin-left: auto;
+  padding: 6rpx 16rpx;
+  background: #F1F5F9;
+  border-radius: 12rpx;
+}
+
+.clear-history text {
+  font-size: 22rpx;
+  color: #64748B;
+}
+
+/* 搜索历史标签 */
+.history-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16rpx;
+}
+
+.history-tag {
+  display: flex;
+  align-items: center;
+  background: #FFFFFF;
+  border: 1rpx solid #E2E8F0;
+  border-radius: 20rpx;
+  padding: 12rpx 16rpx 12rpx 20rpx;
+  box-shadow: 0 2rpx 4rpx rgba(0,0,0,0.02);
+  transition: all 0.2s ease;
+}
+
+.history-tag-hover {
+  background: #EFF6FF;
+  border-color: #93C5FD;
+}
+
+.tag-text {
+  font-size: 26rpx;
+  color: #475569;
+}
+
+.tag-delete {
+  width: 32rpx;
+  height: 32rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 8rpx;
+}
+
+.tag-delete text {
+  font-size: 20rpx;
+  color: #94A3B8;
+}
+
+/* 热门搜索标签 */
+.hot-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16rpx;
+}
+
+.hot-tag {
+  display: flex;
+  align-items: center;
+  background: #FFFFFF;
+  border: 1rpx solid #E2E8F0;
+  border-radius: 20rpx;
+  padding: 14rpx 24rpx;
+  box-shadow: 0 2rpx 4rpx rgba(0,0,0,0.02);
+  transition: all 0.2s ease;
+}
+
+.hot-tag-hover {
+  background: #FEF2F2;
+  border-color: #FCA5A5;
+}
+
+.hot-rank {
+  font-size: 24rpx;
+  font-weight: 800;
+  color: #EF4444;
+  margin-right: 8rpx;
+  width: 28rpx;
+  text-align: center;
+}
+
+.hot-text {
+  font-size: 26rpx;
+  color: #475569;
+}
+
+/* 搜索技巧卡片 */
+.tip-card {
+  background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%);
+  border: 1rpx solid #BFDBFE;
+  border-radius: 20rpx;
+  padding: 24rpx;
+  border-left: 6rpx solid #3B82F6;
+}
+
+.tip-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16rpx;
+}
+
+.tip-icon {
+  font-size: 28rpx;
+  margin-right: 8rpx;
+}
+
+.tip-title {
+  font-size: 28rpx;
+  font-weight: 700;
+  color: #1E40AF;
+}
+
+.tip-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.tip-text {
+  font-size: 24rpx;
+  color: #1E3A8A;
+  line-height: 1.7;
+  margin-bottom: 6rpx;
+}

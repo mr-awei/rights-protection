@@ -4,16 +4,47 @@ const { search, highlightKeywords } = require('../../utils/search');
 Page({
   data: {
     keyword: '',
+    searchInput: '',
     activeTab: 'all',
     results: [],
     filteredResults: [],
-    resultCount: 0
+    resultCount: 0,
+    statusBarHeight: 20
   },
 
   onLoad(options) {
+    try {
+      const systemInfo = wx.getSystemInfoSync();
+      this.setData({ statusBarHeight: systemInfo.statusBarHeight || 20 });
+    } catch (e) {
+      this.setData({ statusBarHeight: 20 });
+    }
     const keyword = decodeURIComponent(options.keyword || '');
+    this.setData({ keyword, searchInput: keyword });
+    this.doSearch(keyword);
+  },
+
+  // 搜索框输入
+  onSearchInput(e) {
+    this.setData({ searchInput: e.detail.value });
+  },
+
+  // 搜索框确认
+  onSearchConfirm() {
+    const keyword = this.data.searchInput.trim();
+    if (!keyword) return;
     this.setData({ keyword });
     this.doSearch(keyword);
+  },
+
+  // 点击搜索按钮
+  onSearchButtonTap() {
+    this.onSearchConfirm();
+  },
+
+  // 点击搜索框（聚焦时不跳转，允许修改）
+  onSearchBoxTap() {
+    // 搜索结果页的搜索框允许直接编辑
   },
 
   doSearch(keyword) {

@@ -12,7 +12,7 @@
       </view>
 
       <!-- 搜索框 -->
-      <view class="search-box" bindtap="onSearchFocus">
+      <view class="search-box" bindtap="onSearchBoxTap">
         <view class="search-icon">🔍</view>
         <input
           class="search-input"
@@ -121,6 +121,30 @@
         </view>
         <view class="emergency-bar-tip">
           <text>紧急情况请直接拨打，不走投诉流程</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 最近浏览 -->
+    <view class="section" wx:if="{{recentViews.length > 0}}">
+      <view class="section-header">
+        <text class="section-title">👀 最近浏览</text>
+        <text class="section-more">最近{{recentViews.length}}条</text>
+      </view>
+      <view class="recent-list">
+        <view
+          class="recent-item"
+          wx:for="{{recentViews}}"
+          wx:key="item_id"
+          data-item="{{item}}"
+          bindtap="onRecentViewTap"
+          hover-class="recent-item-hover"
+        >
+          <view class="recent-type" style="background: {{item.typeColor}}15; color: {{item.typeColor}};">
+            <text>{{item.typeLabel}}</text>
+          </view>
+          <text class="recent-name">{{item.item_name}}</text>
+          <text class="recent-arrow">›</text>
         </view>
       </view>
     </view>

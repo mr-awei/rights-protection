@@ -10,7 +10,8 @@
     "pages/general-template/general-template",
     "pages/hotline-change/hotline-change",
     "pages/followup-schedule/followup-schedule",
-    "pages/enterprise-query/enterprise-query"
+    "pages/enterprise-query/enterprise-query",
+    "pages/search/search"
   ],
   "window": {
     "backgroundTextStyle": "light",

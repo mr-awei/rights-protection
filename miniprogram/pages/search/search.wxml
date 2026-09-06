@@ -1,0 +1,113 @@
+<!--pages/search/search.wxml-->
+<view class="container" style="--status-bar-height: {{statusBarHeight}}px;">
+  <!-- 自定义导航栏 -->
+  <view class="nav-bar">
+    <view class="nav-content">
+      <view class="search-box">
+        <text class="search-icon">🔍</text>
+        <input
+          class="search-input"
+          type="text"
+          placeholder="搜索投诉渠道、话术、关键词..."
+          placeholder-class="search-placeholder"
+          value="{{keyword}}"
+          focus="{{true}}"
+          confirm-type="search"
+          bindinput="onInput"
+          bindconfirm="onSearch"
+        />
+        <view class="clear-btn" wx:if="{{keyword}}" bindtap="onClearInput">
+          <text>✕</text>
+        </view>
+      </view>
+      <view class="cancel-btn" bindtap="onCancel">
+        <text>取消</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 联想建议列表 -->
+  <view class="suggestion-list" wx:if="{{showSuggestions}}">
+    <view
+      class="suggestion-item"
+      wx:for="{{suggestions}}"
+      wx:key="id"
+      data-item="{{item}}"
+      bindtap="onSuggestionTap"
+      hover-class="suggestion-item-hover"
+    >
+      <text class="suggestion-icon">{{item.icon}}</text>
+      <view class="suggestion-info">
+        <text class="suggestion-name">{{item.name}}</text>
+        <text class="suggestion-type" wx:if="{{item.type === 'channel'}}">投诉渠道</text>
+        <text class="suggestion-type" wx:else>投诉话术</text>
+      </view>
+      <text class="suggestion-arrow">›</text>
+    </view>
+    <view class="empty-suggestion" wx:if="{{suggestions.length === 0}}">
+      <text>未找到相关结果，点击搜索查看全部</text>
+    </view>
+  </view>
+
+  <!-- 搜索历史和热门搜索 -->
+  <view class="content" wx:if="{{!showSuggestions}}">
+    <!-- 搜索历史 -->
+    <view class="section" wx:if="{{searchHistory.length > 0}}">
+      <view class="section-header">
+        <text class="section-title">🕐 搜索历史</text>
+        <view class="clear-history" bindtap="onClearHistory">
+          <text>清空</text>
+        </view>
+      </view>
+      <view class="history-tags">
+        <view
+          class="history-tag"
+          wx:for="{{searchHistory}}"
+          wx:key="*this"
+          data-keyword="{{item}}"
+          bindtap="onKeywordTap"
+          hover-class="history-tag-hover"
+        >
+          <text class="tag-text">{{item}}</text>
+          <view class="tag-delete" catchtap="onDeleteHistory" data-keyword="{{item}}">
+            <text>✕</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 热门搜索 -->
+    <view class="section">
+      <view class="section-header">
+        <text class="section-title">🔥 热门搜索</text>
+      </view>
+      <view class="hot-tags">
+        <view
+          class="hot-tag"
+          wx:for="{{hotSearches}}"
+          wx:key="*this"
+          data-keyword="{{item}}"
+          bindtap="onKeywordTap"
+          hover-class="hot-tag-hover"
+        >
+          <text class="hot-rank" wx:if="{{index < 3}}">{{index + 1}}</text>
+          <text class="hot-text">{{item}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 搜索技巧 -->
+    <view class="tip-card">
+      <view class="tip-header">
+        <text class="tip-icon">💡</text>
+        <text class="tip-title">搜索技巧</text>
+      </view>
+      <view class="tip-content">
+        <text class="tip-text">• 输入关键词如"快递"、"物业"、"银行"等，系统会自动匹配相关场景</text>
+        <text class="tip-text">• 可以描述具体问题，如"快递丢了不赔偿"、"物业乱收费"</text>
+        <text class="tip-text">• 搜索结果包含投诉渠道和投诉话术两部分</text>
+        <text class="tip-text">• 建议先向企业内部投诉，无法解决再向监管部门投诉</text>
+      </view>
+    </view>
+  </view>
+</view>

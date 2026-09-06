@@ -24,7 +24,8 @@ Page({
       { icon: '🏥', label: '医疗教育', color: '#FFF0F6', keyword: '医院乱收费' },
       { icon: '🛡️', label: '被骗举报', color: '#F0F5FF', keyword: '电信诈骗' }
     ],
-    hotScripts: []
+    hotScripts: [],
+    recentViews: []
   },
 
   onLoad() {
@@ -36,10 +37,37 @@ Page({
       this.setData({ statusBarHeight: 20 });
     }
     this.loadHotScripts();
+    this.loadRecentViews();
   },
 
   onShow() {
-    // 页面显示时刷新
+    // 页面显示时刷新最近浏览
+    this.loadRecentViews();
+  },
+
+  // 加载最近浏览
+  loadRecentViews() {
+    const history = app.getViewHistory() || [];
+    const recent = history.slice(0, 5).map(item => ({
+      ...item,
+      typeLabel: item.item_type === 'channel' ? '渠道' : '话术',
+      typeColor: item.item_type === 'channel' ? '#3B82F6' : '#10B981'
+    }));
+    this.setData({ recentViews: recent });
+  },
+
+  // 点击最近浏览项
+  onRecentViewTap(e) {
+    const item = e.currentTarget.dataset.item;
+    if (item.item_type === 'channel') {
+      wx.navigateTo({
+        url: `/pages/channel-detail/channel-detail?id=${item.item_id}`
+      });
+    } else if (item.item_type === 'script') {
+      wx.navigateTo({
+        url: `/pages/script-detail/script-detail?id=${item.item_id}`
+      });
+    }
   },
 
   loadHotScripts() {
@@ -62,6 +90,11 @@ Page({
       };
     });
     this.setData({ hotScripts: processed });
+  },
+
+  // 点击搜索框跳转到搜索态页面
+  onSearchBoxTap() {
+    wx.navigateTo({ url: '/pages/search/search' });
   },
 
   onSearchInput(e) {

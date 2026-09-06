@@ -1,5 +1,23 @@
 <!--pages/search-result/search-result.wxml-->
-<view class="container">
+<view class="container" style="--status-bar-height: {{statusBarHeight}}px;">
+  <!-- 搜索框 -->
+  <view class="search-header">
+    <view class="search-box">
+      <text class="search-icon">🔍</text>
+      <input
+        class="search-input"
+        type="text"
+        placeholder="搜索投诉渠道、话术、关键词..."
+        placeholder-class="search-placeholder"
+        value="{{searchInput}}"
+        confirm-type="search"
+        bindinput="onSearchInput"
+        bindconfirm="onSearchConfirm"
+      />
+      <view class="search-btn" bindtap="onSearchButtonTap">搜索</view>
+    </view>
+  </view>
+
   <!-- Tab切换 -->
   <view class="result-tabs">
     <view

@@ -451,6 +451,58 @@
   opacity: 0.7;
 }
 
+/* ========== 最近浏览 ========== */
+.recent-list {
+  background: #FFFFFF;
+  border-radius: 20rpx;
+  overflow: hidden;
+  box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.04);
+}
+
+.recent-item {
+  display: flex;
+  align-items: center;
+  padding: 20rpx 24rpx;
+  border-bottom: 1rpx solid #F1F5F9;
+  transition: all 0.2s ease;
+}
+
+.recent-item:last-child {
+  border-bottom: none;
+}
+
+.recent-item-hover {
+  background: #F8FAFC;
+}
+
+.recent-type {
+  padding: 6rpx 14rpx;
+  border-radius: 8rpx;
+  margin-right: 16rpx;
+  flex-shrink: 0;
+}
+
+.recent-type text {
+  font-size: 20rpx;
+  font-weight: 600;
+}
+
+.recent-name {
+  flex: 1;
+  font-size: 26rpx;
+  color: #1E293B;
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.recent-arrow {
+  font-size: 28rpx;
+  color: #CBD5E1;
+  margin-left: 12rpx;
+}
+
 /* ========== 高频话术卡片 ========== */
 .script-list {
   display: flex;

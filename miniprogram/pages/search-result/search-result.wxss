@@ -4,6 +4,54 @@
   background: #F8FAFC;
 }
 
+/* ========== 搜索框 ========== */
+.search-header {
+  background: linear-gradient(135deg, #60A5FA 0%, #3B82F6 50%, #2563EB 100%);
+  padding-top: var(--status-bar-height);
+  padding-bottom: 16rpx;
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  background: #FFFFFF;
+  border-radius: 24rpx;
+  padding: 12rpx 16rpx 12rpx 20rpx;
+  margin: 16rpx 24rpx 0;
+  box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.1);
+}
+
+.search-icon {
+  font-size: 28rpx;
+  margin-right: 12rpx;
+  opacity: 0.6;
+}
+
+.search-input {
+  flex: 1;
+  font-size: 28rpx;
+  color: #1E293B;
+  height: 48rpx;
+}
+
+.search-placeholder {
+  color: #94A3B8;
+  font-size: 26rpx;
+}
+
+.search-btn {
+  background: linear-gradient(135deg, #3B82F6, #2563EB);
+  padding: 10rpx 24rpx;
+  border-radius: 16rpx;
+  margin-left: 12rpx;
+}
+
+.search-btn text {
+  font-size: 26rpx;
+  color: #FFFFFF;
+  font-weight: 600;
+}
+
 /* ========== Tab切换 ========== */
 .result-tabs {
   display: flex;
