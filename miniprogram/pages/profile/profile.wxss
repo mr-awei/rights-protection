@@ -10,6 +10,8 @@
   padding: 0 0 48rpx;
   position: relative;
   overflow: hidden;
+  margin-top: -30rpx;
+  padding-top: 30rpx;
 }
 
 .gradient-header::before {
