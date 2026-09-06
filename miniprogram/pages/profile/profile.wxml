@@ -78,7 +78,9 @@
           bindtap="onFavoriteChannelTap"
           hover-class="item-row-hover"
         >
-          <view class="item-icon channel-icon"></view>
+          <view class="item-icon channel-icon">
+            <text class="icon-text">渠</text>
+          </view>
           <view class="item-info">
             <text class="item-name">{{item.name}}</text>
             <text class="item-desc" wx:if="{{item.phone}}">{{item.phone}}</text>
@@ -112,7 +114,9 @@
           bindtap="onFavoriteScriptTap"
           hover-class="item-row-hover"
         >
-          <view class="item-icon script-icon"></view>
+          <view class="item-icon script-icon">
+            <text class="icon-text">话</text>
+          </view>
           <view class="item-info">
             <text class="item-name">{{item.name}}</text>
             <text class="item-desc">{{item.applicable || '投诉话术'}}</text>
@@ -155,7 +159,9 @@
           bindtap="onViewHistoryTap"
           hover-class="item-row-hover"
         >
-          <view class="item-icon history-icon" style="background: {{item.typeColor}}15;"></view>
+          <view class="item-icon history-icon" style="background: {{item.typeColor}}15;">
+            <text class="icon-text" style="color: {{item.typeColor}};">{{item.item_type === 'channel' ? '渠' : '话'}}</text>
+          </view>
           <view class="item-info">
             <text class="item-name">{{item.item_name}}</text>
             <text class="item-desc">{{item.typeLabel}} · {{item.timeStr}}</text>
@@ -191,7 +197,9 @@
           bindtap="onToolTap"
           hover-class="item-row-hover"
         >
-          <view class="item-icon tool-icon" style="background: {{item.color}}15;"></view>
+          <view class="item-icon tool-icon" style="background: {{item.color}}15;">
+            <text class="icon-text" style="color: {{item.color}};">{{item.icon}}</text>
+          </view>
           <view class="item-info">
             <text class="item-name">{{item.name}}</text>
             <text class="item-desc">{{item.desc}}</text>

@@ -18,13 +18,13 @@ Page({
     viewHistoryList: [],
     // 工具箱
     toolList: [
-      { icon: '📝', name: '通用投诉信模板', desc: '结构化模板，一键复制', color: '#E6F4FF', page: 'general-template' },
-      { icon: '🔄', name: '热线变更速查', desc: '已取消/整合热线查询', color: '#F6FFED', page: 'hotline-change' },
-      { icon: '⏰', name: '投诉跟进时间表', desc: '法定时限+升级路径', color: '#FFFBE6', page: 'followup-schedule' },
-      { icon: '🏢', name: '企业信息查询', desc: '4个官方查询平台', color: '#FFF2F0', page: 'enterprise-query' },
-      { icon: '⚖️', name: '法律法规库', desc: '查询相关法律条文', color: '#F9F0FF', page: '' },
-      { icon: '💬', name: '意见反馈', desc: '帮助我们改进', color: '#E6FFFB', page: '' },
-      { icon: 'ℹ️', name: '关于我们', desc: '版本信息与免责声明', color: '#F0F5FF', page: 'about' }
+      { icon: '信', name: '通用投诉信模板', desc: '结构化模板，一键复制', color: '#1890FF', page: 'general-template' },
+      { icon: '线', name: '热线变更速查', desc: '已取消/整合热线查询', color: '#52C41A', page: 'hotline-change' },
+      { icon: '时', name: '投诉跟进时间表', desc: '法定时限+升级路径', color: '#FAAD14', page: 'followup-schedule' },
+      { icon: '企', name: '企业信息查询', desc: '4个官方查询平台', color: '#FF4D4F', page: 'enterprise-query' },
+      { icon: '法', name: '法律法规库', desc: '查询相关法律条文', color: '#722ED1', page: '' },
+      { icon: '馈', name: '意见反馈', desc: '帮助我们改进', color: '#13C2C2', page: '' },
+      { icon: '我', name: '关于我们', desc: '版本信息与免责声明', color: '#2F54EB', page: 'about' }
     ]
   },
 
