@@ -261,12 +261,7 @@ Page({
     const tool = this.data.toolList[index];
 
     if (tool.page === 'about') {
-      wx.showModal({
-        title: '关于我不能被欺负',
-        content: '我不能被欺负 v1.0.0 MVP版\n\n一款帮助消费者快速找到官方投诉渠道的随身维权工具箱。\n\n数据来源：三份维权文档整理，所有信息来源于政府官网公开渠道\n数据验证日期：2026年8月30日\n\n免责声明：本工具为便民信息汇总，非政府官方应用，所有信息仅供参考，不构成法律意见。具体投诉流程和受理范围以各监管部门官方公布为准。',
-        showCancel: false,
-        confirmText: '知道了'
-      });
+      wx.navigateTo({ url: '/pages/about/about' });
     } else if (tool.page === '') {
       wx.showToast({ title: `${tool.name}功能开发中`, icon: 'none' });
     } else {

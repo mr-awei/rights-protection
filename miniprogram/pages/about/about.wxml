@@ -1,0 +1,144 @@
+<!--pages/about/about.wxml-->
+<view class="container" style="--status-bar-height: {{statusBarHeight}}px;">
+  <!-- 自定义导航栏 -->
+  <view class="nav-bar">
+    <view class="nav-back" bindtap="onBack">
+      <text>‹</text>
+    </view>
+    <view class="nav-title">关于我们</view>
+    <view class="nav-placeholder"></view>
+  </view>
+
+  <!-- 内容区 -->
+  <view class="content">
+    <!-- Logo和应用信息 -->
+    <view class="app-info">
+      <view class="app-logo">
+        <image src="/images/logo.png" mode="aspectFit"></image>
+      </view>
+      <view class="app-name">我不能被欺负</view>
+      <view class="app-slogan">用法律武器，维护合法权益</view>
+      <view class="app-version">Version {{version}} · MVP</view>
+    </view>
+
+    <!-- 数据统计 -->
+    <view class="stats-card">
+      <view class="stats-title">📊 数据概览</view>
+      <view class="stats-grid">
+        <view class="stat-item">
+          <text class="stat-num">{{channelCount}}</text>
+          <text class="stat-label">官方渠道</text>
+        </view>
+        <view class="stat-item">
+          <text class="stat-num">{{scriptCount}}</text>
+          <text class="stat-label">投诉话术</text>
+        </view>
+        <view class="stat-item">
+          <text class="stat-num">{{lawCount}}</text>
+          <text class="stat-label">法律法规</text>
+        </view>
+        <view class="stat-item">
+          <text class="stat-num">{{categoryCount}}</text>
+          <text class="stat-label">领域分类</text>
+        </view>
+      </view>
+      <view class="stats-footer">数据验证日期：{{dataVersion}}</view>
+    </view>
+
+    <!-- 功能介绍 -->
+    <view class="feature-card">
+      <view class="card-title">✨ 核心功能</view>
+      <view class="feature-list">
+        <view class="feature-item">
+          <text class="feature-icon">🔍</text>
+          <view class="feature-info">
+            <text class="feature-name">智能搜索</text>
+            <text class="feature-desc">关键词提取+场景匹配，快速找到投诉渠道</text>
+          </view>
+        </view>
+        <view class="feature-item">
+          <text class="feature-icon">📞</text>
+          <view class="feature-info">
+            <text class="feature-name">一键拨打</text>
+            <text class="feature-desc">122个官方投诉渠道，电话一键拨打</text>
+          </view>
+        </view>
+        <view class="feature-item">
+          <text class="feature-icon">📝</text>
+          <view class="feature-info">
+            <text class="feature-name">投诉话术</text>
+            <text class="feature-desc">6套场景化话术，电话版+书面版，一键复制</text>
+          </view>
+        </view>
+        <view class="feature-item">
+          <text class="feature-icon">🛠️</text>
+          <view class="feature-info">
+            <text class="feature-name">实用工具箱</text>
+            <text class="feature-desc">投诉信模板、跟进时间表、热线变更、企业查询</text>
+          </view>
+        </view>
+        <view class="feature-item">
+          <text class="feature-icon">⭐</text>
+          <view class="feature-info">
+            <text class="feature-name">收藏管理</text>
+            <text class="feature-desc">收藏常用渠道和话术，随时快速访问</text>
+          </view>
+        </view>
+        <view class="feature-item">
+          <text class="feature-icon">⚖️</text>
+          <view class="feature-info">
+            <text class="feature-name">依法维权</text>
+            <text class="feature-desc">倡导先企业内部投诉，依法理性维权</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 相关链接 -->
+    <view class="link-card">
+      <view class="card-title">🔗 相关信息</view>
+      <view class="link-list">
+        <view class="link-item" bindtap="onViewDisclaimer" hover-class="link-item-hover">
+          <text class="link-icon">📜</text>
+          <text class="link-name">免责声明</text>
+          <text class="link-arrow">›</text>
+        </view>
+        <view class="link-item" bindtap="onViewLicense" hover-class="link-item-hover">
+          <text class="link-icon">📋</text>
+          <text class="link-name">开源协议</text>
+          <text class="link-arrow">›</text>
+        </view>
+        <view class="link-item" data-text="https://gitee.com/mr-awei/rights-protection" bindtap="onCopyContact" hover-class="link-item-hover">
+          <text class="link-icon">💻</text>
+          <text class="link-name">Gitee 开源地址</text>
+          <text class="link-arrow">›</text>
+        </view>
+        <view class="link-item" data-text="https://github.com/mr-awei/rights-protection" bindtap="onCopyContact" hover-class="link-item-hover">
+          <text class="link-icon">🐙</text>
+          <text class="link-name">GitHub 开源地址</text>
+          <text class="link-arrow">›</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 维权理念 -->
+    <view class="philosophy-card">
+      <view class="philosophy-title">💡 维权理念</view>
+      <view class="philosophy-text">
+        <text>• 先企业内部投诉，约80%的常规问题在此层级即可解决</text>
+        <text>• 投诉应当基于真实事实，不得捏造、歪曲事实</text>
+        <text>• 不得诬告陷害他人，否则将承担相应法律责任</text>
+        <text>• 保留好所有证据，包括聊天记录、合同、票据等</text>
+        <text>• 依法理性维权，是每个公民的权利和义务</text>
+      </view>
+    </view>
+
+    <!-- 底部版权 -->
+    <view class="footer">
+      <text class="footer-text">© 2026 我不能被欺负</text>
+      <text class="footer-text">Made with ❤️ for 消费者权益保护</text>
+    </view>
+
+    <view style="height: 40rpx;"></view>
+  </view>
+</view>

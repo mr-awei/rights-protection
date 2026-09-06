@@ -11,7 +11,8 @@
     "pages/hotline-change/hotline-change",
     "pages/followup-schedule/followup-schedule",
     "pages/enterprise-query/enterprise-query",
-    "pages/search/search"
+    "pages/search/search",
+    "pages/about/about"
   ],
   "window": {
     "backgroundTextStyle": "light",
