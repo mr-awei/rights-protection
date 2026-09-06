@@ -10,8 +10,6 @@
   padding: 0 0 64rpx;
   position: relative;
   overflow: hidden;
-  margin-top: calc(var(--status-bar-height, 0px) * -1);
-  padding-top: var(--status-bar-height, 0px);
   z-index: 1;
 }
 
@@ -40,7 +38,8 @@
 .header-content {
   position: relative;
   z-index: 1;
-  padding: 48rpx 32rpx 0;
+  padding: 0 32rpx;
+  padding-top: calc(var(--status-bar-height, 44px) + 24rpx);
 }
 
 .header-top {

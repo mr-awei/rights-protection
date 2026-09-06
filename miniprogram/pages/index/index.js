@@ -157,8 +157,12 @@ Page({
 
   onSceneEntryTap(e) {
     const keyword = e.currentTarget.dataset.keyword;
-    this.setData({ searchKeyword: keyword });
-    this.doSearch();
+    // 添加搜索历史
+    app.addSearchHistory(keyword);
+    // 统一跳转到搜索结果页，让用户看到该领域的所有相关渠道/话术
+    wx.navigateTo({
+      url: `/pages/search-result/search-result?keyword=${encodeURIComponent(keyword)}`
+    });
   },
 
   onEmergencyCall(e) {
