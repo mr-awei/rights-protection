@@ -132,9 +132,7 @@
           bindtap="onHistoryTap"
           hover-class="list-item-hover"
         >
-          <view class="item-icon" style="background: {{item.typeColor}}15;">
-            <text class="icon-text" style="color: {{item.typeColor}};">{{item.item_type === 'channel' ? '渠' : '话'}}</text>
-          </view>
+          <view class="item-icon app-icon app-icon-default {{item.item_type === 'channel' ? 'icon-channel' : 'icon-doc'}}" style="--icon-bg: {{item.typeColor}}15; --icon-color: {{item.typeColor}}; --icon-hover-bg: {{item.typeColor}};"></view>
           <view class="item-info">
             <text class="item-name">{{item.item_name}}</text>
             <text class="item-meta">{{item.typeLabel}} · {{item.timeStr}}</text>

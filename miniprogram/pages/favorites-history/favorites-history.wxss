@@ -189,10 +189,6 @@
   width: 80rpx;
   height: 80rpx;
   border-radius: 20rpx;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 38rpx;
   margin-right: 22rpx;
   flex-shrink: 0;
 }

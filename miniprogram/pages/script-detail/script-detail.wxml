@@ -30,7 +30,7 @@
         data-tab="phone"
         bindtap="onTabTap"
       >
-        <text class="tab-icon">电</text>
+        <view class="tab-icon app-icon app-icon-default icon-phone" style="width:32rpx;height:32rpx;margin-right:8rpx;"></view>
         <text class="tab-text">电话版</text>
       </view>
       <view
@@ -38,7 +38,7 @@
         data-tab="written"
         bindtap="onTabTap"
       >
-        <text class="tab-icon">书</text>
+        <view class="tab-icon app-icon app-icon-default icon-doc" style="width:32rpx;height:32rpx;margin-right:8rpx;"></view>
         <text class="tab-text">书面版</text>
       </view>
     </view>
@@ -55,7 +55,7 @@
             <text>重置</text>
           </view>
           <view class="copy-btn" bindtap="onCopyScript" hover-class="copy-btn-hover">
-            <text class="copy-btn-icon">复</text>
+            <view class="copy-btn-icon app-icon app-icon-default icon-copy" style="width:28rpx;height:28rpx;margin-right:8rpx;"></view>
             <text class="copy-btn-text">{{hasCustomContent ? '复制个性化' : '复制全部'}}</text>
           </view>
         </view>
@@ -92,7 +92,7 @@
 
       <!-- 个性化话术提示 -->
       <view class="custom-tip" wx:if="{{hasCustomContent}}">
-        <text class="custom-tip-icon">提</text>
+        <view class="custom-tip-icon app-icon app-icon-default icon-info" style="width:28rpx;height:28rpx;margin-right:8rpx;"></view>
         <text class="custom-tip-text">已根据您填写的信息生成个性化话术，可直接复制使用</text>
       </view>
 
@@ -212,8 +212,9 @@
     <view class="section">
       <view class="legal-notice-card">
         <view class="legal-notice-header">
-          <view class="legal-notice-icon">
-            <text class="legal-icon-text">法</text>
+          <view class="legal-notice-icon app-icon app-icon-default icon-law" style="width:32rpx;height:32rpx;margin-right:10rpx;--icon-bg:#D1FAE5;--icon-color:#059669;--icon-hover-bg:#059669;">
+            <view class="icon-law-left"></view>
+            <view class="icon-law-right"></view>
           </view>
           <text class="legal-notice-title">依法维权 · 理性表达</text>
         </view>

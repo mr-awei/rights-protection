@@ -84,9 +84,7 @@
           bindtap="onSceneEntryTap"
           hover-class="scene-item-hover"
         >
-          <view class="scene-icon" style="background: {{item.color}};">
-            <text class="scene-icon-text" style="color: {{item.textColor}};">{{item.short}}</text>
-          </view>
+          <view class="scene-icon app-icon app-icon-default {{item.iconClass}}" style="--icon-bg: {{item.color}}; --icon-color: {{item.textColor}}; --icon-hover-bg: {{item.textColor}};"></view>
           <text class="scene-name">{{item.label}}</text>
         </view>
       </view>

@@ -394,32 +394,44 @@ view, text, image, scroll-view, swiper, button, input, textarea {
 
 /* 默认态 */
 .app-icon-default {
-  background: var(--primary-bg);
+  background: var(--icon-bg, var(--primary-bg));
 }
 .app-icon-default::before,
 .app-icon-default::after {
-  border-color: var(--primary);
-  background: var(--primary);
+  border-color: var(--icon-color, var(--primary));
+  background: var(--icon-color, var(--primary));
+}
+.app-icon-default .icon-law-left,
+.app-icon-default .icon-law-right {
+  border-color: var(--icon-color, var(--primary));
 }
 
 /* Hover态 */
 .app-icon-hover {
-  background: var(--primary);
+  background: var(--icon-hover-bg, var(--primary));
 }
 .app-icon-hover::before,
 .app-icon-hover::after {
-  border-color: #FFFFFF;
-  background: #FFFFFF;
+  border-color: var(--icon-hover-color, #FFFFFF);
+  background: var(--icon-hover-color, #FFFFFF);
+}
+.app-icon-hover .icon-law-left,
+.app-icon-hover .icon-law-right {
+  border-color: var(--icon-hover-color, #FFFFFF);
 }
 
 /* Active/选中态 */
 .app-icon-active {
-  background: var(--primary-dark);
+  background: var(--icon-active-bg, var(--primary-dark));
 }
 .app-icon-active::before,
 .app-icon-active::after {
-  border-color: #FFFFFF;
-  background: #FFFFFF;
+  border-color: var(--icon-active-color, #FFFFFF);
+  background: var(--icon-active-color, #FFFFFF);
+}
+.app-icon-active .icon-law-left,
+.app-icon-active .icon-law-right {
+  border-color: var(--icon-active-color, #FFFFFF);
 }
 
 /* ===== 法律图标（天平） ===== */

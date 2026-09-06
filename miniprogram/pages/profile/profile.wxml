@@ -78,9 +78,7 @@
           bindtap="onFavoriteChannelTap"
           hover-class="item-row-hover"
         >
-          <view class="item-icon channel-icon">
-            <text class="icon-text">渠</text>
-          </view>
+          <view class="item-icon channel-icon app-icon app-icon-default icon-channel"></view>
           <view class="item-info">
             <text class="item-name">{{item.name}}</text>
             <text class="item-desc" wx:if="{{item.phone}}">{{item.phone}}</text>
@@ -114,9 +112,7 @@
           bindtap="onFavoriteScriptTap"
           hover-class="item-row-hover"
         >
-          <view class="item-icon script-icon">
-            <text class="icon-text">话</text>
-          </view>
+          <view class="item-icon script-icon app-icon app-icon-default icon-doc"></view>
           <view class="item-info">
             <text class="item-name">{{item.name}}</text>
             <text class="item-desc">{{item.applicable || '投诉话术'}}</text>
@@ -159,9 +155,7 @@
           bindtap="onViewHistoryTap"
           hover-class="item-row-hover"
         >
-          <view class="item-icon history-icon" style="background: {{item.typeColor}}15;">
-            <text class="icon-text" style="color: {{item.typeColor}};">{{item.item_type === 'channel' ? '渠' : '话'}}</text>
-          </view>
+          <view class="item-icon history-icon app-icon app-icon-default {{item.item_type === 'channel' ? 'icon-channel' : 'icon-doc'}}" style="--icon-bg: {{item.typeColor}}15; --icon-color: {{item.typeColor}}; --icon-hover-bg: {{item.typeColor}};"></view>
           <view class="item-info">
             <text class="item-name">{{item.item_name}}</text>
             <text class="item-desc">{{item.typeLabel}} · {{item.timeStr}}</text>
@@ -197,9 +191,7 @@
           bindtap="onToolTap"
           hover-class="item-row-hover"
         >
-          <view class="item-icon tool-icon" style="background: {{item.color}}15;">
-            <text class="icon-text" style="color: {{item.color}};">{{item.icon}}</text>
-          </view>
+          <view class="item-icon tool-icon app-icon app-icon-default {{item.iconClass}}" style="--icon-bg: {{item.color}}15; --icon-color: {{item.color}}; --icon-hover-bg: {{item.color}};"></view>
           <view class="item-info">
             <text class="item-name">{{item.name}}</text>
             <text class="item-desc">{{item.desc}}</text>

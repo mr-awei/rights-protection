@@ -223,9 +223,6 @@
   border-radius: 16rpx;
   margin-right: 20rpx;
   flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .icon-text {
@@ -235,19 +232,15 @@
 }
 
 .channel-icon {
-  background: #E8F3FC;
-}
-
-.channel-icon .icon-text {
-  color: #4A90D9;
+  --icon-bg: #E8F3FC;
+  --icon-color: #4A90D9;
+  --icon-hover-bg: #4A90D9;
 }
 
 .script-icon {
-  background: #E8F8EF;
-}
-
-.script-icon .icon-text {
-  color: #52C41A;
+  --icon-bg: #E8F8EF;
+  --icon-color: #52C41A;
+  --icon-hover-bg: #52C41A;
 }
 
 .history-icon {
