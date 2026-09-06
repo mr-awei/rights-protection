@@ -546,7 +546,7 @@ view, text, image, scroll-view, swiper, button, input, textarea {
   top: 35%;
   left: 35%;
   border-radius: 2rpx;
-  box-shadow: 0 8rpx 0 currentColor, 0 16rpx 0 currentColor;
+  box-shadow: 0 8rpx 0 var(--icon-color, var(--primary)), 0 16rpx 0 var(--icon-color, var(--primary));
 }
 
 /* ===== 提示/信息图标 ===== */
@@ -564,7 +564,7 @@ view, text, image, scroll-view, swiper, button, input, textarea {
   left: 50%;
   transform: translateX(-50%);
   border-radius: 2rpx;
-  box-shadow: 0 -10rpx 0 currentColor;
+  box-shadow: 0 -10rpx 0 var(--icon-color, var(--primary));
 }
 
 /* ===== 盒子/快递图标 ===== */
@@ -581,7 +581,7 @@ view, text, image, scroll-view, swiper, button, input, textarea {
   top: 32%;
   left: 22%;
   border-radius: 2rpx;
-  box-shadow: 0 18rpx 0 currentColor;
+  box-shadow: 0 18rpx 0 var(--icon-color, var(--primary));
 }
 
 /* ===== 手机图标 ===== */
@@ -598,6 +598,41 @@ view, text, image, scroll-view, swiper, button, input, textarea {
   bottom: 24%;
   left: 44%;
   border-radius: 50%;
+}
+
+/* ===== 购物袋图标 ===== */
+.icon-shop::before {
+  width: 50%;
+  height: 42%;
+  top: 38%;
+  left: 25%;
+  border-radius: 6rpx;
+}
+.icon-shop::after {
+  width: 26%;
+  height: 22%;
+  top: 20%;
+  left: 37%;
+  border-radius: 50% 50% 0 0;
+  border: 3px solid;
+  border-bottom: none;
+  background: transparent !important;
+}
+
+/* ===== 房子图标 ===== */
+.icon-home::before {
+  width: 50%;
+  height: 38%;
+  top: 45%;
+  left: 25%;
+  border-radius: 4rpx;
+}
+.icon-home::after {
+  width: 40%;
+  height: 22%;
+  top: 25%;
+  left: 30%;
+  border-radius: 4rpx;
 }
 
 /* ===== 公文包图标 ===== */
@@ -681,7 +716,7 @@ view, text, image, scroll-view, swiper, button, input, textarea {
   left: 50%;
   transform: translateX(-50%);
   border-radius: 2rpx;
-  box-shadow: 6rpx 10rpx 0 currentColor;
+  box-shadow: 6rpx 10rpx 0 var(--icon-color, var(--primary));
 }
 
 /* ===== 对话框/反馈图标 ===== */
