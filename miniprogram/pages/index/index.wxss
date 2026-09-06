@@ -7,7 +7,7 @@
 /* ========== 渐变头部 ========== */
 .gradient-header {
   background: linear-gradient(180deg, #4A90D9 0%, #5B9BD5 100%);
-  padding: 0 0 32rpx;
+  padding: 0 0 16rpx;
   position: relative;
   overflow: hidden;
   z-index: 1;
@@ -120,7 +120,7 @@
 /* ========== 内容区 ========== */
 .content {
   padding: 20rpx 24rpx 40rpx;
-  margin-top: -16rpx;
+  margin-top: -24rpx;
   position: relative;
   z-index: 2;
 }
@@ -269,7 +269,7 @@
 .script-item {
   display: flex;
   align-items: center;
-  padding: 24rpx;
+  padding: 20rpx;
   border-bottom: 1rpx solid #F8F8F8;
   transition: background 0.2s ease;
 }
@@ -283,11 +283,11 @@
 }
 
 .script-icon {
-  width: 64rpx;
-  height: 64rpx;
-  border-radius: 16rpx;
+  width: 56rpx;
+  height: 56rpx;
+  border-radius: 14rpx;
   background: #E8F8EF;
-  margin-right: 20rpx;
+  margin-right: 16rpx;
   flex-shrink: 0;
   display: flex;
   align-items: center;
@@ -296,7 +296,7 @@
 
 .script-icon::after {
   content: '话';
-  font-size: 28rpx;
+  font-size: 26rpx;
   font-weight: 600;
   color: #52C41A;
 }
@@ -307,17 +307,17 @@
 }
 
 .script-name {
-  font-size: 28rpx;
+  font-size: 27rpx;
   font-weight: 500;
   color: #1A1A1A;
-  margin-bottom: 6rpx;
+  margin-bottom: 4rpx;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
 .script-desc {
-  font-size: 24rpx;
+  font-size: 22rpx;
   color: #999999;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -325,9 +325,9 @@
 }
 
 .script-arrow {
-  font-size: 32rpx;
+  font-size: 28rpx;
   color: #DDDDDD;
-  margin-left: 12rpx;
+  margin-left: 8rpx;
   flex-shrink: 0;
 }
 

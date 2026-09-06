@@ -48,9 +48,6 @@ Page({
       isFavorite: app.isFavorite('channels', id)
     });
 
-    // 设置导航栏标题
-    wx.setNavigationBarTitle({ title: channel.name || '渠道详情' });
-
     // 第二批：异步加载关联内容（话术、法律依据），不阻塞首屏渲染
     setTimeout(() => {
       const relatedScripts = getRelatedScripts(id);
@@ -162,16 +159,16 @@ Page({
         const firstNumMatch = channel.phone.match(/\d{3,}/);
         cleanPhone = firstNumMatch ? firstNumMatch[0] : channel.phone.replace(/[^0-9-]/g, '');
       }
-      items.push({ icon: '📞', label: '投诉电话', value: channel.phone, cleanPhone: cleanPhone, action: 'call' });
+      items.push({ type: 'phone', label: '投诉电话', value: channel.phone, cleanPhone: cleanPhone, action: 'call' });
     }
     if (channel.website || channel.url) {
-      items.push({ icon: '🌐', label: '官方网站', value: channel.website || channel.url, action: 'visit' });
+      items.push({ type: 'website', label: '官方网站', value: channel.website || channel.url, action: 'visit' });
     }
     if (channel.regulator) {
-      items.push({ icon: '🏛️', label: '主管单位', value: channel.regulator, action: '' });
+      items.push({ type: 'other', label: '主管单位', value: channel.regulator, action: '' });
     }
     if (channel.phone_note) {
-      items.push({ icon: 'ℹ️', label: '电话说明', value: channel.phone_note, action: '' });
+      items.push({ type: 'other', label: '电话说明', value: channel.phone_note, action: '' });
     }
     return items;
   },
