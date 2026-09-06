@@ -1,4 +1,4 @@
-﻿/* pages/channel-detail/channel-detail.wxss */
+/* pages/channel-detail/channel-detail.wxss */
 
 /* ========== 加载状态 ========== */
 .loading-container {

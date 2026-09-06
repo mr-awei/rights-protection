@@ -1,4 +1,4 @@
-﻿<!--pages/category/category.wxml-->
+<!--pages/category/category.wxml-->
 <view class="container">
   <view class="category-layout">
     <!-- 左侧一级分类侧边栏 -->

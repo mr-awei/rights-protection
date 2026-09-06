@@ -1,4 +1,4 @@
-﻿/* pages/category/category.wxss */
+/* pages/category/category.wxss */
 .container {
   height: 100vh;
   background: #F5F6F8;

@@ -1,4 +1,4 @@
-﻿/* pages/general-template/general-template.wxss */
+/* pages/general-template/general-template.wxss */
 .container {
   min-height: 100vh;
   background: #F5F6F8;

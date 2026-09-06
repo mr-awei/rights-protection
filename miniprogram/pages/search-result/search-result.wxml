@@ -1,4 +1,4 @@
-﻿<!--pages/search-result/search-result.wxml-->
+<!--pages/search-result/search-result.wxml-->
 <view class="container" style="--status-bar-height: {{statusBarHeight}}px;">
   <!-- 搜索框 -->
   <view class="search-header">

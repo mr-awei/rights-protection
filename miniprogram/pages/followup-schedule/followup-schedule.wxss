@@ -1,4 +1,4 @@
-﻿/* pages/followup-schedule/followup-schedule.wxss */
+/* pages/followup-schedule/followup-schedule.wxss */
 .container {
   min-height: 100vh;
   background: #F5F6F8;

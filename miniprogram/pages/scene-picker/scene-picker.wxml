@@ -1,4 +1,4 @@
-﻿<!--pages/scene-picker/scene-picker.wxml-->
+<!--pages/scene-picker/scene-picker.wxml-->
 <view class="container">
   <!-- 头部说明 -->
   <view class="sp-header">

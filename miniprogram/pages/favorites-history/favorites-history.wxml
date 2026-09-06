@@ -1,4 +1,4 @@
-﻿<!--pages/favorites-history/favorites-history.wxml-->
+<!--pages/favorites-history/favorites-history.wxml-->
 <view class="container" style="--status-bar-height: {{statusBarHeight}}px;">
   <!-- 自定义导航栏 -->
   <view class="nav-bar">

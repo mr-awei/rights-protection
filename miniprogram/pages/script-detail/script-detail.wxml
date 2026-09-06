@@ -1,4 +1,4 @@
-﻿<!--pages/script-detail/script-detail.wxml-->
+<!--pages/script-detail/script-detail.wxml-->
 <!-- 加载状态 -->
 <view class="loading-container" wx:if="{{loading}}">
   <view class="loading-spinner"></view>

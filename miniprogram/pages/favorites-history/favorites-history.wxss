@@ -1,4 +1,4 @@
-﻿/* pages/favorites-history/favorites-history.wxss */
+/* pages/favorites-history/favorites-history.wxss */
 .container {
   min-height: 100vh;
   background: #F5F5F5;

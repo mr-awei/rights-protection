@@ -1,4 +1,4 @@
-﻿/* pages/scene-picker/scene-picker.wxss */
+/* pages/scene-picker/scene-picker.wxss */
 .container {
   min-height: 100vh;
   background: #F5F6F8;

@@ -1,4 +1,4 @@
-﻿/* pages/about/about.wxss */
+/* pages/about/about.wxss */
 .container {
   min-height: 100vh;
   background: #F5F6F8;

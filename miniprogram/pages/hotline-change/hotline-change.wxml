@@ -1,4 +1,4 @@
-﻿<!--pages/hotline-change/hotline-change.wxml-->
+<!--pages/hotline-change/hotline-change.wxml-->
 <view class="container" style="--status-bar-height: {{statusBarHeight}}px;">
   <!-- 渐变头部 -->
   <view class="gradient-header">
