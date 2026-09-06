@@ -105,7 +105,7 @@
           bindtap="onScriptTap"
           hover-class="script-item-hover"
         >
-          <view class="script-icon"></view>
+          <view class="script-icon app-icon app-icon-default icon-doc" style="--icon-bg: #E8F8EF; --icon-color: #52C41A; --icon-hover-bg: #52C41A;"></view>
           <view class="script-info">
             <text class="script-name">{{item.displayName || item.scene_name || item.name}}</text>
             <text class="script-desc">{{item.scene || '通用场景'}} · 电话版+书面版</text>
@@ -133,9 +133,7 @@
           bindtap="onRecentViewTap"
           hover-class="recent-item-hover"
         >
-          <view class="recent-type" style="background: {{item.typeColor}}15; color: {{item.typeColor}};">
-            <text>{{item.typeLabel}}</text>
-          </view>
+          <view class="recent-type app-icon app-icon-default {{item.item_type === 'channel' ? 'icon-channel' : 'icon-doc'}}" style="--icon-bg: {{item.typeColor}}15; --icon-color: {{item.typeColor}}; --icon-hover-bg: {{item.typeColor}};"></view>
           <view class="recent-info">
             <text class="recent-name">{{item.item_name}}</text>
             <text class="recent-time">{{item.timeStr}}</text>
