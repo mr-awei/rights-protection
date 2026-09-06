@@ -7,11 +7,12 @@
 /* ========== 渐变头部 ========== */
 .gradient-header {
   background: linear-gradient(135deg, #3B82F6 0%, #2563EB 50%, #1D4ED8 100%);
-  padding: 0 0 48rpx;
+  padding: 0 0 64rpx;
   position: relative;
   overflow: hidden;
   margin-top: calc(var(--status-bar-height, 0px) * -1);
   padding-top: var(--status-bar-height, 0px);
+  z-index: 1;
 }
 
 .gradient-header::before {
@@ -189,7 +190,7 @@
 
 /* ========== 内容区 ========== */
 .content {
-  padding: 0 28rpx;
+  padding: 0 32rpx;
   margin-top: 0;
   position: relative;
   z-index: 2;
@@ -200,7 +201,7 @@
 }
 
 .section:first-child {
-  margin-top: -8rpx;
+  margin-top: 0;
 }
 
 .section-header {
