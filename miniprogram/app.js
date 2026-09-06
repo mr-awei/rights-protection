@@ -81,6 +81,18 @@ App({
     return this.globalData.favorites[type] || [];
   },
 
+  // 取消收藏
+  removeFavorite(type, id) {
+    const list = this.globalData.favorites[type] || [];
+    const index = list.indexOf(id);
+    if (index > -1) {
+      list.splice(index, 1);
+      this.globalData.favorites[type] = list;
+      wx.setStorageSync('favorites', this.globalData.favorites);
+    }
+    return true;
+  },
+
   // 获取搜索历史
   getSearchHistory() {
     return this.globalData.searchHistory || [];

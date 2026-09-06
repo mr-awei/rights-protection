@@ -12,7 +12,8 @@
     "pages/followup-schedule/followup-schedule",
     "pages/enterprise-query/enterprise-query",
     "pages/search/search",
-    "pages/about/about"
+    "pages/about/about",
+    "pages/favorites-history/favorites-history"
   ],
   "window": {
     "backgroundTextStyle": "light",

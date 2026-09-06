@@ -224,11 +224,20 @@ Page({
   onStatTap(e) {
     const type = e.currentTarget.dataset.type;
     if (type === 'channels') {
-      this.setData({ activeFavTab: 'channels' });
-      wx.pageScrollTo({ selector: '#favorite-section', duration: 300 });
+      // 跳转到收藏历史页面，自动选中渠道Tab
+      wx.navigateTo({
+        url: '/pages/favorites-history/favorites-history?tab=channels'
+      });
     } else if (type === 'scripts') {
-      this.setData({ activeFavTab: 'scripts' });
-      wx.pageScrollTo({ selector: '#favorite-section', duration: 300 });
+      // 跳转到收藏历史页面，自动选中话术Tab
+      wx.navigateTo({
+        url: '/pages/favorites-history/favorites-history?tab=scripts'
+      });
+    } else if (type === 'viewHistory') {
+      // 跳转到收藏历史页面，自动选中历史Tab
+      wx.navigateTo({
+        url: '/pages/favorites-history/favorites-history?tab=history'
+      });
     } else if (type === 'search') {
       const history = app.getSearchHistory();
       if (history.length === 0) {
@@ -250,9 +259,22 @@ Page({
           }
         });
       }
-    } else if (type === 'viewHistory') {
-      wx.pageScrollTo({ selector: '#history-section', duration: 300 });
     }
+  },
+
+  // 查看全部收藏
+  onViewAllFavorites(e) {
+    const tab = e.currentTarget.dataset.tab || this.data.activeFavTab;
+    wx.navigateTo({
+      url: `/pages/favorites-history/favorites-history?tab=${tab}`
+    });
+  },
+
+  // 查看全部历史
+  onViewAllHistory() {
+    wx.navigateTo({
+      url: '/pages/favorites-history/favorites-history?tab=history'
+    });
   },
 
   // 工具箱点击

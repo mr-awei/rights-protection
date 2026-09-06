@@ -414,6 +414,39 @@
   font-weight: 500;
 }
 
+/* 查看全部按钮 */
+.view-all-btn {
+  display: flex;
+  align-items: center;
+  gap: 4rpx;
+  padding: 8rpx 16rpx;
+  border-radius: 12rpx;
+  background: #F8FAFC;
+}
+
+.view-all-btn text {
+  font-size: 24rpx;
+  color: #3B82F6;
+  font-weight: 500;
+}
+
+.view-all-arrow {
+  font-size: 28rpx !important;
+  color: #3B82F6 !important;
+  line-height: 1;
+}
+
+/* 更多提示 */
+.more-tip {
+  text-align: center;
+  padding: 20rpx 0 8rpx;
+}
+
+.more-tip text {
+  font-size: 24rpx;
+  color: #94A3B8;
+}
+
 .history-list {
   background: #FFFFFF;
   border-radius: 20rpx;

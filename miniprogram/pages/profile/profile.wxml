@@ -47,6 +47,10 @@
     <view class="section" id="favorite-section">
       <view class="section-header">
         <text class="section-title">⭐ 我的收藏</text>
+        <view class="view-all-btn" bindtap="onViewAllFavorites">
+          <text>查看全部</text>
+          <text class="view-all-arrow">›</text>
+        </view>
       </view>
       <!-- 收藏Tab切换 -->
       <view class="fav-tabs">
@@ -62,11 +66,11 @@
         >话术 ({{favoriteScripts}})</view>
       </view>
 
-      <!-- 收藏的渠道列表 -->
+      <!-- 收藏的渠道列表（只显示最近3条） -->
       <view class="fav-list" wx:if="{{activeFavTab === 'channels'}}">
         <view
           class="fav-item"
-          wx:for="{{favoriteChannelList}}"
+          wx:for="{{favoriteChannelList.slice(0, 3)}}"
           wx:key="id"
           data-id="{{item.id}}"
           bindtap="onFavoriteChannelTap"
@@ -87,13 +91,17 @@
           <view class="empty-title">还没有收藏渠道</view>
           <view class="empty-desc">看到有用的渠道就点⭐收藏吧</view>
         </view>
+        <!-- 更多提示 -->
+        <view class="more-tip" wx:if="{{favoriteChannelList.length > 3}}" bindtap="onViewAllFavorites" data-tab="channels">
+          <text>还有 {{favoriteChannelList.length - 3}} 条收藏，点击查看全部 ›</text>
+        </view>
       </view>
 
-      <!-- 收藏的话术列表 -->
+      <!-- 收藏的话术列表（只显示最近3条） -->
       <view class="fav-list" wx:if="{{activeFavTab === 'scripts'}}">
         <view
           class="fav-item"
-          wx:for="{{favoriteScriptList}}"
+          wx:for="{{favoriteScriptList.slice(0, 3)}}"
           wx:key="id"
           data-id="{{item.id}}"
           bindtap="onFavoriteScriptTap"
@@ -113,6 +121,10 @@
           <view class="empty-title">还没有收藏话术</view>
           <view class="empty-desc">看到有用的话术就点⭐收藏吧</view>
         </view>
+        <!-- 更多提示 -->
+        <view class="more-tip" wx:if="{{favoriteScriptList.length > 3}}" bindtap="onViewAllFavorites" data-tab="scripts">
+          <text>还有 {{favoriteScriptList.length - 3}} 条收藏，点击查看全部 ›</text>
+        </view>
       </view>
     </view>
 
@@ -120,14 +132,15 @@
     <view class="section" id="history-section">
       <view class="section-header">
         <text class="section-title">👀 浏览历史</text>
-        <view class="clear-btn" bindtap="onClearViewHistory" wx:if="{{viewHistoryList.length > 0}}">
-          <text>清空</text>
+        <view class="view-all-btn" bindtap="onViewAllHistory">
+          <text>查看全部</text>
+          <text class="view-all-arrow">›</text>
         </view>
       </view>
       <view class="history-list" wx:if="{{viewHistoryList.length > 0}}">
         <view
           class="history-item"
-          wx:for="{{viewHistoryList}}"
+          wx:for="{{viewHistoryList.slice(0, 3)}}"
           wx:key="item_id"
           data-item="{{item}}"
           bindtap="onViewHistoryTap"
@@ -141,6 +154,10 @@
             <text class="history-time">{{item.timeStr}}</text>
           </view>
           <text class="history-arrow">›</text>
+        </view>
+        <!-- 更多提示 -->
+        <view class="more-tip" wx:if="{{viewHistoryList.length > 3}}" bindtap="onViewAllHistory">
+          <text>还有 {{viewHistoryList.length - 3}} 条历史，点击查看全部 ›</text>
         </view>
       </view>
       <view class="empty-state" wx:if="{{viewHistoryList.length === 0}}">

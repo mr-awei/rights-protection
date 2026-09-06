@@ -1,0 +1,162 @@
+<!--pages/favorites-history/favorites-history.wxml-->
+<view class="container" style="--status-bar-height: {{statusBarHeight}}px;">
+  <!-- 自定义导航栏 -->
+  <view class="nav-bar">
+    <view class="nav-back" bindtap="onBack" hover-class="nav-back-hover">
+      <text class="nav-back-icon">‹</text>
+    </view>
+    <view class="nav-title">我的收藏与历史</view>
+    <view class="nav-placeholder"></view>
+  </view>
+
+  <!-- Tab切换 -->
+  <view class="tab-bar">
+    <view
+      class="tab-item {{activeTab === 'channels' ? 'active' : ''}}"
+      data-tab="channels"
+      bindtap="onTabTap"
+    >
+      <text class="tab-text">收藏渠道</text>
+      <text class="tab-count">{{channelTotal}}</text>
+    </view>
+    <view
+      class="tab-item {{activeTab === 'scripts' ? 'active' : ''}}"
+      data-tab="scripts"
+      bindtap="onTabTap"
+    >
+      <text class="tab-text">收藏话术</text>
+      <text class="tab-count">{{scriptTotal}}</text>
+    </view>
+    <view
+      class="tab-item {{activeTab === 'history' ? 'active' : ''}}"
+      data-tab="history"
+      bindtap="onTabTap"
+    >
+      <text class="tab-text">浏览历史</text>
+      <text class="tab-count">{{historyTotal}}</text>
+    </view>
+  </view>
+
+  <!-- 内容区 -->
+  <view class="content">
+    <!-- 收藏渠道列表 -->
+    <view class="list-container" wx:if="{{activeTab === 'channels'}}">
+      <view class="list" wx:if="{{channelList.length > 0}}">
+        <view
+          class="list-item"
+          wx:for="{{channelList}}"
+          wx:key="id"
+          data-id="{{item.id}}"
+          bindtap="onChannelTap"
+          hover-class="list-item-hover"
+        >
+          <view class="item-icon" style="background: #EFF6FF; color: #3B82F6;">🏛️</view>
+          <view class="item-info">
+            <text class="item-name">{{item.name}}</text>
+            <text class="item-meta" wx:if="{{item.phone}}">📞 {{item.phone}}</text>
+            <text class="item-meta" wx:else>{{item.category}}</text>
+          </view>
+          <view class="item-remove" catchtap="onRemoveChannel" data-id="{{item.id}}">
+            <text>✕</text>
+          </view>
+        </view>
+      </view>
+
+      <!-- 空状态 -->
+      <view class="empty-state" wx:if="{{channelList.length === 0}}">
+        <view class="empty-icon">⭐</view>
+        <view class="empty-title">还没有收藏渠道</view>
+        <view class="empty-desc">看到有用的渠道就点⭐收藏吧</view>
+      </view>
+
+      <!-- 加载更多 -->
+      <view class="load-more" wx:if="{{channelList.length > 0}}">
+        <text wx:if="{{channelHasMore && !loading}}">上拉加载更多</text>
+        <text wx:if="{{!channelHasMore}}">— 已经到底啦 —</text>
+        <text wx:if="{{loading}}">加载中...</text>
+      </view>
+    </view>
+
+    <!-- 收藏话术列表 -->
+    <view class="list-container" wx:if="{{activeTab === 'scripts'}}">
+      <view class="list" wx:if="{{scriptList.length > 0}}">
+        <view
+          class="list-item"
+          wx:for="{{scriptList}}"
+          wx:key="id"
+          data-id="{{item.id}}"
+          bindtap="onScriptTap"
+          hover-class="list-item-hover"
+        >
+          <view class="item-icon" style="background: #F0FDF4; color: #10B981;">📝</view>
+          <view class="item-info">
+            <text class="item-name">{{item.name}}</text>
+            <text class="item-meta">{{item.applicable || '投诉话术'}}</text>
+          </view>
+          <view class="item-remove" catchtap="onRemoveScript" data-id="{{item.id}}">
+            <text>✕</text>
+          </view>
+        </view>
+      </view>
+
+      <!-- 空状态 -->
+      <view class="empty-state" wx:if="{{scriptList.length === 0}}">
+        <view class="empty-icon">📝</view>
+        <view class="empty-title">还没有收藏话术</view>
+        <view class="empty-desc">看到有用的话术就点⭐收藏吧</view>
+      </view>
+
+      <!-- 加载更多 -->
+      <view class="load-more" wx:if="{{scriptList.length > 0}}">
+        <text wx:if="{{scriptHasMore && !loading}}">上拉加载更多</text>
+        <text wx:if="{{!scriptHasMore}}">— 已经到底啦 —</text>
+        <text wx:if="{{loading}}">加载中...</text>
+      </view>
+    </view>
+
+    <!-- 浏览历史列表 -->
+    <view class="list-container" wx:if="{{activeTab === 'history'}}">
+      <view class="history-header" wx:if="{{historyList.length > 0}}">
+        <text class="history-count">共 {{historyTotal}} 条浏览记录</text>
+        <view class="clear-btn" bindtap="onClearHistory">
+          <text>清空历史</text>
+        </view>
+      </view>
+
+      <view class="list" wx:if="{{historyList.length > 0}}">
+        <view
+          class="list-item"
+          wx:for="{{historyList}}"
+          wx:key="item_id"
+          data-item="{{item}}"
+          bindtap="onHistoryTap"
+          hover-class="list-item-hover"
+        >
+          <view class="item-icon" style="background: {{item.typeColor}}15; color: {{item.typeColor}};">
+            <text wx:if="{{item.type === 'channel'}}">🏛️</text>
+            <text wx:else>📝</text>
+          </view>
+          <view class="item-info">
+            <text class="item-name">{{item.item_name}}</text>
+            <text class="item-meta">{{item.typeLabel}} · {{item.timeStr}}</text>
+          </view>
+          <text class="item-arrow">›</text>
+        </view>
+      </view>
+
+      <!-- 空状态 -->
+      <view class="empty-state" wx:if="{{historyList.length === 0}}">
+        <view class="empty-icon">👀</view>
+        <view class="empty-title">还没有浏览记录</view>
+        <view class="empty-desc">去看看有哪些投诉渠道吧</view>
+      </view>
+
+      <!-- 加载更多 -->
+      <view class="load-more" wx:if="{{historyList.length > 0}}">
+        <text wx:if="{{historyHasMore && !loading}}">上拉加载更多</text>
+        <text wx:if="{{!historyHasMore}}">— 已经到底啦 —</text>
+        <text wx:if="{{loading}}">加载中...</text>
+      </view>
+    </view>
+  </view>
+</view>
