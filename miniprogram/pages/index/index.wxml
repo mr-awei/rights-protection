@@ -10,17 +10,17 @@
         </view>
       </view>
       <view class="header-stats">
-        <view class="stat-item">
+        <view class="stat-item" bindtap="onStatTap" data-type="channels" hover-class="stat-item-hover">
           <text class="stat-num">122</text>
           <text class="stat-label">投诉渠道</text>
         </view>
         <view class="stat-divider"></view>
-        <view class="stat-item">
+        <view class="stat-item" bindtap="onStatTap" data-type="scripts" hover-class="stat-item-hover">
           <text class="stat-num">6</text>
           <text class="stat-label">投诉话术</text>
         </view>
         <view class="stat-divider"></view>
-        <view class="stat-item">
+        <view class="stat-item" bindtap="onStatTap" data-type="categories" hover-class="stat-item-hover">
           <text class="stat-num">10</text>
           <text class="stat-label">维权分类</text>
         </view>

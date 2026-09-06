@@ -120,6 +120,11 @@
   align-items: center;
 }
 
+.stat-item-hover {
+  opacity: 0.7;
+  transform: scale(0.95);
+}
+
 .stat-number {
   font-size: 40rpx;
   font-weight: 800;

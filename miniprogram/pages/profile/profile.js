@@ -76,5 +76,56 @@ Page({
 
   onFavoriteTap() {
     wx.showToast({ title: '收藏功能开发中', icon: 'none' });
-  }
+  },
+
+  // 统计栏点击
+  onStatTap(e) {
+    const type = e.currentTarget.dataset.type;
+    
+    if (type === 'channels') {
+      const favorites = app.getFavorites('channels');
+      if (favorites.length === 0) {
+        wx.showToast({ title: '暂无收藏渠道', icon: 'none' });
+      } else {
+        wx.showModal({
+          title: `收藏的渠道（${favorites.length}个）`,
+          content: favorites.map((id, i) => `${i+1}. 渠道ID: ${id}`).join('\n'),
+          showCancel: false,
+          confirmText: '知道了'
+        });
+      }
+    } else if (type === 'scripts') {
+      const favorites = app.getFavorites('scripts');
+      if (favorites.length === 0) {
+        wx.showToast({ title: '暂无收藏话术', icon: 'none' });
+      } else {
+        wx.showModal({
+          title: `收藏的话术（${favorites.length}个）`,
+          content: favorites.map((id, i) => `${i+1}. 话术ID: ${id}`).join('\n'),
+          showCancel: false,
+          confirmText: '知道了'
+        });
+      }
+    } else if (type === 'search') {
+      const history = app.getSearchHistory();
+      if (history.length === 0) {
+        wx.showToast({ title: '暂无搜索记录', icon: 'none' });
+      } else {
+        wx.showModal({
+          title: `搜索历史（共${this.data.searchCount}次）`,
+          content: '最近搜索：\n' + history.slice(0, 10).map((k, i) => `${i+1}. ${k}`).join('\n'),
+          showCancel: true,
+          cancelText: '清空历史',
+          confirmText: '知道了',
+          success: (res) => {
+            if (res.cancel) {
+              app.clearSearchHistory();
+              this.onShow();
+              wx.showToast({ title: '搜索历史已清空', icon: 'success' });
+            }
+          }
+        });
+      }
+    }
+  },
 });

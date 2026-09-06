@@ -284,6 +284,17 @@
   border-bottom: none;
 }
 
+.law-item-hover {
+  background: #F8FAFC;
+  opacity: 0.8;
+}
+
+.law-arrow {
+  font-size: 32rpx;
+  color: #CBD5E1;
+  margin-left: 12rpx;
+}
+
 .law-icon {
   width: 64rpx;
   height: 64rpx;

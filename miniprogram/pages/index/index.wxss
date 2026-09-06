@@ -86,6 +86,11 @@
   align-items: center;
 }
 
+.stat-item-hover {
+  opacity: 0.7;
+  transform: scale(0.95);
+}
+
 .stat-num {
   font-size: 36rpx;
   font-weight: 700;

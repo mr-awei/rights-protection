@@ -18,17 +18,17 @@
 
       <!-- 统计数据 -->
       <view class="stats-row">
-        <view class="stat-item" bindtap="onFavoriteTap">
+        <view class="stat-item" bindtap="onStatTap" data-type="channels" hover-class="stat-item-hover">
           <text class="stat-number">{{favoriteChannels}}</text>
           <text class="stat-label">收藏渠道</text>
         </view>
         <view class="stat-divider"></view>
-        <view class="stat-item" bindtap="onFavoriteTap">
+        <view class="stat-item" bindtap="onStatTap" data-type="scripts" hover-class="stat-item-hover">
           <text class="stat-number">{{favoriteScripts}}</text>
           <text class="stat-label">收藏话术</text>
         </view>
         <view class="stat-divider"></view>
-        <view class="stat-item">
+        <view class="stat-item" bindtap="onStatTap" data-type="search" hover-class="stat-item-hover">
           <text class="stat-number">{{searchCount}}</text>
           <text class="stat-label">搜索次数</text>
         </view>

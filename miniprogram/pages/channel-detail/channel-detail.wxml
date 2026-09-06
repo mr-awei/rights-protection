@@ -71,12 +71,13 @@
         <text class="section-title">⚖️ 相关法律法规</text>
       </view>
       <view class="law-list">
-        <view class="law-item" wx:for="{{laws}}" wx:key="id">
+        <view class="law-item" wx:for="{{laws}}" wx:key="id" bindtap="onLawTap" data-law="{{item}}" hover-class="law-item-hover">
           <view class="law-icon">📖</view>
           <view class="law-info">
             <text class="law-name">{{item.name}}</text>
-            <text class="law-desc">{{item.description || item.article || ''}}</text>
+            <text class="law-desc">{{item.description || item.article || '点击复制法律名称'}}</text>
           </view>
+          <text class="law-arrow">›</text>
         </view>
       </view>
     </view>
