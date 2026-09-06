@@ -1,4 +1,8 @@
 /* pages/profile/profile.wxss */
+page {
+  background: #3B82F6;
+}
+
 .container {
   min-height: 100vh;
   background: #F8FAFC;
