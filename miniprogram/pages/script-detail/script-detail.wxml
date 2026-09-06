@@ -227,7 +227,7 @@
       </view>
     </view>
 
-    <view style="height: 160rpx;"></view>
+    <view style="height: 220rpx;"></view>
   </view>
 
   <!-- 底部操作栏 -->
