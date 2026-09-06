@@ -64,6 +64,8 @@
   display: flex;
   flex-wrap: wrap;
   gap: 16rpx;
+  padding: 24rpx 32rpx 8rpx;
+  margin-bottom: 16rpx;
 }
 
 .kw-tag {
@@ -111,10 +113,11 @@
   margin-right: 8rpx;
 }
 
-.scene-list {
+.scene-cards {
   display: flex;
   flex-direction: column;
-  gap: 24rpx;
+  gap: 32rpx;
+  padding: 0 32rpx;
 }
 
 .scene-card {
@@ -124,7 +127,6 @@
   box-shadow: 0 2rpx 12rpx rgba(0,0,0,0.04);
   transition: all 0.2s ease;
   border-left: 6rpx solid #3B82F6;
-  margin-bottom: 8rpx;
 }
 
 .scene-card:active {
@@ -193,9 +195,12 @@
 
 /* ========== 底部操作 ========== */
 .sp-footer {
-  padding: 32rpx 24rpx;
-  display: flex;
-  gap: 20rpx;
+  padding: 40rpx 32rpx 32rpx;
+  margin-top: 16rpx;
+  text-align: center;
+  font-size: 28rpx;
+  color: #3B82F6;
+  font-weight: 600;
 }
 
 .sp-btn {
