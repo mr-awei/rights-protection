@@ -3,7 +3,7 @@
   <!-- 渐变头部 -->
   <view class="gradient-header">
     <view class="header-content">
-      <view class="header-icon"></view>
+      <view class="header-icon app-icon app-icon-hover icon-building" style="width:64rpx;height:64rpx;margin-bottom:16rpx;"></view>
       <view class="header-title">企业信息查询</view>
       <view class="header-desc">4个官方查询平台，核实企业资质与信用</view>
     </view>
@@ -13,7 +13,7 @@
   <view class="content">
     <!-- 使用说明 -->
     <view class="tip-card">
-      <view class="tip-icon"></view>
+      <view class="tip-icon app-icon app-icon-default icon-info" style="width:32rpx;height:32rpx;margin-right:12rpx;flex-shrink:0;"></view>
       <view class="tip-text">投诉前先核实企业信息，确认企业全称、统一社会信用代码、法定代表人等信息，有助于提高投诉成功率。点击卡片查看详情，点击网址可复制。</view>
     </view>
 
@@ -27,15 +27,13 @@
         bindtap="onItemTap"
         hover-class="platform-item-hover"
       >
-        <view class="platform-icon" style="background: {{item.color || '#FEF2F2'}};">
-          <text>{{item.icon || ''}}</text>
-        </view>
+        <view class="platform-icon app-icon app-icon-default {{item.iconClass}}" style="--icon-bg: {{item.color}}15; --icon-color: {{item.color}}; --icon-hover-bg: {{item.color}};"></view>
         <view class="platform-info">
           <view class="platform-name">{{item.name}}</view>
-          <view class="platform-desc">{{item.short_desc || item.description}}</view>
-          <view class="platform-url" catchtap="onCopyUrl" data-url="{{item.url}}">
-            <text class="url-icon">�</text>
-            <text class="url-text">{{item.url}}</text>
+          <view class="platform-desc">{{item.tips}}</view>
+          <view class="platform-url" catchtap="onCopyUrl" data-url="{{item.website}}">
+            <view class="app-icon app-icon-default icon-copy" style="width:24rpx;height:24rpx;margin-right:8rpx;--icon-bg:transparent;--icon-color:#999;"></view>
+            <text class="url-text">{{item.website}}</text>
             <text class="url-copy">复制</text>
           </view>
         </view>
@@ -46,7 +44,7 @@
     <!-- 查询要点 -->
     <view class="points-card">
       <view class="points-header">
-        <text class="points-icon"></text>
+        <view class="points-icon app-icon app-icon-default icon-shield" style="width:32rpx;height:32rpx;margin-right:10rpx;"></view>
         <text class="points-title">查询要点</text>
       </view>
       <view class="points-list">

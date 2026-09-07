@@ -145,7 +145,8 @@
   border: 1rpx solid #FDE68A;
   border-radius: 20rpx;
   padding: 24rpx;
-  margin-bottom: 24rpx;
+  margin-top: 8rpx;
+  margin-bottom: 32rpx;
   border-left: 6rpx solid #F59E0B;
 }
 
@@ -184,6 +185,8 @@
   border: 1rpx solid #FECACA;
   border-radius: 20rpx;
   padding: 24rpx;
+  margin-top: 32rpx;
+  margin-bottom: 32rpx;
   border-left: 6rpx solid #DC2626;
 }
 

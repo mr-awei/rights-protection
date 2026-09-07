@@ -18,7 +18,19 @@ Page({
   },
 
   loadData() {
-    const list = getEnterpriseQueries() || [];
+    const rawList = getEnterpriseQueries() || [];
+    const iconMap = {
+      'eq_001': 'icon-building',
+      'eq_002': 'icon-star',
+      'eq_003': 'icon-law',
+      'eq_004': 'icon-shield'
+    };
+    const list = rawList.map(item => ({
+      ...item,
+      iconClass: iconMap[item.id] || 'icon-info',
+      description: item.tips || '',
+      url: item.website || ''
+    }));
     this.setData({ list });
   },
 

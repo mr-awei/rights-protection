@@ -3,7 +3,7 @@
   <!-- 渐变头部 -->
   <view class="gradient-header">
     <view class="header-content">
-      <view class="header-icon">⏰</view>
+      <view class="header-icon app-icon app-icon-hover icon-clock" style="width:64rpx;height:64rpx;margin-bottom:16rpx;"></view>
       <view class="header-title">投诉跟进时间表</view>
       <view class="header-desc">法定时限+升级路径，掌握投诉节奏</view>
     </view>
@@ -26,12 +26,16 @@
         </view>
         <view class="timeline-line" wx:if="{{index < list.length - 1}}"></view>
         <view class="timeline-content">
-          <view class="timeline-time">{{item.time}}</view>
-          <view class="timeline-title">{{item.title}}</view>
-          <view class="timeline-desc">{{item.description}}</view>
+          <view class="timeline-time">{{item.time_node}}</view>
+          <view class="timeline-title" wx:if="{{item.time_display}}">{{item.time_display}}</view>
+          <view class="timeline-desc" wx:if="{{item.legal_basis && item.legal_basis !== '—'}}">{{item.legal_basis}}</view>
           <view class="timeline-action" wx:if="{{item.action}}">
             <text class="action-label">建议动作：</text>
             <text class="action-text">{{item.action}}</text>
+          </view>
+          <view class="timeline-escalate" wx:if="{{item.escalate_to && item.escalate_to !== '—'}}">
+            <text class="escalate-label">升级路径：</text>
+            <text class="escalate-text">{{item.escalate_to}}</text>
           </view>
         </view>
       </view>
@@ -39,7 +43,7 @@
 
     <!-- 提示 -->
     <view class="tip-card">
-      <view class="tip-icon"></view>
+      <view class="tip-icon app-icon app-icon-default icon-info" style="width:32rpx;height:32rpx;margin-right:12rpx;flex-shrink:0;"></view>
       <view class="tip-text">以上时限为一般规定，具体以各监管部门实际处理流程为准。如遇超期未处理，可向上级部门投诉或申请行政复议。保留好所有沟通记录和证据。</view>
     </view>
 

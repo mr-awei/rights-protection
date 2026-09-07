@@ -191,12 +191,7 @@
 .feature-icon {
   width: 64rpx;
   height: 64rpx;
-  background: linear-gradient(135deg, #E8F3FC, #E8F3FC);
   border-radius: 16rpx;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 32rpx;
   margin-right: 16rpx;
   flex-shrink: 0;
 }
@@ -244,10 +239,10 @@
 }
 
 .link-icon {
-  font-size: 32rpx;
+  width: 48rpx;
+  height: 48rpx;
   margin-right: 16rpx;
-  width: 40rpx;
-  text-align: center;
+  flex-shrink: 0;
 }
 
 .link-name {

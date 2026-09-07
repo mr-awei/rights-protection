@@ -149,6 +149,24 @@
   color: #155E75;
 }
 
+.timeline-escalate {
+  background: #FEF3C7;
+  border-radius: 8rpx;
+  padding: 10rpx 14rpx;
+  margin-top: 8rpx;
+}
+
+.escalate-label {
+  font-size: 22rpx;
+  color: #92400E;
+  font-weight: 600;
+}
+
+.escalate-text {
+  font-size: 22rpx;
+  color: #78350F;
+}
+
 /* 提示卡片 */
 .tip-card {
   display: flex;
