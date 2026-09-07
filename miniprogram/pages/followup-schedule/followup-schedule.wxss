@@ -5,7 +5,7 @@
 }
 
 .gradient-header {
-  background: linear-gradient(135deg, #06B6D4 0%, #0891B2 50%, #0E7490 100%);
+  background: linear-gradient(135deg, #4A90D9 0%, #3A7BC8 50%, #2E6DB4 100%);
   padding: 0 0 40rpx;
   position: relative;
   overflow: hidden;

@@ -5,7 +5,7 @@
 }
 
 .gradient-header {
-  background: linear-gradient(135deg, #F59E0B 0%, #D97706 50%, #B45309 100%);
+  background: linear-gradient(135deg, #4A90D9 0%, #3A7BC8 50%, #2E6DB4 100%);
   padding: 0 0 40rpx;
   position: relative;
   overflow: hidden;
@@ -74,7 +74,7 @@
 }
 
 .filter-tab.active {
-  background: linear-gradient(135deg, #F59E0B, #D97706);
+  background: linear-gradient(135deg, #4A90D9, #3A7BC8);
   color: #FFFFFF;
   font-weight: 600;
 }

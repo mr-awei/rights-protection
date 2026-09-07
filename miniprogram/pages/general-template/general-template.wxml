@@ -17,7 +17,7 @@
     <!-- 使用说明 -->
     <view class="tip-card">
       <view class="tip-header">
-        <text class="tip-icon"></text>
+        <view class="tip-icon app-icon app-icon-default icon-info" style="width:32rpx;height:32rpx;margin-right:10rpx;--icon-bg:#FEF3C7;--icon-color:#D97706;"></view>
         <text class="tip-title">使用说明</text>
       </view>
       <view class="tip-content">
@@ -48,7 +48,7 @@
     <!-- 依法维权提示 -->
     <view class="legal-notice">
       <view class="legal-notice-header">
-        <text class="legal-icon">⚖</text>
+        <view class="legal-icon app-icon app-icon-default icon-law" style="width:32rpx;height:32rpx;margin-right:10rpx;--icon-bg:#FEE2E2;--icon-color:#DC2626;"></view>
         <text class="legal-title">依法维权提示</text>
       </view>
       <view class="legal-content">

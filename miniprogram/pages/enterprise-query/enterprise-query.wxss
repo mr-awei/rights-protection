@@ -5,7 +5,7 @@
 }
 
 .gradient-header {
-  background: linear-gradient(135deg, #EF4444 0%, #DC2626 50%, #B91C1C 100%);
+  background: linear-gradient(135deg, #4A90D9 0%, #3A7BC8 50%, #2E6DB4 100%);
   padding: 0 0 40rpx;
   position: relative;
   overflow: hidden;
@@ -205,7 +205,7 @@
 .point-num {
   width: 32rpx;
   height: 32rpx;
-  background: linear-gradient(135deg, #EF4444, #DC2626);
+  background: linear-gradient(135deg, #4A90D9, #3A7BC8);
   color: #FFFFFF;
   font-size: 20rpx;
   font-weight: 700;

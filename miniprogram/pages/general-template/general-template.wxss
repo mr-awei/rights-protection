@@ -6,7 +6,7 @@
 
 /* ========== 渐变头部 ========== */
 .gradient-header {
-  background: linear-gradient(135deg, #8B5CF6 0%, #7C3AED 50%, #6D28D9 100%);
+  background: linear-gradient(135deg, #4A90D9 0%, #3A7BC8 50%, #2E6DB4 100%);
   padding: 0 0 40rpx;
   position: relative;
   overflow: hidden;
@@ -88,7 +88,7 @@
 .section-num {
   width: 40rpx;
   height: 40rpx;
-  background: linear-gradient(135deg, #8B5CF6, #7C3AED);
+  background: linear-gradient(135deg, #4A90D9, #3A7BC8);
   color: #FFFFFF;
   font-size: 22rpx;
   font-weight: 700;
@@ -108,7 +108,7 @@
 }
 
 .copy-btn {
-  background: linear-gradient(135deg, #8B5CF6, #7C3AED);
+  background: linear-gradient(135deg, #4A90D9, #3A7BC8);
   padding: 8rpx 20rpx;
   border-radius: 12rpx;
   margin-left: auto;
@@ -145,8 +145,8 @@
   border: 1rpx solid #FDE68A;
   border-radius: 20rpx;
   padding: 24rpx;
-  margin-top: 8rpx;
-  margin-bottom: 32rpx;
+  margin-top: 24rpx;
+  margin-bottom: 40rpx;
   border-left: 6rpx solid #F59E0B;
 }
 
