@@ -8,7 +8,7 @@
 
 /* 概览卡片 */
 .overview-card {
-  background: linear-gradient(135deg, #1677FF, #0958D9);
+  background: linear-gradient(135deg, #4A90D9, #0958D9);
   border-radius: 20rpx;
   padding: 32rpx;
   margin-bottom: 24rpx;
@@ -146,7 +146,7 @@
 
 .keyword-bar {
   height: 100%;
-  background: linear-gradient(90deg, #1677FF, #69B1FF);
+  background: linear-gradient(90deg, #4A90D9, #69B1FF);
   border-radius: 4rpx;
 }
 
@@ -167,7 +167,7 @@
 
 .keyword-action text {
   font-size: var(--font-sm);
-  color: #1677FF;
+  color: #4A90D9;
 }
 
 .keyword-action-hover {
@@ -235,7 +235,7 @@
 }
 
 .action-btn.primary text {
-  color: #1677FF;
+  color: #4A90D9;
 }
 
 .action-btn-hover {
@@ -266,7 +266,7 @@
   align-items: center;
   justify-content: center;
   padding: 28rpx 0;
-  background: linear-gradient(135deg, #1677FF, #0958D9);
+  background: linear-gradient(135deg, #4A90D9, #0958D9);
   border-radius: 16rpx;
 }
 

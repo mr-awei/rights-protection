@@ -5,6 +5,7 @@
   "enablePullDownRefresh": false,
   "onReachBottomDistance": 50,
   "usingComponents": {
-    "custom-modal": "/components/custom-modal/custom-modal"
+    "custom-modal": "/components/custom-modal/custom-modal",
+    "empty-state": "/components/empty-state/empty-state"
   }
 }

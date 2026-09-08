@@ -1,4 +1,4 @@
-// utils/search.js
+﻿// utils/search.js
 // 搜索逻辑（关键词提取+场景匹配+名称匹配兜底）
 // 使用data.js的分片加载，支持扩展到几千条数据
 
@@ -25,7 +25,7 @@ function search(query) {
   // 0. 错别字自动纠正
   const correctedQuery = correctTypos(query);
   if (correctedQuery !== query) {
-    console.log('[搜索] 错别字纠正:', query, '→', correctedQuery);
+
   }
 
   // 1. 同义词扩展：用config里的synonyms对查询进行扩展，增加匹配概率
@@ -47,8 +47,6 @@ function search(query) {
   const scenes = kwResult.scenes;
   const domains = kwResult.domains || [];
   const issues = kwResult.issues || [];
-
-  console.log('[搜索] 原始查询:', query, '纠正后:', correctedQuery, '扩展后:', expandedQuery, '提取关键词:', keywords, '领域:', domains, '问题:', issues, '匹配场景:', scenes.length);
 
   // 3. 场景匹配
   if (scenes.length === 1) {

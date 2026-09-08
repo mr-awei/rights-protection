@@ -1,4 +1,8 @@
 {
   "navigationStyle": "custom",
-  "usingComponents": {}
+  "usingComponents": {
+    "ui-card": "/components/ui-card/ui-card",
+    "ui-tag": "/components/ui-tag/ui-tag",
+    "empty-state": "/components/empty-state/empty-state"
+  }
 }

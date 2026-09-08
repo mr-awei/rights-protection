@@ -1,4 +1,4 @@
-// utils/data.js
+﻿// utils/data.js
 // 数据管理（分片加载 + 内存缓存 + 按需查询）
 // 设计目标：支持扩展到几千条数据，单文件不超过500KB，启动速度快
 
@@ -78,7 +78,7 @@ function loadAllData() {
         }
         if (rebuiltIndex.length > 0) {
           channelIndex = rebuiltIndex;
-          console.log('[data] 索引已从分片自动重建，共' + rebuiltIndex.length + '条渠道');
+
         }
       } catch (e) {
         console.error('[data] 自动重建索引失败:', e);
@@ -141,7 +141,7 @@ function loadPart(partNum) {
   try {
     const part = require(`../data/channels_part_${partNum}.js`);
     channelParts[partNum] = part;
-    console.log(`[data] 已加载分片 ${partNum}，共 ${part.length} 条`);
+
     return part;
   } catch (e) {
     console.error(`[data] 加载分片 ${partNum} 失败:`, e);

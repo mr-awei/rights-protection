@@ -1,4 +1,4 @@
-// app.js
+﻿// app.js
 const { tracker } = require('./utils/tracker');
 
 App({
@@ -74,7 +74,7 @@ App({
       if (savedVersion !== this.globalData.dataVersion) {
         wx.setStorageSync('dataVersion', this.globalData.dataVersion);
         this.globalData._showChangelog = true;
-        console.log('[我不能被欺负] 数据版本已更新至', this.globalData.dataVersion);
+
       }
     } catch (e) {
       console.error('[启动] 检查数据版本失败:', e);
@@ -142,7 +142,7 @@ App({
       // 记录启动完成时间
       const launchDuration = Date.now() - startTime;
       this.globalData._launchDuration = launchDuration;
-      console.log('[我不能被欺负] 小程序启动完成，耗时:', launchDuration, 'ms，数据版本:', this.globalData.dataVersion);
+
     }, 0);
   },
 
@@ -165,7 +165,7 @@ App({
   markPageLoaded(pageName) {
     if (this.globalData._pageLoadTimes && this.globalData._pageLoadTimes[pageName]) {
       const duration = Date.now() - this.globalData._pageLoadTimes[pageName];
-      console.log('[性能] 页面', pageName, '加载耗时:', duration, 'ms');
+
       delete this.globalData._pageLoadTimes[pageName];
       return duration;
     }
@@ -631,7 +631,7 @@ App({
         success: (res) => {
           this.globalData._networkType = res.networkType;
           this.globalData._isOffline = res.networkType === 'none';
-          console.log('[离线] 初始网络状态:', res.networkType, '离线:', this.globalData._isOffline);
+
         }
       });
 
@@ -640,8 +640,6 @@ App({
         const wasOffline = this.globalData._isOffline;
         this.globalData._networkType = res.networkType;
         this.globalData._isOffline = !res.isConnected;
-
-        console.log('[离线] 网络状态变化:', res.networkType, '离线:', this.globalData._isOffline);
 
         // 从离线恢复在线时，提示用户
         if (wasOffline && !this.globalData._isOffline) {
@@ -674,7 +672,7 @@ App({
         // 预加载渠道索引（核心数据）- loadAllData是同步函数
         try {
           data.loadAllData();
-          console.log('[离线] 核心数据预加载完成');
+
         } catch (e) {
           console.error('[离线] 核心数据预加载失败:', e);
         }

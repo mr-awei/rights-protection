@@ -1,6 +1,6 @@
-{
+﻿{
   "navigationBarTitleText": "搜索质量看板",
-  "navigationBarBackgroundColor": "#1677FF",
+  "navigationBarBackgroundColor": "#4A90D9",
   "navigationBarTextStyle": "white",
   "usingComponents": {
     "custom-modal": "/components/custom-modal/custom-modal"

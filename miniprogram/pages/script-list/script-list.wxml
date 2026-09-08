@@ -1,4 +1,4 @@
-<!--pages/script-list/script-list.wxml-->
+﻿<!--pages/script-list/script-list.wxml-->
 <view class="container {{themeClass}}" style="--status-bar-height: {{statusBarHeight}}px;">
   <!-- 自定义导航栏 -->
   <view class="nav-bar">
@@ -42,8 +42,8 @@
         <view class="script-info">
           <text class="script-name">{{item.displayName}}</text>
           <view class="script-tags">
-            <view class="script-tag" wx:if="{{item.hasPhone}}"><view class="app-icon app-icon-default icon-phone" style="width:24rpx;height:24rpx;--icon-bg:transparent;--icon-color:#06B6D4;display:inline-block;vertical-align:middle;margin-right:6rpx;"></view>电话版</view>
-            <view class="script-tag" wx:if="{{item.hasWritten}}"><view class="app-icon app-icon-default icon-doc" style="width:24rpx;height:24rpx;--icon-bg:transparent;--icon-color:#52C41A;display:inline-block;vertical-align:middle;margin-right:6rpx;"></view>书面版</view>
+            <ui-tag wx:if="{{item.hasPhone}}" text="电话版" type="info" size="small"></ui-tag>
+            <ui-tag wx:if="{{item.hasWritten}}" text="书面版" type="success" size="small"></ui-tag>
           </view>
         </view>
         <view

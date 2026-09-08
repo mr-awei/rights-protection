@@ -1,6 +1,6 @@
-{
+﻿{
   "navigationBarTitleText": "我的",
-  "navigationBarBackgroundColor": "#60A5FA",
+  "navigationBarBackgroundColor": "#4A90D9",
   "navigationBarTextStyle": "white",
   "usingComponents": {
     "custom-modal": "/components/custom-modal/custom-modal"

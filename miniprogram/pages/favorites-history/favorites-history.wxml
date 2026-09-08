@@ -1,4 +1,4 @@
-<!--pages/favorites-history/favorites-history.wxml-->
+﻿<!--pages/favorites-history/favorites-history.wxml-->
 <view class="container {{themeClass}}" style="--status-bar-height: {{statusBarHeight}}px;">
   <!-- 自定义导航栏 -->
   <view class="nav-bar">
@@ -121,11 +121,7 @@
       </view>
 
       <!-- 空状态 -->
-      <view class="empty-state" wx:if="{{channelList.length === 0}}">
-        <view class="empty-icon"></view>
-        <view class="empty-title">还没有收藏渠道</view>
-        <view class="empty-desc">看到有用的渠道就点收藏吧</view>
-      </view>
+      <empty-state wx:if="{{channelList.length === 0}}" title="还没有收藏渠道" desc="看到有用的渠道就点收藏吧" icon-type="favorite"></empty-state>
 
       <!-- 加载更多 -->
       <view class="load-more" wx:if="{{channelList.length > 0}}">
@@ -163,11 +159,7 @@
       </view>
 
       <!-- 空状态 -->
-      <view class="empty-state" wx:if="{{scriptList.length === 0}}">
-        <view class="empty-icon"></view>
-        <view class="empty-title">还没有收藏话术</view>
-        <view class="empty-desc">看到有用的话术就点收藏吧</view>
-      </view>
+      <empty-state wx:if="{{scriptList.length === 0}}" title="还没有收藏话术" desc="看到有用的话术就点收藏吧" icon-type="favorite"></empty-state>
 
       <!-- 加载更多 -->
       <view class="load-more" wx:if="{{scriptList.length > 0}}">
@@ -209,11 +201,7 @@
       </view>
 
       <!-- 空状态 -->
-      <view class="empty-state" wx:if="{{historyList.length === 0}}">
-        <view class="empty-icon"></view>
-        <view class="empty-title">还没有浏览记录</view>
-        <view class="empty-desc">去看看有哪些投诉渠道吧</view>
-      </view>
+      <empty-state wx:if="{{historyList.length === 0}}" title="还没有浏览记录" desc="去看看有哪些投诉渠道吧" icon-type="history"></empty-state>
 
       <!-- 加载更多 -->
       <view class="load-more" wx:if="{{historyList.length > 0}}">

@@ -1,4 +1,4 @@
-// pages/scene-picker/scene-picker.js
+﻿// pages/scene-picker/scene-picker.js
 const { search } = require('../../utils/search');
 
 Page({
@@ -22,7 +22,6 @@ Page({
     }
 
     const result = search(keyword);
-    console.log('[场景选项卡] 关键词:', result.keywords, '场景数:', result.scenes.length);
 
     this.setData({
       keywords: result.keywords,

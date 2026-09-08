@@ -345,7 +345,7 @@
   color: #666;
 }
 .group-manage.active {
-  background: #1677FF;
+  background: #4A90D9;
   color: var(--text-inverse);
 }
 
@@ -380,7 +380,7 @@
   background: #EFF6FF;
 }
 .batch-btn.primary text {
-  color: #1677FF;
+  color: #4A90D9;
 }
 .batch-btn.danger {
   background: #FEF2F2;
@@ -411,8 +411,8 @@
   transition: all 0.2s ease;
 }
 .checkbox.checked {
-  background: #1677FF;
-  border-color: #1677FF;
+  background: #4A90D9;
+  border-color: #4A90D9;
   position: relative;
 }
 .checkbox.checked::after {

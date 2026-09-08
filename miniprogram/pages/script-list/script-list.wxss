@@ -6,7 +6,7 @@
 
 /* 自定义导航栏 */
 .nav-bar {
-  background: linear-gradient(135deg, #1677FF, #4096FF);
+  background: linear-gradient(135deg, #4A90D9, #4096FF);
   padding-top: var(--status-bar-height);
   padding-bottom: 24rpx;
 }
@@ -188,7 +188,7 @@
 
 .footer-hint {
   font-size: var(--font-base);
-  color: #1677FF;
+  color: #4A90D9;
 }
 
 .copy-btn {
@@ -232,7 +232,7 @@
 }
 
 .empty-btn {
-  background: linear-gradient(135deg, #1677FF, #4096FF);
+  background: linear-gradient(135deg, #4A90D9, #4096FF);
   color: var(--text-inverse);
   padding: 20rpx 48rpx;
   border-radius: 32rpx;

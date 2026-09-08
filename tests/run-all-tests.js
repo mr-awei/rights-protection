@@ -36,4 +36,11 @@ try {
   console.log('❌ 加载失败: synonyms.test.js -', e.message);
 }
 
+try {
+  require('./components.test.js');
+  console.log('✅ 加载: components.test.js');
+} catch (e) {
+  console.log('❌ 加载失败: components.test.js -', e.message);
+}
+
 console.log('\n所有测试文件加载完成，开始运行测试...');
