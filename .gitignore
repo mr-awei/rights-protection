@@ -57,3 +57,36 @@ screenshot2.png
 zhenji_debug.png
 laws-audit-report.txt
 laws-deep-audit-report.txt
+
+# 测试脚本（不上传远程仓库）
+tests/
+*.test.js
+test-runner.js
+
+# 临时图片（所有临时截图）
+*_screenshot.png
+*_debug.png
+*_temp.png
+*_tmp.png
+debug_*.png
+temp_*.png
+tmp_*.png
+
+# 临时文件
+*.tmp
+*.temp
+*_temp.*
+*_tmp.*
+temp/
+tmp/
+.cache/
+
+# 文档临时文件
+*.docx.tmp
+*.doc.tmp
+*.xlsx.tmp
+*.xls.tmp
+~$*.docx
+~$*.doc
+~$*.xlsx
+~$*.xls

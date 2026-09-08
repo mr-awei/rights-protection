@@ -1,7 +1,20 @@
 ﻿module.exports = {
-  "data_version": "2026.09",
-  "data_verified_at": "2026-09-07",
+  "data_version": "2026.09.1",
+  "data_verified_at": "2026-09-09",
   "changelog": [
+    {
+      "version": "2026.09.1",
+      "date": "2026-09-09",
+      "title": "V1.6 代码质量与组件化升级",
+      "items": [
+        "代码质量大提升：清理全部console.log残留，处理所有TODO标记",
+        "导航栏颜色全面统一为主题色#4A90D9",
+        "通用组件化：新增empty-state、loading-state、ui-card、ui-tag、list-item 5个通用组件",
+        "组件测试覆盖：新增33个组件单元测试，总测试用例达91个",
+        "话术占位符优化：XXXX占位符统一替换为【身份证后四位】",
+        "UI规范持续统一：原生弹窗0残留，文字icon 0残留，CSS变量864处使用"
+      ]
+    },
     {
       "version": "2026.09",
       "date": "2026-09-07",
