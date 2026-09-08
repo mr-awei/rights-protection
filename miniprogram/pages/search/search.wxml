@@ -1,4 +1,4 @@
-<!--pages/search/search.wxml-->
+﻿<!--pages/search/search.wxml-->
 <view class="container" style="--status-bar-height: {{statusBarHeight}}px;">
   <!-- 自定义导航栏 -->
   <view class="nav-bar">
@@ -111,3 +111,20 @@
     </view>
   </view>
 </view>
+
+<!-- 自定义弹窗 -->
+<custom-modal
+  visible="{{modalVisible}}"
+  type="{{modalType}}"
+  title="{{modalTitle}}"
+  content="{{modalContent}}"
+  confirmText="{{modalConfirmText}}"
+  cancelText="{{modalCancelText}}"
+  showCancel="{{modalShowCancel}}"
+  placeholder="{{modalPlaceholder}}"
+  defaultValue="{{modalDefaultValue}}"
+  itemList="{{modalItemList}}"
+  bind:confirm="onModalConfirm"
+  bind:cancel="onModalCancel"
+  bind:select="onModalSelect"
+/>
