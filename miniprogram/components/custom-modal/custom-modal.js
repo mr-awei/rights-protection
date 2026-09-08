@@ -47,6 +47,14 @@ Component({
     inputValue: ''
   },
 
+  lifetimes: {
+    attached() {
+      const defaults = { type: 'confirm', title: '提示', content: '', confirmText: '确定', cancelText: '取消', showCancel: true, placeholder: '请输入', defaultValue: '', itemList: [] };
+      const updates = {};
+      for (const key in defaults) { if (this.data[key] === null || this.data[key] === undefined) updates[key] = defaults[key]; }
+      if (Object.keys(updates).length > 0) this.setData(updates);
+    }
+  },
   observers: {
     'visible': function(val) {
       if (val && this.data.type === 'input') {

@@ -143,7 +143,7 @@ Page({
   // 开始愿景弹窗倒计时
   startVisionCountdown() {
     this.visionTimer = setInterval(() => {
-      let countdown = this.data.visionCountdown - 1;
+      let countdown = parseInt(this.data.visionCountdown) || 5; countdown = countdown - 1;
       if (countdown <= 0) {
         clearInterval(this.visionTimer);
         this.setData({ visionCountdown: 0, visionCanClose: true });

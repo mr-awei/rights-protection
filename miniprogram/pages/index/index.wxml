@@ -297,7 +297,7 @@
           class="footer-btn {{visionCanClose ? 'btn-active' : 'btn-disabled'}}" 
           bindtap="closeVisionModal"
         >
-          <text wx:if="{{!visionCanClose}}">{{visionCountdown}}秒后可关闭</text>
+          <text wx:if="{{!visionCanClose}}">{{visionCountdown || 5}}秒后可关闭</text>
           <text wx:else>我知道了</text>
         </view>
       </view>
