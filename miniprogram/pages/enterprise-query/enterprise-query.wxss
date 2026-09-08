@@ -1,11 +1,11 @@
-/* pages/enterprise-query/enterprise-query.wxss */
+﻿/* pages/enterprise-query/enterprise-query.wxss */
 .container {
   min-height: 100vh;
-  background: #F5F6F8;
+  background: var(--bg-page);
 }
 
 .gradient-header {
-  background: linear-gradient(135deg, #4A90D9 0%, #3A7BC8 50%, #2E6DB4 100%);
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 50%, #2E6DB4 100%);
   padding: 20rpx 0 28rpx;
   position: relative;
   overflow: hidden;
@@ -42,12 +42,12 @@
 .header-title {
   font-size: 38rpx;
   font-weight: 700;
-  color: #FFFFFF;
+  color: var(--text-inverse);
   line-height: 1.2;
 }
 
 .header-desc {
-  font-size: 22rpx;
+  font-size: var(--font-sm);
   color: rgba(255,255,255,0.85);
   line-height: 1.3;
   padding-left: 72rpx;
@@ -72,14 +72,14 @@
 }
 
 .tip-icon {
-  font-size: 28rpx;
+  font-size: var(--font-normal);
   margin-right: 12rpx;
   flex-shrink: 0;
 }
 
 .tip-text {
   flex: 1;
-  font-size: 24rpx;
+  font-size: var(--font-base);
   color: #78350F;
   line-height: 1.7;
 }
@@ -95,7 +95,7 @@
 .platform-item {
   display: flex;
   align-items: center;
-  background: #FFFFFF;
+  background: var(--bg-card);
   border-radius: 20rpx;
   padding: 24rpx;
   box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.04);
@@ -115,7 +115,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 36rpx;
+  font-size: var(--font-2xl);
   margin-right: 16rpx;
   flex-shrink: 0;
 }
@@ -126,15 +126,15 @@
 }
 
 .platform-name {
-  font-size: 28rpx;
+  font-size: var(--font-normal);
   font-weight: 700;
-  color: #1A1A1A;
+  color: var(--text-primary);
   margin-bottom: 4rpx;
 }
 
 .platform-desc {
-  font-size: 22rpx;
-  color: #666666;
+  font-size: var(--font-sm);
+  color: var(--text-secondary);
   line-height: 1.5;
   margin-bottom: 8rpx;
 }
@@ -142,41 +142,41 @@
 .platform-url {
   display: flex;
   align-items: center;
-  background: #F5F6F8;
+  background: var(--bg-page);
   border-radius: 8rpx;
   padding: 8rpx 12rpx;
 }
 
 .url-icon {
-  font-size: 20rpx;
+  font-size: var(--font-xs);
   margin-right: 6rpx;
 }
 
 .url-text {
   flex: 1;
-  font-size: 20rpx;
-  color: #3A7BC8;
+  font-size: var(--font-xs);
+  color: var(--primary-dark);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
 .url-copy {
-  font-size: 20rpx;
+  font-size: var(--font-xs);
   color: #EF4444;
   font-weight: 600;
   margin-left: 8rpx;
 }
 
 .platform-arrow {
-  font-size: 32rpx;
-  color: #CCCCCC;
+  font-size: var(--font-xl);
+  color: var(--text-quaternary);
   margin-left: 12rpx;
 }
 
 /* 查询要点 */
 .points-card {
-  background: #FFFFFF;
+  background: var(--bg-card);
   border-radius: 20rpx;
   padding: 24rpx;
   box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.04);
@@ -189,14 +189,14 @@
 }
 
 .points-icon {
-  font-size: 28rpx;
+  font-size: var(--font-normal);
   margin-right: 8rpx;
 }
 
 .points-title {
-  font-size: 28rpx;
+  font-size: var(--font-normal);
   font-weight: 700;
-  color: #1A1A1A;
+  color: var(--text-primary);
 }
 
 .points-list {
@@ -213,9 +213,9 @@
 .point-num {
   width: 32rpx;
   height: 32rpx;
-  background: linear-gradient(135deg, #4A90D9, #3A7BC8);
-  color: #FFFFFF;
-  font-size: 20rpx;
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  color: var(--text-inverse);
+  font-size: var(--font-xs);
   font-weight: 700;
   border-radius: 8rpx;
   display: flex;
@@ -227,8 +227,8 @@
 
 .point-text {
   flex: 1;
-  font-size: 24rpx;
-  color: #666666;
+  font-size: var(--font-base);
+  color: var(--text-secondary);
   line-height: 1.6;
   padding-top: 2rpx;
 }

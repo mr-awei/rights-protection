@@ -1,4 +1,4 @@
-/* pages/script-detail/script-detail.wxss */
+﻿/* pages/script-detail/script-detail.wxss */
 
 /* ========== 加载状态 ========== */
 .loading-container {
@@ -7,13 +7,13 @@
   align-items: center;
   justify-content: center;
   height: 100vh;
-  background: #F5F6F8;
+  background: var(--bg-page);
 }
 
 .loading-spinner {
   width: 60rpx;
   height: 60rpx;
-  border: 4rpx solid #EEEEEE;
+  border: 4rpx solid var(--border);
   border-top-color: #10B981;
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
@@ -25,13 +25,13 @@
 }
 
 .loading-text {
-  font-size: 26rpx;
-  color: #666666;
+  font-size: var(--font-md);
+  color: var(--text-secondary);
 }
 
 .container {
   min-height: 100vh;
-  background: #F5F6F8;
+  background: var(--bg-page);
 }
 
 /* ========== 渐变头部 ========== */
@@ -90,16 +90,16 @@
 }
 
 .badge-text {
-  font-size: 24rpx;
-  color: #FFFFFF;
+  font-size: var(--font-base);
+  color: var(--text-inverse);
   font-weight: 600;
   line-height: 1.2;
 }
 
 .script-title {
-  font-size: 30rpx;
+  font-size: var(--font-lg);
   font-weight: 700;
-  color: #FFFFFF;
+  color: var(--text-inverse);
   line-height: 1.4;
   word-break: break-all;
   overflow: hidden;
@@ -116,7 +116,7 @@
 }
 
 .meta-text {
-  font-size: 24rpx;
+  font-size: var(--font-base);
   color: rgba(255,255,255,0.85);
   line-height: 1.5;
 }
@@ -132,7 +132,7 @@
 /* ========== Tab切换 ========== */
 .tab-bar {
   display: flex;
-  background: #FFFFFF;
+  background: var(--bg-card);
   border-radius: 16rpx;
   padding: 8rpx;
   margin: -20rpx 0 24rpx;
@@ -161,13 +161,13 @@
 }
 
 .tab-text {
-  font-size: 26rpx;
-  color: #666666;
+  font-size: var(--font-md);
+  color: var(--text-secondary);
   font-weight: 500;
 }
 
 .tab-item.active .tab-text {
-  color: #FFFFFF;
+  color: var(--text-inverse);
   font-weight: 600;
 }
 
@@ -184,31 +184,31 @@
 }
 
 .section-title {
-  font-size: 30rpx;
+  font-size: var(--font-lg);
   font-weight: 700;
-  color: #1A1A1A;
+  color: var(--text-primary);
 }
 
 .section-count {
   margin-left: auto;
-  font-size: 22rpx;
-  color: #999999;
-  background: #F5F5F5;
+  font-size: var(--font-sm);
+  color: var(--text-tertiary);
+  background: var(--border-light);
   padding: 4rpx 12rpx;
   border-radius: 12rpx;
 }
 
 /* ========== 话术内容卡片 ========== */
 .script-card {
-  background: #FFFFFF;
+  background: var(--bg-card);
   border-radius: 20rpx;
   padding: 28rpx;
   box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.04);
 }
 
 .script-tip {
-  font-size: 24rpx;
-  color: #666666;
+  font-size: var(--font-base);
+  color: var(--text-secondary);
   line-height: 1.6;
   margin-bottom: 20rpx;
   background: #F0FDF4;
@@ -219,19 +219,19 @@
 
 .script-divider {
   height: 1rpx;
-  background: #F5F5F5;
+  background: var(--border-light);
   margin-bottom: 20rpx;
 }
 
 .script-text {
-  font-size: 26rpx;
+  font-size: var(--font-md);
   color: #334155;
   line-height: 1.8;
 }
 
 /* ========== 证据清单卡片 ========== */
 .evidence-card {
-  background: #FFFFFF;
+  background: var(--bg-card);
   border-radius: 20rpx;
   padding: 20rpx 24rpx;
   box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.04);
@@ -241,7 +241,7 @@
   display: flex;
   align-items: flex-start;
   padding: 16rpx 0;
-  border-bottom: 1rpx solid #F5F6F8;
+  border-bottom: 1rpx solid var(--bg-page);
 }
 
 .evidence-item:last-child {
@@ -252,8 +252,8 @@
   width: 40rpx;
   height: 40rpx;
   background: linear-gradient(135deg, #10B981, #059669);
-  color: #FFFFFF;
-  font-size: 22rpx;
+  color: var(--text-inverse);
+  font-size: var(--font-sm);
   font-weight: 600;
   border-radius: 10rpx;
   display: flex;
@@ -265,7 +265,7 @@
 
 .ev-text {
   flex: 1;
-  font-size: 26rpx;
+  font-size: var(--font-md);
   color: #334155;
   line-height: 1.6;
   padding-top: 4rpx;
@@ -279,7 +279,7 @@
 .channel-card {
   display: flex;
   align-items: center;
-  background: #FFFFFF;
+  background: var(--bg-card);
   border-radius: 16rpx;
   padding: 20rpx;
   margin-bottom: 12rpx;
@@ -287,7 +287,7 @@
 }
 
 .channel-card-hover {
-  background: #F5F6F8;
+  background: var(--bg-page);
 }
 
 .channel-icon {
@@ -299,7 +299,7 @@
 }
 
 .channel-icon-text {
-  font-size: 28rpx;
+  font-size: var(--font-normal);
   font-weight: 600;
   color: #16A34A;
   line-height: 1;
@@ -311,9 +311,9 @@
 }
 
 .channel-name {
-  font-size: 26rpx;
+  font-size: var(--font-md);
   font-weight: 600;
-  color: #1A1A1A;
+  color: var(--text-primary);
   line-height: 1.4;
   margin-bottom: 6rpx;
   display: block;
@@ -323,14 +323,14 @@
 }
 
 .channel-phone {
-  font-size: 22rpx;
+  font-size: var(--font-sm);
   color: #059669;
   font-weight: 500;
 }
 
 .channel-arrow {
-  font-size: 36rpx;
-  color: #CCCCCC;
+  font-size: var(--font-2xl);
+  color: var(--text-quaternary);
   font-weight: 300;
   margin-left: 12rpx;
 }
@@ -359,7 +359,7 @@
 }
 
 .legal-notice-title {
-  font-size: 26rpx;
+  font-size: var(--font-md);
   font-weight: 700;
   color: #059669;
 }
@@ -369,7 +369,7 @@
 }
 
 .legal-notice-text {
-  font-size: 22rpx;
+  font-size: var(--font-sm);
   color: #064E3B;
   line-height: 1.7;
   display: block;
@@ -382,7 +382,7 @@
   bottom: 0;
   left: 0;
   right: 0;
-  background: #FFFFFF;
+  background: var(--bg-card);
   padding: 16rpx 24rpx;
   padding-bottom: calc(16rpx + env(safe-area-inset-bottom));
   display: flex;
@@ -402,8 +402,8 @@
 }
 
 .btn-secondary {
-  background: #F5F5F5;
-  border: 1rpx solid #EEEEEE;
+  background: var(--border-light);
+  border: 1rpx solid var(--border);
 }
 
 .btn-primary {
@@ -412,21 +412,21 @@
 }
 
 .btn-icon {
-  font-size: 28rpx;
+  font-size: var(--font-normal);
   margin-right: 8rpx;
 }
 
 .btn-text {
-  font-size: 28rpx;
+  font-size: var(--font-normal);
   font-weight: 600;
 }
 
 .btn-secondary .btn-text {
-  color: #666666;
+  color: var(--text-secondary);
 }
 
 .btn-primary .btn-text {
-  color: #FFFFFF;
+  color: var(--text-inverse);
 }
 
 /* 分享按钮重置button默认样式 */
@@ -435,11 +435,11 @@
   padding: 24rpx 0;
   line-height: normal;
   border-radius: 16rpx;
-  background: #F5F5F5;
-  border: 1rpx solid #EEEEEE;
-  font-size: 28rpx;
+  background: var(--border-light);
+  border: 1rpx solid var(--border);
+  font-size: var(--font-normal);
   font-weight: 600;
-  color: #666666;
+  color: var(--text-secondary);
 }
 .share-btn::after {
   border: none;
@@ -465,8 +465,8 @@
 }
 
 .copy-btn-text {
-  font-size: 22rpx;
-  color: #FFFFFF;
+  font-size: var(--font-sm);
+  color: var(--text-inverse);
   font-weight: 600;
 }
 
@@ -478,7 +478,7 @@
 }
 
 .written-section {
-  background: #FFFFFF;
+  background: var(--bg-card);
   border-radius: 16rpx;
   overflow: hidden;
   box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.04);
@@ -494,7 +494,7 @@
 }
 
 .written-section-title {
-  font-size: 26rpx;
+  font-size: var(--font-md);
   font-weight: 700;
   color: #059669;
 }
@@ -511,21 +511,21 @@
 }
 
 .written-section-copy text {
-  font-size: 22rpx;
-  color: #FFFFFF;
+  font-size: var(--font-sm);
+  color: var(--text-inverse);
   font-weight: 600;
 }
 
 .written-section-content {
   padding: 20rpx;
-  font-size: 26rpx;
+  font-size: var(--font-md);
   color: #334155;
   line-height: 1.8;
 }
 
 /* ========== 法律依据卡片 ========== */
 .law-card {
-  background: #FFFFFF;
+  background: var(--bg-card);
   border-radius: 20rpx;
   padding: 24rpx;
   box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.04);
@@ -533,8 +533,8 @@
 }
 
 .law-basis-text {
-  font-size: 26rpx;
-  color: #666666;
+  font-size: var(--font-md);
+  color: var(--text-secondary);
   line-height: 1.8;
   margin-bottom: 16rpx;
 }
@@ -548,7 +548,7 @@
 .law-item {
   display: flex;
   align-items: center;
-  background: #F5F6F8;
+  background: var(--bg-page);
   border-radius: 12rpx;
   padding: 16rpx;
 }
@@ -562,7 +562,7 @@
 }
 
 .law-icon-text {
-  font-size: 24rpx;
+  font-size: var(--font-base);
   font-weight: 600;
   color: #7C3AED;
   line-height: 1;
@@ -576,15 +576,15 @@
 }
 
 .law-item-name {
-  font-size: 26rpx;
+  font-size: var(--font-md);
   font-weight: 600;
-  color: #1A1A1A;
+  color: var(--text-primary);
   margin-bottom: 4rpx;
 }
 
 .law-item-desc {
-  font-size: 22rpx;
-  color: #999999;
+  font-size: var(--font-sm);
+  color: var(--text-tertiary);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -602,7 +602,7 @@
   color: #fff;
   padding: 8rpx 20rpx;
   border-radius: 20rpx;
-  font-size: 22rpx;
+  font-size: var(--font-sm);
   font-weight: 500;
   flex-shrink: 0;
 }
@@ -612,7 +612,7 @@
   color: #fff;
   padding: 8rpx 20rpx;
   border-radius: 20rpx;
-  font-size: 22rpx;
+  font-size: var(--font-sm);
   font-weight: 500;
   flex-shrink: 0;
 }
@@ -626,7 +626,7 @@
 }
 
 .fill-form-title {
-  font-size: 26rpx;
+  font-size: var(--font-md);
   font-weight: 600;
   color: #92400E;
   margin-bottom: 20rpx;
@@ -648,7 +648,7 @@
 }
 
 .fill-form-label {
-  font-size: 24rpx;
+  font-size: var(--font-base);
   color: #78350F;
   font-weight: 500;
   width: 160rpx;
@@ -656,7 +656,7 @@
 }
 
 .fill-form-guide {
-  font-size: 20rpx;
+  font-size: var(--font-xs);
   color: #92400E;
   opacity: 0.7;
   margin-left: 8rpx;
@@ -666,14 +666,14 @@
 
 .fill-form-input {
   flex: 1;
-  font-size: 24rpx;
-  color: #1A1A1A;
+  font-size: var(--font-base);
+  color: var(--text-primary);
   min-width: 0;
 }
 
 .fill-placeholder {
-  color: #CCCCCC;
-  font-size: 22rpx;
+  color: var(--text-quaternary);
+  font-size: var(--font-sm);
 }
 
 .fill-form-actions {
@@ -689,7 +689,7 @@
   padding: 16rpx;
   border-radius: 12rpx;
   text-align: center;
-  font-size: 26rpx;
+  font-size: var(--font-md);
   font-weight: 500;
   border: 2rpx solid #E5E7EB;
 }
@@ -701,7 +701,7 @@
   padding: 16rpx;
   border-radius: 12rpx;
   text-align: center;
-  font-size: 26rpx;
+  font-size: var(--font-md);
   font-weight: 600;
 }
 
@@ -724,7 +724,7 @@
 }
 
 .custom-tip-text {
-  font-size: 24rpx;
+  font-size: var(--font-base);
   color: #065F46;
   font-weight: 500;
   flex: 1;

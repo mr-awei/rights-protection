@@ -1,4 +1,4 @@
-/* pages/channel-detail/channel-detail.wxss */
+﻿/* pages/channel-detail/channel-detail.wxss */
 
 /* ========== 加载状态 ========== */
 .loading-container {
@@ -7,14 +7,14 @@
   align-items: center;
   justify-content: center;
   height: 100vh;
-  background: #F5F6F8;
+  background: var(--bg-page);
 }
 
 .loading-spinner {
   width: 60rpx;
   height: 60rpx;
-  border: 4rpx solid #EEEEEE;
-  border-top-color: #4A90D9;
+  border: 4rpx solid var(--border);
+  border-top-color: var(--primary);
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
   margin-bottom: 20rpx;
@@ -25,19 +25,19 @@
 }
 
 .loading-text {
-  font-size: 26rpx;
-  color: #666666;
+  font-size: var(--font-md);
+  color: var(--text-secondary);
 }
 
 .container {
   min-height: 100vh;
-  background: #F5F6F8;
+  background: var(--bg-page);
   padding-bottom: 160rpx;
 }
 
 /* ========== 渐变头部 ========== */
 .gradient-header {
-  background: linear-gradient(135deg, #4A90D9 0%, #3A7BC8 50%, #2E6BB8 100%);
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 50%, #2E6BB8 100%);
   padding: 0 0 40rpx;
   position: relative;
   overflow: hidden;
@@ -92,16 +92,16 @@
 }
 
 .badge-text {
-  font-size: 24rpx;
-  color: #FFFFFF;
+  font-size: var(--font-base);
+  color: var(--text-inverse);
   font-weight: 600;
   line-height: 1.2;
 }
 
 .channel-title {
-  font-size: 30rpx;
+  font-size: var(--font-lg);
   font-weight: 700;
-  color: #FFFFFF;
+  color: var(--text-inverse);
   line-height: 1.4;
   word-break: break-all;
   overflow: hidden;
@@ -122,8 +122,8 @@
 .channel-tag {
   background: rgba(255,255,255,0.18);
   backdrop-filter: blur(10px);
-  color: #FFFFFF;
-  font-size: 22rpx;
+  color: var(--text-inverse);
+  font-size: var(--font-sm);
   padding: 8rpx 18rpx;
   border-radius: 16rpx;
   border: 1rpx solid rgba(255,255,255,0.25);
@@ -138,14 +138,14 @@
 }
 
 .issue-type-label {
-  font-size: 22rpx;
+  font-size: var(--font-sm);
   color: rgba(255,255,255,0.7);
 }
 
 .issue-type-tag {
   background: rgba(255,255,255,0.12);
   color: #FFE4B5;
-  font-size: 20rpx;
+  font-size: var(--font-xs);
   padding: 6rpx 14rpx;
   border-radius: 12rpx;
   border: 1rpx solid rgba(255,228,181,0.3);
@@ -168,14 +168,14 @@
 }
 
 .section-title {
-  font-size: 30rpx;
+  font-size: var(--font-lg);
   font-weight: 700;
-  color: #1A1A1A;
+  color: var(--text-primary);
 }
 
 /* ========== 联系方式卡片 ========== */
 .contact-card {
-  background: #FFFFFF;
+  background: var(--bg-card);
   border-radius: 24rpx;
   padding: 8rpx 24rpx;
   box-shadow: 0 2rpx 12rpx rgba(0,0,0,0.04);
@@ -185,7 +185,7 @@
   display: flex;
   align-items: center;
   padding: 24rpx 0;
-  border-bottom: 1rpx solid #F5F5F5;
+  border-bottom: 1rpx solid var(--border-light);
   transition: all 0.2s ease;
 }
 
@@ -195,7 +195,7 @@
 
 .contact-item.clickable:active {
   opacity: 0.7;
-  background: #F5F6F8;
+  background: var(--bg-page);
   margin: 0 -24rpx;
   padding: 24rpx;
   border-radius: 16rpx;
@@ -214,7 +214,7 @@
 
 .contact-icon-phone {
   --icon-bg: #E6F4FF;
-  --icon-color: #1890FF;
+  --icon-color: var(--info);
 }
 
 .contact-icon-website {
@@ -235,21 +235,21 @@
 }
 
 .contact-label {
-  font-size: 24rpx;
-  color: #999999;
+  font-size: var(--font-base);
+  color: var(--text-tertiary);
   margin-bottom: 4rpx;
 }
 
 .contact-value {
-  font-size: 28rpx;
-  color: #1A1A1A;
+  font-size: var(--font-normal);
+  color: var(--text-primary);
   font-weight: 600;
   word-break: break-all;
 }
 
 .contact-arrow {
-  font-size: 36rpx;
-  color: #CCCCCC;
+  font-size: var(--font-2xl);
+  color: var(--text-quaternary);
   font-weight: 300;
   margin-left: 12rpx;
 }
@@ -258,12 +258,12 @@
 .process-card,
 .info-card,
 .tips-card {
-  background: #FFFFFF;
+  background: var(--bg-card);
   border-radius: 24rpx;
   padding: 28rpx;
   box-shadow: 0 2rpx 12rpx rgba(0,0,0,0.04);
-  font-size: 26rpx;
-  color: #666666;
+  font-size: var(--font-md);
+  color: var(--text-secondary);
   line-height: 1.8;
 }
 
@@ -289,12 +289,12 @@
 }
 
 .legal-notice-icon {
-  font-size: 28rpx;
+  font-size: var(--font-normal);
   margin-right: 8rpx;
 }
 
 .legal-notice-title {
-  font-size: 26rpx;
+  font-size: var(--font-md);
   font-weight: 700;
   color: #DC2626;
 }
@@ -304,7 +304,7 @@
 }
 
 .legal-notice-text {
-  font-size: 22rpx;
+  font-size: var(--font-sm);
   color: #7F1D1D;
   line-height: 1.7;
   display: block;
@@ -313,7 +313,7 @@
 
 /* ========== 法律法规列表 ========== */
 .law-list {
-  background: #FFFFFF;
+  background: var(--bg-card);
   border-radius: 24rpx;
   padding: 8rpx 24rpx;
   box-shadow: 0 2rpx 12rpx rgba(0,0,0,0.04);
@@ -323,7 +323,7 @@
   display: flex;
   align-items: center;
   padding: 24rpx 0;
-  border-bottom: 1rpx solid #F5F5F5;
+  border-bottom: 1rpx solid var(--border-light);
 }
 
 .law-item:last-child {
@@ -331,13 +331,13 @@
 }
 
 .law-item-hover {
-  background: #F5F6F8;
+  background: var(--bg-page);
   opacity: 0.8;
 }
 
 .law-arrow {
-  font-size: 32rpx;
-  color: #CCCCCC;
+  font-size: var(--font-xl);
+  color: var(--text-quaternary);
   margin-left: 12rpx;
 }
 
@@ -345,7 +345,7 @@
   width: 56rpx;
   height: 56rpx;
   --icon-bg: #F6FFED;
-  --icon-color: #52C41A;
+  --icon-color: var(--success);
   border-radius: 14rpx;
   margin-right: 16rpx;
   flex-shrink: 0;
@@ -359,15 +359,15 @@
 }
 
 .law-name {
-  font-size: 28rpx;
-  color: #1A1A1A;
+  font-size: var(--font-normal);
+  color: var(--text-primary);
   font-weight: 600;
   margin-bottom: 4rpx;
 }
 
 .law-desc {
-  font-size: 22rpx;
-  color: #999999;
+  font-size: var(--font-sm);
+  color: var(--text-tertiary);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -383,11 +383,11 @@
 .script-card {
   display: flex;
   align-items: center;
-  background: #FFFFFF;
+  background: var(--bg-card);
   border-radius: 20rpx;
   padding: 24rpx;
   box-shadow: 0 2rpx 12rpx rgba(0,0,0,0.04);
-  border-left: 6rpx solid #4A90D9;
+  border-left: 6rpx solid var(--primary);
   transition: all 0.2s ease;
 }
 
@@ -400,7 +400,7 @@
   width: 56rpx;
   height: 56rpx;
   --icon-bg: #E8F8EF;
-  --icon-color: #52C41A;
+  --icon-color: var(--success);
   border-radius: 14rpx;
   margin-right: 16rpx;
   flex-shrink: 0;
@@ -414,20 +414,20 @@
 }
 
 .script-name {
-  font-size: 28rpx;
-  color: #1A1A1A;
+  font-size: var(--font-normal);
+  color: var(--text-primary);
   font-weight: 600;
   margin-bottom: 4rpx;
 }
 
 .script-meta {
-  font-size: 22rpx;
-  color: #999999;
+  font-size: var(--font-sm);
+  color: var(--text-tertiary);
 }
 
 .script-arrow {
-  font-size: 36rpx;
-  color: #CCCCCC;
+  font-size: var(--font-2xl);
+  color: var(--text-quaternary);
   font-weight: 300;
 }
 
@@ -439,7 +439,7 @@
   right: 0;
   display: flex;
   align-items: center;
-  background: #FFFFFF;
+  background: var(--bg-card);
   padding: 20rpx 24rpx;
   padding-bottom: calc(20rpx + env(safe-area-inset-bottom));
   box-shadow: 0 -4rpx 20rpx rgba(0,0,0,0.08);
@@ -457,7 +457,7 @@
   width: 48rpx;
   height: 48rpx;
   border-radius: 50%;
-  background: #F5F6F8;
+  background: var(--bg-page);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -469,18 +469,18 @@
 }
 
 .bottom-icon-text {
-  font-size: 24rpx;
+  font-size: var(--font-base);
   font-weight: 600;
-  color: #666666;
+  color: var(--text-secondary);
 }
 
 .bottom-icon-active .bottom-icon-text {
-  color: #FAAD14;
+  color: var(--warning);
 }
 
 .bottom-label {
-  font-size: 20rpx;
-  color: #666666;
+  font-size: var(--font-xs);
+  color: var(--text-secondary);
 }
 
 .bottom-btn {
@@ -488,7 +488,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #4A90D9, #3A7BC8);
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
   border-radius: 28rpx;
   padding: 24rpx;
   margin-left: 16rpx;
@@ -502,8 +502,8 @@
 }
 
 .bottom-btn-text {
-  color: #FFFFFF;
-  font-size: 30rpx;
+  color: var(--text-inverse);
+  font-size: var(--font-lg);
   font-weight: 700;
 }
 
@@ -513,8 +513,8 @@
   align-items: center;
   justify-content: center;
   height: 100vh;
-  font-size: 28rpx;
-  color: #999999;
+  font-size: var(--font-normal);
+  color: var(--text-tertiary);
 }
 
 /* ========== 渠道状态提示条 ========== */
@@ -549,12 +549,12 @@
 }
 
 .status-banner-icon {
-  font-size: 28rpx;
+  font-size: var(--font-normal);
   margin-right: 8rpx;
 }
 
 .status-banner-title {
-  font-size: 28rpx;
+  font-size: var(--font-normal);
   font-weight: 700;
   color: #92400E;
 }
@@ -564,7 +564,7 @@
 }
 
 .status-banner-message {
-  font-size: 24rpx;
+  font-size: var(--font-base);
   color: #78350F;
   line-height: 1.6;
   display: block;
@@ -578,7 +578,7 @@
 .status-replacement {
   display: flex;
   align-items: center;
-  background: #FFFFFF;
+  background: var(--bg-card);
   border-radius: 12rpx;
   padding: 16rpx 20rpx;
   transition: all 0.2s ease;
@@ -596,27 +596,27 @@
 }
 
 .status-replacement-label {
-  font-size: 20rpx;
-  color: #999999;
+  font-size: var(--font-xs);
+  color: var(--text-tertiary);
   margin-bottom: 4rpx;
 }
 
 .status-replacement-name {
-  font-size: 26rpx;
+  font-size: var(--font-md);
   font-weight: 600;
-  color: #1A1A1A;
+  color: var(--text-primary);
   margin-bottom: 2rpx;
 }
 
 .status-replacement-phone {
-  font-size: 22rpx;
-  color: #4A90D9;
+  font-size: var(--font-sm);
+  color: var(--primary);
   font-weight: 500;
 }
 
 .status-replacement-arrow {
-  font-size: 32rpx;
-  color: #CCCCCC;
+  font-size: var(--font-xl);
+  color: var(--text-quaternary);
   margin-left: 12rpx;
 }
 
@@ -626,35 +626,35 @@
   border: 1rpx solid #FDE68A;
   border-radius: 20rpx;
   padding: 24rpx;
-  font-size: 26rpx;
+  font-size: var(--font-md);
   color: #78350F;
   line-height: 1.8;
 }
 
 /* ========== 信息来源卡片 ========== */
 .source-card {
-  background: #F5F6F8;
+  background: var(--bg-page);
   border-radius: 16rpx;
   padding: 20rpx 24rpx;
-  border: 1rpx solid #EEEEEE;
+  border: 1rpx solid var(--border);
 }
 
 .source-text {
-  font-size: 22rpx;
-  color: #666666;
+  font-size: var(--font-sm);
+  color: var(--text-secondary);
   line-height: 1.6;
   display: block;
   margin-bottom: 6rpx;
 }
 
 .source-tip {
-  font-size: 20rpx;
-  color: #999999;
+  font-size: var(--font-xs);
+  color: var(--text-tertiary);
   line-height: 1.5;
   display: block;
   margin-top: 8rpx;
   padding-top: 12rpx;
-  border-top: 1rpx solid #EEEEEE;
+  border-top: 1rpx solid var(--border);
 }
 
 
@@ -693,7 +693,7 @@
 }
 
 .law-modal-title {
-  font-size: 32rpx;
+  font-size: var(--font-xl);
   font-weight: 600;
   color: #1a1a1a;
   flex: 1;
@@ -725,7 +725,7 @@
 }
 
 .law-modal-close .icon-close {
-  font-size: 36rpx;
+  font-size: var(--font-2xl);
   color: #999;
 }
 
@@ -744,7 +744,7 @@
 }
 
 .law-article-text {
-  font-size: 26rpx;
+  font-size: var(--font-md);
   color: #333;
   line-height: 2;
   white-space: pre-wrap;
@@ -763,7 +763,7 @@
   line-height: 80rpx;
   background: #4a90d9;
   color: #fff;
-  font-size: 28rpx;
+  font-size: var(--font-normal);
   border-radius: 12rpx;
   border: none;
 }
@@ -783,7 +783,7 @@
 }
 
 .law-disclaimer-text {
-  font-size: 22rpx;
+  font-size: var(--font-sm);
   color: #8a6d3b;
   line-height: 1.6;
 }

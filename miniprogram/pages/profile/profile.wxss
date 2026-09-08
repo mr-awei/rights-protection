@@ -1,12 +1,12 @@
-/* pages/profile/profile.wxss */
+﻿/* pages/profile/profile.wxss */
 .container {
   min-height: 100vh;
-  background: #F5F6F8;
+  background: var(--bg-page);
 }
 
 /* ========== 渐变头部 ========== */
 .gradient-header {
-  background: linear-gradient(180deg, #4A90D9 0%, #5B9BD5 100%);
+  background: linear-gradient(180deg, var(--primary) 0%, var(--primary-light) 100%);
   padding: 0 0 32rpx;
   position: relative;
   overflow: hidden;
@@ -48,15 +48,15 @@
 }
 
 .user-name {
-  font-size: 36rpx;
+  font-size: var(--font-2xl);
   font-weight: 600;
-  color: #FFFFFF;
+  color: var(--text-inverse);
   display: block;
   margin-bottom: 8rpx;
 }
 
 .user-desc {
-  font-size: 24rpx;
+  font-size: var(--font-base);
   color: rgba(255,255,255,0.8);
   display: block;
 }
@@ -69,9 +69,9 @@
 }
 
 .level-text {
-  font-size: 22rpx;
+  font-size: var(--font-sm);
   font-weight: 600;
-  color: #FFFFFF;
+  color: var(--text-inverse);
 }
 
 /* ========== 统计数据 ========== */
@@ -96,14 +96,14 @@
 }
 
 .stat-number {
-  font-size: 40rpx;
+  font-size: var(--font-3xl);
   font-weight: 700;
-  color: #FFFFFF;
+  color: var(--text-inverse);
   line-height: 1.2;
 }
 
 .stat-label {
-  font-size: 22rpx;
+  font-size: var(--font-sm);
   color: rgba(255,255,255,0.8);
   margin-top: 6rpx;
 }
@@ -124,7 +124,7 @@
 
 /* ========== 卡片 ========== */
 .card {
-  background: #FFFFFF;
+  background: var(--bg-card);
   border-radius: 16rpx;
   margin-bottom: 20rpx;
   overflow: hidden;
@@ -139,9 +139,9 @@
 }
 
 .card-title {
-  font-size: 30rpx;
+  font-size: var(--font-lg);
   font-weight: 600;
-  color: #1A1A1A;
+  color: var(--text-primary);
 }
 
 .card-more {
@@ -151,13 +151,13 @@
 }
 
 .card-more text {
-  font-size: 24rpx;
-  color: #999999;
+  font-size: var(--font-base);
+  color: var(--text-tertiary);
 }
 
 .more-arrow {
-  font-size: 28rpx !important;
-  color: #CCCCCC !important;
+  font-size: var(--font-normal) !important;
+  color: var(--text-quaternary) !important;
   line-height: 1;
 }
 
@@ -165,22 +165,22 @@
 .tab-row {
   display: flex;
   padding: 0 24rpx;
-  border-bottom: 1rpx solid #F5F5F5;
+  border-bottom: 1rpx solid var(--border-light);
 }
 
 .tab-item {
   flex: 1;
   text-align: center;
   padding: 16rpx 0 20rpx;
-  font-size: 28rpx;
-  color: #999999;
+  font-size: var(--font-normal);
+  color: var(--text-tertiary);
   font-weight: 500;
   position: relative;
   transition: color 0.2s ease;
 }
 
 .tab-item.active {
-  color: #1A1A1A;
+  color: var(--text-primary);
   font-weight: 600;
 }
 
@@ -192,7 +192,7 @@
   transform: translateX(-50%);
   width: 36rpx;
   height: 4rpx;
-  background: #4A90D9;
+  background: var(--primary);
   border-radius: 2rpx;
 }
 
@@ -226,21 +226,21 @@
 }
 
 .icon-text {
-  font-size: 28rpx;
+  font-size: var(--font-normal);
   font-weight: 600;
   line-height: 1;
 }
 
 .channel-icon {
-  --icon-bg: #E8F3FC;
-  --icon-color: #4A90D9;
-  --icon-hover-bg: #4A90D9;
+  --icon-bg: var(--primary-bg);
+  --icon-color: var(--primary);
+  --icon-hover-bg: var(--primary);
 }
 
 .script-icon {
   --icon-bg: #E8F8EF;
-  --icon-color: #52C41A;
-  --icon-hover-bg: #52C41A;
+  --icon-color: var(--success);
+  --icon-hover-bg: var(--success);
 }
 
 .history-icon {
@@ -248,7 +248,7 @@
 }
 
 .tool-icon {
-  background: #F5F5F5;
+  background: var(--border-light);
 }
 
 .item-info {
@@ -259,9 +259,9 @@
 }
 
 .item-name {
-  font-size: 28rpx;
+  font-size: var(--font-normal);
   font-weight: 500;
-  color: #1A1A1A;
+  color: var(--text-primary);
   margin-bottom: 6rpx;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -269,8 +269,8 @@
 }
 
 .item-desc {
-  font-size: 24rpx;
-  color: #999999;
+  font-size: var(--font-base);
+  color: var(--text-tertiary);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -283,19 +283,19 @@
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  background: #F5F5F5;
+  background: var(--border-light);
   margin-left: 16rpx;
   flex-shrink: 0;
 }
 
 .item-remove text {
-  font-size: 24rpx;
+  font-size: var(--font-base);
   color: #BBBBBB;
   font-weight: 500;
 }
 
 .item-arrow {
-  font-size: 32rpx;
+  font-size: var(--font-xl);
   color: #DDDDDD;
   margin-left: 12rpx;
   flex-shrink: 0;
@@ -308,15 +308,15 @@
 }
 
 .empty-title {
-  font-size: 28rpx;
-  color: #999999;
+  font-size: var(--font-normal);
+  color: var(--text-tertiary);
   display: block;
   margin-bottom: 8rpx;
 }
 
 .empty-desc {
-  font-size: 24rpx;
-  color: #CCCCCC;
+  font-size: var(--font-base);
+  color: var(--text-quaternary);
   display: block;
 }
 
@@ -330,8 +330,8 @@
 }
 
 .more-row text {
-  font-size: 24rpx;
-  color: #999999;
+  font-size: var(--font-base);
+  color: var(--text-tertiary);
 }
 
 /* ========== 数据概览 ========== */
@@ -350,14 +350,14 @@
 }
 
 .stats-num {
-  font-size: 36rpx;
+  font-size: var(--font-2xl);
   font-weight: 700;
-  color: #4A90D9;
+  color: var(--primary);
 }
 
 .stats-label {
-  font-size: 22rpx;
-  color: #999999;
+  font-size: var(--font-sm);
+  color: var(--text-tertiary);
   margin-top: 6rpx;
 }
 
@@ -397,21 +397,21 @@
 }
 
 .friend-link-name {
-  font-size: 28rpx;
+  font-size: var(--font-normal);
   font-weight: 600;
-  color: #1A1A1A;
+  color: var(--text-primary);
   margin-bottom: 4rpx;
 }
 
 .friend-link-desc {
-  font-size: 22rpx;
-  color: #999999;
+  font-size: var(--font-sm);
+  color: var(--text-tertiary);
   line-height: 1.4;
 }
 
 .friend-link-arrow {
-  font-size: 32rpx;
-  color: #CCCCCC;
+  font-size: var(--font-xl);
+  color: var(--text-quaternary);
   margin-left: 12rpx;
   flex-shrink: 0;
 }
@@ -423,14 +423,14 @@
 }
 
 .footer-version {
-  font-size: 22rpx;
-  color: #CCCCCC;
+  font-size: var(--font-sm);
+  color: var(--text-quaternary);
   display: block;
   margin-bottom: 8rpx;
 }
 
 .footer-copyright {
-  font-size: 20rpx;
+  font-size: var(--font-xs);
   color: #DDDDDD;
   display: block;
 }
@@ -463,7 +463,7 @@
 }
 
 .quick-name {
-  font-size: 24rpx;
+  font-size: var(--font-base);
   color: #333333;
   font-weight: 500;
 }

@@ -1,13 +1,13 @@
-/* pages/scene-picker/scene-picker.wxss */
+﻿/* pages/scene-picker/scene-picker.wxss */
 .container {
   min-height: 100vh;
-  background: #F5F6F8;
+  background: var(--bg-page);
   padding-bottom: 60rpx;
 }
 
 /* ========== 渐变头部 ========== */
 .sp-header {
-  background: linear-gradient(135deg, #4A90D9 0%, #3A7BC8 50%, #2E6BB8 100%);
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 50%, #2E6BB8 100%);
   padding: 56rpx 32rpx 48rpx;
   text-align: center;
   position: relative;
@@ -26,16 +26,16 @@
 }
 
 .sp-title {
-  font-size: 36rpx;
+  font-size: var(--font-2xl);
   font-weight: 800;
-  color: #FFFFFF;
+  color: var(--text-inverse);
   margin-bottom: 12rpx;
   position: relative;
   z-index: 1;
 }
 
 .sp-subtitle {
-  font-size: 24rpx;
+  font-size: var(--font-base);
   color: rgba(255,255,255,0.85);
   position: relative;
   z-index: 1;
@@ -47,8 +47,8 @@
 }
 
 .keyword-label {
-  font-size: 26rpx;
-  color: #666666;
+  font-size: var(--font-md);
+  color: var(--text-secondary);
   font-weight: 500;
   margin-bottom: 16rpx;
   display: flex;
@@ -69,11 +69,11 @@
 }
 
 .kw-tag {
-  background: #FFFFFF;
-  color: #3A7BC8;
+  background: var(--bg-card);
+  color: var(--primary-dark);
   padding: 12rpx 28rpx;
   border-radius: 28rpx;
-  font-size: 26rpx;
+  font-size: var(--font-md);
   font-weight: 600;
   display: inline-flex;
   align-items: center;
@@ -85,12 +85,12 @@
 
 .kw-tag:active {
   transform: scale(0.95);
-  background: #E8F3FC;
+  background: var(--primary-bg);
 }
 
 .kw-remove {
-  font-size: 24rpx;
-  color: #999999;
+  font-size: var(--font-base);
+  color: var(--text-tertiary);
   margin-left: 4rpx;
 }
 
@@ -100,8 +100,8 @@
 }
 
 .scene-label {
-  font-size: 26rpx;
-  color: #666666;
+  font-size: var(--font-md);
+  color: var(--text-secondary);
   font-weight: 500;
   margin-bottom: 16rpx;
   display: flex;
@@ -121,12 +121,12 @@
 }
 
 .scene-card {
-  background: #FFFFFF;
+  background: var(--bg-card);
   border-radius: 24rpx;
   padding: 28rpx;
   box-shadow: 0 2rpx 12rpx rgba(0,0,0,0.04);
   transition: all 0.2s ease;
-  border-left: 6rpx solid #4A90D9;
+  border-left: 6rpx solid var(--primary);
 }
 
 .scene-card:active {
@@ -143,12 +143,12 @@
 .scene-icon {
   width: 72rpx;
   height: 72rpx;
-  background: linear-gradient(135deg, #E8F3FC, #E8F3FC);
+  background: linear-gradient(135deg, var(--primary-bg), var(--primary-bg));
   border-radius: 20rpx;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 36rpx;
+  font-size: var(--font-2xl);
   margin-right: 20rpx;
   flex-shrink: 0;
 }
@@ -159,20 +159,20 @@
 }
 
 .scene-name {
-  font-size: 30rpx;
+  font-size: var(--font-lg);
   font-weight: 700;
-  color: #1A1A1A;
+  color: var(--text-primary);
   margin-bottom: 6rpx;
 }
 
 .scene-desc {
-  font-size: 24rpx;
-  color: #999999;
+  font-size: var(--font-base);
+  color: var(--text-tertiary);
 }
 
 .scene-arrow {
-  font-size: 36rpx;
-  color: #CCCCCC;
+  font-size: var(--font-2xl);
+  color: var(--text-quaternary);
   font-weight: 300;
 }
 
@@ -181,16 +181,16 @@
   flex-wrap: wrap;
   gap: 12rpx;
   padding-top: 16rpx;
-  border-top: 1rpx solid #F5F5F5;
+  border-top: 1rpx solid var(--border-light);
 }
 
 .scene-channel-tag {
-  background: #F5F6F8;
-  color: #666666;
-  font-size: 22rpx;
+  background: var(--bg-page);
+  color: var(--text-secondary);
+  font-size: var(--font-sm);
   padding: 8rpx 16rpx;
   border-radius: 12rpx;
-  border: 1rpx solid #EEEEEE;
+  border: 1rpx solid var(--border);
 }
 
 /* ========== 底部操作 ========== */
@@ -198,8 +198,8 @@
   padding: 40rpx 32rpx 32rpx;
   margin-top: 16rpx;
   text-align: center;
-  font-size: 28rpx;
-  color: #4A90D9;
+  font-size: var(--font-normal);
+  color: var(--primary);
   font-weight: 600;
 }
 
@@ -210,20 +210,20 @@
   justify-content: center;
   padding: 24rpx;
   border-radius: 24rpx;
-  font-size: 28rpx;
+  font-size: var(--font-normal);
   font-weight: 600;
   transition: all 0.2s ease;
 }
 
 .sp-btn-outline {
-  background: #FFFFFF;
-  color: #666666;
-  border: 2rpx solid #EEEEEE;
+  background: var(--bg-card);
+  color: var(--text-secondary);
+  border: 2rpx solid var(--border);
 }
 
 .sp-btn-primary {
-  background: linear-gradient(135deg, #4A90D9, #3A7BC8);
-  color: #FFFFFF;
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  color: var(--text-inverse);
   box-shadow: 0 4rpx 16rpx rgba(59,130,246,0.3);
 }
 
@@ -248,14 +248,14 @@
 }
 
 .empty-title {
-  font-size: 28rpx;
-  color: #666666;
+  font-size: var(--font-normal);
+  color: var(--text-secondary);
   font-weight: 500;
   margin-bottom: 8rpx;
 }
 
 .empty-desc {
-  font-size: 24rpx;
-  color: #999999;
+  font-size: var(--font-base);
+  color: var(--text-tertiary);
   text-align: center;
 }

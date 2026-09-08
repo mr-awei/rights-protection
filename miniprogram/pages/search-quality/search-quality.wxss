@@ -1,4 +1,4 @@
-/* pages/search-quality/search-quality.wxss */
+﻿/* pages/search-quality/search-quality.wxss */
 .container {
   min-height: 100vh;
   background: #F5F7FA;
@@ -15,9 +15,9 @@
 }
 
 .overview-title {
-  font-size: 32rpx;
+  font-size: var(--font-xl);
   font-weight: 600;
-  color: #FFFFFF;
+  color: var(--text-inverse);
   margin-bottom: 24rpx;
 }
 
@@ -32,14 +32,14 @@
 }
 
 .stat-num {
-  font-size: 40rpx;
+  font-size: var(--font-3xl);
   font-weight: 700;
-  color: #FFFFFF;
+  color: var(--text-inverse);
   display: block;
 }
 
 .stat-label {
-  font-size: 22rpx;
+  font-size: var(--font-sm);
   color: rgba(255,255,255,0.8);
   margin-top: 8rpx;
   display: block;
@@ -47,7 +47,7 @@
 
 /* 通用section */
 .section {
-  background: #FFFFFF;
+  background: var(--bg-card);
   border-radius: 20rpx;
   margin-bottom: 24rpx;
   overflow: hidden;
@@ -72,14 +72,14 @@
 }
 
 .section-title {
-  font-size: 30rpx;
+  font-size: var(--font-lg);
   font-weight: 600;
   color: #1A1B1C;
   display: block;
 }
 
 .section-desc {
-  font-size: 24rpx;
+  font-size: var(--font-base);
   color: #86909C;
   margin-top: 4rpx;
   display: block;
@@ -107,7 +107,7 @@
   border-radius: 8rpx;
   background: #F2F3F5;
   color: #86909C;
-  font-size: 24rpx;
+  font-size: var(--font-base);
   font-weight: 600;
   display: flex;
   align-items: center;
@@ -118,7 +118,7 @@
 
 .keyword-rank.top {
   background: linear-gradient(135deg, #FFD700, #FFA500);
-  color: #FFFFFF;
+  color: var(--text-inverse);
 }
 
 .keyword-info {
@@ -127,7 +127,7 @@
 }
 
 .keyword-text {
-  font-size: 28rpx;
+  font-size: var(--font-normal);
   color: #1A1B1C;
   font-weight: 500;
   display: block;
@@ -151,7 +151,7 @@
 }
 
 .keyword-count {
-  font-size: 24rpx;
+  font-size: var(--font-base);
   color: #86909C;
   margin-left: 16rpx;
   flex-shrink: 0;
@@ -166,7 +166,7 @@
 }
 
 .keyword-action text {
-  font-size: 22rpx;
+  font-size: var(--font-sm);
   color: #1677FF;
 }
 
@@ -197,7 +197,7 @@
 }
 
 .no-result-text {
-  font-size: 28rpx;
+  font-size: var(--font-normal);
   color: #1A1B1C;
   font-weight: 500;
   display: block;
@@ -207,7 +207,7 @@
 }
 
 .no-result-count {
-  font-size: 22rpx;
+  font-size: var(--font-sm);
   color: #EF4444;
   margin-top: 4rpx;
   display: block;
@@ -221,13 +221,13 @@
 
 .action-btn {
   padding: 10rpx 20rpx;
-  background: #F5F5F5;
+  background: var(--border-light);
   border-radius: 10rpx;
 }
 
 .action-btn text {
-  font-size: 22rpx;
-  color: #666666;
+  font-size: var(--font-sm);
+  color: var(--text-secondary);
 }
 
 .action-btn.primary {
@@ -249,7 +249,7 @@
 }
 
 .empty-text {
-  font-size: 26rpx;
+  font-size: var(--font-md);
   color: #86909C;
 }
 
@@ -271,18 +271,18 @@
 }
 
 .action-btn-large text {
-  font-size: 30rpx;
+  font-size: var(--font-lg);
   font-weight: 600;
-  color: #FFFFFF;
+  color: var(--text-inverse);
 }
 
 .action-btn-large.secondary {
-  background: #FFFFFF;
+  background: var(--bg-card);
   border: 1rpx solid #E5E6EB;
 }
 
 .action-btn-large.secondary text {
-  color: #666666;
+  color: var(--text-secondary);
 }
 
 .action-btn-large-hover {

@@ -1,4 +1,4 @@
-/* app.wxss - 鍏ㄥ眬鏍峰紡 */
+﻿/* app.wxss - 鍏ㄥ眬鏍峰紡 */
 /* 璁捐绯荤粺锛氭瀬绠€涓撲笟 路 鏌斿拰钃濊皟 路 鍗＄墖寮忓竷灞€ 路 杞婚噺闃村奖 */
 
 page {
@@ -33,6 +33,23 @@ page {
   --shadow-sm: 0 2rpx 12rpx rgba(0, 0, 0, 0.04);
   --shadow-md: 0 4rpx 16rpx rgba(0, 0, 0, 0.06);
   --shadow-lg: 0 8rpx 24rpx rgba(0, 0, 0, 0.08);
+
+  --font-xs: 20rpx;
+  --font-sm: 22rpx;
+  --font-base: 24rpx;
+  --font-md: 26rpx;
+  --font-normal: 28rpx;
+  --font-lg: 30rpx;
+  --font-xl: 32rpx;
+  --font-2xl: 36rpx;
+  --font-3xl: 40rpx;
+
+  --spacing-xs: 8rpx;
+  --spacing-sm: 12rpx;
+  --spacing-md: 16rpx;
+  --spacing-lg: 24rpx;
+  --spacing-xl: 32rpx;
+  --spacing-2xl: 48rpx;
 
   width: 100%;
   min-height: 100vh;

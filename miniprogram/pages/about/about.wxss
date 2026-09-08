@@ -1,12 +1,12 @@
-/* pages/about/about.wxss */
+﻿/* pages/about/about.wxss */
 .container {
   min-height: 100vh;
-  background: #F5F6F8;
+  background: var(--bg-page);
 }
 
 /* 自定义导航栏 */
 .nav-bar {
-  background: linear-gradient(135deg, #5B9BD5 0%, #4A90D9 50%, #3A7BC8 100%);
+  background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 50%, var(--primary-dark) 100%);
   padding-top: var(--status-bar-height, 44px);
   display: flex;
   align-items: center;
@@ -26,16 +26,16 @@
 
 .nav-back text {
   font-size: 48rpx;
-  color: #FFFFFF;
+  color: var(--text-inverse);
   font-weight: 300;
 }
 
 .nav-title {
   flex: 1;
   text-align: center;
-  font-size: 32rpx;
+  font-size: var(--font-xl);
   font-weight: 600;
-  color: #FFFFFF;
+  color: var(--text-inverse);
 }
 
 .nav-placeholder {
@@ -49,7 +49,7 @@
 
 /* 应用信息 */
 .app-info {
-  background: linear-gradient(135deg, #5B9BD5 0%, #4A90D9 50%, #3A7BC8 100%);
+  background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 50%, var(--primary-dark) 100%);
   border-radius: 24rpx;
   padding: 48rpx 32rpx;
   text-align: center;
@@ -85,16 +85,16 @@
 }
 
 .app-name {
-  font-size: 40rpx;
+  font-size: var(--font-3xl);
   font-weight: 800;
-  color: #FFFFFF;
+  color: var(--text-inverse);
   margin-bottom: 8rpx;
   position: relative;
   z-index: 1;
 }
 
 .app-slogan {
-  font-size: 26rpx;
+  font-size: var(--font-md);
   color: rgba(255,255,255,0.9);
   margin-bottom: 16rpx;
   position: relative;
@@ -102,7 +102,7 @@
 }
 
 .app-version {
-  font-size: 22rpx;
+  font-size: var(--font-sm);
   color: rgba(255,255,255,0.7);
   background: rgba(255,255,255,0.15);
   padding: 6rpx 20rpx;
@@ -117,7 +117,7 @@
 .feature-card,
 .link-card,
 .philosophy-card {
-  background: #FFFFFF;
+  background: var(--bg-card);
   border-radius: 20rpx;
   padding: 24rpx;
   margin-bottom: 24rpx;
@@ -125,17 +125,17 @@
 }
 
 .card-title {
-  font-size: 30rpx;
+  font-size: var(--font-lg);
   font-weight: 700;
-  color: #1A1A1A;
+  color: var(--text-primary);
   margin-bottom: 20rpx;
 }
 
 /* 数据统计 */
 .stats-title {
-  font-size: 28rpx;
+  font-size: var(--font-normal);
   font-weight: 700;
-  color: #1A1A1A;
+  color: var(--text-primary);
   margin-bottom: 20rpx;
 }
 
@@ -153,27 +153,27 @@
 }
 
 .stat-num {
-  font-size: 40rpx;
+  font-size: var(--font-3xl);
   font-weight: 800;
-  background: linear-gradient(135deg, #4A90D9, #2E6BB8);
+  background: linear-gradient(135deg, var(--primary), #2E6BB8);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
 .stat-label {
-  font-size: 22rpx;
-  color: #666666;
+  font-size: var(--font-sm);
+  color: var(--text-secondary);
   margin-top: 4rpx;
 }
 
 .stats-footer {
   text-align: center;
-  font-size: 20rpx;
-  color: #999999;
+  font-size: var(--font-xs);
+  color: var(--text-tertiary);
   margin-top: 16rpx;
   padding-top: 16rpx;
-  border-top: 1rpx solid #F5F5F5;
+  border-top: 1rpx solid var(--border-light);
 }
 
 /* 功能列表 */
@@ -203,15 +203,15 @@
 }
 
 .feature-name {
-  font-size: 28rpx;
+  font-size: var(--font-normal);
   font-weight: 600;
-  color: #1A1A1A;
+  color: var(--text-primary);
   margin-bottom: 2rpx;
 }
 
 .feature-desc {
-  font-size: 22rpx;
-  color: #999999;
+  font-size: var(--font-sm);
+  color: var(--text-tertiary);
 }
 
 /* 链接列表 */
@@ -224,7 +224,7 @@
   display: flex;
   align-items: center;
   padding: 20rpx 0;
-  border-bottom: 1rpx solid #F5F5F5;
+  border-bottom: 1rpx solid var(--border-light);
   transition: all 0.2s ease;
 }
 
@@ -233,7 +233,7 @@
 }
 
 .link-item-hover {
-  background: #F5F6F8;
+  background: var(--bg-page);
   margin: 0 -24rpx;
   padding: 20rpx 24rpx;
 }
@@ -246,22 +246,22 @@
 }
 
 .link-name {
-  font-size: 28rpx;
-  color: #1A1A1A;
+  font-size: var(--font-normal);
+  color: var(--text-primary);
   font-weight: 500;
   display: block;
   margin-bottom: 4rpx;
 }
 
 .link-desc {
-  font-size: 22rpx;
-  color: #999999;
+  font-size: var(--font-sm);
+  color: var(--text-tertiary);
   display: block;
 }
 
 .link-url {
-  font-size: 22rpx;
-  color: #666666;
+  font-size: var(--font-sm);
+  color: var(--text-secondary);
   display: block;
   word-break: break-all;
 }
@@ -273,18 +273,18 @@
 }
 
 .link-copy {
-  font-size: 22rpx;
-  color: #4A90D9;
+  font-size: var(--font-sm);
+  color: var(--primary);
   padding: 8rpx 20rpx;
-  border: 1rpx solid #4A90D9;
+  border: 1rpx solid var(--primary);
   border-radius: 20rpx;
   flex-shrink: 0;
   margin-left: 12rpx;
 }
 
 .link-arrow {
-  font-size: 32rpx;
-  color: #CCCCCC;
+  font-size: var(--font-xl);
+  color: var(--text-quaternary);
 }
 
 /* 维权理念 */
@@ -295,7 +295,7 @@
 }
 
 .philosophy-title {
-  font-size: 28rpx;
+  font-size: var(--font-normal);
   font-weight: 700;
   color: #991B1B;
   margin-bottom: 16rpx;
@@ -308,7 +308,7 @@
 }
 
 .philosophy-text text {
-  font-size: 24rpx;
+  font-size: var(--font-base);
   color: #7F1D1D;
   line-height: 1.6;
 }
@@ -320,8 +320,8 @@
 }
 
 .footer-text {
-  font-size: 22rpx;
-  color: #999999;
+  font-size: var(--font-sm);
+  color: var(--text-tertiary);
   display: block;
   margin-bottom: 6rpx;
 }
@@ -352,7 +352,7 @@
   position: relative;
   width: 620rpx;
   max-height: 80vh;
-  background: #FFFFFF;
+  background: var(--bg-card);
   border-radius: 24rpx;
   overflow: hidden;
   display: flex;
@@ -361,7 +361,7 @@
 
 /* 顶部装饰区 */
 .modal-header {
-  background: linear-gradient(135deg, #4A90D9 0%, #5B9BD5 100%);
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
   padding: 40rpx 32rpx 32rpx;
   display: flex;
   flex-direction: column;
@@ -405,23 +405,23 @@
 }
 
 .modal-icon {
-  font-size: 40rpx;
-  color: #FFFFFF;
-  --icon-color: #FFFFFF;
+  font-size: var(--font-3xl);
+  color: var(--text-inverse);
+  --icon-color: var(--text-inverse);
   --icon-bg: transparent;
 }
 
 .modal-title {
-  font-size: 36rpx;
+  font-size: var(--font-2xl);
   font-weight: 700;
-  color: #FFFFFF;
+  color: var(--text-inverse);
   margin-bottom: 8rpx;
   position: relative;
   z-index: 1;
 }
 
 .modal-subtitle {
-  font-size: 24rpx;
+  font-size: var(--font-base);
   color: rgba(255, 255, 255, 0.85);
   position: relative;
   z-index: 1;
@@ -450,13 +450,13 @@
 .item-num {
   width: 40rpx;
   height: 40rpx;
-  background: linear-gradient(135deg, #4A90D9 0%, #5B9BD5 100%);
-  color: #FFFFFF;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+  color: var(--text-inverse);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 22rpx;
+  font-size: var(--font-sm);
   font-weight: 600;
   flex-shrink: 0;
   margin-right: 16rpx;
@@ -464,7 +464,7 @@
 
 .item-text {
   flex: 1;
-  font-size: 26rpx;
+  font-size: var(--font-md);
   color: #555555;
   line-height: 1.6;
 }
@@ -478,13 +478,13 @@
 .modal-btn {
   width: 100%;
   height: 88rpx;
-  background: linear-gradient(135deg, #4A90D9 0%, #5B9BD5 100%);
-  color: #FFFFFF;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+  color: var(--text-inverse);
   border-radius: 44rpx;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 30rpx;
+  font-size: var(--font-lg);
   font-weight: 600;
   box-shadow: 0 8rpx 20rpx rgba(74, 144, 217, 0.3);
 }
@@ -517,9 +517,9 @@
 
 .license-lang {
   display: inline-block;
-  font-size: 22rpx;
+  font-size: var(--font-sm);
   font-weight: 600;
-  color: #4A90D9;
+  color: var(--primary);
   background: #EFF6FF;
   padding: 6rpx 16rpx;
   border-radius: 8rpx;
@@ -532,23 +532,23 @@
 }
 
 .license-title-cn {
-  font-size: 28rpx;
+  font-size: var(--font-normal);
   font-weight: 700;
-  color: #1A1A1A;
+  color: var(--text-primary);
   margin-bottom: 12rpx;
   text-align: center;
 }
 
 .license-title-en {
-  font-size: 26rpx;
+  font-size: var(--font-md);
   font-weight: 700;
-  color: #1A1A1A;
+  color: var(--text-primary);
   margin-bottom: 12rpx;
   text-align: center;
 }
 
 .license-paragraph {
-  font-size: 24rpx;
+  font-size: var(--font-base);
   color: #555555;
   line-height: 1.7;
   margin-bottom: 12rpx;
@@ -560,9 +560,9 @@
 }
 
 .license-subtitle {
-  font-size: 26rpx;
+  font-size: var(--font-md);
   font-weight: 700;
-  color: #1A1A1A;
+  color: var(--text-primary);
   margin: 20rpx 0 12rpx;
   display: block;
 }
@@ -578,23 +578,23 @@
 }
 
 .contact-label {
-  font-size: 24rpx;
+  font-size: var(--font-base);
   color: #555555;
   margin-right: 8rpx;
 }
 
 .contact-email {
-  font-size: 24rpx;
-  color: #4A90D9;
+  font-size: var(--font-base);
+  color: var(--primary);
   font-weight: 600;
   margin-right: 12rpx;
 }
 
 .contact-copy {
-  font-size: 20rpx;
-  color: #4A90D9;
+  font-size: var(--font-xs);
+  color: var(--primary);
   padding: 4rpx 12rpx;
-  border: 1rpx solid #4A90D9;
+  border: 1rpx solid var(--primary);
   border-radius: 8rpx;
 }
 
