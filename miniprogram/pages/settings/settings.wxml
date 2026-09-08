@@ -1,4 +1,4 @@
-﻿<!--pages/settings/settings.wxml-->
+<!--pages/settings/settings.wxml-->
 <view class="container">
   <!-- 通用设置 -->
   <view class="section">

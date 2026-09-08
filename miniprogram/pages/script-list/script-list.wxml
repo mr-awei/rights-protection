@@ -1,4 +1,4 @@
-﻿<!--pages/script-list/script-list.wxml-->
+<!--pages/script-list/script-list.wxml-->
 <view class="container {{themeClass}}" style="--status-bar-height: {{statusBarHeight}}px;">
   <!-- 自定义导航栏 -->
   <view class="nav-bar">

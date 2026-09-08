@@ -1,4 +1,4 @@
-﻿<!--pages/index/index.wxml-->
+<!--pages/index/index.wxml-->
 <view class="container {{themeClass}}" style="--status-bar-height: {{statusBarHeight}}px;">
   <!-- 渐变头部 -->
   <view class="gradient-header">
