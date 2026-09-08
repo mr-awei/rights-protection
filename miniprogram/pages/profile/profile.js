@@ -334,7 +334,7 @@ Page({
       if (history.length === 0) {
         wx.showToast({ title: '暂无搜索记录', icon: 'none' });
       } else {
-        wx.showModal({
+        this.showConfirmModal({
           title: `搜索历史（共${history.length}条）`,
           content: '最近搜索：\n' + history.slice(0, 10).map((k, i) => `${i+1}. ${k}`).join('\n'),
           showCancel: true,
@@ -406,7 +406,7 @@ Page({
 
     // 如果有小程序分享链接，让用户选择打开方式
     if (link.miniProgramLink) {
-      wx.showActionSheet({
+      this.showActionSheetModal({
         itemList: ['打开微信小程序', '复制网页链接'],
         success: (res) => {
           if (res.tapIndex === 0) {
@@ -414,7 +414,7 @@ Page({
             wx.setClipboardData({
               data: link.miniProgramLink,
               success: () => {
-                wx.showModal({
+                this.showConfirmModal({
                   title: '链接已复制',
                   content: '小程序链接已复制到剪贴板，请在微信聊天框中粘贴，点击即可打开黑猫投诉小程序',
                   showCancel: false,
@@ -445,7 +445,7 @@ Page({
 
   // 复制友情链接（兜底）
   copyFriendLink(link) {
-    wx.showModal({
+    this.showConfirmModal({
       title: link.name,
       content: `即将跳转到${link.name}（${link.url}），是否继续？`,
       confirmText: '复制链接',
