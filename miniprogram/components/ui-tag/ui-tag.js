@@ -1,5 +1,8 @@
 // ui-tag.js - 通用标签组件
 Component({
+  options: {
+    styleIsolation: 'apply-shared'
+  },
   properties: {
     // 标签文字
     text: {

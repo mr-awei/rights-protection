@@ -1,5 +1,8 @@
 // list-item.js - 通用列表项组件
 Component({
+  options: {
+    styleIsolation: 'apply-shared'
+  },
   properties: {
     // 左侧图标类名
     icon: {

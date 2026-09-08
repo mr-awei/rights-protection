@@ -1,5 +1,8 @@
 // empty-state.js - 空状态组件
 Component({
+  options: {
+    styleIsolation: 'apply-shared'
+  },
   properties: {
     // 空状态标题
     title: {
