@@ -2,5 +2,7 @@
   "navigationBarTitleText": "我的",
   "navigationBarBackgroundColor": "#60A5FA",
   "navigationBarTextStyle": "white",
-  "usingComponents": {}
+  "usingComponents": {
+    "custom-modal": "/components/custom-modal/custom-modal"
+  }
 }

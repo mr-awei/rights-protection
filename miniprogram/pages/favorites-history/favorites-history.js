@@ -31,7 +31,19 @@ Page({
     // 批量管理模式
     isBatchMode: false,
     selectedItems: [],
-    isAllSelected: false
+    isAllSelected: false,
+    // 自定义弹窗状态
+    modalVisible: false,
+    modalType: 'confirm',
+    modalTitle: '',
+    modalContent: '',
+    modalConfirmText: '确定',
+    modalCancelText: '取消',
+    modalShowCancel: true,
+    modalPlaceholder: '',
+    modalDefaultValue: '',
+    modalItemList: [],
+    modalCallback: null
   },
 
   onLoad(options) {
@@ -100,12 +112,75 @@ Page({
     this.loadCurrentTab(1);
   },
 
+  // ========== 自定义弹窗通用方法 ==========
+  showConfirmModal(options) {
+    this.setData({
+      modalVisible: true,
+      modalType: 'confirm',
+      modalTitle: options.title || '提示',
+      modalContent: options.content || '',
+      modalConfirmText: options.confirmText || '确定',
+      modalCancelText: options.cancelText || '取消',
+      modalShowCancel: options.showCancel !== false,
+      modalCallback: options.success || null
+    });
+  },
+
+  showInputModal(options) {
+    this.setData({
+      modalVisible: true,
+      modalType: 'input',
+      modalTitle: options.title || '请输入',
+      modalPlaceholder: options.placeholder || '请输入',
+      modalDefaultValue: options.defaultValue || '',
+      modalConfirmText: options.confirmText || '确定',
+      modalCancelText: options.cancelText || '取消',
+      modalCallback: options.success || null
+    });
+  },
+
+  showActionSheetModal(options) {
+    this.setData({
+      modalVisible: true,
+      modalType: 'actionSheet',
+      modalItemList: options.itemList || [],
+      modalCallback: options.success || null
+    });
+  },
+
+  onModalConfirm(e) {
+    const callback = this.data.modalCallback;
+    this.setData({ modalVisible: false, modalCallback: null });
+    if (callback) {
+      if (this.data.modalType === 'input') {
+        callback({ confirm: true, content: e.detail.value });
+      } else {
+        callback({ confirm: true });
+      }
+    }
+  },
+
+  onModalCancel() {
+    const callback = this.data.modalCallback;
+    this.setData({ modalVisible: false, modalCallback: null });
+    if (callback && this.data.modalType !== 'actionSheet') {
+      callback({ cancel: true });
+    }
+  },
+
+  onModalSelect(e) {
+    const callback = this.data.modalCallback;
+    this.setData({ modalVisible: false, modalCallback: null });
+    if (callback) {
+      callback({ tapIndex: e.detail.index });
+    }
+  },
+
   // 创建新分组
   onCreateGroup() {
-    wx.showModal({
+    this.showInputModal({
       title: '新建分组',
-      editable: true,
-      placeholderText: '请输入分组名称',
+      placeholder: '请输入分组名称',
       success: (res) => {
         if (res.confirm && res.content) {
           const groupId = app.createFavoriteGroup(res.content);
@@ -268,7 +343,7 @@ Page({
   // 取消收藏渠道
   onRemoveChannel(e) {
     const id = e.currentTarget.dataset.id;
-    wx.showModal({
+    this.showConfirmModal({
       title: '取消收藏',
       content: '确定要取消收藏这个渠道吗？',
       confirmText: '取消收藏',
@@ -286,7 +361,7 @@ Page({
   // 取消收藏话术
   onRemoveScript(e) {
     const id = e.currentTarget.dataset.id;
-    wx.showModal({
+    this.showConfirmModal({
       title: '取消收藏',
       content: '确定要取消收藏这个话术吗？',
       confirmText: '取消收藏',
@@ -303,12 +378,11 @@ Page({
 
   // 清空浏览历史
   onClearHistory() {
-    wx.showModal({
+    this.showConfirmModal({
       title: '清空历史',
       content: '确定要清空所有浏览历史吗？此操作不可恢复。',
       confirmText: '清空',
       cancelText: '取消',
-      confirmColor: '#EF4444',
       success: (res) => {
         if (res.confirm) {
           app.clearViewHistory();
@@ -323,12 +397,11 @@ Page({
   onRemoveHistory(e) {
     const item = e.currentTarget.dataset.item;
     if (!item) return;
-    wx.showModal({
+    this.showConfirmModal({
       title: '删除记录',
       content: '确定要删除这条浏览记录吗？',
       confirmText: '删除',
       cancelText: '取消',
-      confirmColor: '#EF4444',
       success: (res) => {
         if (res.confirm) {
           app.removeViewHistory(item.item_type, item.item_id);
@@ -413,7 +486,7 @@ Page({
     }
 
     const itemList = ['重命名', '上移', '下移', '删除分组'];
-    wx.showActionSheet({
+    this.showActionSheetModal({
       itemList: itemList,
       success: (res) => {
         const action = itemList[res.tapIndex];
@@ -432,11 +505,10 @@ Page({
 
   // 重命名分组
   onRenameGroup(groupId, oldName) {
-    wx.showModal({
+    this.showInputModal({
       title: '重命名分组',
-      editable: true,
-      placeholderText: '请输入新名称',
-      content: oldName,
+      placeholder: '请输入新名称',
+      defaultValue: oldName,
       success: (res) => {
         if (res.confirm && res.content && res.content.trim()) {
           if (app.renameFavoriteGroup(groupId, res.content.trim())) {
@@ -462,10 +534,10 @@ Page({
 
   // 删除分组
   onDeleteGroup(groupId, groupName) {
-    wx.showModal({
+    this.showConfirmModal({
       title: '删除分组',
       content: `确定要删除分组"${groupName}"吗？分组内的收藏不会被删除。`,
-      confirmColor: '#EF4444',
+      confirmText: '删除',
       success: (res) => {
         if (res.confirm) {
           if (app.deleteFavoriteGroup(groupId)) {
@@ -536,7 +608,7 @@ Page({
     const groups = this.data.groups.filter(g => g.type !== 'system' || g.id === 'default');
     const groupNames = groups.map(g => g.name);
 
-    wx.showActionSheet({
+    this.showActionSheetModal({
       itemList: groupNames,
       success: (res) => {
         const targetGroup = groups[res.tapIndex];
@@ -557,10 +629,10 @@ Page({
       return;
     }
 
-    wx.showModal({
+    this.showConfirmModal({
       title: '批量删除',
       content: `确定要删除选中的${selectedItems.length}项收藏吗？`,
-      confirmColor: '#EF4444',
+      confirmText: '删除',
       success: (res) => {
         if (res.confirm) {
           const tab = this.data.activeTab;

@@ -1,0 +1,139 @@
+/* components/custom-modal/custom-modal.wxss */
+.custom-modal-mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.custom-modal-content {
+  width: 600rpx;
+  background: #FFFFFF;
+  border-radius: 24rpx;
+  overflow: hidden;
+  box-shadow: 0 20rpx 60rpx rgba(0, 0, 0, 0.15);
+}
+
+.modal-header {
+  padding: 40rpx 40rpx 20rpx;
+  text-align: center;
+}
+
+.modal-title {
+  font-size: 34rpx;
+  font-weight: 600;
+  color: #1A1A1A;
+}
+
+.modal-body {
+  padding: 0 40rpx 30rpx;
+}
+
+.modal-content {
+  font-size: 28rpx;
+  color: #666666;
+  line-height: 1.6;
+  text-align: center;
+}
+
+.modal-input {
+  width: 100%;
+  height: 80rpx;
+  border: 2rpx solid #E8E8E8;
+  border-radius: 12rpx;
+  padding: 0 20rpx;
+  font-size: 28rpx;
+  color: #1A1A1A;
+  box-sizing: border-box;
+}
+
+.modal-input:focus {
+  border-color: #4A90D9;
+}
+
+.modal-footer {
+  display: flex;
+  border-top: 2rpx solid #F0F0F0;
+}
+
+.modal-btn {
+  flex: 1;
+  height: 100rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30rpx;
+  font-weight: 500;
+}
+
+.modal-btn-cancel {
+  color: #999999;
+  border-right: 2rpx solid #F0F0F0;
+}
+
+.modal-btn-confirm {
+  color: #4A90D9;
+  font-weight: 600;
+}
+
+.modal-btn-full {
+  border-right: none;
+}
+
+/* 操作菜单样式 */
+.custom-action-sheet {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #F5F6F8;
+  border-radius: 24rpx 24rpx 0 0;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.action-sheet-list {
+  background: #FFFFFF;
+  border-radius: 24rpx 24rpx 0 0;
+  margin: 20rpx;
+  margin-bottom: 0;
+  overflow: hidden;
+}
+
+.action-sheet-item {
+  height: 110rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 2rpx solid #F5F6F8;
+}
+
+.action-sheet-item:last-child {
+  border-bottom: none;
+}
+
+.action-sheet-text {
+  font-size: 30rpx;
+  color: #1A1A1A;
+}
+
+.action-sheet-cancel {
+  margin: 20rpx;
+  margin-top: 16rpx;
+  height: 100rpx;
+  background: #FFFFFF;
+  border-radius: 16rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.action-sheet-cancel-text {
+  font-size: 30rpx;
+  color: #999999;
+}

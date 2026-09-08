@@ -39,11 +39,87 @@ Page({
         url: 'https://tousu.sina.com.cn/',
         miniProgramLink: '#小程序://黑猫投诉/4elIqcmZImbjnPC'
       }
-    ]
+    ],
+    // 自定义弹窗状态
+    modalVisible: false,
+    modalType: 'confirm',
+    modalTitle: '',
+    modalContent: '',
+    modalConfirmText: '确定',
+    modalCancelText: '取消',
+    modalShowCancel: true,
+    modalPlaceholder: '',
+    modalDefaultValue: '',
+    modalItemList: [],
+    modalCallback: null
   },
 
   // 内部状态：缓存的统计数据
   _cachedStats: { channels: -1, scripts: -1, history: -1, viewHistory: -1 },
+
+  // ========== 自定义弹窗通用方法 ==========
+  showConfirmModal(options) {
+    this.setData({
+      modalVisible: true,
+      modalType: 'confirm',
+      modalTitle: options.title || '提示',
+      modalContent: options.content || '',
+      modalConfirmText: options.confirmText || '确定',
+      modalCancelText: options.cancelText || '取消',
+      modalShowCancel: options.showCancel !== false,
+      modalCallback: options.success || null
+    });
+  },
+
+  showInputModal(options) {
+    this.setData({
+      modalVisible: true,
+      modalType: 'input',
+      modalTitle: options.title || '请输入',
+      modalPlaceholder: options.placeholder || '请输入',
+      modalDefaultValue: options.defaultValue || '',
+      modalConfirmText: options.confirmText || '确定',
+      modalCancelText: options.cancelText || '取消',
+      modalCallback: options.success || null
+    });
+  },
+
+  showActionSheetModal(options) {
+    this.setData({
+      modalVisible: true,
+      modalType: 'actionSheet',
+      modalItemList: options.itemList || [],
+      modalCallback: options.success || null
+    });
+  },
+
+  onModalConfirm(e) {
+    const callback = this.data.modalCallback;
+    this.setData({ modalVisible: false, modalCallback: null });
+    if (callback) {
+      if (this.data.modalType === 'input') {
+        callback({ confirm: true, content: e.detail.value });
+      } else {
+        callback({ confirm: true });
+      }
+    }
+  },
+
+  onModalCancel() {
+    const callback = this.data.modalCallback;
+    this.setData({ modalVisible: false, modalCallback: null });
+    if (callback && this.data.modalType !== 'actionSheet') {
+      callback({ cancel: true });
+    }
+  },
+
+  onModalSelect(e) {
+    const callback = this.data.modalCallback;
+    this.setData({ modalVisible: false, modalCallback: null });
+    if (callback) {
+      callback({ tapIndex: e.detail.index });
+    }
+  },
 
   onLoad() {
     try {
@@ -171,7 +247,7 @@ Page({
   // 取消收藏渠道
   onRemoveFavoriteChannel(e) {
     const id = e.currentTarget.dataset.id;
-    wx.showModal({
+    this.showConfirmModal({
       title: '取消收藏',
       content: '确定取消收藏该渠道吗？',
       success: (res) => {
@@ -189,7 +265,7 @@ Page({
   // 取消收藏话术
   onRemoveFavoriteScript(e) {
     const id = e.currentTarget.dataset.id;
-    wx.showModal({
+    this.showConfirmModal({
       title: '取消收藏',
       content: '确定取消收藏该话术吗？',
       success: (res) => {
@@ -220,7 +296,7 @@ Page({
 
   // 清空浏览历史
   onClearViewHistory() {
-    wx.showModal({
+    this.showConfirmModal({
       title: '清空浏览历史',
       content: '确定清空所有浏览历史吗？此操作不可恢复。',
       success: (res) => {

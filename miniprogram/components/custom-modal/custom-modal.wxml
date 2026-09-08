@@ -1,0 +1,54 @@
+<!--components/custom-modal/custom-modal.wxml-->
+<view class="custom-modal-mask" wx:if="{{visible}}" bindtap="onMaskTap">
+  <!-- 确认弹窗 -->
+  <view class="custom-modal-content" wx:if="{{type === 'confirm'}}" catchtap="noop">
+    <view class="modal-header">
+      <text class="modal-title">{{title}}</text>
+    </view>
+    <view class="modal-body" wx:if="{{content}}">
+      <text class="modal-content">{{content}}</text>
+    </view>
+    <view class="modal-footer">
+      <view class="modal-btn modal-btn-cancel" wx:if="{{showCancel}}" bindtap="onCancel">{{cancelText}}</view>
+      <view class="modal-btn modal-btn-confirm {{showCancel ? '' : 'modal-btn-full'}}" bindtap="onConfirm">{{confirmText}}</view>
+    </view>
+  </view>
+
+  <!-- 输入弹窗 -->
+  <view class="custom-modal-content" wx:if="{{type === 'input'}}" catchtap="noop">
+    <view class="modal-header">
+      <text class="modal-title">{{title}}</text>
+    </view>
+    <view class="modal-body">
+      <input
+        class="modal-input"
+        placeholder="{{placeholder}}"
+        value="{{inputValue}}"
+        bindinput="onInput"
+        focus="{{visible}}"
+      />
+    </view>
+    <view class="modal-footer">
+      <view class="modal-btn modal-btn-cancel" bindtap="onCancel">{{cancelText}}</view>
+      <view class="modal-btn modal-btn-confirm" bindtap="onConfirm">{{confirmText}}</view>
+    </view>
+  </view>
+
+  <!-- 操作菜单 -->
+  <view class="custom-action-sheet" wx:if="{{type === 'actionSheet'}}" catchtap="noop">
+    <view class="action-sheet-list">
+      <view
+        class="action-sheet-item"
+        wx:for="{{itemList}}"
+        wx:key="index"
+        data-index="{{index}}"
+        bindtap="onItemTap"
+      >
+        <text class="action-sheet-text">{{item}}</text>
+      </view>
+    </view>
+    <view class="action-sheet-cancel" bindtap="onCancel">
+      <text class="action-sheet-cancel-text">取消</text>
+    </view>
+  </view>
+</view>
