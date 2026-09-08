@@ -1,10 +1,12 @@
 <!--pages/enterprise-query/enterprise-query.wxml-->
-<view class="container" style="--status-bar-height: {{statusBarHeight}}px;">
+<view class="container">
   <!-- 渐变头部 -->
   <view class="gradient-header">
     <view class="header-content">
-      <view class="header-icon app-icon app-icon-hover icon-building" style="width:64rpx;height:64rpx;margin-bottom:16rpx;"></view>
-      <view class="header-title">企业信息查询</view>
+      <view class="header-top">
+        <view class="header-icon app-icon app-icon-hover icon-building" style="width:56rpx;height:56rpx;"></view>
+        <view class="header-title">企业信息查询</view>
+      </view>
       <view class="header-desc">4个官方查询平台，核实企业资质与信用</view>
     </view>
   </view>

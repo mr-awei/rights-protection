@@ -12,6 +12,9 @@ Page({
     channelList: [],
     scriptList: [],
     historyList: [],
+    // 收藏分组
+    groups: [],
+    activeGroup: 'all', // all: 全部, 其他为分组ID
     // 分页状态
     channelPage: 1,
     scriptPage: 1,
@@ -24,7 +27,11 @@ Page({
     // 总数
     channelTotal: 0,
     scriptTotal: 0,
-    historyTotal: 0
+    historyTotal: 0,
+    // 批量管理模式
+    isBatchMode: false,
+    selectedItems: [],
+    isAllSelected: false
   },
 
   onLoad(options) {
@@ -42,22 +49,27 @@ Page({
     }
 
     this.loadAllData();
+
   },
 
   onShow() {
     // 页面显示时刷新数据（可能从详情页返回收藏状态变化）
     this.refreshCurrentTab();
+
   },
 
   // 加载所有数据的总数
   loadAllData() {
-    const favorites = app.getFavorites() || { channels: [], scripts: [] };
+    const favoritesData = app.globalData.favorites || {};
+    const favorites = { channels: favoritesData.channels || [], scripts: favoritesData.scripts || [] };
     const viewHistory = app.getViewHistory() || [];
+    const groups = app.getFavoriteGroups() || [];
 
     this.setData({
       channelTotal: favorites.channels.length,
       scriptTotal: favorites.scripts.length,
-      historyTotal: viewHistory.length
+      historyTotal: viewHistory.length,
+      groups: groups
     });
 
     // 加载当前Tab的第一页
@@ -66,16 +78,49 @@ Page({
 
   // 刷新当前Tab
   refreshCurrentTab() {
-    const favorites = app.getFavorites() || { channels: [], scripts: [] };
+    const favoritesData = app.globalData.favorites || {};
+    const favorites = { channels: favoritesData.channels || [], scripts: favoritesData.scripts || [] };
     const viewHistory = app.getViewHistory() || [];
+    const groups = app.getFavoriteGroups() || [];
 
     this.setData({
       channelTotal: favorites.channels.length,
       scriptTotal: favorites.scripts.length,
-      historyTotal: viewHistory.length
+      historyTotal: viewHistory.length,
+      groups: groups
     });
 
     this.loadCurrentTab(1);
+  },
+
+  // 切换分组
+  onGroupTap(e) {
+    const groupId = e.currentTarget.dataset.group;
+    this.setData({ activeGroup: groupId });
+    this.loadCurrentTab(1);
+  },
+
+  // 创建新分组
+  onCreateGroup() {
+    wx.showModal({
+      title: '新建分组',
+      editable: true,
+      placeholderText: '请输入分组名称',
+      success: (res) => {
+        if (res.confirm && res.content) {
+          const groupId = app.createFavoriteGroup(res.content);
+          if (groupId) {
+            const groups = app.getFavoriteGroups() || [];
+            this.setData({
+              groups: groups,
+              activeGroup: groupId
+            });
+            this.loadCurrentTab(1);
+            wx.showToast({ title: '分组已创建', icon: 'success' });
+          }
+        }
+      }
+    });
   },
 
   // 加载当前Tab的数据
@@ -95,8 +140,7 @@ Page({
     if (this.data.loading) return;
     this.setData({ loading: true });
 
-    const favorites = app.getFavorites() || { channels: [] };
-    const allIds = favorites.channels || [];
+    const allIds = app.globalData.favorites.channels || [];
     const start = (page - 1) * PAGE_SIZE;
     const end = start + PAGE_SIZE;
     const pageIds = allIds.slice(start, end);
@@ -124,8 +168,7 @@ Page({
     if (this.data.loading) return;
     this.setData({ loading: true });
 
-    const favorites = app.getFavorites() || { scripts: [] };
-    const allIds = favorites.scripts || [];
+    const allIds = app.globalData.favorites.scripts || [];
     const start = (page - 1) * PAGE_SIZE;
     const end = start + PAGE_SIZE;
     const pageIds = allIds.slice(start, end);
@@ -211,11 +254,11 @@ Page({
   // 点击浏览历史
   onHistoryTap(e) {
     const item = e.currentTarget.dataset.item;
-    if (item.type === 'channel') {
+    if (item.item_type === 'channel') {
       wx.navigateTo({
         url: `/pages/channel-detail/channel-detail?id=${item.item_id}`
       });
-    } else if (item.type === 'script') {
+    } else if (item.item_type === 'script') {
       wx.navigateTo({
         url: `/pages/script-detail/script-detail?id=${item.item_id}`
       });
@@ -276,6 +319,64 @@ Page({
     });
   },
 
+  // 删除单条浏览历史
+  onRemoveHistory(e) {
+    const item = e.currentTarget.dataset.item;
+    if (!item) return;
+    wx.showModal({
+      title: '删除记录',
+      content: '确定要删除这条浏览记录吗？',
+      confirmText: '删除',
+      cancelText: '取消',
+      confirmColor: '#EF4444',
+      success: (res) => {
+        if (res.confirm) {
+          app.removeViewHistory(item.item_type, item.item_id);
+          wx.showToast({ title: '已删除', icon: 'success' });
+          this.refreshCurrentTab();
+        }
+      }
+    });
+  },
+
+  // 左滑手势检测 - 开始
+  onTouchStart(e) {
+    if (this.data.isBatchMode) return;
+    const touch = e.touches[0];
+    this._touchStartX = touch.clientX;
+    this._touchStartY = touch.clientY;
+    this._touchStartTime = Date.now();
+  },
+
+  // 左滑手势检测 - 结束
+  onTouchEnd(e) {
+    if (this.data.isBatchMode) return;
+    if (!this._touchStartX) return;
+
+    const touch = e.changedTouches[0];
+    const deltaX = touch.clientX - this._touchStartX;
+    const deltaY = touch.clientY - this._touchStartY;
+    const deltaTime = Date.now() - this._touchStartTime;
+
+    // 左滑判断：横向滑动距离>50px，纵向距离<30px，时间<500ms
+    if (deltaX < -50 && Math.abs(deltaY) < 30 && deltaTime < 500) {
+      const tab = this.data.activeTab;
+      const dataset = e.currentTarget.dataset;
+
+      if (tab === 'channels' && dataset.id) {
+        this.onRemoveChannel({ currentTarget: { dataset: { id: dataset.id } } });
+      } else if (tab === 'scripts' && dataset.id) {
+        this.onRemoveScript({ currentTarget: { dataset: { id: dataset.id } } });
+      } else if (tab === 'history' && dataset.item) {
+        this.onRemoveHistory({ currentTarget: { dataset: { item: dataset.item } } });
+      }
+    }
+
+    this._touchStartX = null;
+    this._touchStartY = null;
+    this._touchStartTime = null;
+  },
+
   // 滚动到底部加载更多
   onReachBottom() {
     const tab = this.data.activeTab;
@@ -298,6 +399,190 @@ Page({
     }
   },
 
+  // ========== 分组管理（长按重命名/删除/排序）==========
+
+  // 长按分组显示操作菜单
+  onGroupLongPress(e) {
+    const groupId = e.currentTarget.dataset.group;
+    const groupIndex = e.currentTarget.dataset.index;
+    const group = this.data.groups.find(g => g.id === groupId);
+    if (!group) return;
+    if (group.type === 'system') {
+      wx.showToast({ title: '默认分组不可操作', icon: 'none' });
+      return;
+    }
+
+    const itemList = ['重命名', '上移', '下移', '删除分组'];
+    wx.showActionSheet({
+      itemList: itemList,
+      success: (res) => {
+        const action = itemList[res.tapIndex];
+        if (action === '重命名') {
+          this.onRenameGroup(groupId, group.name);
+        } else if (action === '上移') {
+          this.onMoveGroup(groupId, 'up');
+        } else if (action === '下移') {
+          this.onMoveGroup(groupId, 'down');
+        } else if (action === '删除分组') {
+          this.onDeleteGroup(groupId, group.name);
+        }
+      }
+    });
+  },
+
+  // 重命名分组
+  onRenameGroup(groupId, oldName) {
+    wx.showModal({
+      title: '重命名分组',
+      editable: true,
+      placeholderText: '请输入新名称',
+      content: oldName,
+      success: (res) => {
+        if (res.confirm && res.content && res.content.trim()) {
+          if (app.renameFavoriteGroup(groupId, res.content.trim())) {
+            const groups = app.getFavoriteGroups();
+            this.setData({ groups });
+            wx.showToast({ title: '已重命名', icon: 'success' });
+          }
+        }
+      }
+    });
+  },
+
+  // 移动分组排序
+  onMoveGroup(groupId, direction) {
+    if (app.moveFavoriteGroup(groupId, direction)) {
+      const groups = app.getFavoriteGroups();
+      this.setData({ groups });
+      wx.showToast({ title: direction === 'up' ? '已上移' : '已下移', icon: 'success' });
+    } else {
+      wx.showToast({ title: '无法移动', icon: 'none' });
+    }
+  },
+
+  // 删除分组
+  onDeleteGroup(groupId, groupName) {
+    wx.showModal({
+      title: '删除分组',
+      content: `确定要删除分组"${groupName}"吗？分组内的收藏不会被删除。`,
+      confirmColor: '#EF4444',
+      success: (res) => {
+        if (res.confirm) {
+          if (app.deleteFavoriteGroup(groupId)) {
+            const groups = app.getFavoriteGroups();
+            this.setData({ groups, activeGroup: 'all' });
+            this.loadCurrentTab(1);
+            wx.showToast({ title: '已删除', icon: 'success' });
+          }
+        }
+      }
+    });
+  },
+
+  // ========== 批量管理模式 ==========
+
+  // 切换批量管理模式
+  onToggleBatchMode() {
+    const isBatchMode = !this.data.isBatchMode;
+    this.setData({
+      isBatchMode,
+      selectedItems: [],
+      isAllSelected: false
+    });
+  },
+
+  // 切换选择项
+  onToggleSelect(e) {
+    const id = e.currentTarget.dataset.id;
+    const tab = this.data.activeTab;
+    const itemKey = tab + ':' + id;
+    const selectedItems = [...this.data.selectedItems];
+    const index = selectedItems.indexOf(itemKey);
+
+    if (index > -1) {
+      selectedItems.splice(index, 1);
+    } else {
+      selectedItems.push(itemKey);
+    }
+
+    // 计算是否全选
+    const currentList = tab === 'channels' ? this.data.channelList : this.data.scriptList;
+    const isAllSelected = selectedItems.length === currentList.length && currentList.length > 0;
+
+    this.setData({ selectedItems, isAllSelected });
+  },
+
+  // 全选/取消全选
+  onSelectAll() {
+    const tab = this.data.activeTab;
+    const currentList = tab === 'channels' ? this.data.channelList : this.data.scriptList;
+
+    if (this.data.isAllSelected) {
+      this.setData({ selectedItems: [], isAllSelected: false });
+    } else {
+      const selectedItems = currentList.map(item => tab + ':' + item.id);
+      this.setData({ selectedItems, isAllSelected: true });
+    }
+  },
+
+  // 批量移动到分组
+  onMoveToGroup() {
+    const selectedItems = this.data.selectedItems;
+    if (selectedItems.length === 0) {
+      wx.showToast({ title: '请先选择项目', icon: 'none' });
+      return;
+    }
+
+    const groups = this.data.groups.filter(g => g.type !== 'system' || g.id === 'default');
+    const groupNames = groups.map(g => g.name);
+
+    wx.showActionSheet({
+      itemList: groupNames,
+      success: (res) => {
+        const targetGroup = groups[res.tapIndex];
+        if (app.moveFavoriteItemsToGroup(selectedItems, targetGroup.id)) {
+          wx.showToast({ title: `已移动${selectedItems.length}项`, icon: 'success' });
+          this.setData({ selectedItems: [], isAllSelected: false, isBatchMode: false });
+          this.refreshCurrentTab();
+        }
+      }
+    });
+  },
+
+  // 批量删除
+  onBatchRemove() {
+    const selectedItems = this.data.selectedItems;
+    if (selectedItems.length === 0) {
+      wx.showToast({ title: '请先选择项目', icon: 'none' });
+      return;
+    }
+
+    wx.showModal({
+      title: '批量删除',
+      content: `确定要删除选中的${selectedItems.length}项收藏吗？`,
+      confirmColor: '#EF4444',
+      success: (res) => {
+        if (res.confirm) {
+          const tab = this.data.activeTab;
+          selectedItems.forEach(itemKey => {
+            const [type, id] = itemKey.split(':');
+            if (type === 'channel') {
+              app.removeFavorite('channels', id);
+            } else if (type === 'script') {
+              app.removeFavorite('scripts', id);
+            }
+          });
+          // 从所有分组中移除
+          app.removeFavoriteItemsFromGroups(selectedItems);
+
+          wx.showToast({ title: `已删除${selectedItems.length}项`, icon: 'success' });
+          this.setData({ selectedItems: [], isAllSelected: false, isBatchMode: false });
+          this.refreshCurrentTab();
+        }
+      }
+    });
+  },
+
   // 返回
   onBack() {
     wx.navigateBack({
@@ -305,5 +590,5 @@ Page({
         wx.switchTab({ url: '/pages/profile/profile' });
       }
     });
-  }
+  },
 });

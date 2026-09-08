@@ -7,7 +7,7 @@ const ENTERPRISE_QUERY = [
     name: '国家企业信用信息公示系统',
     website: 'gsxt.gov.cn',
     full_url: 'https://www.gsxt.gov.cn',
-    icon: '🏢',
+    icon: 'icon-building',
     color: '#3B82F6',
     can_query: [
       '注册资本、法定代表人、股东信息',
@@ -27,7 +27,7 @@ const ENTERPRISE_QUERY = [
     name: '信用中国',
     website: 'creditchina.gov.cn',
     full_url: 'https://www.creditchina.gov.cn',
-    icon: '⭐',
+    icon: 'icon-star',
     color: '#F59E0B',
     can_query: [
       '公共信用信息、行政许可信息',
@@ -47,7 +47,7 @@ const ENTERPRISE_QUERY = [
     name: '中国执行信息公开网',
     website: 'zxgk.court.gov.cn',
     full_url: 'http://zxgk.court.gov.cn',
-    icon: '⚖️',
+    icon: 'icon-law',
     color: '#EF4444',
     can_query: [
       '被执行人信息（正在被法院强制执行）',
@@ -67,7 +67,7 @@ const ENTERPRISE_QUERY = [
     name: '认证认可信息公共服务平台',
     website: 'cx.cnca.cn',
     full_url: 'http://cx.cnca.cn',
-    icon: '✅',
+    icon: 'icon-check',
     color: '#10B981',
     can_query: [
       'CCC强制性认证证书真伪',

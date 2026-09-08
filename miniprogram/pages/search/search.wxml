@@ -20,7 +20,7 @@
           bindconfirm="onSearch"
         />
         <view class="clear-btn" wx:if="{{keyword}}" bindtap="onClearInput">
-          <text>✕</text>
+          <view class="app-icon app-icon-default icon-close" style="width:24rpx;height:24rpx;--icon-bg:transparent;--icon-color:#999;"></view>
         </view>
       </view>
     </view>
@@ -36,9 +36,7 @@
       bindtap="onSuggestionTap"
       hover-class="suggestion-item-hover"
     >
-      <view class="suggestion-icon suggestion-icon-{{item.type}}">
-        <text class="suggestion-icon-text">{{item.type === 'channel' ? '渠' : '话'}}</text>
-      </view>
+      <view class="suggestion-icon app-icon app-icon-default {{item.type === 'channel' ? 'icon-channel' : 'icon-doc'}} suggestion-icon-{{item.type}}"></view>
       <view class="suggestion-info">
         <text class="suggestion-name">{{item.name}}</text>
         <text class="suggestion-type" wx:if="{{item.type === 'channel'}}">投诉渠道</text>
@@ -56,7 +54,7 @@
     <!-- 搜索历史 -->
     <view class="section" wx:if="{{searchHistory.length > 0}}">
       <view class="section-header">
-        <text class="section-title">� 搜索历史</text>
+        <text class="section-title">搜索历史</text>
         <view class="clear-history" bindtap="onClearHistory">
           <text>清空</text>
         </view>
@@ -72,7 +70,7 @@
         >
           <text class="tag-text">{{item}}</text>
           <view class="tag-delete" catchtap="onDeleteHistory" data-keyword="{{item}}">
-            <text>✕</text>
+            <view class="app-icon app-icon-default icon-close" style="width:24rpx;height:24rpx;--icon-bg:transparent;--icon-color:#999;"></view>
           </view>
         </view>
       </view>
@@ -81,7 +79,7 @@
     <!-- 热门搜索 -->
     <view class="section">
       <view class="section-header">
-        <text class="section-title"> 热门搜索</text>
+        <text class="section-title">热门搜索</text>
       </view>
       <view class="hot-tags">
         <view

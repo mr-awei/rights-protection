@@ -1,32 +1,32 @@
 // pages/index/index.js
 const app = getApp();
 const { search } = require('../../utils/search');
-const { getHotScripts } = require('../../utils/data');
+const { getHotScripts, getConfig } = require('../../utils/data');
 
 Page({
   data: {
     searchKeyword: '',
     statusBarHeight: 0,
-    hotSearches: ['快递丢失', '商家不退款', '话费乱扣', '老板欠薪', '物业乱收费', '电信诈骗', '噪音扰民', '医院乱收费', '出租车拒载', '个人信息泄露'],
-    emergencyPhones: [
-      { name: '110', label: '报警', color: '#FF4D4F' },
-      { name: '119', label: '火警', color: '#FA8C16' },
-      { name: '120', label: '急救', color: '#EB2F96' },
-      { name: '96110', label: '反诈', color: '#722ED1' }
-    ],
+    hotSearches: [],
+    emergencyPhones: [],
     sceneEntries: [
-      { label: '快递问题', color: '#E6F4FF', textColor: '#1890FF', iconClass: 'icon-box', category: '交通物流' },
-      { label: '手机宽带', color: '#F6FFED', textColor: '#52C41A', iconClass: 'icon-mobile', category: '电信运营' },
-      { label: '消费购物', color: '#FFFBE6', textColor: '#FAAD14', iconClass: 'icon-shop', category: '消费购物' },
-      { label: '房产物业', color: '#FFF2F0', textColor: '#FF4D4F', iconClass: 'icon-home', category: '房产物业' },
-      { label: '劳动工资', color: '#F9F0FF', textColor: '#722ED1', iconClass: 'icon-briefcase', category: '劳动用工' },
-      { label: '金融保险', color: '#E6FFFB', textColor: '#13C2C2', iconClass: 'icon-coin', category: '金融保险' },
-      { label: '医疗教育', color: '#FFF0F6', textColor: '#EB2F96', iconClass: 'icon-medical', category: '医疗教育' },
-      { label: '被骗举报', color: '#F0F5FF', textColor: '#2F54EB', iconClass: 'icon-shield', category: '网络安全' }
+      { label: '快递丢了/坏了', desc: '12305邮政申诉', color: '#E6F4FF', textColor: '#1890FF', iconClass: 'icon-box', searchKeyword: '快递', issueType: 'quality' },
+      { label: '运营商乱扣费', desc: '12300工信部申诉', color: '#F6FFED', textColor: '#52C41A', iconClass: 'icon-mobile', searchKeyword: '运营商', issueType: 'overcharge' },
+      { label: '商家不退款', desc: '12315平台投诉', color: '#FFFBE6', textColor: '#FAAD14', iconClass: 'icon-shop', searchKeyword: '退款', issueType: 'no_refund' },
+      { label: '物业不作为', desc: '12345住建投诉', color: '#FFF2F0', textColor: '#FF4D4F', iconClass: 'icon-home', searchKeyword: '物业', issueType: 'inaction' },
+      { label: '银行/保险坑人', desc: '12378金融监管', color: '#E6FFFB', textColor: '#13C2C2', iconClass: 'icon-coin', searchKeyword: '金融', issueType: 'fraud' },
+      { label: '老板欠薪', desc: '劳动监察投诉', color: '#F9F0FF', textColor: '#722ED1', iconClass: 'icon-briefcase', searchKeyword: '劳动', issueType: 'overcharge' },
+      { label: '医院/学校乱收费', desc: '12320/12391投诉', color: '#FFF0F6', textColor: '#EB2F96', iconClass: 'icon-medical', searchKeyword: '收费', issueType: 'overcharge' },
+      { label: '被骗了/诈骗', desc: '96110反诈报警', color: '#F0F5FF', textColor: '#2F54EB', iconClass: 'icon-shield', searchKeyword: '诈骗', issueType: 'fraud' }
     ],
     hotScripts: [],
     recentViews: [],
-    noticeExpanded: false
+    noticeExpanded: false,
+    // 愿景弹窗
+    showVisionModal: false,
+    visionCountdown: 5,
+    visionCanClose: false,
+    dontShowAgain: false
   },
 
   onLoad() {
@@ -37,13 +37,74 @@ Page({
     } catch (e) {
       this.setData({ statusBarHeight: 20 });
     }
+    // 从配置文件读取热门搜索和紧急电话
+    const config = getConfig();
+    const hotSearches = config.hot_search_words || [];
+    const emergencyPhones = (config.emergency_phones || []).map(p => ({
+      name: p.phone,
+      label: p.name.replace(/[0-9]/g, ''),
+      color: p.phone === '110' ? '#FF4D4F' : p.phone === '119' ? '#FA8C16' : p.phone === '120' ? '#EB2F96' : '#722ED1'
+    }));
+    this.setData({ hotSearches, emergencyPhones });
     this.loadHotScripts();
     this.loadRecentViews();
+    // 检查是否需要展示愿景弹窗
+    this.checkVisionModal();
+  },
+
+  // 检查是否需要展示愿景弹窗
+  checkVisionModal() {
+    try {
+      const dontShow = wx.getStorageSync('vision_modal_dont_show');
+      if (!dontShow) {
+        this.setData({ showVisionModal: true, visionCountdown: 5, visionCanClose: false });
+        this.startVisionCountdown();
+      }
+    } catch (e) {
+      // 存储异常时默认展示
+      this.setData({ showVisionModal: true, visionCountdown: 5, visionCanClose: false });
+      this.startVisionCountdown();
+    }
+  },
+
+  // 开始愿景弹窗倒计时
+  startVisionCountdown() {
+    this.visionTimer = setInterval(() => {
+      let countdown = this.data.visionCountdown - 1;
+      if (countdown <= 0) {
+        clearInterval(this.visionTimer);
+        this.setData({ visionCountdown: 0, visionCanClose: true });
+      } else {
+        this.setData({ visionCountdown: countdown });
+      }
+    }, 1000);
+  },
+
+  // 关闭愿景弹窗
+  closeVisionModal() {
+    if (!this.data.visionCanClose) {
+      return;
+    }
+    if (this.visionTimer) {
+      clearInterval(this.visionTimer);
+    }
+    if (this.data.dontShowAgain) {
+      try {
+        wx.setStorageSync('vision_modal_dont_show', true);
+      } catch (e) {}
+    }
+    this.setData({ showVisionModal: false });
+  },
+
+  // 切换"以后不再展示"
+  toggleDontShowAgain() {
+    this.setData({ dontShowAgain: !this.data.dontShowAgain });
   },
 
   onShow() {
     // 页面显示时刷新最近浏览
     this.loadRecentViews();
+
   },
 
   // 加载最近浏览
@@ -102,7 +163,7 @@ Page({
 
   // 查看全部话术
   onViewAllScripts() {
-    wx.switchTab({ url: '/pages/category/category' });
+    wx.switchTab({ url: '/pages/script-list/script-list' });
   },
 
   // 点击搜索框跳转到搜索态页面
@@ -132,6 +193,11 @@ Page({
     // 添加搜索历史
     app.addSearchHistory(keyword);
 
+    // 搜索埋点
+    try {
+      app.trackEvent('search', { keyword, source: 'home' });
+    } catch (e) {}
+
     // 统一跳转到搜索结果页，体验一致
     wx.navigateTo({
       url: `/pages/search-result/search-result?keyword=${encodeURIComponent(keyword)}`
@@ -141,17 +207,21 @@ Page({
   onHotSearchTap(e) {
     const keyword = e.currentTarget.dataset.keyword;
     this.setData({ searchKeyword: keyword });
+
+    // 热门搜索点击埋点
+    try {
+      app.trackEvent('hot_search_click', { keyword, source: 'home' });
+    } catch (e) {}
+
     this.doSearch();
   },
 
   onSceneEntryTap(e) {
-    const category = e.currentTarget.dataset.category;
-    // 使用全局变量传递分类参数（TabBar页面switchTab不支持传参）
-    const app = getApp();
-    app.globalData.pendingCategory = category;
-    // 跳转到分类页，自动选中对应的分类
-    wx.switchTab({
-      url: '/pages/category/category'
+    const searchKeyword = e.currentTarget.dataset.keyword || '';
+    const issueType = e.currentTarget.dataset.issuetype || '';
+    // 跳转到搜索结果页，传递关键词和问题类型筛选
+    wx.navigateTo({
+      url: '/pages/search-result/search-result?keyword=' + encodeURIComponent(searchKeyword) + '&issue_type=' + issueType
     });
   },
 
@@ -186,7 +256,7 @@ Page({
   },
 
   onMoreScriptsTap() {
-    wx.switchTab({ url: '/pages/category/category' });
+    wx.switchTab({ url: '/pages/script-list/script-list' });
   },
 
   // 维权须知折叠/展开
@@ -194,5 +264,20 @@ Page({
     this.setData({
       noticeExpanded: !this.data.noticeExpanded
     });
-  }
+  },
+
+  // 分享给朋友
+  onShareAppMessage() {
+    return {
+      title: '我不能被欺负 - 维权投诉渠道大全',
+      path: '/pages/index/index'
+    };
+  },
+
+  // 分享到朋友圈
+  onShareTimeline() {
+    return {
+      title: '我不能被欺负 - 维权投诉渠道大全'
+    };
+  },
 });

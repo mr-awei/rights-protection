@@ -179,6 +179,7 @@
 .section-header {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   padding: 8rpx 8rpx 16rpx;
 }
 
@@ -428,6 +429,22 @@
   color: #FFFFFF;
 }
 
+/* 分享按钮重置button默认样式 */
+.share-btn {
+  margin: 0;
+  padding: 24rpx 0;
+  line-height: normal;
+  border-radius: 16rpx;
+  background: #F5F5F5;
+  border: 1rpx solid #EEEEEE;
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #666666;
+}
+.share-btn::after {
+  border: none;
+}
+
 /* ========== 复制按钮 ========== */
 .copy-btn {
   display: flex;
@@ -636,6 +653,15 @@
   font-weight: 500;
   width: 160rpx;
   flex-shrink: 0;
+}
+
+.fill-form-guide {
+  font-size: 20rpx;
+  color: #92400E;
+  opacity: 0.7;
+  margin-left: 8rpx;
+  flex: 1;
+  min-width: 0;
 }
 
 .fill-form-input {

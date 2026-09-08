@@ -1,6 +1,6 @@
 <!--pages/channel-detail/channel-detail.wxml-->
 <!-- 加载状态 -->
-<view class="loading-container" wx:if="{{loading}}">
+<view class="loading-container {{themeClass}}" wx:if="{{loading}}">
   <view class="loading-spinner"></view>
   <text class="loading-text">加载中...</text>
 </view>
@@ -10,13 +10,15 @@
   <view class="gradient-header">
     <view class="header-content">
       <view class="channel-title-row">
-        <view class="channel-badge">
-          <text class="badge-text">官</text>
-        </view>
+        <view class="channel-badge app-icon app-icon-default icon-shield" style="width:40rpx;height:40rpx;--icon-bg:rgba(255,255,255,0.2);--icon-color:#fff;"></view>
         <text class="channel-title">{{channel.name}}</text>
       </view>
       <view class="channel-tags" wx:if="{{channel.tags && channel.tags.length > 0}}">
         <text class="channel-tag" wx:for="{{channel.tags}}" wx:key="*this" wx:for-item="tag">{{tag}}</text>
+      </view>
+      <view class="issue-type-tags" wx:if="{{issueTypeLabels && issueTypeLabels.length > 0}}">
+        <text class="issue-type-label">适用问题：</text>
+        <text class="issue-type-tag" wx:for="{{issueTypeLabels}}" wx:key="key">{{item.name}}</text>
       </view>
     </view>
   </view>
@@ -54,9 +56,7 @@
           data-item="{{item}}"
           bindtap="onContactAction"
         >
-          <view class="contact-icon contact-icon-{{item.type}}">
-            <text class="contact-icon-text">{{item.type === 'phone' ? '电' : item.type === 'website' ? '网' : '管'}}</text>
-          </view>
+          <view class="contact-icon app-icon app-icon-default {{item.type === 'phone' ? 'icon-phone' : item.type === 'website' ? 'icon-globe' : 'icon-building'}} contact-icon-{{item.type}}"></view>
           <view class="contact-info">
             <text class="contact-label">{{item.label}}</text>
             <text class="contact-value">{{item.value}}</text>
@@ -102,16 +102,17 @@
         <text class="section-title">相关法律法规</text>
       </view>
       <view class="law-list">
-        <view class="law-item" wx:for="{{laws}}" wx:key="id" bindtap="onLawTap" data-law="{{item}}" hover-class="law-item-hover">
-          <view class="law-icon">
-            <text class="law-icon-text">法</text>
-          </view>
+        <view class="law-item" wx:for="{{laws}}" wx:key="id" bindtap="openLawModal" data-law="{{item}}" hover-class="law-item-hover">
+          <view class="law-icon app-icon app-icon-default icon-law"></view>
           <view class="law-info">
             <text class="law-name">{{item.name}}</text>
-            <text class="law-desc">{{item.description || item.article || '点击复制法律名称'}}</text>
+            <text class="law-desc">{{item.articles && item.articles.length > 0 ? '点击查看详细条款' : (item.description || item.article || '点击查看法律详情')}}</text>
           </view>
           <text class="law-arrow">›</text>
         </view>
+      </view>
+      <view class="law-disclaimer">
+        <text class="law-disclaimer-text">⚠️ 以上法律条款仅供参考，具体以官方发布的法律法规为准。如有疑问，请咨询专业律师。</text>
       </view>
     </view>
 
@@ -129,9 +130,7 @@
           bindtap="onScriptTap"
           hover-class="script-card-hover"
         >
-          <view class="script-icon">
-            <text class="script-icon-text">话</text>
-          </view>
+          <view class="script-icon app-icon app-icon-default icon-doc"></view>
           <view class="script-info">
             <text class="script-name">{{item.scene_name || item.name}}</text>
             <text class="script-meta">电话版 + 书面版</text>
@@ -169,8 +168,9 @@
     <!-- 信息来源 -->
     <view class="section">
       <view class="source-card">
-        <text class="source-text">数据验证日期：2026年8月30日</text>
-        <text class="source-text">信息来源：三份维权文档整理，所有信息来源于政府官网公开渠道</text>
+        <text class="source-text">数据版本：{{channel.data_version || '2026.08'}}</text>
+        <text class="source-text" wx:if="{{channel.source && channel.source.length > 0}}">信息来源：{{channel.source}}</text>
+        <text class="source-text" wx:else>信息来源：三份维权文档整理，所有信息来源于政府官网公开渠道</text>
         <text class="source-tip">本工具为便民信息汇总，非政府官方应用，具体以各监管部门官方公布为准</text>
       </view>
     </view>
@@ -181,15 +181,11 @@
   <!-- 底部操作栏 -->
   <view class="bottom-bar">
     <view class="bottom-action" bindtap="onFavoriteTap">
-      <view class="bottom-icon {{isFavorite ? 'bottom-icon-active' : ''}}">
-        <text class="bottom-icon-text">{{isFavorite ? '★' : '☆'}}</text>
-      </view>
+      <view class="bottom-icon app-icon {{isFavorite ? 'app-icon-active icon-star' : 'app-icon-default icon-star'}}" style="{{isFavorite ? '--icon-bg: #FFF7E6; --icon-color: #FAAD14;' : '--icon-bg: #F5F6F8; --icon-color: #666666;'}}"></view>
       <text class="bottom-label">{{isFavorite ? '已收藏' : '收藏'}}</text>
     </view>
     <view class="bottom-action" bindtap="onShareTap">
-      <view class="bottom-icon">
-        <text class="bottom-icon-text">享</text>
-      </view>
+      <view class="bottom-icon app-icon app-icon-default icon-share" style="--icon-bg: #F5F6F8; --icon-color: #666666;"></view>
       <text class="bottom-label">分享</text>
     </view>
     <view class="bottom-btn" wx:if="{{channel.phone}}" bindtap="onCallTap">
@@ -204,4 +200,31 @@
 <!-- 加载状态 -->
 <view class="loading" wx:else>
   <text>加载中...</text>
+</view>
+
+<!-- 法律详情弹窗 -->
+<view class="law-modal-mask" wx:if="{{showLawModal}}" bindtap="closeLawModal">
+  <view class="law-modal-content" catchtap="preventModalBubble">
+    <view class="law-modal-header">
+      <text class="law-modal-title">{{currentLaw.name}}</text>
+      <view class="law-modal-close" bindtap="closeLawModal">
+        <view class="app-icon app-icon-default icon-close law-modal-close-icon"></view>
+      </view>
+    </view>
+    <scroll-view class="law-modal-body" scroll-y>
+      <block wx:if="{{currentLaw.articles && currentLaw.articles.length > 0}}">
+        <view class="law-article-item" wx:for="{{currentLaw.articles}}" wx:key="id">
+          <text class="law-article-text law-article-content">{{item.content}}</text>
+        </view>
+      </block>
+      <block wx:else>
+        <view class="law-article-item">
+          <text class="law-article-text">{{currentLaw.article || currentLaw.description || '该法律详细条款待补充'}}</text>
+        </view>
+      </block>
+    </scroll-view>
+    <view class="law-modal-footer">
+      <button class="law-modal-btn" bindtap="onLawTap" data-law="{{currentLaw}}">复制法律条款</button>
+    </view>
+  </view>
 </view>

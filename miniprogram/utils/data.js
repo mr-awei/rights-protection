@@ -14,9 +14,11 @@ let hotlineChangeData = null;  // 热线变更数据
 let followupScheduleData = null; // 跟进时间表数据
 let enterpriseQueryData = null;  // 企业查询数据
 let generalTemplateData = null;  // 通用投诉信模板数据
+let platformsData = null;        // 高层级诉求平台数据（独立表）
 
 /**
  * 初始化：加载索引和轻量数据（启动时调用，速度快）
+ * 包含索引自动同步机制：检测到索引与分片不一致时，自动从分片在内存中重建索引
  */
 function loadAllData() {
   if (channelIndex && scriptsData) return;
@@ -36,7 +38,55 @@ function loadAllData() {
     shardConfig = null;
   }
 
-  // 3. 如果索引不存在，回退到完整数据模式（兼容旧版本）
+  // 3. 索引自动同步检测：检查索引是否包含必要字段
+  // 如果索引缺少issue_types等新字段，说明索引文件过时，自动从分片重建
+  if (channelIndex && channelIndex.length > 0) {
+    const firstItem = channelIndex[0];
+    const indexNeedsRebuild = !firstItem.issue_types || 
+                               !firstItem.category_user_l2 ||
+                               !firstItem.related_script_id;
+    
+    if (indexNeedsRebuild) {
+      console.warn('[data] 检测到索引文件缺少必要字段（issue_types/category_user_l2等），自动从分片重建索引...');
+      try {
+        const rebuiltIndex = [];
+        const numParts = (shardConfig && shardConfig.num_parts) || 3;
+        for (let i = 1; i <= numParts; i++) {
+          try {
+            const part = require(`../data/channels_part_${i}.js`);
+            channelParts[i] = part;
+            part.forEach(c => {
+              rebuiltIndex.push({
+                id: c.id,
+                name: c.name,
+                phone: c.phone || '',
+                tags: c.tags || [],
+                category_l1: c.category_l1 || '',
+                category_l2: c.category_l2 || '',
+                category_user: c.category_user || '',
+                category_user_l2: c.category_user_l2 || '',
+                issue_types: c.issue_types || [],
+                related_script_id: c.related_script_id || '',
+                channel_type: c.channel_type || 'official',
+                hot_level: c.hot_level || 0,
+                part_num: i
+              });
+            });
+          } catch (e) {
+            console.warn('[data] 加载分片' + i + '失败:', e.message);
+          }
+        }
+        if (rebuiltIndex.length > 0) {
+          channelIndex = rebuiltIndex;
+          console.log('[data] 索引已从分片自动重建，共' + rebuiltIndex.length + '条渠道');
+        }
+      } catch (e) {
+        console.error('[data] 自动重建索引失败:', e);
+      }
+    }
+  }
+
+  // 4. 如果索引不存在，回退到完整数据模式（兼容旧版本）
   if (!channelIndex) {
     try {
       const fullData = require('../data/channels.js');
@@ -46,6 +96,8 @@ function loadAllData() {
         name: c.name,
         category_l1: c.category_l1,
         category_l2: c.category_l2,
+        category_user_l2: c.category_user_l2 || c.category_l2,
+        issue_types: c.issue_types || [],
         tags: c.tags || [],
         hot_level: c.hot_level || 0,
         phone: c.phone || '',
@@ -76,6 +128,7 @@ function loadAllData() {
   try { followupScheduleData = require('../data/followup_schedule.js'); } catch (e) { followupScheduleData = []; }
   try { enterpriseQueryData = require('../data/enterprise_query.js'); } catch (e) { enterpriseQueryData = []; }
   try { generalTemplateData = require('../data/general_template.js'); } catch (e) { generalTemplateData = null; }
+  try { platformsData = require('../data/platforms.js'); } catch (e) { platformsData = []; }
 }
 
 /**
@@ -173,16 +226,16 @@ function getCategories() {
   }
   // 兜底默认分类
   return [
-    { name: '交通物流', icon: '🚄' },
-    { name: '电信运营', icon: '📱' },
-    { name: '消费购物', icon: '🛒' },
-    { name: '金融保险', icon: '💰' },
-    { name: '房产物业', icon: '🏠' },
-    { name: '劳动用工', icon: '💼' },
-    { name: '医疗教育', icon: '🏥' },
-    { name: '环保城管', icon: '🌿' },
-    { name: '政务纪检', icon: '⚖️' },
-    { name: '网络安全', icon: '🛡️' }
+    { name: '交通物流', icon: 'icon-train' },
+    { name: '电信运营', icon: 'icon-mobile' },
+    { name: '消费购物', icon: 'icon-shop' },
+    { name: '金融保险', icon: 'icon-coin' },
+    { name: '房产物业', icon: 'icon-home' },
+    { name: '劳动用工', icon: 'icon-briefcase' },
+    { name: '医疗教育', icon: 'icon-medical' },
+    { name: '环保城管', icon: 'icon-leaf' },
+    { name: '政务纪检', icon: 'icon-law' },
+    { name: '网络安全', icon: 'icon-shield' }
   ];
 }
 
@@ -217,8 +270,14 @@ function getChannelsByCategory(category) {
   loadAllData();
   if (!channelIndex || !category) return [];
 
-  // 用category_user字段精准匹配
-  return channelIndex.filter(c => c.category_user === category);
+  // 三级匹配：先匹配category_l2（二级分类），再匹配category_l1（一级分类），最后匹配category_user（兼容旧字段）
+  return channelIndex.filter(c => {
+    if (c.category_l2 === category) return true;
+    if (c.category_l1 === category) return true;
+    if (c.category_user === category) return true;
+    if (c.category_user_l2 === category) return true;
+    return false;
+  });
 }
 
 /**
@@ -241,14 +300,33 @@ function getHotScripts(limit = 3) {
 
 /**
  * 根据渠道ID获取关联话术
+ * 优先使用显式关联字段，降级到电话号码匹配
  */
 function getRelatedScripts(channelId) {
   loadAllData();
   const channel = getChannelById(channelId);
   if (!channel) return [];
 
+  // 1. 优先使用渠道的 related_script_id 显式关联
+  if (channel.related_script_id) {
+    const ids = Array.isArray(channel.related_script_id)
+      ? channel.related_script_id
+      : String(channel.related_script_id).split(',').map(s => s.trim()).filter(Boolean);
+    const explicit = (scriptsData || []).filter(s => ids.includes(s.id));
+    if (explicit.length > 0) return explicit;
+  }
+
+  // 2. 其次使用话术的 related_channel_id 显式关联
+  const byScriptField = (scriptsData || []).filter(s => {
+    if (!s.related_channel_id) return false;
+    const ids = String(s.related_channel_id).split(',').map(x => x.trim()).filter(Boolean);
+    return ids.includes(channelId);
+  });
+  if (byScriptField.length > 0) return byScriptField;
+
+  // 3. 降级：电话号码模糊匹配
   const channelPhone = channel.phone || '';
-  return (scriptsData || []).filter(s => {
+  const byPhone = (scriptsData || []).filter(s => {
     const sceneName = s.scene_name || '';
     const phones = ['12305', '12300', '12315', '12378', '12345', '12333'];
     for (const p of phones) {
@@ -256,16 +334,40 @@ function getRelatedScripts(channelId) {
     }
     return false;
   });
+  if (byPhone.length > 0) return byPhone;
+
+  // 4. 兜底：返回通用话术（适用于没有专门话术的渠道）
+  const generalScripts = (scriptsData || []).filter(s => s.is_general === true);
+  return generalScripts;
 }
 
 /**
  * 根据话术ID获取关联渠道
+ * 优先使用显式关联字段，降级到电话号码匹配
  */
 function getRelatedChannels(scriptId) {
   loadAllData();
   const script = scriptsData.find(s => s.id === scriptId);
   if (!script || !channelIndex) return [];
 
+  // 1. 优先使用话术的 related_channel_id 显式关联
+  if (script.related_channel_id) {
+    const ids = String(script.related_channel_id).split(',').map(s => s.trim()).filter(Boolean);
+    const explicit = channelIndex.filter(c => ids.includes(c.id));
+    if (explicit.length > 0) return explicit;
+  }
+
+  // 2. 其次使用渠道的 related_script_id 显式关联
+  const byChannelField = channelIndex.filter(c => {
+    if (!c.related_script_id) return false;
+    const ids = Array.isArray(c.related_script_id)
+      ? c.related_script_id
+      : String(c.related_script_id).split(',').map(x => x.trim()).filter(Boolean);
+    return ids.includes(scriptId);
+  });
+  if (byChannelField.length > 0) return byChannelField;
+
+  // 3. 降级：电话号码模糊匹配
   const sceneName = script.scene_name || '';
   return channelIndex.filter(c => {
     const phone = c.phone || '';
@@ -369,6 +471,39 @@ function getGeneralTemplate() {
   return generalTemplateData;
 }
 
+/**
+ * 获取所有高层级诉求平台
+ */
+function getPlatforms() {
+  loadAllData();
+  return platformsData || [];
+}
+
+/**
+ * 根据ID获取高层级平台
+ */
+function getPlatformById(id) {
+  loadAllData();
+  if (!platformsData) return null;
+  return platformsData.find(p => p.id === id) || null;
+}
+
+/**
+ * 搜索高层级平台
+ */
+function searchPlatforms(keyword) {
+  loadAllData();
+  if (!keyword || !platformsData) return platformsData || [];
+  const kw = keyword.toLowerCase();
+  return platformsData.filter(p =>
+    (p.name && p.name.toLowerCase().includes(kw)) ||
+    (p.phone && p.phone.toLowerCase().includes(kw)) ||
+    (p.scope && p.scope.toLowerCase().includes(kw)) ||
+    (p.tags && p.tags.some(t => t.toLowerCase().includes(kw))) ||
+    (p.platform_category && p.platform_category.toLowerCase().includes(kw))
+  );
+}
+
 module.exports = {
   loadAllData,
   getChannels,
@@ -395,5 +530,87 @@ module.exports = {
   getHotlineChanges,
   getFollowupSchedule,
   getEnterpriseQueries,
-  getGeneralTemplate
+  getGeneralTemplate,
+  getPlatforms,
+  getPlatformById,
+  searchPlatforms,
+  normalizeChannel,
+  getChannelCategoryL1,
+  getChannelUserCategory,
+  getCategoryL1List,
+  getUserCategoryList,
+  getChannelsByCategoryL1,
+  CATEGORY_L1_TO_USER
 };
+
+// ============================================================
+// 分类体系统一 + 数据字段规范（兼容层）
+// 说明：现有数据使用 category_user（用户视角，10个分类），
+//       PRD定义使用 category_l1/category_l2（5大分类）。
+//       本兼容层同时支持两种字段，未来可平滑迁移。
+// ============================================================
+
+const CATEGORY_L1_TO_USER = {
+  '消费维权': ['消费购物', '金融保险', '交通物流'],
+  '公共服务': ['电信运营', '房产物业', '医疗教育', '环保城管'],
+  '劳动保障': ['劳动用工'],
+  '政务监督': ['政务纪检', '网络安全'],
+  '其他': []
+};
+
+const USER_TO_CATEGORY_L1 = {};
+Object.keys(CATEGORY_L1_TO_USER).forEach(function(l1) {
+  CATEGORY_L1_TO_USER[l1].forEach(function(userCat) {
+    USER_TO_CATEGORY_L1[userCat] = l1;
+  });
+});
+
+function normalizeChannel(channel) {
+  if (!channel) return null;
+  const normalized = Object.assign({}, channel);
+  const userCat = channel.category_user || channel.category_l1 || '';
+  const userCatL2 = channel.category_user_l2 || channel.category_l2 || '';
+  normalized.category_user = userCat;
+  normalized.category_user_l2 = userCatL2;
+  normalized.category_l1 = channel.category_l1 || USER_TO_CATEGORY_L1[userCat] || '其他';
+  normalized.category_l2 = channel.category_l2 || userCatL2;
+  normalized.name = channel.name || '';
+  normalized.phone = channel.phone || '';
+  normalized.website = channel.website || '';
+  normalized.scope = channel.scope || channel.description || '';
+  normalized.legal_basis = channel.legal_basis || '';
+  normalized.source = channel.source || '';
+  normalized.tags = channel.tags || [];
+  return normalized;
+}
+
+function getChannelCategoryL1(channel) {
+  if (!channel) return '其他';
+  if (channel.category_l1) return channel.category_l1;
+  const userCat = channel.category_user || '';
+  return USER_TO_CATEGORY_L1[userCat] || '其他';
+}
+
+function getChannelUserCategory(channel) {
+  if (!channel) return '';
+  return channel.category_user || channel.category_l1 || '';
+}
+
+function getCategoryL1List() {
+  return Object.keys(CATEGORY_L1_TO_USER);
+}
+
+function getUserCategoryList() {
+  if (!categoriesData) return [];
+  return categoriesData.map(function(c) { return c.name; });
+}
+
+function getChannelsByCategoryL1(categoryL1) {
+  loadAllData();
+  const userCats = CATEGORY_L1_TO_USER[categoryL1] || [];
+  if (!channelIndex) return [];
+  return channelIndex.filter(function(c) {
+    const userCat = c.category_user || c.category_l1 || '';
+    return userCats.indexOf(userCat) > -1;
+  });
+}

@@ -1,5 +1,5 @@
 <!--pages/search-result/search-result.wxml-->
-<view class="container" style="--status-bar-height: {{statusBarHeight}}px;">
+<view class="container {{themeClass}}" style="--status-bar-height: {{statusBarHeight}}px;">
   <!-- 搜索框 -->
   <view class="search-header">
     <view class="search-header-top">
@@ -40,11 +40,31 @@
       bindtap="onTabTap"
     >渠道</view>
     <view
+      class="result-tab {{activeTab === 'platform' ? 'active' : ''}}"
+      data-tab="platform"
+      bindtap="onTabTap"
+    >平台</view>
+    <view
       class="result-tab {{activeTab === 'script' ? 'active' : ''}}"
       data-tab="script"
       bindtap="onTabTap"
     >话术</view>
   </view>
+
+  <!-- 问题类型筛选栏 -->
+  <scroll-view class="issue-type-bar" scroll-x enable-flex show-scrollbar="{{false}}" wx:if="{{resultCount > 0}}">
+    <view class="issue-type-list">
+      <view
+        class="issue-type-item {{activeIssueType === item.key ? 'active' : ''}}"
+        wx:for="{{issueTypes}}"
+        wx:key="key"
+        data-type="{{item.key}}"
+        bindtap="onIssueTypeTap"
+      >
+        <text>{{item.name}}</text>
+      </view>
+    </view>
+  </scroll-view>
 
   <!-- 结果数量 -->
   <view class="result-count" wx:if="{{resultCount > 0}}">
@@ -52,21 +72,22 @@
   </view>
 
   <!-- 结果列表 -->
-  <view class="result-list" wx:if="{{filteredResults.length > 0}}">
+  <view class="result-list" wx:if="{{displayResults.length > 0}}">
     <view
       class="result-item"
-      wx:for="{{filteredResults}}"
+      wx:for="{{displayResults}}"
       wx:key="id"
       data-item="{{item}}"
       bindtap="onResultTap"
     >
       <view class="ri-title">
-        <text class="ri-type {{item.type}}">{{item.type === 'channel' ? '渠道' : '话术'}}</text>
+        <text class="ri-type {{item.type}}">{{item.type === 'channel' ? '渠道' : item.type === 'platform' ? '平台' : '话术'}}</text>
         <rich-text class="ri-name" nodes="{{item.highlightedName || item.name}}"></rich-text>
       </view>
       <rich-text class="ri-desc" nodes="{{item.highlightedDesc || item.desc}}"></rich-text>
       <view class="ri-meta">
         <text wx:if="{{item.type === 'channel'}}"> 官方渠道</text>
+        <text wx:if="{{item.type === 'platform'}}"> 高层级平台 · {{item.platform_category || ''}}</text>
         <text wx:if="{{item.type === 'script'}}"> 投诉话术</text>
         <text>匹配度 {{item.score > 10 ? 10 : item.score}}/10</text>
       </view>
@@ -74,16 +95,48 @@
   </view>
 
   <!-- 无结果 -->
-  <view class="empty-state" wx:if="{{filteredResults.length === 0 && resultCount > 0}}">
-    <view class="empty-icon">�</view>
+  <view class="empty-state" wx:if="{{displayResults.length === 0 && resultCount > 0}}">
+    <view class="empty-icon app-icon app-icon-default icon-search" style="width:80rpx;height:80rpx;--icon-bg:#F0F0F0;--icon-color:#CCC;"></view>
     <view class="empty-title">该分类下暂无结果</view>
     <view class="empty-desc">试试切换其他分类</view>
   </view>
 
-  <view class="empty-state" wx:if="{{resultCount === 0}}">
-    <view class="empty-icon"></view>
-    <view class="empty-title">未找到相关结果</view>
-    <view class="empty-desc">试试换个关键词，或查看全部分类</view>
+  <view class="empty-state empty-with-guide" wx:if="{{resultCount === 0}}">
+    <view class="empty-icon app-icon app-icon-default icon-list" style="width:80rpx;height:80rpx;--icon-bg:#F0F0F0;--icon-color:#CCC;"></view>
+    <view class="empty-title">未找到"{{keyword}}"相关结果</view>
+    <view class="empty-desc">换个关键词试试，或按分类浏览</view>
+
+    <!-- 热门搜索词 -->
+    <view class="guide-section">
+      <view class="guide-title"><view class="app-icon app-icon-default icon-fire" style="width:28rpx;height:28rpx;--icon-bg:transparent;--icon-color:#FF6B35;display:inline-block;vertical-align:middle;margin-right:8rpx;"></view>热门搜索</view>
+      <view class="guide-tags">
+        <view
+          class="guide-tag"
+          wx:for="{{hotSearches}}"
+          wx:key="*this"
+          data-keyword="{{item}}"
+          bindtap="onHotSearchTap"
+        >{{item}}</view>
+      </view>
+    </view>
+
+    <!-- 分类推荐 -->
+    <view class="guide-section">
+      <view class="guide-title"><view class="app-icon app-icon-default icon-folder" style="width:28rpx;height:28rpx;--icon-bg:transparent;--icon-color:#4A90D9;display:inline-block;vertical-align:middle;margin-right:8rpx;"></view>按分类浏览</view>
+      <view class="guide-categories">
+        <view
+          class="guide-category"
+          wx:for="{{guideCategories}}"
+          wx:key="name"
+          data-category="{{item.name}}"
+          bindtap="onGuideCategoryTap"
+        >
+          <view class="guide-category-icon app-icon app-icon-default {{item.icon}}" style="width:36rpx;height:36rpx;--icon-bg:transparent;--icon-color:{{item.color || '#4A90D9'}};"></view>
+          <text class="guide-category-name">{{item.name}}</text>
+        </view>
+      </view>
+    </view>
+
     <view class="empty-actions">
       <view class="btn btn-primary" bindtap="onBack">返回重新搜索</view>
     </view>

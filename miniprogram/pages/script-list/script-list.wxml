@@ -1,0 +1,94 @@
+<!--pages/script-list/script-list.wxml-->
+<view class="container {{themeClass}}" style="--status-bar-height: {{statusBarHeight}}px;">
+  <!-- 自定义导航栏 -->
+  <view class="nav-bar">
+    <view class="nav-bar-content">
+      <text class="nav-title">投诉话术</text>
+      <text class="nav-subtitle">{{filteredScripts.length}} 套模板</text>
+    </view>
+  </view>
+
+  <!-- 搜索框 -->
+  <view class="search-section">
+    <view class="search-box">
+      <view class="search-icon app-icon app-icon-default icon-search" style="width:32rpx;height:32rpx;--icon-bg:transparent;--icon-color:#999;"></view>
+      <input
+        class="search-input"
+        type="text"
+        placeholder="搜索话术，如快递、物业、欠薪"
+        placeholder-class="search-placeholder"
+        value="{{searchKeyword}}"
+        bindinput="onSearchInput"
+        bindconfirm="onSearchConfirm"
+        confirm-type="search"
+      />
+      <view class="search-clear app-icon app-icon-default icon-close" style="width:24rpx;height:24rpx;--icon-bg:transparent;--icon-color:#999;" wx:if="{{searchKeyword}}" bindtap="onClearSearch"></view>
+    </view>
+  </view>
+
+  <!-- 话术列表 -->
+  <view class="script-list" wx:if="{{filteredScripts.length > 0}}">
+    <view
+      class="script-card"
+      wx:for="{{filteredScripts}}"
+      wx:key="id"
+      data-id="{{item.id}}"
+      bindtap="onScriptTap"
+      hover-class="script-card-hover"
+    >
+      <!-- 卡片头部 -->
+      <view class="card-header">
+        <view class="script-icon app-icon app-icon-default icon-doc"></view>
+        <view class="script-info">
+          <text class="script-name">{{item.displayName}}</text>
+          <view class="script-tags">
+            <view class="script-tag" wx:if="{{item.hasPhone}}"><view class="app-icon app-icon-default icon-phone" style="width:24rpx;height:24rpx;--icon-bg:transparent;--icon-color:#06B6D4;display:inline-block;vertical-align:middle;margin-right:6rpx;"></view>电话版</view>
+            <view class="script-tag" wx:if="{{item.hasWritten}}"><view class="app-icon app-icon-default icon-doc" style="width:24rpx;height:24rpx;--icon-bg:transparent;--icon-color:#52C41A;display:inline-block;vertical-align:middle;margin-right:6rpx;"></view>书面版</view>
+          </view>
+        </view>
+        <view
+          class="favorite-btn {{favoriteIds.indexOf(item.id) > -1 ? 'favorited' : ''}}"
+          catchtap="onFavoriteTap"
+          data-id="{{item.id}}"
+        >
+          <view class="favorite-icon app-icon app-icon-default {{favoriteIds.indexOf(item.id) > -1 ? 'icon-star-filled' : 'icon-star-outline'}}" style="width:32rpx;height:32rpx;--icon-bg:transparent;--icon-color:{{favoriteIds.indexOf(item.id) > -1 ? '#FAAD14' : '#CCC'}};"></view>
+        </view>
+      </view>
+
+      <!-- 适用情况 -->
+      <view class="card-body" wx:if="{{item.applicable}}">
+        <text class="applicable-label">适用情况：</text>
+        <text class="applicable-text">{{item.applicable}}</text>
+      </view>
+
+      <!-- 话术预览 -->
+      <view class="card-preview">
+        <text class="preview-text">{{item.preview}}</text>
+      </view>
+
+      <!-- 卡片底部 -->
+      <view class="card-footer">
+        <view class="footer-left">
+          <text class="footer-hint">点击查看完整话术 →</text>
+        </view>
+        <view
+          class="copy-btn"
+          catchtap="onCopyPhone"
+          data-id="{{item.id}}"
+        >
+          <text class="copy-btn-text">复制电话版</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:if="{{filteredScripts.length === 0}}">
+    <view class="empty-icon app-icon app-icon-default icon-inbox" style="width:80rpx;height:80rpx;--icon-bg:#F0F0F0;--icon-color:#CCC;"></view>
+    <text class="empty-title">未找到相关话术</text>
+    <text class="empty-desc">试试其他关键词，或浏览全部话术</text>
+    <view class="empty-btn" bindtap="onClearSearch">查看全部话术</view>
+  </view>
+
+  <view style="height: 40rpx;"></view>
+</view>

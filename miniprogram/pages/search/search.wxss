@@ -115,24 +115,13 @@
 }
 
 .suggestion-icon-channel {
-  background: #E6F4FF;
+  --icon-bg: #E6F4FF;
+  --icon-color: #1890FF;
 }
 
 .suggestion-icon-script {
-  background: #E8F8EF;
-}
-
-.suggestion-icon-text {
-  font-size: 22rpx;
-  font-weight: 600;
-}
-
-.suggestion-icon-channel .suggestion-icon-text {
-  color: #1890FF;
-}
-
-.suggestion-icon-script .suggestion-icon-text {
-  color: #52C41A;
+  --icon-bg: #E8F8EF;
+  --icon-color: #52C41A;
 }
 
 .suggestion-info {
@@ -185,6 +174,7 @@
 .section-header {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   margin-bottom: 20rpx;
 }
 

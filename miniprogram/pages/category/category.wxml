@@ -1,5 +1,20 @@
 <!--pages/category/category.wxml-->
-<view class="container">
+<view class="container {{themeClass}}">
+  <!-- 问题类型筛选栏（顶部固定） -->
+  <scroll-view class="issue-type-bar" scroll-x enable-flex show-scrollbar="{{false}}">
+    <view class="issue-type-list">
+      <view
+        class="issue-type-item {{activeIssueType === item.key ? 'active' : ''}}"
+        wx:for="{{issueTypes}}"
+        wx:key="key"
+        data-type="{{item.key}}"
+        bindtap="onIssueTypeTap"
+      >
+        <text>{{item.name}}</text>
+      </view>
+    </view>
+  </scroll-view>
+
   <view class="category-layout">
     <!-- 左侧一级分类侧边栏 -->
     <scroll-view class="category-sidebar" scroll-y>
@@ -10,8 +25,7 @@
         data-index="{{index}}"
         bindtap="onCategoryTap"
       >
-        <view class="cat-sidebar-icon" style="background: {{item.color || '#3B82F6'}}15; color: {{item.color || '#3B82F6'}}">
-          <text>{{item.icon || ''}}</text>
+        <view class="cat-sidebar-icon app-icon app-icon-default {{item.icon || ''}}" style="--icon-bg: {{item.color || '#3B82F6'}}15; --icon-color: {{item.color || '#3B82F6'}};">
         </view>
         <text class="cat-sidebar-name">{{item.name}}</text>
         <view class="cat-sidebar-indicator" wx:if="{{activeCategory === index}}"></view>
@@ -54,8 +68,7 @@
             hover-class="channel-card-hover"
           >
             <view class="channel-card-left">
-              <view class="channel-icon" style="background: {{categories[activeCategory].color || '#3B82F6'}}15; color: {{categories[activeCategory].color || '#3B82F6'}}">
-                <text>{{categories[activeCategory].icon || ''}}</text>
+              <view class="channel-icon app-icon app-icon-default {{categories[activeCategory].icon || ''}}" style="--icon-bg: {{categories[activeCategory].color || '#3B82F6'}}15; --icon-color: {{categories[activeCategory].color || '#3B82F6'}};">
               </view>
             </view>
             <view class="channel-card-center">
@@ -73,7 +86,7 @@
 
         <!-- 空状态 -->
         <view class="empty-state" wx:if="{{channels.length === 0}}">
-          <view class="empty-icon">�</view>
+          <view class="empty-icon app-icon app-icon-default icon-inbox" style="width:80rpx;height:80rpx;--icon-bg:#F0F0F0;--icon-color:#CCC;"></view>
           <view class="empty-title">该分类下暂无渠道</view>
           <view class="empty-desc">试试其他分类吧</view>
         </view>

@@ -1,5 +1,5 @@
 <!--pages/index/index.wxml-->
-<view class="container" style="--status-bar-height: {{statusBarHeight}}px;">
+<view class="container {{themeClass}}" style="--status-bar-height: {{statusBarHeight}}px;">
   <!-- 渐变头部 -->
   <view class="gradient-header">
     <view class="header-content">
@@ -80,12 +80,16 @@
           class="scene-item"
           wx:for="{{sceneEntries}}"
           wx:key="label"
-          data-category="{{item.category}}"
+          data-keyword="{{item.searchKeyword}}"
+          data-issuetype="{{item.issueType}}"
           bindtap="onSceneEntryTap"
           hover-class="scene-item-hover"
         >
           <view class="scene-icon app-icon app-icon-default {{item.iconClass}}" style="--icon-bg: {{item.color}}; --icon-color: {{item.textColor}}; --icon-hover-bg: {{item.textColor}};"></view>
-          <text class="scene-name">{{item.label}}</text>
+          <view class="scene-text">
+            <text class="scene-name">{{item.label}}</text>
+            <text class="scene-desc">{{item.desc}}</text>
+          </view>
         </view>
       </view>
     </view>
@@ -166,6 +170,120 @@
     <!-- 底部提示 -->
     <view class="footer-tip">
       <text>数据仅供参考，以官方平台为准</text>
+    </view>
+  </view>
+
+  <!-- 愿景弹窗 -->
+  <view class="vision-modal-mask" wx:if="{{showVisionModal}}">
+    <view class="vision-modal">
+      <!-- 顶部装饰区 -->
+      <view class="vision-header">
+        <view class="vision-header-bg"></view>
+        <view class="vision-header-content">
+          <view class="vision-logo">
+            <view class="vision-logo-icon app-icon app-icon-default icon-shield"></view>
+          </view>
+          <text class="vision-title">我们的愿景</text>
+          <text class="vision-subtitle">愿每一个人都能被平等对待</text>
+        </view>
+      </view>
+
+      <!-- 内容区 -->
+      <view class="vision-body">
+        <!-- 引言卡片 -->
+        <view class="vision-quote-card">
+          <view class="quote-mark">"</view>
+          <view class="quote-content">
+            <text class="quote-line">当你遭遇不公，不必沉默</text>
+            <text class="quote-line">当你权利受损，不必退缩</text>
+          </view>
+          <view class="quote-highlight">勇敢发声 · 理性维权</view>
+        </view>
+
+        <!-- 三大核心理念 -->
+        <view class="vision-values">
+          <view class="value-card">
+            <view class="value-icon-wrap icon-bg-blue">
+              <view class="value-icon app-icon app-icon-default icon-chat"></view>
+            </view>
+            <text class="value-title">勇敢发声</text>
+            <view class="value-desc">
+              <text class="desc-line">遇到不公敢于表达</text>
+              <text class="desc-line">不做沉默的大多数</text>
+            </view>
+          </view>
+
+          <view class="value-card">
+            <view class="value-icon-wrap icon-bg-green">
+              <view class="value-icon app-icon app-icon-default icon-channel"></view>
+            </view>
+            <text class="value-title">找到渠道</text>
+            <view class="value-desc">
+              <text class="desc-line">官方渠道一键直达</text>
+              <text class="desc-line">维权不再无路可走</text>
+            </view>
+          </view>
+
+          <view class="value-card">
+            <view class="value-icon-wrap icon-bg-orange">
+              <view class="value-icon app-icon app-icon-default icon-heart"></view>
+            </view>
+            <text class="value-title">平等对待</text>
+            <view class="value-desc">
+              <text class="desc-line">愿每个人都被尊重</text>
+              <text class="desc-line">每份诉求都被听见</text>
+            </view>
+          </view>
+        </view>
+
+        <!-- 维权路径 -->
+        <view class="vision-path">
+          <view class="path-header">
+            <view class="path-title-icon app-icon app-icon-default icon-list"></view>
+            <text class="path-title">推荐维权路径</text>
+          </view>
+          <view class="path-steps">
+            <view class="path-step">
+              <view class="step-circle step-1">
+                <text class="step-num">1</text>
+              </view>
+              <text class="step-label">企业投诉</text>
+            </view>
+            <view class="path-connector"></view>
+            <view class="path-step">
+              <view class="step-circle step-2">
+                <text class="step-num">2</text>
+              </view>
+              <text class="step-label">监管投诉</text>
+            </view>
+            <view class="path-connector"></view>
+            <view class="path-step">
+              <view class="step-circle step-3">
+                <text class="step-num">3</text>
+              </view>
+              <text class="step-label">法律途径</text>
+            </view>
+          </view>
+          <text class="path-tip">先协商 · 再投诉 · 最后法律途径</text>
+        </view>
+      </view>
+
+      <!-- 底部操作区 -->
+      <view class="vision-footer">
+        <view class="footer-checkbox" bindtap="toggleDontShowAgain">
+          <view class="checkbox {{dontShowAgain ? 'checked' : ''}}">
+            <view wx:if="{{dontShowAgain}}" class="checkbox-inner"></view>
+          </view>
+          <text class="checkbox-text">不再提示</text>
+        </view>
+        <view 
+          class="footer-btn {{visionCanClose ? 'btn-active' : 'btn-disabled'}}" 
+          bindtap="closeVisionModal"
+        >
+          <text wx:if="{{!visionCanClose}}">{{visionCountdown}}秒后可关闭</text>
+          <text wx:else>我知道了</text>
+        </view>
+      </view>
     </view>
   </view>
 </view>

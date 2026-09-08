@@ -1,6 +1,7 @@
 // pages/search-result/search-result.js
 const { search, highlightKeywords } = require('../../utils/search');
-const { getChannelById, getScriptById } = require('../../utils/data');
+const { getChannelById, getScriptById, getConfig } = require('../../utils/data');
+const config = require('../../data/config.js');
 
 Page({
   data: {
@@ -9,8 +10,26 @@ Page({
     activeTab: 'all',
     results: [],
     filteredResults: [],
+    displayResults: [],
     resultCount: 0,
-    statusBarHeight: 20
+    statusBarHeight: 20,
+    hotSearches: [],
+    currentPage: 1,
+    hasMore: true,
+    loadingMore: false,
+    // 问题类型筛选
+    issueTypes: [],
+    activeIssueType: 'all',
+    guideCategories: [
+      { name: '交通物流', icon: 'icon-train' },
+      { name: '电信运营', icon: 'icon-mobile' },
+      { name: '消费购物', icon: 'icon-shop' },
+      { name: '金融保险', icon: 'icon-coin' },
+      { name: '房产物业', icon: 'icon-home' },
+      { name: '劳动用工', icon: 'icon-briefcase' },
+      { name: '医疗教育', icon: 'icon-medical' },
+      { name: '政务纪检', icon: 'icon-law' }
+    ]
   },
 
   onLoad(options) {
@@ -20,9 +39,30 @@ Page({
     } catch (e) {
       this.setData({ statusBarHeight: 20 });
     }
+    // 从配置文件读取热门搜索
+    const appConfig = getConfig();
+    this.setData({ hotSearches: appConfig.hot_search_words || [] });
+    
+    // 加载问题类型列表
+    const issueTypesConfig = appConfig.issue_types || {};
+    const issueTypes = [
+      { key: 'all', name: '全部' },
+      ...Object.keys(issueTypesConfig).map(key => ({
+        key: key,
+        name: issueTypesConfig[key].name
+      }))
+    ];
+    
     const keyword = decodeURIComponent(options.keyword || '');
-    this.setData({ keyword, searchInput: keyword });
+    const issueType = options.issue_type || 'all';
+    this.setData({ 
+      keyword, 
+      searchInput: keyword,
+      issueTypes: issueTypes,
+      activeIssueType: issueType
+    });
     this.doSearch(keyword);
+
   },
 
   // 搜索框输入
@@ -127,10 +167,20 @@ Page({
       resultCount: highlighted.length
     });
     this.filterResults('all');
+
+    // 记录搜索日志（匿名，用于后续搜索优化）
+    try {
+      const app = getApp();
+      if (app && app.logSearch) {
+        app.logSearch(keyword, highlighted.length, result.type || 'search');
+      }
+    } catch (e) {
+      // 搜索日志记录失败不影响主流程
+    }
   },
 
   /**
-   * 统一渠道和话术的字段映射
+   * 统一渠道、话术和平台的字段映射
    */
   normalizeItem(item) {
     if (item.type === 'channel') {
@@ -144,6 +194,12 @@ Page({
         ...item,
         name: item.scene_name || item.name || '',
         desc: item.applicable || item.desc || item.description || ''
+      };
+    } else if (item.type === 'platform') {
+      return {
+        ...item,
+        name: item.name || '',
+        desc: item.scope || item.desc || item.description || ''
       };
     }
     return item;
@@ -176,19 +232,73 @@ Page({
   },
 
   filterResults(tab) {
-    const { results } = this.data;
+    const { results, activeIssueType } = this.data;
     let filtered = results;
     if (tab === 'channel') {
       filtered = results.filter(r => r.type === 'channel');
     } else if (tab === 'script') {
       filtered = results.filter(r => r.type === 'script');
+    } else if (tab === 'platform') {
+      filtered = results.filter(r => r.type === 'platform');
     }
-    this.setData({ filteredResults: filtered });
+    
+    // 动态计算当前结果中有哪些问题类型有数据（仅看渠道类型）
+    const availableIssueTypes = new Set();
+    filtered.forEach(r => {
+      if (r.type === 'channel') {
+        (r.issue_types || []).forEach(t => availableIssueTypes.add(t));
+      }
+    });
+
+    // 构建问题类型列表：全部 + 有数据的问题类型
+    const issueTypesConfig = config.issue_types || {};
+    const newIssueTypes = [
+      { key: 'all', name: '全部' },
+      ...Object.keys(issueTypesConfig)
+        .filter(key => availableIssueTypes.has(key))
+        .map(key => ({
+          key: key,
+          name: issueTypesConfig[key].name
+        }))
+    ];
+
+    // 如果当前选中的问题类型在新结果中没有数据，自动切换回全部
+    let newActiveIssueType = activeIssueType;
+    if (activeIssueType && activeIssueType !== 'all' && !availableIssueTypes.has(activeIssueType)) {
+      newActiveIssueType = 'all';
+    }
+
+    // 按问题类型筛选（仅对渠道类型生效）
+    if (newActiveIssueType && newActiveIssueType !== 'all') {
+      filtered = filtered.filter(r => {
+        if (r.type !== 'channel') return true; // 话术和平台不筛选
+        const issueTypes = r.issue_types || [];
+        return issueTypes.includes(newActiveIssueType);
+      });
+    }
+    
+    this.setData({ 
+      filteredResults: filtered,
+      displayResults: filtered.slice(0, 20),
+      currentPage: 1,
+      hasMore: filtered.length > 20,
+      issueTypes: newIssueTypes,
+      activeIssueType: newActiveIssueType
+    });
+  },
+
+  // 点击问题类型筛选
+  onIssueTypeTap(e) {
+    const issueType = e.currentTarget.dataset.type;
+    if (issueType === this.data.activeIssueType) return;
+    this.setData({ activeIssueType: issueType }, () => {
+      this.filterResults(this.data.activeTab);
+    });
   },
 
   onResultTap(e) {
     const item = e.currentTarget.dataset.item;
-    if (item.type === 'channel') {
+    if (item.type === 'channel' || item.type === 'platform') {
       // 预加载分片，跳转后直接使用缓存
       const { preloadChannelPart } = require('../../utils/data');
       preloadChannelPart(item.id);
@@ -204,5 +314,63 @@ Page({
 
   onBack() {
     wx.navigateBack();
-  }
+  },
+
+  // 点击热门搜索词
+  onHotSearchTap(e) {
+    const keyword = e.currentTarget.dataset.keyword;
+    this.setData({ keyword, searchInput: keyword });
+    this.doSearch(keyword);
+  },
+
+  // 点击分类推荐
+  onGuideCategoryTap(e) {
+    const category = e.currentTarget.dataset.category;
+    const app = getApp();
+    app.globalData.pendingCategory = category;
+    wx.switchTab({ url: '/pages/category/category' });
+  },
+
+  // 分享给朋友
+  onShareAppMessage() {
+    const kw = this.data.keyword || '';
+    return {
+      title: kw ? ('搜索"' + kw + '" - 维权投诉渠道') : '维权投诉渠道大全',
+      path: '/pages/index/index'
+    };
+  },
+
+  // 分享到朋友圈
+  onShareTimeline() {
+    return {
+      title: '维权投诉渠道大全'
+    };
+  },
+
+  // 上拉加载更多
+  onReachBottom() {
+    const { filteredResults, displayResults, hasMore, loadingMore, currentPage } = this.data;
+    if (!hasMore || loadingMore) return;
+
+    this.setData({ loadingMore: true });
+
+    setTimeout(() => {
+      const PAGE_SIZE = 20;
+      const nextPage = currentPage + 1;
+      const start = (nextPage - 1) * PAGE_SIZE;
+      const end = start + PAGE_SIZE;
+      const newItems = filteredResults.slice(start, end);
+      const newDisplay = displayResults.concat(newItems);
+
+      this.setData({
+        displayResults: newDisplay,
+        currentPage: nextPage,
+        hasMore: end < filteredResults.length,
+        loadingMore: false
+      });
+    }, 300);
+  },
+
+  onShow() {
+  },
 });

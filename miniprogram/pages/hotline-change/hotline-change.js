@@ -6,6 +6,7 @@ Page({
     list: [],
     statusBarHeight: 20,
     activeFilter: 'all',
+    searchKeyword: '',
     filteredList: []
   },
 
@@ -24,14 +25,40 @@ Page({
     this.setData({ list, filteredList: list });
   },
 
+  applyFilter() {
+    const { list, activeFilter, searchKeyword } = this.data;
+    let result = list;
+    if (activeFilter !== 'all') {
+      result = result.filter(item => item.status === activeFilter);
+    }
+    if (searchKeyword && searchKeyword.trim()) {
+      const kw = searchKeyword.trim().toLowerCase();
+      result = result.filter(item =>
+        (item.original_name && item.original_name.toLowerCase().includes(kw)) ||
+        (item.original && item.original.toLowerCase().includes(kw)) ||
+        (item.replacement_name && item.replacement_name.toLowerCase().includes(kw)) ||
+        (item.replacement && item.replacement.toLowerCase().includes(kw)) ||
+        (item.note && item.note.toLowerCase().includes(kw))
+      );
+    }
+    this.setData({ filteredList: result });
+  },
+
   onFilterTap(e) {
     const filter = e.currentTarget.dataset.filter;
-    const { list } = this.data;
-    let filteredList = list;
-    if (filter !== 'all') {
-      filteredList = list.filter(item => item.status === filter);
-    }
-    this.setData({ activeFilter: filter, filteredList });
+    this.setData({ activeFilter: filter });
+    this.applyFilter();
+  },
+
+  onSearchInput(e) {
+    const keyword = e.detail.value;
+    this.setData({ searchKeyword: keyword });
+    this.applyFilter();
+  },
+
+  onClearSearch() {
+    this.setData({ searchKeyword: '' });
+    this.applyFilter();
   },
 
   onCopyPhone(e) {

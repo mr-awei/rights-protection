@@ -43,3 +43,17 @@ prototype/_backup/
 
 # 微信开发者工具私有配置
 project.private.config.json
+
+# 临时截图和调试文件
+debug_spacing.png
+fav_inside.png
+fav_outside.png
+icon_check1.png
+icon_check2.png
+icon_error.png
+profile_screenshot.png
+screenshot1.png
+screenshot2.png
+zhenji_debug.png
+laws-audit-report.txt
+laws-deep-audit-report.txt

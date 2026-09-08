@@ -4,7 +4,8 @@ const { getFollowupSchedule } = require('../../utils/data');
 Page({
   data: {
     list: [],
-    statusBarHeight: 20
+    statusBarHeight: 20,
+    expandedIndex: -1
   },
 
   onLoad() {
@@ -24,14 +25,9 @@ Page({
 
   onItemTap(e) {
     const index = e.currentTarget.dataset.index;
-    const item = this.data.list[index];
-    if (item && item.detail) {
-      wx.showModal({
-        title: item.title,
-        content: item.detail,
-        showCancel: false,
-        confirmText: '知道了'
-      });
-    }
+    const currentExpanded = this.data.expandedIndex;
+    // 点击已展开的节点则收起，点击其他节点则展开新节点
+    const newExpanded = currentExpanded === index ? -1 : index;
+    this.setData({ expandedIndex: newExpanded });
   }
 });

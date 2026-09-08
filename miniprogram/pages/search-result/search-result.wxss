@@ -139,6 +139,40 @@
   border-radius: 3rpx;
 }
 
+/* ========== 问题类型筛选栏 ========== */
+.issue-type-bar {
+  width: 100%;
+  background: #FFFFFF;
+  border-bottom: 1rpx solid #F5F5F5;
+  white-space: nowrap;
+}
+
+.issue-type-list {
+  display: inline-flex;
+  align-items: center;
+  padding: 12rpx 24rpx;
+  gap: 12rpx;
+}
+
+.issue-type-item {
+  display: inline-flex;
+  align-items: center;
+  padding: 8rpx 20rpx;
+  border-radius: 28rpx;
+  background: #F5F6F8;
+  font-size: 22rpx;
+  color: #666666;
+  font-weight: 500;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.issue-type-item.active {
+  background: linear-gradient(135deg, #4A90D9, #3A7BC8);
+  color: #FFFFFF;
+  font-weight: 600;
+}
+
 /* ========== 结果数量 ========== */
 .result-count {
   padding: 24rpx 32rpx 16rpx;
@@ -283,4 +317,76 @@
 .btn-primary:active {
   transform: scale(0.96);
   opacity: 0.9;
+}
+
+/* ========== 无结果引导页 ========== */
+.empty-with-guide {
+  padding: 60rpx 32rpx 120rpx;
+}
+
+.guide-section {
+  width: 100%;
+  margin-bottom: 40rpx;
+}
+
+.guide-title {
+  font-size: 28rpx;
+  color: #333333;
+  font-weight: 600;
+  margin-bottom: 20rpx;
+  padding-left: 8rpx;
+}
+
+.guide-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16rpx;
+}
+
+.guide-tag {
+  padding: 12rpx 28rpx;
+  background: #F5F7FA;
+  border-radius: 32rpx;
+  font-size: 24rpx;
+  color: #555555;
+  border: 1rpx solid #E5E6EB;
+  transition: all 0.2s ease;
+}
+
+.guide-tag:active {
+  background: #E8F3FC;
+  color: #3A7BC8;
+  border-color: #3A7BC8;
+}
+
+.guide-categories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20rpx;
+}
+
+.guide-category {
+  width: calc(25% - 15rpx);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24rpx 0;
+  background: #F5F7FA;
+  border-radius: 16rpx;
+  transition: all 0.2s ease;
+}
+
+.guide-category:active {
+  background: #E8F3FC;
+  transform: scale(0.96);
+}
+
+.guide-category-icon {
+  font-size: 40rpx;
+  margin-bottom: 8rpx;
+}
+
+.guide-category-name {
+  font-size: 22rpx;
+  color: #555555;
 }

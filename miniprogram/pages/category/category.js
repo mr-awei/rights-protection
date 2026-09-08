@@ -1,5 +1,6 @@
 // pages/category/category.js
 const { getCategories, getChannelsByCategory, preloadChannelPart } = require('../../utils/data.js');
+const config = require('../../data/config.js');
 
 Page({
   data: {
@@ -8,7 +9,10 @@ Page({
     activeSubCategory: 0,     // 当前选中的二级分类索引
     subCategories: [],        // 当前一级分类下的二级分类列表
     channels: [],             // 当前二级分类下的渠道列表
-    loading: false
+    loading: false,
+    // 问题类型筛选
+    issueTypes: [],           // 问题类型列表
+    activeIssueType: 'all'    // 当前选中的问题类型，all表示全部
   },
 
   // 内部状态：数据是否已加载（避免tab切换时重复加载）
@@ -45,35 +49,44 @@ Page({
     if (this.data.categories.length > 0) {
       this.loadChannels();
     }
+
   },
 
   // 加载分类树
   loadCategories() {
     const categories = getCategories();
-    // 兜底默认分类
-    const defaultCategories = [
-      { name: '交通物流', icon: '🚄', color: '#3B82F6', children: [{name:'快递邮政'},{name:'铁路民航'},{name:'公路水运'},{name:'城市公交'}] },
-      { name: '电信运营', icon: '📱', color: '#8B5CF6', children: [{name:'电信申诉'}] },
-      { name: '消费购物', icon: '🛒', color: '#F59E0B', children: [{name:'市场监管'},{name:'食品药品'},{name:'旅游服务'},{name:'农业商务'},{name:'境外消费'}] },
-      { name: '金融保险', icon: '💰', color: '#10B981', children: [{name:'银行保险'},{name:'证券基金'},{name:'互联网金融'},{name:'反垄断'},{name:'境外金融'},{name:'地方金融'}] },
-      { name: '房产物业', icon: '🏠', color: '#EF4444', children: [{name:'住建物业'},{name:'供水燃气'},{name:'电力能源'},{name:'工程质量'}] },
-      { name: '劳动用工', icon: '💼', color: '#6366F1', children: [{name:'人社社保'},{name:'公积金'},{name:'欠薪维权'},{name:'税务工会'}] },
-      { name: '医疗教育', icon: '🏥', color: '#EC4899', children: [{name:'医疗卫生'},{name:'医保服务'},{name:'教育科研'},{name:'地方卫生'}] },
-      { name: '环保城管', icon: '🌿', color: '#14B8A6', children: [{name:'环境保护'},{name:'城市管理'}] },
-      { name: '政务纪检', icon: '⚖️', color: '#64748B', children: [{name:'政务服务'},{name:'纪检监察'},{name:'司法公安'},{name:'安全生产'},{name:'自然资源'},{name:'民政民生'},{name:'财税审计'}] },
-      { name: '网络安全', icon: '🛡️', color: '#0EA5E9', children: [{name:'反诈预警'},{name:'网络举报'},{name:'违法犯罪'}] }
+    // 加载问题类型列表
+    const issueTypesConfig = config.issue_types || {};
+    const issueTypes = [
+      { key: 'all', name: '全部问题' },
+      ...Object.keys(issueTypesConfig).map(key => ({
+        key: key,
+        name: issueTypesConfig[key].name
+      }))
     ];
-
-    const cats = categories.length > 0 ? categories : defaultCategories;
-    this.setData({ categories: cats }, () => {
+    this.setData({
+      categories: categories,
+      issueTypes: issueTypes
+    }, () => {
       this.loadSubCategories(0);
     });
   },
 
-  // 加载当前一级分类下的二级分类
+  // 加载当前一级分类下的二级分类（动态过滤掉空分类）
   loadSubCategories(categoryIndex) {
     const cat = this.data.categories[categoryIndex];
-    const subCats = cat && cat.children ? cat.children : [];
+    const allSubCats = cat && cat.children ? cat.children : [];
+    
+    // 获取该一级分类下的所有渠道
+    const l1Name = cat ? cat.name : '';
+    const allChannels = l1Name ? getChannelsByCategory(l1Name) : [];
+    
+    // 动态过滤：只保留有渠道数据的二级分类
+    const subCats = allSubCats.filter(sub => {
+      const count = allChannels.filter(c => c.category_user_l2 === sub.name).length;
+      return count > 0;
+    });
+    
     this.setData({
       activeCategory: categoryIndex,
       activeSubCategory: 0,
@@ -85,7 +98,7 @@ Page({
 
   // 加载当前二级分类下的渠道
   loadChannels() {
-    const { categories, activeCategory, activeSubCategory, subCategories } = this.data;
+    const { categories, activeCategory, activeSubCategory, subCategories, activeIssueType } = this.data;
     if (!categories[activeCategory] || !subCategories[activeSubCategory]) {
       this.setData({ channels: [] }, () => {
         this._dataLoaded = true;
@@ -100,12 +113,57 @@ Page({
 
     // 获取该一级分类下的所有渠道，然后按二级分类过滤
     const allChannels = getChannelsByCategory(l1Name);
-    const filtered = allChannels.filter(c => c.category_user_l2 === l2Name);
+    let filtered = allChannels.filter(c => c.category_user_l2 === l2Name);
 
-    this.setData({ channels: filtered }, () => {
+    // 动态计算当前二级分类下有哪些问题类型有数据
+    const availableIssueTypes = new Set();
+    filtered.forEach(c => {
+      (c.issue_types || []).forEach(t => availableIssueTypes.add(t));
+    });
+
+    // 构建问题类型列表：全部问题 + 有数据的问题类型
+    const issueTypesConfig = config.issue_types || {};
+    const newIssueTypes = [
+      { key: 'all', name: '全部问题' },
+      ...Object.keys(issueTypesConfig)
+        .filter(key => availableIssueTypes.has(key))
+        .map(key => ({
+          key: key,
+          name: issueTypesConfig[key].name
+        }))
+    ];
+
+    // 如果当前选中的问题类型在新分类下没有数据，自动切换回全部
+    let newActiveIssueType = activeIssueType;
+    if (activeIssueType && activeIssueType !== 'all' && !availableIssueTypes.has(activeIssueType)) {
+      newActiveIssueType = 'all';
+    }
+
+    // 按问题类型筛选
+    if (newActiveIssueType && newActiveIssueType !== 'all') {
+      filtered = filtered.filter(c => {
+        const issueTypes = c.issue_types || [];
+        return issueTypes.includes(newActiveIssueType);
+      });
+    }
+
+    this.setData({ 
+      channels: filtered,
+      issueTypes: newIssueTypes,
+      activeIssueType: newActiveIssueType
+    }, () => {
       this._dataLoaded = true;
       this._lastCategoryIndex = activeCategory;
       this._lastSubCategoryIndex = activeSubCategory;
+    });
+  },
+
+  // 点击问题类型筛选
+  onIssueTypeTap(e) {
+    const issueType = e.currentTarget.dataset.type;
+    if (issueType === this.data.activeIssueType) return;
+    this.setData({ activeIssueType: issueType }, () => {
+      this.loadChannels();
     });
   },
 
@@ -140,5 +198,20 @@ Page({
   onPullDownRefresh() {
     this.loadChannels();
     wx.stopPullDownRefresh();
-  }
+  },
+
+  // 分享给朋友
+  onShareAppMessage() {
+    return {
+      title: '维权投诉渠道分类大全',
+      path: '/pages/category/category'
+    };
+  },
+
+  // 分享到朋友圈
+  onShareTimeline() {
+    return {
+      title: '维权投诉渠道分类大全'
+    };
+  },
 });

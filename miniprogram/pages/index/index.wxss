@@ -219,44 +219,59 @@
 .scene-grid {
   display: flex;
   flex-wrap: wrap;
-  gap: 16rpx 0;
   background: #FFFFFF;
   border-radius: 16rpx;
-  padding: 24rpx 12rpx;
+  padding: 20rpx 12rpx;
   box-shadow: 0 2rpx 12rpx rgba(0,0,0,0.04);
 }
 
 .scene-item {
-  width: 25%;
+  width: 50%;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  padding: 16rpx 8rpx;
+  padding: 20rpx 12rpx;
   border-radius: 12rpx;
   transition: background 0.2s ease;
+  box-sizing: border-box;
 }
 
 .scene-item-hover {
-  background: #FAFAFA;
+  background: #F5F7FA;
 }
 
 .scene-icon {
-  width: 64rpx;
-  height: 64rpx;
-  border-radius: 16rpx;
-  margin-bottom: 10rpx;
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: 18rpx;
+  margin-right: 16rpx;
+  flex-shrink: 0;
 }
 
-.scene-icon-text {
-  font-size: 28rpx;
-  font-weight: 600;
+.scene-text {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
 }
 
 .scene-name {
-  font-size: 24rpx;
+  font-size: 26rpx;
   color: #1A1A1A;
-  text-align: center;
-  font-weight: 500;
+  font-weight: 600;
+  line-height: 1.3;
+  margin-bottom: 4rpx;
+  text-align: left;
+}
+
+.scene-desc {
+  font-size: 20rpx;
+  color: #999999;
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: left;
 }
 
 /* ========== 高频话术 ========== */
@@ -467,4 +482,385 @@
 .footer-tip text {
   font-size: 22rpx;
   color: #CCCCCC;
+}
+
+/* ========== 愿景弹窗 ========== */
+.vision-modal-mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.55);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 40rpx;
+  backdrop-filter: blur(4px);
+}
+
+.vision-modal {
+  width: 100%;
+  background: #FFFFFF;
+  border-radius: 32rpx;
+  overflow: hidden;
+  box-shadow: 0 24rpx 64rpx rgba(0, 0, 0, 0.2);
+}
+
+/* 顶部区域 */
+.vision-header {
+  position: relative;
+  padding: 48rpx 32rpx 40rpx;
+  overflow: hidden;
+}
+
+.vision-header-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, #4A90D9 0%, #5B9BD5 100%);
+}
+
+.vision-header-bg::before {
+  content: '';
+  position: absolute;
+  top: -60rpx;
+  right: -60rpx;
+  width: 200rpx;
+  height: 200rpx;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+}
+
+.vision-header-bg::after {
+  content: '';
+  position: absolute;
+  bottom: -40rpx;
+  left: -40rpx;
+  width: 160rpx;
+  height: 160rpx;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 50%;
+}
+
+.vision-header-content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+}
+
+.vision-logo {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20rpx;
+}
+
+.vision-logo-icon {
+  width: 88rpx;
+  height: 88rpx;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 44rpx;
+  color: #FFFFFF;
+  border: 3rpx solid rgba(255, 255, 255, 0.3);
+}
+
+.vision-title {
+  display: block;
+  font-size: 44rpx;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin-bottom: 8rpx;
+  letter-spacing: 2rpx;
+}
+
+.vision-subtitle {
+  display: block;
+  font-size: 28rpx;
+  color: rgba(255, 255, 255, 0.85);
+  font-weight: 400;
+}
+
+/* 内容区 */
+.vision-body {
+  padding: 28rpx 20rpx 20rpx;
+}
+
+/* 引言卡片 */
+.vision-quote-card {
+  background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 100%);
+  border-radius: 20rpx;
+  padding: 28rpx 24rpx;
+  margin-bottom: 28rpx;
+  position: relative;
+  overflow: hidden;
+}
+
+.quote-mark {
+  position: absolute;
+  top: 8rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 64rpx;
+  color: rgba(74, 144, 217, 0.15);
+  font-family: Georgia, serif;
+  line-height: 1;
+}
+
+.quote-content {
+  text-align: center;
+  margin-bottom: 16rpx;
+}
+
+.quote-line {
+  display: block;
+  font-size: 28rpx;
+  color: #555555;
+  line-height: 1.8;
+  text-align: center;
+}
+
+.quote-highlight {
+  text-align: center;
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #4A90D9;
+  letter-spacing: 2rpx;
+  padding-top: 12rpx;
+  border-top: 1rpx solid rgba(74, 144, 217, 0.2);
+}
+
+/* 三大核心理念 */
+.vision-values {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 28rpx;
+}
+
+.value-card {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24rpx 10rpx 20rpx;
+  background: #FAFBFC;
+  border-radius: 16rpx;
+  margin: 0 5rpx;
+  min-width: 0;
+}
+
+.value-icon-wrap {
+  width: 60rpx;
+  height: 60rpx;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12rpx;
+}
+
+.icon-bg-blue {
+  background: linear-gradient(135deg, #4A90D9 0%, #5B9BD5 100%);
+}
+
+.icon-bg-green {
+  background: linear-gradient(135deg, #52C41A 0%, #73D13D 100%);
+}
+
+.icon-bg-orange {
+  background: linear-gradient(135deg, #FA8C16 0%, #FFA940 100%);
+}
+
+.value-icon {
+  font-size: 28rpx;
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  --icon-color: #FFFFFF;
+  --icon-bg: transparent;
+}
+
+.value-title {
+  font-size: 26rpx;
+  font-weight: 600;
+  color: #333333;
+  margin-bottom: 10rpx;
+  white-space: nowrap;
+}
+
+.value-desc {
+  width: 100%;
+  text-align: center;
+}
+
+.desc-line {
+  display: block;
+  font-size: 22rpx;
+  color: #888888;
+  line-height: 1.6;
+  white-space: nowrap;
+}
+
+/* 维权路径 */
+.vision-path {
+  background: #FAFBFC;
+  border-radius: 20rpx;
+  padding: 24rpx 20rpx;
+}
+
+.path-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20rpx;
+}
+
+.path-title-icon {
+  font-size: 28rpx;
+  color: #4A90D9;
+  margin-right: 8rpx;
+}
+
+.path-title {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #333333;
+}
+
+.path-steps {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16rpx;
+}
+
+.path-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.step-circle {
+  width: 56rpx;
+  height: 56rpx;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 8rpx;
+}
+
+.step-1 {
+  background: linear-gradient(135deg, #4A90D9 0%, #5B9BD5 100%);
+}
+
+.step-2 {
+  background: linear-gradient(135deg, #52C41A 0%, #73D13D 100%);
+}
+
+.step-3 {
+  background: linear-gradient(135deg, #FA8C16 0%, #FFA940 100%);
+}
+
+.step-num {
+  font-size: 26rpx;
+  font-weight: 700;
+  color: #FFFFFF;
+}
+
+.step-label {
+  font-size: 24rpx;
+  color: #555555;
+  font-weight: 500;
+}
+
+.path-connector {
+  width: 48rpx;
+  height: 2rpx;
+  background: linear-gradient(90deg, #DDDDDD 0%, #CCCCCC 100%);
+  margin: 0 8rpx 24rpx;
+}
+
+.path-tip {
+  display: block;
+  text-align: center;
+  font-size: 24rpx;
+  color: #999999;
+  letter-spacing: 1rpx;
+}
+
+/* 底部操作区 */
+.vision-footer {
+  padding: 20rpx 28rpx 28rpx;
+  border-top: 1rpx solid #F0F0F0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.footer-checkbox {
+  display: flex;
+  align-items: center;
+}
+
+.checkbox {
+  width: 36rpx;
+  height: 36rpx;
+  border: 2rpx solid #D9D9D9;
+  border-radius: 8rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10rpx;
+  background: #FFFFFF;
+  transition: all 0.2s;
+}
+
+.checkbox.checked {
+  background: linear-gradient(135deg, #4A90D9 0%, #5B9BD5 100%);
+  border-color: transparent;
+}
+
+.checkbox-inner {
+  width: 16rpx;
+  height: 16rpx;
+  background: #FFFFFF;
+  border-radius: 3rpx;
+}
+
+.checkbox-text {
+  font-size: 28rpx;
+  color: #666666;
+}
+
+.footer-btn {
+  min-width: 240rpx;
+  height: 84rpx;
+  border-radius: 42rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28rpx;
+  font-weight: 600;
+  padding: 0 28rpx;
+}
+
+.btn-disabled {
+  background: #F0F0F0;
+  color: #999999;
+}
+
+.btn-active {
+  background: linear-gradient(135deg, #4A90D9 0%, #5B9BD5 100%);
+  color: #FFFFFF;
+  box-shadow: 0 8rpx 20rpx rgba(74, 144, 217, 0.3);
 }

@@ -3,11 +3,49 @@
   height: 100vh;
   background: #F5F6F8;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ========== 问题类型筛选栏 ========== */
+.issue-type-bar {
+  width: 100%;
+  background: #FFFFFF;
+  border-bottom: 1rpx solid #F0F0F0;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.issue-type-list {
+  display: inline-flex;
+  align-items: center;
+  padding: 16rpx 24rpx;
+  gap: 16rpx;
+}
+
+.issue-type-item {
+  display: inline-flex;
+  align-items: center;
+  padding: 10rpx 24rpx;
+  border-radius: 32rpx;
+  background: #F5F6F8;
+  font-size: 24rpx;
+  color: #666666;
+  font-weight: 500;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.issue-type-item.active {
+  background: linear-gradient(135deg, #4A90D9, #3A7BC8);
+  color: #FFFFFF;
+  font-weight: 600;
 }
 
 .category-layout {
   display: flex;
-  height: 100%;
+  flex: 1;
+  height: 0;
   box-sizing: border-box;
 }
 

@@ -1,16 +1,12 @@
 // pages/search/search.js
 const app = getApp();
-const { searchChannels, searchScripts, getChannels, getScripts } = require('../../utils/data');
+const { searchChannels, searchScripts, getChannels, getScripts, getConfig } = require('../../utils/data');
 
 Page({
   data: {
     keyword: '',
     searchHistory: [],
-    hotSearches: [
-      '快递丢失', '运营商乱扣费', '商家不退款', '物业不作为',
-      '银行乱收费', '医疗纠纷', '教育机构跑路', '噪音扰民',
-      '食品安全', '劳动纠纷'
-    ],
+    hotSearches: [],
     suggestions: [],
     showSuggestions: false,
     statusBarHeight: 20
@@ -23,6 +19,9 @@ Page({
     } catch (e) {
       this.setData({ statusBarHeight: 20 });
     }
+    // 从配置文件读取热门搜索
+    const config = getConfig();
+    this.setData({ hotSearches: config.hot_search_words || [] });
     this.loadSearchHistory();
   },
 

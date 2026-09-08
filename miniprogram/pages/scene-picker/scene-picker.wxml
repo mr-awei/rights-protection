@@ -16,7 +16,7 @@
       bindtap="onKeywordRemove"
     >
       {{item}}
-      <text class="remove">✕</text>
+      <view class="remove app-icon app-icon-default icon-close" style="width:20rpx;height:20rpx;--icon-bg:transparent;--icon-color:#999;"></view>
     </view>
   </view>
 
@@ -30,7 +30,7 @@
       bindtap="onSceneTap"
     >
       <view class="sc-header">
-        <view class="sc-icon" style="background: {{item.color}};">{{item.icon}}</view>
+        <view class="sc-icon app-icon app-icon-default {{item.icon}}" style="--icon-bg: {{item.color}}30; --icon-color: {{item.color}};"></view>
         <view class="sc-title">{{item.name}}</view>
         <view class="sc-score">匹配度 {{item.matchScore > 100 ? 99 : item.matchScore}}%</view>
       </view>

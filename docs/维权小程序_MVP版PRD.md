@@ -1188,7 +1188,7 @@
 │                  数据层（Data）                      │
 │  channels_index.js (轻量索引,启动加载)               │
 │  channels_part_1/2/3.js (详细数据分片,按需加载)      │
-│  scripts.js │ laws.js │ config.js │ categories.js    │
+│  scripts.js │ config.js │ categories.js    │
 │  【预留】云开发数据库（V2.0）│ 远程API（V3.0）      │
 └─────────────────────────────────────────────────┘
 ```
@@ -1315,7 +1315,7 @@ class ChannelService {
 │   ├── channels_config.js    # 分片配置
 │   ├── channels.js           # 完整渠道数据（兼容旧版，可选）
 │   ├── scripts.js            # 话术数据
-│   ├── laws.js               # 法律法规（去重）
+
 │   ├── config.js             # 应用配置
 │   ├── categories.js         # 分类树
 │   └── ...
@@ -1446,7 +1446,6 @@ class Tracker {
 | 微信版本 | 支持微信8.0+（覆盖95%以上用户） |
 | 系统版本 | iOS 12+ / Android 8+ |
 | 屏幕尺寸 | 适配iPhone SE（小屏）~ iPad（大屏） |
-| 深色模式 | 可选适配（MVP可先做浅色，V1.5适配） |
 
 #### 8.2.4 合规验收
 
@@ -2042,7 +2041,7 @@ class Tracker {
 │  └────────────┘ └────────────┘ └────────────┘ └────────┘ │
 ├─────────────────────────────────────────────────────────────┤
 │                   数据层（统一JSON，所有端共享）               │
-│  channels.json │ scripts.json │ search_index.json │ laws.json│
+│  channels.json │ scripts.json │ search_index.json│
 └─────────────────────────────────────────────────────────────┘
 ```
 

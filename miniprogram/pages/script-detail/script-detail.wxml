@@ -1,6 +1,6 @@
 <!--pages/script-detail/script-detail.wxml-->
 <!-- 加载状态 -->
-<view class="loading-container" wx:if="{{loading}}">
+<view class="loading-container {{themeClass}}" wx:if="{{loading}}">
   <view class="loading-spinner"></view>
   <text class="loading-text">加载中...</text>
 </view>
@@ -10,9 +10,7 @@
   <view class="gradient-header">
     <view class="header-content">
       <view class="script-title-row">
-        <view class="script-badge">
-          <text class="badge-text">话</text>
-        </view>
+        <view class="script-badge app-icon app-icon-default icon-chat" style="width:40rpx;height:40rpx;--icon-bg:rgba(255,255,255,0.2);--icon-color:#fff;"></view>
         <text class="script-title">{{script.scene_name}}</text>
       </view>
       <view class="script-meta" wx:if="{{applicableText}}">
@@ -67,15 +65,16 @@
           <text>填写以下信息，自动生成个性化话术</text>
         </view>
         <view class="fill-form-list">
-          <view class="fill-form-item" wx:for="{{placeholders}}" wx:key="*this">
-            <text class="fill-form-label">{{item}}</text>
+          <view class="fill-form-item" wx:for="{{placeholders}}" wx:key="name">
+            <text class="fill-form-label">{{item.label}}</text>
+            <text class="fill-form-guide" wx:if="{{item.guide}}">{{item.guide}}</text>
             <input
               class="fill-form-input"
               type="text"
-              placeholder="请填写{{item}}"
+              placeholder="{{item.example ? '如：' + item.example : '请填写' + item.label}}"
               placeholder-class="fill-placeholder"
-              value="{{formData[item]}}"
-              data-field="{{item}}"
+              value="{{formData[item.name]}}"
+              data-field="{{item.name}}"
               bindinput="onFormInput"
             />
           </view>
@@ -236,9 +235,13 @@
       <view class="app-icon app-icon-default icon-copy" style="width:36rpx;height:36rpx;margin-right:10rpx;"></view>
       <text class="btn-text">复制话术</text>
     </view>
-    <view class="bottom-btn btn-primary" bindtap="onToggleFavorite" hover-class="bottom-btn-hover">
-      <view class="app-icon app-icon-hover icon-star" style="width:36rpx;height:36rpx;margin-right:10rpx;"></view>
+    <view class="bottom-btn {{isFavorite ? 'btn-primary' : 'btn-secondary'}}" bindtap="onToggleFavorite" hover-class="bottom-btn-hover">
+      <view class="app-icon {{isFavorite ? 'app-icon-hover icon-star' : 'app-icon-default icon-star'}}" style="width:36rpx;height:36rpx;margin-right:10rpx;{{isFavorite ? '' : '--icon-color: #666666;'}}"></view>
       <text class="btn-text">{{isFavorite ? '已收藏' : '收藏'}}</text>
     </view>
+    <button class="bottom-btn btn-secondary share-btn" open-type="share" hover-class="bottom-btn-hover">
+      <view class="app-icon app-icon-default icon-share" style="width:36rpx;height:36rpx;margin-right:10rpx;"></view>
+      <text class="btn-text">分享</text>
+    </button>
   </view>
 </view>

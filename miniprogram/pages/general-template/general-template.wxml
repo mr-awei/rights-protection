@@ -1,13 +1,20 @@
 <!--pages/general-template/general-template.wxml-->
-<view class="container" style="--status-bar-height: {{statusBarHeight}}px;">
+<view class="container">
   <!-- 渐变头部 -->
   <view class="gradient-header">
     <view class="header-content">
-      <view class="header-icon"></view>
-      <view class="header-title">通用投诉信模板</view>
+      <view class="header-top">
+        <view class="header-icon app-icon app-icon-hover icon-doc" style="width:56rpx;height:56rpx;"></view>
+        <view class="header-title">通用投诉信模板</view>
+        <view class="copy-all-btn" bindtap="onCopyAll" hover-class="copy-all-btn-hover">
+          <text>{{hasCustomContent ? '复制个性化' : '复制完整模板'}}</text>
+        </view>
+      </view>
       <view class="header-desc">结构化模板，按块填写，一键复制</view>
-      <view class="copy-all-btn" bindtap="onCopyAll" hover-class="copy-all-btn-hover">
-        <text> 复制完整模板</text>
+      <view class="header-actions" wx:if="{{hasCustomContent}}">
+        <view class="reset-btn" bindtap="resetCustomTemplate" hover-class="reset-btn-hover">
+          <text>重置</text>
+        </view>
       </view>
     </view>
   </view>
@@ -29,8 +36,54 @@
       </view>
     </view>
 
+    <!-- 填写信息区域 -->
+    <view class="fill-section" wx:if="{{!hasCustomContent}}">
+      <view class="fill-header" bindtap="toggleFillForm" hover-class="fill-header-hover">
+        <view class="fill-header-left">
+          <view class="fill-icon app-icon app-icon-default icon-edit" style="width:36rpx;height:36rpx;margin-right:12rpx;--icon-bg:#DBEAFE;--icon-color:#2563EB;"></view>
+          <text class="fill-title">填写自定义信息</text>
+        </view>
+        <view class="fill-arrow app-icon app-icon-default icon-chevron-down" style="width:28rpx;height:28rpx;transform: rotate({{showFillForm ? 180 : 0}}deg);transition: transform 0.3s;"></view>
+      </view>
+      
+      <view class="fill-form" wx:if="{{showFillForm}}">
+        <view class="fill-form-tip">
+          <text>填写以下信息，自动生成个性化投诉信，可直接复制使用</text>
+        </view>
+        <view class="fill-form-list">
+          <view class="fill-form-item" wx:for="{{placeholders}}" wx:key="name">
+            <text class="fill-form-label">{{item.label}}</text>
+            <text class="fill-form-guide" wx:if="{{item.guide}}">{{item.guide}}</text>
+            <input
+              class="fill-form-input"
+              type="text"
+              placeholder="{{item.example ? '如：' + item.example : '请填写' + item.label}}"
+              placeholder-class="fill-placeholder"
+              value="{{formData[item.name]}}"
+              data-field="{{item.name}}"
+              bindinput="onFormInput"
+            />
+          </view>
+        </view>
+        <view class="fill-form-actions">
+          <view class="fill-cancel" bindtap="toggleFillForm" hover-class="fill-cancel-hover">
+            <text>取消</text>
+          </view>
+          <view class="fill-generate" bindtap="generateCustomTemplate" hover-class="fill-generate-hover">
+            <text>生成个性化投诉信</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 个性化提示 -->
+    <view class="custom-tip" wx:if="{{hasCustomContent}}">
+      <view class="custom-tip-icon app-icon app-icon-default icon-check" style="width:28rpx;height:28rpx;margin-right:8rpx;--icon-bg:#D1FAE5;--icon-color:#059669;"></view>
+      <text class="custom-tip-text">已根据您填写的信息生成个性化投诉信，可直接复制使用</text>
+    </view>
+
     <!-- 模板分块 -->
-    <view class="section" wx:for="{{sections}}" wx:key="id">
+    <view class="section" wx:for="{{displaySections}}" wx:key="id">
       <view class="section-header">
         <view class="section-num">{{index + 1}}</view>
         <text class="section-title">{{item.title}}</text>

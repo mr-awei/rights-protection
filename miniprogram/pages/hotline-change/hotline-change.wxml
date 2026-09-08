@@ -1,10 +1,12 @@
 <!--pages/hotline-change/hotline-change.wxml-->
-<view class="container" style="--status-bar-height: {{statusBarHeight}}px;">
+<view class="container">
   <!-- 渐变头部 -->
   <view class="gradient-header">
     <view class="header-content">
-      <view class="header-icon app-icon app-icon-hover icon-phone" style="width:64rpx;height:64rpx;margin-bottom:16rpx;"></view>
-      <view class="header-title">热线变更速查</view>
+      <view class="header-top">
+        <view class="header-icon app-icon app-icon-hover icon-phone" style="width:56rpx;height:56rpx;"></view>
+        <view class="header-title">热线变更速查</view>
+      </view>
       <view class="header-desc">已取消/整合/变更热线一览，避免拨打无效号码</view>
     </view>
   </view>
@@ -17,6 +19,21 @@
       <view class="filter-tab {{activeFilter === 'discontinued' ? 'active' : ''}}" data-filter="discontinued" bindtap="onFilterTap">已取消</view>
       <view class="filter-tab {{activeFilter === 'merged' ? 'active' : ''}}" data-filter="merged" bindtap="onFilterTap">已整合</view>
       <view class="filter-tab {{activeFilter === 'merging' ? 'active' : ''}}" data-filter="merging" bindtap="onFilterTap">整合中</view>
+    </view>
+
+    <!-- 搜索框 -->
+    <view class="search-box">
+      <view class="search-icon app-icon app-icon-default icon-search" style="width:32rpx;height:32rpx;--icon-bg:transparent;--icon-color:#999;"></view>
+      <input
+        class="search-input"
+        type="text"
+        placeholder="搜索热线名称、号码..."
+        placeholder-class="search-placeholder"
+        value="{{searchKeyword}}"
+        bindinput="onSearchInput"
+        confirm-type="search"
+      />
+      <view class="search-clear app-icon app-icon-default icon-close" style="width:24rpx;height:24rpx;--icon-bg:transparent;--icon-color:#999;" wx:if="{{searchKeyword}}" bindtap="onClearSearch"></view>
     </view>
 
     <!-- 变更列表 -->

@@ -5,7 +5,7 @@
     <view class="nav-back" bindtap="onBack">
       <text>‹</text>
     </view>
-    <view class="nav-title">关于我们</view>
+    <view class="nav-title">{{navTitle}}</view>
     <view class="nav-placeholder"></view>
   </view>
 
@@ -21,102 +21,33 @@
       <view class="app-version">Version {{version}} · MVP</view>
     </view>
 
-    <!-- 数据统计 -->
-    <view class="stats-card">
-      <view class="stats-title">数据概览</view>
-      <view class="stats-grid">
-        <view class="stat-item">
-          <text class="stat-num">{{channelCount}}</text>
-          <text class="stat-label">官方渠道</text>
-        </view>
-        <view class="stat-item">
-          <text class="stat-num">{{scriptCount}}</text>
-          <text class="stat-label">投诉话术</text>
-        </view>
-        <view class="stat-item">
-          <text class="stat-num">{{lawCount}}</text>
-          <text class="stat-label">法律法规</text>
-        </view>
-        <view class="stat-item">
-          <text class="stat-num">{{categoryCount}}</text>
-          <text class="stat-label">领域分类</text>
-        </view>
-      </view>
-      <view class="stats-footer">数据验证日期：{{dataVersion}}</view>
-    </view>
-
-    <!-- 功能介绍 -->
-    <view class="feature-card">
-      <view class="card-title">核心功能</view>
-      <view class="feature-list">
-        <view class="feature-item">
-          <view class="feature-icon app-icon app-icon-default icon-info" style="--icon-bg:#EFF6FF;--icon-color:#3B82F6;"></view>
-          <view class="feature-info">
-            <text class="feature-name">智能搜索</text>
-            <text class="feature-desc">关键词提取+场景匹配，快速找到投诉渠道</text>
-          </view>
-        </view>
-        <view class="feature-item">
-          <view class="feature-icon app-icon app-icon-default icon-phone" style="--icon-bg:#ECFDF5;--icon-color:#10B981;"></view>
-          <view class="feature-info">
-            <text class="feature-name">一键拨打</text>
-            <text class="feature-desc">122个官方投诉渠道，电话一键拨打</text>
-          </view>
-        </view>
-        <view class="feature-item">
-          <view class="feature-icon app-icon app-icon-default icon-doc" style="--icon-bg:#F5F3FF;--icon-color:#8B5CF6;"></view>
-          <view class="feature-info">
-            <text class="feature-name">投诉话术</text>
-            <text class="feature-desc">6套场景化话术，电话版+书面版，一键复制</text>
-          </view>
-        </view>
-        <view class="feature-item">
-          <view class="feature-icon app-icon app-icon-default icon-box" style="--icon-bg:#FFFBEB;--icon-color:#F59E0B;"></view>
-          <view class="feature-info">
-            <text class="feature-name">实用工具箱</text>
-            <text class="feature-desc">投诉信模板、跟进时间表、热线变更、企业查询</text>
-          </view>
-        </view>
-        <view class="feature-item">
-          <view class="feature-icon app-icon app-icon-default icon-star" style="--icon-bg:#FEF2F2;--icon-color:#EF4444;"></view>
-          <view class="feature-info">
-            <text class="feature-name">收藏管理</text>
-            <text class="feature-desc">收藏常用渠道和话术，随时快速访问</text>
-          </view>
-        </view>
-        <view class="feature-item">
-          <view class="feature-icon app-icon app-icon-default icon-law" style="--icon-bg:#F0FDFA;--icon-color:#14B8A6;"></view>
-          <view class="feature-info">
-            <text class="feature-name">依法维权</text>
-            <text class="feature-desc">倡导先企业内部投诉，依法理性维权</text>
-          </view>
-        </view>
-      </view>
-    </view>
-
-    <!-- 相关链接 -->
+    <!-- 相关信息 -->
     <view class="link-card">
       <view class="card-title">相关信息</view>
       <view class="link-list">
-        <view class="link-item" bindtap="onViewDisclaimer" hover-class="link-item-hover">
-          <view class="link-icon app-icon app-icon-default icon-shield" style="--icon-bg:#FEF2F2;--icon-color:#EF4444;"></view>
-          <text class="link-name">免责声明</text>
-          <text class="link-arrow">›</text>
-        </view>
         <view class="link-item" bindtap="onViewLicense" hover-class="link-item-hover">
           <view class="link-icon app-icon app-icon-default icon-doc" style="--icon-bg:#F5F3FF;--icon-color:#8B5CF6;"></view>
-          <text class="link-name">开源协议</text>
+          <view class="link-info">
+            <text class="link-name">开源协议</text>
+            <text class="link-desc">MIT 开源协议</text>
+          </view>
           <text class="link-arrow">›</text>
         </view>
         <view class="link-item" data-text="https://gitee.com/mr-awei/rights-protection" bindtap="onCopyContact" hover-class="link-item-hover">
           <view class="link-icon app-icon app-icon-default icon-building" style="--icon-bg:#EFF6FF;--icon-color:#3B82F6;"></view>
-          <text class="link-name">Gitee 开源地址</text>
-          <text class="link-arrow">›</text>
+          <view class="link-info">
+            <text class="link-name">Gitee 开源地址</text>
+            <text class="link-url">gitee.com/mr-awei/rights-protection</text>
+          </view>
+          <view class="link-copy">复制</view>
         </view>
         <view class="link-item" data-text="https://github.com/mr-awei/rights-protection" bindtap="onCopyContact" hover-class="link-item-hover">
           <view class="link-icon app-icon app-icon-default icon-building" style="--icon-bg:#F3F4F6;--icon-color:#4B5563;"></view>
-          <text class="link-name">GitHub 开源地址</text>
-          <text class="link-arrow">›</text>
+          <view class="link-info">
+            <text class="link-name">GitHub 开源地址</text>
+            <text class="link-url">github.com/mr-awei/rights-protection</text>
+          </view>
+          <view class="link-copy">复制</view>
         </view>
       </view>
     </view>
@@ -136,9 +67,145 @@
     <!-- 底部版权 -->
     <view class="footer">
       <text class="footer-text">© 2026 我不能被欺负</text>
-      <text class="footer-text">Made with ❤ for 消费者权益保护</text>
+      <text class="footer-text">Made with <view class="app-icon app-icon-default icon-heart" style="width:20rpx;height:20rpx;--icon-bg:transparent;--icon-color:#FF4D4F;display:inline-block;vertical-align:middle;"></view> for 消费者权益保护</text>
     </view>
 
     <view style="height: 40rpx;"></view>
+  </view>
+
+  <!-- 免责声明自定义弹窗 -->
+  <view class="disclaimer-modal" wx:if="{{showDisclaimer}}">
+    <view class="modal-mask" bindtap="onCloseDisclaimer"></view>
+    <view class="modal-content">
+      <view class="modal-header">
+        <view class="modal-icon-wrap">
+          <view class="modal-icon app-icon app-icon-default icon-shield"></view>
+        </view>
+        <text class="modal-title">免责声明</text>
+        <text class="modal-subtitle">使用须知与法律边界</text>
+      </view>
+      <view class="modal-body">
+        <view class="disclaimer-item">
+          <view class="item-num">1</view>
+          <view class="item-text">本工具为便民信息汇总，非政府官方应用，所有信息仅供参考，不构成法律意见。</view>
+        </view>
+        <view class="disclaimer-item">
+          <view class="item-num">2</view>
+          <view class="item-text">具体投诉流程、受理范围和联系方式以各监管部门官方公布为准。</view>
+        </view>
+        <view class="disclaimer-item">
+          <view class="item-num">3</view>
+          <view class="item-text">本工具收集的信息均来源于政府官网公开渠道，如有变动请以官方最新公告为准。</view>
+        </view>
+        <view class="disclaimer-item">
+          <view class="item-num">4</view>
+          <view class="item-text">用户在使用本工具过程中产生的任何直接或间接损失，本工具不承担任何责任。</view>
+        </view>
+        <view class="disclaimer-item">
+          <view class="item-num">5</view>
+          <view class="item-text">投诉应当基于真实事实，不得捏造、歪曲事实，不得诬告陷害他人，否则将承担相应法律责任。</view>
+        </view>
+      </view>
+      <view class="modal-footer">
+        <view class="modal-btn" bindtap="onCloseDisclaimer">我已阅读</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 开源协议自定义弹窗 -->
+  <view class="license-modal" wx:if="{{showLicense}}">
+    <view class="modal-mask" bindtap="onCloseLicense"></view>
+    <view class="modal-content">
+      <view class="modal-header">
+        <view class="modal-icon-wrap">
+          <view class="modal-icon app-icon app-icon-default icon-doc"></view>
+        </view>
+        <text class="modal-title">我不能被欺负 双授权协议</text>
+        <text class="modal-subtitle">Version 1.0 · 中英双语</text>
+      </view>
+      <view class="modal-body">
+        <!-- 中文版本 -->
+        <view class="license-section">
+          <view class="license-lang">中文</view>
+          <view class="license-text">
+            <text class="license-title-cn">我不能被欺负 双授权协议 v1.0</text>
+            <text class="license-paragraph">版权所有 © 2026 我不能被欺负（new_mr_awei@163.com）</text>
+            <text class="license-paragraph">本软件采用双授权模式，根据使用场景适用不同授权条款：</text>
+
+            <text class="license-subtitle">一、非商业免费使用授权</text>
+            <text class="license-paragraph">在遵守以下条款的前提下，个人用户、非盈利组织、教育机构可免费使用、复制、修改、分发本软件：</text>
+            <text class="license-paragraph">1. 保留原版权声明和本协议文本；</text>
+            <text class="license-paragraph">2. 不得将本软件用于任何商业收费产品或付费服务；</text>
+            <text class="license-paragraph">3. 不得将本软件集成、嵌入或用于任何恶意软件、间谍软件、病毒、木马、勒索软件或其他有害程序；</text>
+            <text class="license-paragraph">4. 基于本软件修改的衍生作品，同样适用本协议条款。</text>
+
+            <text class="license-subtitle">二、商业使用授权</text>
+            <text class="license-paragraph">任何将本软件用于商业用途的行为，包括但不限于：</text>
+            <text class="license-paragraph">1. 将本软件集成到收费产品或付费服务中；</text>
+            <text class="license-paragraph">2. 使用本软件提供商业咨询、开发、运维等收费服务；</text>
+            <text class="license-paragraph">3. 将本软件用于企业内部商业项目并获得商业利益；</text>
+            <text class="license-paragraph">均必须事先联系作者（new_mr_awei@163.com）购买商业授权，签订书面授权协议后方可使用。</text>
+
+            <text class="license-subtitle">三、权利保留</text>
+            <text class="license-paragraph">1. 作者保留本软件的全部著作权及其他知识产权；</text>
+            <text class="license-paragraph">2. 发现任何违反本协议的商业使用或恶意使用，作者保留追究法律责任、提起诉讼的权利；</text>
+            <text class="license-paragraph">3. 作者有权随时更新本协议条款，更新后的协议自发布之日起生效。</text>
+
+            <text class="license-subtitle">四、免责声明</text>
+            <text class="license-paragraph">本软件按"原样"提供，不提供任何明示或暗示的保证，包括但不限于对适销性、特定用途适用性和非侵权性的保证。在任何情况下，作者均不对因使用本软件产生的任何直接或间接损失承担责任。</text>
+
+            <view class="license-contact" bindtap="onCopyEmail">
+              <text class="contact-label">商业授权联系：</text>
+              <text class="contact-email">new_mr_awei@163.com</text>
+              <text class="contact-copy">点击复制</text>
+            </view>
+          </view>
+        </view>
+
+        <!-- 分隔线 -->
+        <view class="license-divider"></view>
+
+        <!-- 英文版本 -->
+        <view class="license-section">
+          <view class="license-lang">English</view>
+          <view class="license-text">
+            <text class="license-title-en">I Cannot Be Bullied Dual License v1.0</text>
+            <text class="license-paragraph">Copyright © 2026 I Cannot Be Bullied (new_mr_awei@163.com)</text>
+            <text class="license-paragraph">This software is licensed under a dual licensing model. Different license terms apply depending on the use case:</text>
+
+            <text class="license-subtitle">1. Non-Commercial Free Use License</text>
+            <text class="license-paragraph">Individual users, non-profit organizations, and educational institutions may freely use, copy, modify, and distribute this software, provided that the following terms are met:</text>
+            <text class="license-paragraph">1. Retain the original copyright notice and this license text;</text>
+            <text class="license-paragraph">2. Do not use this software in any commercial paid products or paid services;</text>
+            <text class="license-paragraph">3. Do not integrate, embed, or use this software in any malware, spyware, virus, trojan, ransomware, or other harmful programs;</text>
+            <text class="license-paragraph">4. Derivative works based on this software are also subject to the terms of this license.</text>
+
+            <text class="license-subtitle">2. Commercial Use License</text>
+            <text class="license-paragraph">Any commercial use of this software, including but not limited to:</text>
+            <text class="license-paragraph">1. Integrating this software into paid products or paid services;</text>
+            <text class="license-paragraph">2. Using this software to provide paid services such as commercial consulting, development, or operations;</text>
+            <text class="license-paragraph">3. Using this software in internal commercial projects and obtaining commercial benefits;</text>
+            <text class="license-paragraph">Must contact the author (new_mr_awei@163.com) in advance to purchase a commercial license and sign a written authorization agreement before use.</text>
+
+            <text class="license-subtitle">3. Rights Reserved</text>
+            <text class="license-paragraph">1. The author reserves all copyrights and other intellectual property rights of this software;</text>
+            <text class="license-paragraph">2. Upon discovering any commercial use or malicious use that violates this agreement, the author reserves the right to pursue legal liability and file lawsuits;</text>
+            <text class="license-paragraph">3. The author reserves the right to update the terms of this agreement at any time, and the updated agreement shall take effect from the date of publication.</text>
+
+            <text class="license-subtitle">4. Disclaimer</text>
+            <text class="license-paragraph">This software is provided "AS IS" without any express or implied warranties, including but not limited to warranties of merchantability, fitness for a particular purpose, and non-infringement. In no event shall the author be liable for any direct or indirect damages arising from the use of this software.</text>
+
+            <view class="license-contact" bindtap="onCopyEmail">
+              <text class="contact-label">Commercial License Contact: </text>
+              <text class="contact-email">new_mr_awei@163.com</text>
+              <text class="contact-copy">Click to Copy</text>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view class="modal-footer">
+        <view class="modal-btn" bindtap="onCloseLicense">我已阅读</view>
+      </view>
+    </view>
   </view>
 </view>

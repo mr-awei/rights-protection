@@ -361,6 +361,61 @@
   margin-top: 6rpx;
 }
 
+/* ========== 友情链接 ========== */
+.friend-link-list {
+  padding: 0 24rpx;
+}
+
+.friend-link-item {
+  display: flex;
+  align-items: center;
+  padding: 24rpx 0;
+  border-bottom: 1rpx solid #F8F8F8;
+  transition: background 0.2s ease;
+}
+
+.friend-link-item:last-child {
+  border-bottom: none;
+}
+
+.friend-link-item-hover {
+  background: #FAFAFA;
+}
+
+.friend-link-icon {
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: 16rpx;
+  margin-right: 20rpx;
+  flex-shrink: 0;
+}
+
+.friend-link-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.friend-link-name {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #1A1A1A;
+  margin-bottom: 4rpx;
+}
+
+.friend-link-desc {
+  font-size: 22rpx;
+  color: #999999;
+  line-height: 1.4;
+}
+
+.friend-link-arrow {
+  font-size: 32rpx;
+  color: #CCCCCC;
+  margin-left: 12rpx;
+  flex-shrink: 0;
+}
+
 /* ========== 底部 ========== */
 .footer {
   text-align: center;
@@ -378,4 +433,37 @@
   font-size: 20rpx;
   color: #DDDDDD;
   display: block;
+}
+
+/* ========== 常用功能宫格 ========== */
+.quick-grid {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 8rpx 0 16rpx;
+}
+
+.quick-item {
+  width: 25%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20rpx 0;
+  transition: opacity 0.2s;
+}
+
+.quick-item-hover {
+  opacity: 0.6;
+}
+
+.quick-icon {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 20rpx;
+  margin-bottom: 12rpx;
+}
+
+.quick-name {
+  font-size: 24rpx;
+  color: #333333;
+  font-weight: 500;
 }

@@ -3,6 +3,7 @@
 // 使用data.js的分片加载，支持扩展到几千条数据
 
 const { extractKeywords, KEYWORDS } = require('./keyword-extractor');
+const { correctTypos, fuzzyMatch, getPinyinInitials } = require('./search-enhance');
 const data = require('./data');
 
 // 关键词词库引用（用于领域/问题匹配加权）
@@ -21,16 +22,35 @@ function search(query) {
     return { type: 'empty', scenes: [], results: [], keywords: [] };
   }
 
-  // 1. 关键词提取
-  const kwResult = extractKeywords(query);
-  const keywords = kwResult.allKeywords;
+  // 0. 错别字自动纠正
+  const correctedQuery = correctTypos(query);
+  if (correctedQuery !== query) {
+    console.log('[搜索] 错别字纠正:', query, '→', correctedQuery);
+  }
+
+  // 1. 同义词扩展：用config里的synonyms对查询进行扩展，增加匹配概率
+  const config = data.getConfig();
+  const synonyms = config.synonyms || {};
+  let expandedQuery = correctedQuery;
+  let expandedKeywords = [];
+  Object.keys(synonyms).forEach(origin => {
+    if (correctedQuery.includes(origin)) {
+      const target = synonyms[origin];
+      expandedQuery = expandedQuery + ' ' + target;
+      expandedKeywords.push(target);
+    }
+  });
+
+  // 2. 关键词提取（用扩展后的查询）
+  const kwResult = extractKeywords(expandedQuery);
+  const keywords = [...new Set([...kwResult.allKeywords, ...expandedKeywords])];
   const scenes = kwResult.scenes;
   const domains = kwResult.domains || [];
   const issues = kwResult.issues || [];
 
-  console.log('[搜索] 提取关键词:', keywords, '领域:', domains, '问题:', issues, '匹配场景:', scenes.length);
+  console.log('[搜索] 原始查询:', query, '纠正后:', correctedQuery, '扩展后:', expandedQuery, '提取关键词:', keywords, '领域:', domains, '问题:', issues, '匹配场景:', scenes.length);
 
-  // 2. 场景匹配
+  // 3. 场景匹配
   if (scenes.length === 1) {
     // 单个场景 → 直接跳转
     return {
@@ -50,8 +70,8 @@ function search(query) {
     };
   }
 
-  // 3. 无场景匹配 → 名称匹配搜索（兜底，用索引数据，轻量快速）
-  const results = fallbackSearch(query, keywords, domains, issues);
+  // 4. 无场景匹配 → 名称匹配搜索（兜底，用索引数据，轻量快速）
+  const results = fallbackSearch(correctedQuery, keywords, domains, issues);
   if (results.length === 0) {
     return { type: 'empty', scenes: [], results: [], keywords: keywords };
   }
@@ -87,13 +107,17 @@ function fallbackSearch(query, keywords, domains = [], issues = []) {
     const tags = (channel.tags || []).join(' ').toLowerCase();
     const categoryUser = (channel.category_user || '').toLowerCase();
     const categoryUserL2 = (channel.category_user_l2 || '').toLowerCase();
+    const categoryL1 = (channel.category_l1 || '').toLowerCase();
+    const categoryL2 = (channel.category_l2 || '').toLowerCase();
 
     // 完整查询词匹配（权重最高）
     if (name.includes(queryLower)) score += 15;
     if (phone.includes(queryLower)) score += 8;
-    if (tags.includes(queryLower)) score += 8;
+    if (tags.includes(queryLower)) score += 12; // 标签匹配权重提升
     if (categoryUser.includes(queryLower)) score += 10;
     if (categoryUserL2.includes(queryLower)) score += 8;
+    if (categoryL1.includes(queryLower)) score += 10; // 新增category_l1匹配
+    if (categoryL2.includes(queryLower)) score += 8;  // 新增category_l2匹配
 
     // 关键词匹配（区分领域关键词和问题关键词）
     for (const kw of keywords) {
@@ -107,16 +131,19 @@ function fallbackSearch(query, keywords, domains = [], issues = []) {
 
       if (name.includes(kwLower)) score += kwWeight + 2;
       if (phone.includes(kwLower)) score += kwWeight;
-      if (tags.includes(kwLower)) score += kwWeight;
+      if (tags.includes(kwLower)) score += kwWeight + 2; // 标签匹配权重提升
       if (categoryUser.includes(kwLower)) score += kwWeight + 3;
       if (categoryUserL2.includes(kwLower)) score += kwWeight + 2;
+      if (categoryL1.includes(kwLower)) score += kwWeight + 3; // 新增category_l1匹配
+      if (categoryL2.includes(kwLower)) score += kwWeight + 2;  // 新增category_l2匹配
     }
 
     // 领域匹配加权：如果渠道的分类属于用户搜索的领域，额外加分
     if (domains.length > 0) {
       for (const domain of domains) {
         const domainLower = domain.toLowerCase();
-        if (categoryUser.includes(domainLower) || categoryUserL2.includes(domainLower)) {
+        if (categoryUser.includes(domainLower) || categoryUserL2.includes(domainLower) ||
+            categoryL1.includes(domainLower) || categoryL2.includes(domainLower)) {
           score += 20; // 领域匹配大幅加分
           break;
         }
@@ -154,6 +181,38 @@ function fallbackSearch(query, keywords, domains = [], issues = []) {
         score: score,
         matchedTerms: keywords
       });
+    } else {
+      // 拼音首字母匹配 + 编辑距离模糊匹配（兜底）
+      const queryInitials = getPinyinInitials(queryLower);
+      const nameInitials = getPinyinInitials(name);
+      
+      // 拼音首字母匹配（用户输入拼音首字母也能匹配中文名称）
+      if (queryInitials.length >= 2 && nameInitials.includes(queryInitials)) {
+        results.push({
+          type: 'channel',
+          id: channel.id,
+          name: channel.name,
+          phone: channel.phone,
+          desc: channel.name + ' ' + (channel.phone || ''),
+          score: 50,
+          matchedTerms: ['拼音匹配:' + queryInitials]
+        });
+        continue;
+      }
+      
+      // 编辑距离模糊匹配（相似度≥0.6）
+      const fuzzyResult = fuzzyMatch(queryLower, name, 0.6);
+      if (fuzzyResult.matched && fuzzyResult.score > 0) {
+        results.push({
+          type: 'channel',
+          id: channel.id,
+          name: channel.name,
+          phone: channel.phone,
+          desc: channel.name + ' ' + (channel.phone || ''),
+          score: fuzzyResult.score,
+          matchedTerms: ['模糊匹配:' + fuzzyResult.type]
+        });
+      }
     }
   }
 
@@ -223,6 +282,44 @@ function fallbackSearch(query, keywords, domains = [], issues = []) {
         name: script.scene_name || '',
         applicable: script.applicable,
         desc: script.applicable || '',
+        score: score,
+        matchedTerms: keywords
+      });
+    }
+  }
+
+  // 搜索高层级平台
+  const platforms = data.getPlatforms();
+  for (const platform of platforms) {
+    let score = 0;
+    const name = (platform.name || '').toLowerCase();
+    const phone = (platform.phone || '').toLowerCase();
+    const scope = (platform.scope || '').toLowerCase();
+    const tags = (platform.tags || []).join(' ').toLowerCase();
+    const platCategory = (platform.platform_category || '').toLowerCase();
+
+    if (name.includes(queryLower)) score += 20;
+    if (phone.includes(queryLower)) score += 10;
+    if (scope.includes(queryLower)) score += 6;
+    if (tags.includes(queryLower)) score += 8;
+    if (platCategory.includes(queryLower)) score += 10;
+
+    for (const kw of keywords) {
+      const kwLower = kw.toLowerCase();
+      if (name.includes(kwLower)) score += 8;
+      if (phone.includes(kwLower)) score += 5;
+      if (tags.includes(kwLower)) score += 5;
+      if (scope.includes(kwLower)) score += 3;
+    }
+
+    if (score > 0) {
+      results.push({
+        type: 'platform',
+        id: platform.id,
+        name: platform.name,
+        phone: platform.phone,
+        desc: platform.scope || platform.name,
+        platform_category: platform.platform_category,
         score: score,
         matchedTerms: keywords
       });

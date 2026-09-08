@@ -23,6 +23,8 @@ Page({
     formData: {},
     customPhoneContent: '',
     customWrittenContent: '',
+    customPhoneText: '',
+    customWrittenText: '',
     hasCustomContent: false
   },
 
@@ -33,6 +35,7 @@ Page({
     setTimeout(() => {
       this.loadScript(id);
     }, 16);
+
   },
 
   loadScript(id) {
@@ -58,7 +61,7 @@ Page({
     const placeholders = this.extractPlaceholders(phoneRaw + '\n' + writtenRaw);
     // 初始化表单数据
     const formData = {};
-    placeholders.forEach(p => { formData[p] = ''; });
+    placeholders.forEach(p => { formData[p.name] = ''; });
 
     // 第一批：先设置核心内容（话术基本信息+内容）
     this.setData({
@@ -88,6 +91,18 @@ Page({
   // 构建书面版分块
   buildWrittenSections(script) {
     const sections = [];
+    
+    // 新版：统一的written_template字段
+    if (script.written_template) {
+      sections.push({
+        id: 'written_full',
+        title: '书面投诉模板（可复制到投诉网站）',
+        content: script.written_template
+      });
+      return sections;
+    }
+    
+    // 旧版：分块字段（兼容）
     if (script.written_complainant) {
       sections.push({ id: 'complainant', title: '投诉人信息', content: script.written_complainant });
     }
@@ -166,11 +181,11 @@ Page({
   },
 
   onCopyScript() {
-    const { activeTab, script, hasCustomContent, customPhoneContent, customWrittenContent } = this.data;
-    // 如果有个性化内容，优先复制个性化内容
+    const { activeTab, script, hasCustomContent, customPhoneText, customWrittenText } = this.data;
+    // 如果有个性化内容，优先复制个性化内容（纯文本）
     let content;
     if (hasCustomContent) {
-      content = activeTab === 'phone' ? customPhoneContent : customWrittenContent;
+      content = activeTab === 'phone' ? customPhoneText : customWrittenText;
     } else {
       content = activeTab === 'phone'
         ? getScriptPhoneContent(script)
@@ -188,7 +203,7 @@ Page({
   // ===== 占位符自动填充功能 =====
 
   /**
-   * 提取文本中的所有占位符【】
+   * 提取文本中的所有占位符【】，并附带填写说明
    */
   extractPlaceholders(text) {
     if (!text) return [];
@@ -198,7 +213,116 @@ Page({
     while ((match = regex.exec(text)) !== null) {
       placeholders.add(match[1]);
     }
-    return Array.from(placeholders);
+    // 转换为带说明的对象数组
+    return Array.from(placeholders).map(name => ({
+      name: name,
+      label: this.getPlaceholderLabel(name),
+      guide: this.getPlaceholderGuide(name),
+      example: this.getPlaceholderExample(name)
+    }));
+  },
+
+  /**
+   * 根据占位符名称获取友好的显示标签
+   */
+  getPlaceholderLabel(name) {
+    const labels = {
+      'XXXX': '身份证后四位',
+      'XX元': '金额（元）',
+      'X月X日': '日期',
+      'X年X月X日': '完整日期',
+      'X月': '月份',
+      'X个月': '持续月数',
+      'X天': '天数',
+      'X': '数字',
+      'X课时': '课时数',
+      'X次': '次数',
+      'X年': '年份',
+      'X点至X点': '时间段',
+      'XX分贝': '分贝数',
+      'X天内发货': '发货期限',
+      'X天': '天数'
+    };
+    if (labels[name]) return labels[name];
+    // 如果名称已经是友好的（不含X且长度<=10），直接返回
+    if (!name.includes('X') && name.length <= 10) return name;
+    // 长文本描述类占位符（不含X且长度>10），统一显示为"投诉事由"
+    if (!name.includes('X') && name.length > 10) return '投诉事由';
+    // 否则返回原名称
+    return name;
+  },
+
+  /**
+   * 根据占位符名称获取填写说明
+   */
+  getPlaceholderGuide(name) {
+    const guides = {
+      '姓名': '您的真实姓名',
+      '手机号': '您的联系电话，方便受理单位回电',
+      '身份证号后四位': '身份证最后4位，用于身份核验',
+      '身份证号': '完整身份证号，涉及金融/实名投诉时填写',
+      '单号': '快递单号/订单号/工单号',
+      '快递公司名称': '如：顺丰、圆通、中通等',
+      'X月X日': '具体日期，如：3月15日',
+      '寄件城市': '快递寄出城市',
+      '收件城市': '快递收件城市',
+      '已丢失/已破损/已延误X天': '选择实际情况，如：已破损',
+      '物品名称': '丢失/破损物品的名称',
+      '金额': '涉及金额，单位：元',
+      'X': '数字，如：3',
+      '编号': '工单号/受理编号',
+      '被收费号码': '被乱扣费的手机号',
+      '运营商名称': '如：移动、联通、电信',
+      '业务名称': '被擅自开通的业务名称',
+      '平台名称/店铺名称': '电商平台或店铺名称',
+      '商品名称': '购买的商品名称',
+      '商家名称/店铺名称': '被投诉商家的全称',
+      '统一社会信用代码（如有）': '商家的统一社会信用代码，可在企查查/天眼查查询',
+      '银行/保险公司名称': '如：工商银行、平安保险等',
+      '网点名称': '具体办理业务的网点名称',
+      '姓名/工号': '涉事工作人员的姓名或工号',
+      '存款/理财': '您原本要办理的业务类型',
+      '保险/高风险理财': '被误导办理的业务类型',
+      '小区名称': '您所在的小区全称',
+      '栋号单元房号': '如：3栋2单元501',
+      '物业公司名称': '物业服务公司全称',
+      '具体描述：如小区公共区域长期无人打扫/电梯故障长期不修/擅自提高物业费/收取未经公示的费用': '简要描述具体问题',
+      'X月': '问题开始的月份，如：1月',
+      'X个月': '持续时间，如：3个月',
+      '地址': '详细通讯地址',
+      '可选，涉及金融/实名投诉时填写': '选填项，根据需要填写',
+      '可选，如知道': '选填项，知道就填',
+      '可选': '选填项',
+      '受理单位全称，如"国家邮政局邮政业申诉服务平台"': '填写受理投诉的单位全称',
+      'X年X月X日': '完整日期，如：2024年3月15日'
+    };
+    // 精确匹配
+    if (guides[name]) return guides[name];
+    // 长文本描述类占位符（不含X且长度>10），统一返回通用说明
+    if (!name.includes('X') && name.length > 10) return '简要描述具体问题';
+    // 模糊匹配
+    for (const key in guides) {
+      if (name.includes(key) || key.includes(name)) {
+        return guides[key];
+      }
+    }
+    return '请填写' + name;
+  },
+
+  /**
+   * 根据占位符名称获取填写示例
+   */
+  getPlaceholderExample(name) {
+    const examples = {
+      '姓名': '张三',
+      '手机号': '138****8888',
+      '单号': 'SF1234567890',
+      '金额': '500',
+      'X月X日': '3月15日',
+      'X': '3'
+    };
+    if (examples[name]) return examples[name];
+    return '';
   },
 
   /**
@@ -268,9 +392,16 @@ Page({
       customWritten = customWritten.split(placeholder).join(replaceValue);
     }
 
+    // 对个性化话术也进行高亮和换行处理，确保rich-text正常渲染
+    const customPhoneHtml = this.highlightPlaceholders(customPhone);
+    const customWrittenHtml = this.highlightPlaceholders(customWritten);
+
     this.setData({
-      customPhoneContent: customPhone,
-      customWrittenContent: customWritten,
+      customPhoneContent: customPhoneHtml,
+      customWrittenContent: customWrittenHtml,
+      // 同时保存纯文本版本用于复制
+      customPhoneText: customPhone,
+      customWrittenText: customWritten,
       hasCustomContent: true,
       showFillForm: false
     });
@@ -288,7 +419,7 @@ Page({
       success: (res) => {
         if (res.confirm) {
           const formData = {};
-          this.data.placeholders.forEach(p => { formData[p] = ''; });
+          this.data.placeholders.forEach(p => { formData[p.name] = ''; });
           this.setData({
             hasCustomContent: false,
             customPhoneContent: '',
@@ -339,5 +470,26 @@ Page({
 
   onBack() {
     wx.navigateBack();
-  }
+  },
+
+  // 分享给朋友
+  onShareAppMessage() {
+    const { script } = this.data;
+    const name = script && script.scene_name ? script.scene_name : '投诉话术模板';
+    const id = script && script.id ? script.id : '';
+    return {
+      title: name + ' - 一键复制直接用',
+      path: '/pages/script-detail/script-detail?id=' + id
+    };
+  },
+
+  // 分享到朋友圈
+  onShareTimeline() {
+    return {
+      title: '投诉话术模板 - 一键复制直接用'
+    };
+  },
+
+  onShow() {
+  },
 });

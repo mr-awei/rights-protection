@@ -11,7 +11,7 @@ const FOLLOWUP_SCHEDULE = [
     escalate_to: '—',
     status: 'current',
     color: '#3B82F6',
-    icon: '📝'
+    icon: 'icon-doc'
   },
   {
     id: 'fs_002',
@@ -22,7 +22,7 @@ const FOLLOWUP_SCHEDULE = [
     escalate_to: '原投诉渠道',
     status: 'pending',
     color: '#8B5CF6',
-    icon: '📞'
+    icon: 'icon-phone'
   },
   {
     id: 'fs_003',
@@ -33,7 +33,7 @@ const FOLLOWUP_SCHEDULE = [
     escalate_to: '上级市场监管部门 / 12345督办',
     status: 'pending',
     color: '#F59E0B',
-    icon: '⚠️'
+    icon: 'icon-warning'
   },
   {
     id: 'fs_004',
@@ -44,7 +44,7 @@ const FOLLOWUP_SCHEDULE = [
     escalate_to: '原受理部门',
     status: 'pending',
     color: '#EC4899',
-    icon: '📋'
+    icon: 'icon-list'
   },
   {
     id: 'fs_005',
@@ -55,7 +55,7 @@ const FOLLOWUP_SCHEDULE = [
     escalate_to: '原受理部门 / 上级主管部门',
     status: 'pending',
     color: '#EF4444',
-    icon: '⚖️'
+    icon: 'icon-law'
   },
   {
     id: 'fs_006',
@@ -66,7 +66,7 @@ const FOLLOWUP_SCHEDULE = [
     escalate_to: '上级主管部门 / 12345 / 12388纪检监察',
     status: 'pending',
     color: '#DC2626',
-    icon: '🚨'
+    icon: 'icon-alarm'
   },
   {
     id: 'fs_007',
@@ -77,7 +77,7 @@ const FOLLOWUP_SCHEDULE = [
     escalate_to: '复议机关 / 人民法院',
     status: 'pending',
     color: '#6366F1',
-    icon: '🏛️'
+    icon: 'icon-building'
   },
   {
     id: 'fs_008',
@@ -88,7 +88,7 @@ const FOLLOWUP_SCHEDULE = [
     escalate_to: '人民法院',
     status: 'pending',
     color: '#0EA5E9',
-    icon: '📜'
+    icon: 'icon-doc'
   }
 ];
 

@@ -22,9 +22,23 @@ Page({
       { name: '热线变更速查', desc: '已取消/整合热线查询', color: '#52C41A', iconClass: 'icon-phone', page: 'hotline-change' },
       { name: '投诉跟进时间表', desc: '法定时限+升级路径', color: '#FAAD14', iconClass: 'icon-clock', page: 'followup-schedule' },
       { name: '企业信息查询', desc: '4个官方查询平台', color: '#FF4D4F', iconClass: 'icon-building', page: 'enterprise-query' },
-      { name: '法律法规库', desc: '查询相关法律条文', color: '#722ED1', iconClass: 'icon-law', page: '' },
-      { name: '意见反馈', desc: '帮助我们改进', color: '#13C2C2', iconClass: 'icon-chat', page: '' },
-      { name: '关于我们', desc: '版本信息与免责声明', color: '#2F54EB', iconClass: 'icon-info', page: 'about' }
+      { name: '搜索质量看板', desc: '高频词/无结果词/成功率', color: '#13C2C2', iconClass: 'icon-chart', page: 'search-quality' }
+    ],
+    // 其他功能
+    otherList: [
+      { name: '设置', desc: '关于、免责声明、数据版本', color: '#722ED1', iconClass: 'icon-setting', page: 'settings' },
+      { name: '意见反馈', desc: '帮助我们改进产品', color: '#13C2C2', iconClass: 'icon-chat', page: '' }
+    ],
+    // 友情链接
+    friendLinks: [
+      {
+        name: '黑猫投诉',
+        desc: '新浪旗下消费者服务平台，可在线投诉维权',
+        color: '#FF4D4F',
+        iconClass: 'icon-shield',
+        url: 'https://tousu.sina.com.cn/',
+        miniProgramLink: '#小程序://黑猫投诉/4elIqcmZImbjnPC'
+      }
     ]
   },
 
@@ -45,6 +59,7 @@ Page({
     this.loadStats();
     this.loadFavoriteLists();
     this.loadViewHistory();
+
   },
 
   loadStats() {
@@ -294,5 +309,104 @@ Page({
         }
       });
     }
-  }
+  },
+
+  // 其他功能点击
+  onOtherTap(e) {
+    const index = e.currentTarget.dataset.index;
+    const item = this.data.otherList[index];
+    if (item.page === 'settings') {
+      wx.navigateTo({ url: '/pages/settings/settings' });
+    } else if (item.page === '') {
+      wx.showToast({ title: `${item.name}功能开发中`, icon: 'none' });
+    }
+  },
+
+  // 友情链接点击
+  onFriendLinkTap(e) {
+    const index = e.currentTarget.dataset.index;
+    const link = this.data.friendLinks[index];
+    if (!link) return;
+
+    // 如果有小程序分享链接，让用户选择打开方式
+    if (link.miniProgramLink) {
+      wx.showActionSheet({
+        itemList: ['打开微信小程序', '复制网页链接'],
+        success: (res) => {
+          if (res.tapIndex === 0) {
+            // 复制小程序分享链接，用户在微信聊天框粘贴即可打开
+            wx.setClipboardData({
+              data: link.miniProgramLink,
+              success: () => {
+                wx.showModal({
+                  title: '链接已复制',
+                  content: '小程序链接已复制到剪贴板，请在微信聊天框中粘贴，点击即可打开黑猫投诉小程序',
+                  showCancel: false,
+                  confirmText: '知道了'
+                });
+              }
+            });
+          } else if (res.tapIndex === 1) {
+            // 复制网页链接
+            wx.setClipboardData({
+              data: link.url,
+              success: () => {
+                wx.showToast({
+                  title: '网页链接已复制，请在浏览器打开',
+                  icon: 'none',
+                  duration: 3000
+                });
+              }
+            });
+          }
+        }
+      });
+    } else {
+      // 没有小程序链接，直接复制网页链接
+      this.copyFriendLink(link);
+    }
+  },
+
+  // 复制友情链接（兜底）
+  copyFriendLink(link) {
+    wx.showModal({
+      title: link.name,
+      content: `即将跳转到${link.name}（${link.url}），是否继续？`,
+      confirmText: '复制链接',
+      cancelText: '取消',
+      success: (res) => {
+        if (res.confirm) {
+          wx.setClipboardData({
+            data: link.url,
+            success: () => {
+              wx.showToast({
+                title: '链接已复制，请在浏览器打开',
+                icon: 'none',
+                duration: 3000
+              });
+            }
+          });
+        }
+      }
+    });
+  },
+
+  // 分享给朋友
+  onShareAppMessage() {
+    return {
+      title: '我不能被欺负 - 随身维权工具箱',
+      desc: '122个官方投诉渠道+投诉话术模板，遇到问题一键找到对口部门',
+      path: '/pages/index/index',
+      imageUrl: ''
+    };
+  },
+
+  // 分享到朋友圈
+  onShareTimeline() {
+    return {
+      title: '我不能被欺负 - 随身维权工具箱',
+      query: '',
+      imageUrl: ''
+    };
+  },
 });

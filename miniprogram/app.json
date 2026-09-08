@@ -6,6 +6,7 @@
     "pages/channel-detail/channel-detail",
     "pages/script-detail/script-detail",
     "pages/category/category",
+    "pages/script-list/script-list",
     "pages/profile/profile",
     "pages/general-template/general-template",
     "pages/hotline-change/hotline-change",
@@ -13,7 +14,9 @@
     "pages/enterprise-query/enterprise-query",
     "pages/search/search",
     "pages/about/about",
-    "pages/favorites-history/favorites-history"
+    "pages/favorites-history/favorites-history",
+    "pages/settings/settings",
+    "pages/search-quality/search-quality"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -39,6 +42,12 @@
         "text": "分类",
         "iconPath": "images/tab-category.png",
         "selectedIconPath": "images/tab-category-active.png"
+      },
+      {
+        "pagePath": "pages/script-list/script-list",
+        "text": "话术",
+        "iconPath": "images/tab-script.png",
+        "selectedIconPath": "images/tab-script-active.png"
       },
       {
         "pagePath": "pages/profile/profile",

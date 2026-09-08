@@ -113,6 +113,49 @@
   font-weight: 800;
 }
 
+/* 收藏分组标签栏 */
+.group-bar {
+  background: #FFFFFF;
+  padding: 16rpx 0;
+  border-bottom: 1rpx solid #F5F5F5;
+}
+
+.group-scroll {
+  white-space: nowrap;
+}
+
+.group-list {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 24rpx;
+  gap: 16rpx;
+}
+
+.group-item {
+  display: inline-flex;
+  align-items: center;
+  padding: 10rpx 24rpx;
+  border-radius: 32rpx;
+  background: #F5F6F8;
+  font-size: 24rpx;
+  color: #666666;
+  font-weight: 500;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.group-item.active {
+  background: linear-gradient(135deg, #4A90D9, #3A7BC8);
+  color: #FFFFFF;
+  font-weight: 600;
+}
+
+.group-add {
+  background: #E8F3FC;
+  color: #4A90D9;
+  border: 1rpx dashed #4A90D9;
+}
+
 .tab-count {
   font-size: 22rpx;
   color: #999999;
@@ -294,4 +337,95 @@
   font-size: 24rpx;
   color: #999999;
   font-weight: 500;
+}
+
+/* ========== 分组管理 ========== */
+.group-manage {
+  background: #F0F0F0;
+  color: #666;
+}
+.group-manage.active {
+  background: #1677FF;
+  color: #FFFFFF;
+}
+
+/* ========== 批量操作栏 ========== */
+.batch-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16rpx 24rpx;
+  background: #FFFFFF;
+  border-bottom: 1rpx solid #F0F0F0;
+}
+.batch-info text {
+  font-size: 26rpx;
+  color: #333;
+  font-weight: 500;
+}
+.batch-actions {
+  display: flex;
+  gap: 16rpx;
+}
+.batch-btn {
+  padding: 12rpx 24rpx;
+  background: #F5F5F5;
+  border-radius: 10rpx;
+}
+.batch-btn text {
+  font-size: 24rpx;
+  color: #666;
+}
+.batch-btn.primary {
+  background: #EFF6FF;
+}
+.batch-btn.primary text {
+  color: #1677FF;
+}
+.batch-btn.danger {
+  background: #FEF2F2;
+}
+.batch-btn.danger text {
+  color: #EF4444;
+}
+.batch-btn-hover {
+  opacity: 0.7;
+}
+
+/* ========== 列表项选择框 ========== */
+.item-checkbox {
+  width: 40rpx;
+  height: 40rpx;
+  margin-right: 16rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.checkbox {
+  width: 36rpx;
+  height: 36rpx;
+  border: 2rpx solid #D9D9D9;
+  border-radius: 50%;
+  background: #FFFFFF;
+  transition: all 0.2s ease;
+}
+.checkbox.checked {
+  background: #1677FF;
+  border-color: #1677FF;
+  position: relative;
+}
+.checkbox.checked::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -60%) rotate(45deg);
+  width: 10rpx;
+  height: 18rpx;
+  border-right: 3rpx solid #FFFFFF;
+  border-bottom: 3rpx solid #FFFFFF;
+}
+.list-item.selected {
+  background: #F0F7FF;
 }

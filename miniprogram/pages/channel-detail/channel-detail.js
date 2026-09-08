@@ -13,7 +13,9 @@ Page({
     tipsText: '',
     preconditionText: '',
     statusInfo: null,
-    loading: true  // 加载状态
+    loading: true,  // 加载状态
+    showLawModal: false,
+    currentLaw: null
   },
 
   onLoad(options) {
@@ -24,6 +26,7 @@ Page({
     setTimeout(() => {
       this.loadChannel(id);
     }, 16);
+
   },
 
   loadChannel(id) {
@@ -40,10 +43,20 @@ Page({
     // 第一批：先设置关键信息（标题、联系方式），让用户快速看到核心内容
     const contactItems = this.buildContactItems(channel);
     const statusInfo = this.buildStatusInfo(channel);
+    
+    // 把issue_types转换成可读标签
+    const config = require('../../data/config.js');
+    const issueTypesConfig = config.issue_types || {};
+    const issueTypeLabels = (channel.issue_types || []).map(key => ({
+      key: key,
+      name: issueTypesConfig[key] ? issueTypesConfig[key].name : key
+    }));
+    
     this.setData({
       channel,
       contactItems,
       statusInfo,
+      issueTypeLabels,
       loading: false,
       isFavorite: app.isFavorite('channels', id)
     });
@@ -65,33 +78,115 @@ Page({
     }, 50);
   },
 
-  // 根据渠道分类筛选相关法律法规
+  // 根据渠道分类筛选相关法律法规（优先使用渠道自带的legal_basis_with_articles字段）
   getLawsByCategory(channel, allLaws) {
-    const category = channel.category_user || '';
-    const tags = channel.tags || [];
-    
-    // 优先根据category字段精确匹配
-    let matchedLaws = allLaws.filter(law => 
-      law.category && law.category.includes(category)
-    );
-    
-    // 如果匹配不到，根据tags模糊匹配
-    if (matchedLaws.length === 0 && tags.length > 0) {
-      matchedLaws = allLaws.filter(law => {
-        const lawName = law.name || '';
-        return tags.some(tag => lawName.includes(tag) || tag.includes(lawName));
+    // 优先使用渠道自带的法律依据+条款字段（精确匹配，只展示该渠道用到的条款）
+    if (channel.legal_basis_with_articles && channel.legal_basis_with_articles.length > 0) {
+      const matchedLaws = [];
+      
+      channel.legal_basis_with_articles.forEach(item => {
+        // 从本地法律库查找法律
+        let matchedLaw = null;
+        if (item.law_id) {
+          matchedLaw = allLaws.find(law => law.id === item.law_id);
+        }
+        if (!matchedLaw && item.law_name) {
+          matchedLaw = allLaws.find(law => {
+            const localName = (law.name || law.title || '').trim();
+            return localName === item.law_name || 
+                   localName.replace('中华人民共和国', '').trim() === item.law_name.replace('中华人民共和国', '').trim();
+          });
+        }
+        
+        if (matchedLaw) {
+          // 只展示该渠道引用的条款
+          let articles = [];
+          if (item.article_ids && item.article_ids.length > 0 && matchedLaw.articles) {
+            articles = matchedLaw.articles.filter(art => item.article_ids.includes(art.id));
+          }
+          
+          matchedLaws.push({
+            id: matchedLaw.id,
+            name: matchedLaw.name || matchedLaw.title,
+            article: matchedLaw.article || matchedLaw.description || '',
+            description: matchedLaw.description || matchedLaw.article || '',
+            articles: articles,
+            isChannelBuiltin: true
+          });
+        } else {
+          // 本地库没有匹配到，只展示名称
+          matchedLaws.push({
+            id: 'law_' + item.law_name,
+            name: item.law_name,
+            article: '',
+            description: '该法律详细条款待补充',
+            articles: [],
+            isChannelBuiltin: true
+          });
+        }
       });
+      
+      return matchedLaws.slice(0, 5);
     }
     
-    // 如果还是匹配不到，用通用法律法规
-    if (matchedLaws.length === 0) {
-      matchedLaws = allLaws.filter(law => 
-        law.category && law.category.includes('通用')
-      );
+    // 回退：使用旧的legal_basis字段（解析《...》格式）
+    if (channel.legal_basis && channel.legal_basis.trim()) {
+      const matchedLaws = [];
+      const seenNames = new Set();
+      
+      const lawMatches = channel.legal_basis.match(/《([^》]+)》/g);
+      if (lawMatches) {
+        lawMatches.forEach(match => {
+          const lawName = match.replace(/[《》]/g, '').trim();
+          if (seenNames.has(lawName)) return;
+          seenNames.add(lawName);
+          
+          let matchedLaw = allLaws.find(law => {
+            const localName = (law.name || law.title || '').trim();
+            if (localName === lawName) return true;
+            const localShort = localName.replace('中华人民共和国', '').trim();
+            const inputShort = lawName.replace('中华人民共和国', '').trim();
+            if (localShort === inputShort) return true;
+            if (localName.includes(lawName) || lawName.includes(localName)) return true;
+            if (localShort.includes(inputShort) || inputShort.includes(localShort)) return true;
+            return false;
+          });
+          
+          if (matchedLaw) {
+            matchedLaws.push({
+              id: matchedLaw.id,
+              name: matchedLaw.name || matchedLaw.title,
+              article: matchedLaw.article || matchedLaw.description || '',
+              description: matchedLaw.description || matchedLaw.article || '',
+              articles: matchedLaw.articles || [],
+              isChannelBuiltin: true
+            });
+          } else {
+            matchedLaws.push({
+              id: 'law_' + lawName,
+              name: lawName,
+              article: '',
+              description: '该法律条款待补充',
+              articles: [],
+              isChannelBuiltin: true
+            });
+          }
+        });
+      }
+      
+      if (matchedLaws.length === 0) {
+        matchedLaws.push({
+          id: 'channel_legal_basis',
+          name: channel.legal_basis.length > 30 ? channel.legal_basis.substring(0, 30) + '...' : channel.legal_basis,
+          description: channel.legal_basis,
+          article: channel.legal_basis,
+          articles: [],
+          isChannelBuiltin: true
+        });
+      }
+      
+      return matchedLaws.slice(0, 5);
     }
-    
-    // 最多显示3条
-    return matchedLaws.slice(0, 3);
   },
 
   // 构建渠道状态信息（已整合/停用提示）
@@ -132,14 +227,88 @@ Page({
     return info;
   },
 
-  // 法律法规点击事件
+  // 打开法律详情弹窗
+  openLawModal(e) {
+    const law = e.currentTarget.dataset.law;
+    if (law) {
+      // 格式化条款内容，添加合理换行
+      const formattedLaw = this.formatLawArticles(law);
+      this.setData({
+        currentLaw: formattedLaw,
+        showLawModal: true
+      });
+    }
+  },
+
+  // 格式化法律条款内容，添加合理换行
+  formatLawArticles(law) {
+    if (!law.articles || law.articles.length === 0) {
+      return law;
+    }
+    const formattedArticles = law.articles.map(article => {
+      let text = article.content;
+      // 1. 条款编号后换行
+      text = text.replace(/^(第[一二三四五六七八九十百零千]+条)/, '$1' + String.fromCharCode(10));
+      // 2. 中文数字分项前换行
+      text = text.replace(/（[一二三四五六七八九十]+）/g, function(match, offset) {
+        return offset > 0 ? String.fromCharCode(10) + match : match;
+      });
+      // 3. 阿拉伯数字分项前换行
+      text = text.replace(/（\d+）/g, function(match, offset) {
+        return offset > 0 ? String.fromCharCode(10) + match : match;
+      });
+      // 4. 去除多余连续换行
+      text = text.replace(/\n{3,}/g, String.fromCharCode(10) + String.fromCharCode(10));
+      // 5. 去除首尾空格
+      text = text.trim();
+      return {
+        id: article.id,
+        content: text
+      };
+    });
+    return {
+      id: law.id,
+      name: law.name,
+      article: law.article,
+      description: law.description,
+      articles: formattedArticles
+    };
+  },
+
+  // 关闭法律详情弹窗
+  closeLawModal() {
+    this.setData({
+      showLawModal: false,
+      currentLaw: null
+    });
+  },
+
+  // 阻止弹窗内容区域的点击事件冒泡
+  preventModalBubble() {
+    // 空方法，用于阻止冒泡
+  },
+
+  // 复制法律条款
   onLawTap(e) {
     const law = e.currentTarget.dataset.law;
-    if (law && law.name) {
+    if (law) {
+      let copyContent = law.name + '\n\n';
+      if (law.articles && law.articles.length > 0) {
+        law.articles.forEach(function(art, index) {
+          copyContent += art.content;
+          if (index < law.articles.length - 1) {
+            copyContent += '\n\n';
+          }
+        });
+      } else if (law.article) {
+        copyContent += law.article;
+      } else if (law.description) {
+        copyContent += law.description;
+      }
       wx.setClipboardData({
-        data: law.name,
-        success: () => {
-          wx.showToast({ title: '法律名称已复制', icon: 'success' });
+        data: copyContent,
+        success: function() {
+          wx.showToast({ title: '法律条款已复制', icon: 'success' });
         }
       });
     }
@@ -186,17 +355,27 @@ Page({
   onContactAction(e) {
     const item = e.currentTarget.dataset.item;
     if (item.action === 'call') {
-      // 电话点击 → 跳转拨号页
+      // 电话点击 → 二次确认后跳转拨号页
       let phoneNumber = item.cleanPhone;
       if (!phoneNumber) {
-        // 回退逻辑：从value中提取第一个有效的电话号码
         const match = item.value.match(/\d{5}|\d{3,4}-?\d{7,8}|\d{11}/);
         phoneNumber = match ? match[0] : item.value.replace(/[^0-9-]/g, '');
       }
-      wx.makePhoneCall({
-        phoneNumber: phoneNumber,
-        fail: () => {
-          wx.showToast({ title: '拨打失败，请手动拨打', icon: 'none' });
+      wx.showModal({
+        title: '确认拨打',
+        content: `确认拨打投诉电话 ${phoneNumber}？`,
+        confirmText: '确认拨打',
+        cancelText: '取消',
+        confirmColor: '#52C41A',
+        success: (res) => {
+          if (res.confirm) {
+            wx.makePhoneCall({
+              phoneNumber: phoneNumber,
+              fail: () => {
+                wx.showToast({ title: '拨打失败，请手动拨打', icon: 'none' });
+              }
+            });
+          }
         }
       });
     } else if (item.action === 'visit') {
@@ -249,10 +428,21 @@ Page({
     const { channel, contactItems } = this.data;
     const phoneItem = contactItems.find(i => i.action === 'call');
     if (phoneItem) {
-      wx.makePhoneCall({
-        phoneNumber: phoneItem.cleanPhone,
-        fail: () => {
-          wx.showToast({ title: '拨打失败，请手动拨打', icon: 'none' });
+      wx.showModal({
+        title: '确认拨打',
+        content: `确认拨打投诉电话 ${phoneItem.cleanPhone}？`,
+        confirmText: '确认拨打',
+        cancelText: '取消',
+        confirmColor: '#52C41A',
+        success: (res) => {
+          if (res.confirm) {
+            wx.makePhoneCall({
+              phoneNumber: phoneItem.cleanPhone,
+              fail: () => {
+                wx.showToast({ title: '拨打失败，请手动拨打', icon: 'none' });
+              }
+            });
+          }
         }
       });
     } else if (channel && channel.website) {
@@ -286,5 +476,8 @@ Page({
     return {
       title: channel ? channel.name : '我不能被欺负 - 官方投诉渠道大全'
     };
-  }
+  },
+
+  onShow() {
+  },
 });
