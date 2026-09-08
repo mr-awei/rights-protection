@@ -1,7 +1,7 @@
 // pages/index/index.js
 const app = getApp();
 const { search } = require('../../utils/search');
-const { getHotScripts, getConfig } = require('../../utils/data');
+const { getHotScripts, getConfig, getScripts } = require('../../utils/data');
 
 Page({
   data: {
@@ -21,6 +21,7 @@ Page({
     ],
     hotScripts: [],
     displayScripts: [],
+    totalScripts: 0,
     recentViews: [],
     noticeExpanded: false,
     // 工具箱快捷入口
@@ -142,6 +143,8 @@ Page({
 
   loadHotScripts() {
     const scripts = getHotScripts(8);
+    const allScripts = getScripts();
+    const totalScripts = allScripts.length;
     // 预处理话术数据，生成预览文本，移除"场景X："前缀
     const processed = scripts.map(s => {
       let preview = '点击查看完整话术';
@@ -165,7 +168,8 @@ Page({
     });
     this.setData({ 
       hotScripts: processed,
-      displayScripts: processed.slice(0, 5)
+      displayScripts: processed.slice(0, 5),
+      totalScripts: totalScripts
     });
   },
 
