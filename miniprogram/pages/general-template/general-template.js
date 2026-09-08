@@ -31,6 +31,70 @@ Page({
     statusBarHeight: 20
   },
 
+  // ========== 自定义弹窗通用方法 ==========
+  showConfirmModal(options) {
+    this.setData({
+      modalVisible: true,
+      modalType: 'confirm',
+      modalTitle: options.title || '提示',
+      modalContent: options.content || '',
+      modalConfirmText: options.confirmText || '确定',
+      modalCancelText: options.cancelText || '取消',
+      modalShowCancel: options.showCancel !== false,
+      modalCallback: options.success || null
+    });
+  },
+
+  showInputModal(options) {
+    this.setData({
+      modalVisible: true,
+      modalType: 'input',
+      modalTitle: options.title || '请输入',
+      modalPlaceholder: options.placeholder || '请输入',
+      modalDefaultValue: options.defaultValue || '',
+      modalConfirmText: options.confirmText || '确定',
+      modalCancelText: options.cancelText || '取消',
+      modalCallback: options.success || null
+    });
+  },
+
+  showActionSheetModal(options) {
+    this.setData({
+      modalVisible: true,
+      modalType: 'actionSheet',
+      modalItemList: options.itemList || [],
+      modalCallback: options.success || null
+    });
+  },
+
+  onModalConfirm(e) {
+    const callback = this.data.modalCallback;
+    this.setData({ modalVisible: false, modalCallback: null });
+    if (callback) {
+      if (this.data.modalType === 'input') {
+        callback({ confirm: true, content: e.detail.value });
+      } else {
+        callback({ confirm: true });
+      }
+    }
+  },
+
+  onModalCancel() {
+    const callback = this.data.modalCallback;
+    this.setData({ modalVisible: false, modalCallback: null });
+    if (callback && this.data.modalType !== 'actionSheet') {
+      callback({ cancel: true });
+    }
+  },
+
+  onModalSelect(e) {
+    const callback = this.data.modalCallback;
+    this.setData({ modalVisible: false, modalCallback: null });
+    if (callback) {
+      callback({ tapIndex: e.detail.index });
+    }
+  },
+
   onLoad() {
     try {
       const systemInfo = wx.getSystemInfoSync();
@@ -133,7 +197,7 @@ Page({
 
   // 重置个性化模板
   resetCustomTemplate() {
-    wx.showModal({
+    this.showConfirmModal({
       title: '确认重置',
       content: '重置后将清除您填写的所有信息，恢复为原始模板。确定要重置吗？',
       success: (res) => {
