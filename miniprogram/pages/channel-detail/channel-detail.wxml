@@ -169,7 +169,7 @@
     <view class="section">
       <view class="source-card">
         <text class="source-text">数据版本：{{channel.data_version || '2026.08'}}</text>
-        <text class="source-text" wx:if="{{channel.source && channel.source.length > 0}}">信息来源：{{channel.source}}</text>
+        <text class="source-text" wx:if="{{sourceName && sourceName.length > 0}}">信息来源：{{sourceName}}</text>
         <text class="source-text" wx:else>信息来源：三份维权文档整理，所有信息来源于政府官网公开渠道</text>
         <text class="source-tip">本工具为便民信息汇总，非政府官方应用，具体以各监管部门官方公布为准</text>
       </view>

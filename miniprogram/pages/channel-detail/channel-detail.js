@@ -1,6 +1,7 @@
 // pages/channel-detail/channel-detail.js
 const app = getApp();
 const { getChannelById, getRelatedScripts, getLaws } = require('../../utils/data');
+const { convertSourceToName } = require('../../utils/source-utils');
 
 Page({
   data: {
@@ -15,7 +16,8 @@ Page({
     statusInfo: null,
     loading: true,  // 加载状态
     showLawModal: false,
-    currentLaw: null
+    currentLaw: null,
+    sourceName: ''
   },
 
   // ========== 自定义弹窗通用方法 ==========
@@ -116,13 +118,16 @@ Page({
       name: issueTypesConfig[key] ? issueTypesConfig[key].name : key
     }));
     
+    // 转换信息来源：网址转网站名
+    const sourceName = convertSourceToName(channel.source || '');
     this.setData({
       channel,
       contactItems,
       statusInfo,
       issueTypeLabels,
       loading: false,
-      isFavorite: app.isFavorite('channels', id)
+      isFavorite: app.isFavorite('channels', id),
+      sourceName
     });
 
     // 第二批：异步加载关联内容（话术、法律依据），不阻塞首屏渲染
