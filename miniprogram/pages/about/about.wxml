@@ -136,23 +136,27 @@
             <text class="license-paragraph">在遵守以下条款的前提下，个人用户、非盈利组织、教育机构可免费使用、复制、修改、分发本软件：</text>
             <text class="license-paragraph">1. 保留原版权声明和本协议文本；</text>
             <text class="license-paragraph">2. 不得将本软件用于任何商业收费产品或付费服务；</text>
-            <text class="license-paragraph">3. 严禁将本软件、本软件的克隆体或变体，直接或间接植入、集成、嵌入或用于任何恶意软件、间谍软件、病毒、木马、勒索软件、挖矿程序、广告插件或其他任何形式的有害程序；</text>
-            <text class="license-paragraph">4. 基于本软件修改的衍生作品，同样适用本协议条款。</text>
-            <text class="license-paragraph">违反上述第3条规定的，作者将保留追究法律责任、提起诉讼的权利，并有权要求侵权方承担全部经济损失和法律后果。</text>
+            <text class="license-paragraph">3. 基于本软件修改的衍生作品，同样适用本协议条款。</text>
 
-            <text class="license-subtitle">二、商业使用授权</text>
+            <text class="license-subtitle">二、恶意程序禁止条款（免费授权版和商业授权版均必须遵守）</text>
+            <text class="license-paragraph">1. 严禁将本软件、本软件的克隆体或变体，直接或间接植入、集成、嵌入到任何恶意软件、间谍软件、病毒、木马、勒索软件、挖矿程序、广告插件或其他任何形式的有害程序中；</text>
+            <text class="license-paragraph">2. 严禁将本软件、本软件的克隆体或变体，用于任何恶意程序，或与任何带有恶意程序的软件、服务、系统结合使用；</text>
+            <text class="license-paragraph">3. 本条款同时适用于免费授权版和商业授权版，无论是否获得商业授权，均不得违反本条款；</text>
+            <text class="license-paragraph">4. 违反本条款的，作者将保留追究法律责任、提起诉讼的权利，并有权要求侵权方承担全部经济损失和法律后果。</text>
+
+            <text class="license-subtitle">三、商业使用授权</text>
             <text class="license-paragraph">任何将本软件用于商业用途的行为，包括但不限于：</text>
             <text class="license-paragraph">1. 将本软件集成到收费产品或付费服务中；</text>
             <text class="license-paragraph">2. 使用本软件提供商业咨询、开发、运维等收费服务；</text>
             <text class="license-paragraph">3. 将本软件用于企业内部商业项目并获得商业利益；</text>
             <text class="license-paragraph">均必须事先联系作者（new_mr_awei@163.com）购买商业授权，签订书面授权协议后方可使用。</text>
 
-            <text class="license-subtitle">三、权利保留</text>
+            <text class="license-subtitle">四、权利保留</text>
             <text class="license-paragraph">1. 作者保留本软件的全部著作权及其他知识产权；</text>
             <text class="license-paragraph">2. 发现任何违反本协议的商业使用或恶意使用，作者保留追究法律责任、提起诉讼的权利；</text>
             <text class="license-paragraph">3. 作者有权随时更新本协议条款，更新后的协议自发布之日起生效。</text>
 
-            <text class="license-subtitle">四、免责声明</text>
+            <text class="license-subtitle">五、免责声明</text>
             <text class="license-paragraph">本软件按"原样"提供，不提供任何明示或暗示的保证，包括但不限于对适销性、特定用途适用性和非侵权性的保证。在任何情况下，作者均不对因使用本软件产生的任何直接或间接损失承担责任。</text>
 
             <view class="license-contact" bindtap="onCopyEmail">
@@ -178,23 +182,27 @@
             <text class="license-paragraph">Individual users, non-profit organizations, and educational institutions may freely use, copy, modify, and distribute this software, provided that the following terms are met:</text>
             <text class="license-paragraph">1. Retain the original copyright notice and this license text;</text>
             <text class="license-paragraph">2. Do not use this software in any commercial paid products or paid services;</text>
-            <text class="license-paragraph">3. It is strictly prohibited to directly or indirectly implant, integrate, embed, or use this software, its clones, or variants in any malware, spyware, virus, trojan, ransomware, mining programs, adware, or any other form of harmful programs;</text>
-            <text class="license-paragraph">4. Derivative works based on this software are also subject to the terms of this license.</text>
-            <text class="license-paragraph">In case of violation of Article 3 above, the author reserves the right to pursue legal liability, file lawsuits, and demand that the infringing party bear all economic losses and legal consequences.</text>
+            <text class="license-paragraph">3. Derivative works based on this software are also subject to the terms of this license.</text>
 
-            <text class="license-subtitle">2. Commercial Use License</text>
+            <text class="license-subtitle">2. Malware Prohibition Clause (Both Free and Commercial Licenses Must Comply)</text>
+            <text class="license-paragraph">1. It is strictly prohibited to directly or indirectly implant, integrate, or embed this software, its clones, or variants into any malware, spyware, virus, trojan, ransomware, mining programs, adware, or any other form of harmful programs;</text>
+            <text class="license-paragraph">2. It is strictly prohibited to use this software, its clones, or variants in any malicious programs, or in combination with any software, services, or systems that contain malicious programs;</text>
+            <text class="license-paragraph">3. This clause applies to both the free license and the commercial license. Regardless of whether commercial authorization has been obtained, this clause must not be violated;</text>
+            <text class="license-paragraph">4. In case of violation of this clause, the author reserves the right to pursue legal liability, file lawsuits, and demand that the infringing party bear all economic losses and legal consequences.</text>
+
+            <text class="license-subtitle">3. Commercial Use License</text>
             <text class="license-paragraph">Any commercial use of this software, including but not limited to:</text>
             <text class="license-paragraph">1. Integrating this software into paid products or paid services;</text>
             <text class="license-paragraph">2. Using this software to provide paid services such as commercial consulting, development, or operations;</text>
             <text class="license-paragraph">3. Using this software in internal commercial projects and obtaining commercial benefits;</text>
             <text class="license-paragraph">Must contact the author (new_mr_awei@163.com) in advance to purchase a commercial license and sign a written authorization agreement before use.</text>
 
-            <text class="license-subtitle">3. Rights Reserved</text>
+            <text class="license-subtitle">4. Rights Reserved</text>
             <text class="license-paragraph">1. The author reserves all copyrights and other intellectual property rights of this software;</text>
             <text class="license-paragraph">2. Upon discovering any commercial use or malicious use that violates this agreement, the author reserves the right to pursue legal liability and file lawsuits;</text>
             <text class="license-paragraph">3. The author reserves the right to update the terms of this agreement at any time, and the updated agreement shall take effect from the date of publication.</text>
 
-            <text class="license-subtitle">4. Disclaimer</text>
+            <text class="license-subtitle">5. Disclaimer</text>
             <text class="license-paragraph">This software is provided "AS IS" without any express or implied warranties, including but not limited to warranties of merchantability, fitness for a particular purpose, and non-infringement. In no event shall the author be liable for any direct or indirect damages arising from the use of this software.</text>
 
             <view class="license-contact" bindtap="onCopyEmail">
