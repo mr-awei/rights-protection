@@ -10,12 +10,6 @@
         </view>
       </view>
 
-      <!-- 维权提示条（合规底线，必须显眼） -->
-      <view class="rights-notice-bar">
-        <view class="notice-bar-icon app-icon app-icon-default icon-warning" style="--icon-color: #FFFFFF;"></view>
-        <text class="notice-bar-text">依法维权 · 虚假举报须承担法律责任 · 倡导先企业内部投诉</text>
-      </view>
-
       <!-- 搜索框 -->
       <view class="search-box" bindtap="onSearchBoxTap">
         <view class="search-icon"></view>
@@ -29,6 +23,20 @@
           confirm-type="search"
         />
         <view class="search-btn" bindtap="onSearchButtonTap">搜索</view>
+      </view>
+
+      <!-- 维权须知（合规提示，紧凑样式） -->
+      <view class="notice-card-top" bindtap="onNoticeToggle">
+        <view class="notice-top-icon app-icon app-icon-default icon-warning"></view>
+        <text class="notice-top-text">依法维权 · 虚假举报须承担法律责任 · 倡导先企业内部投诉</text>
+        <text class="notice-top-arrow {{noticeExpanded ? 'expanded' : ''}}">›</text>
+      </view>
+      <view class="notice-detail" wx:if="{{noticeExpanded}}">
+        <text class="notice-detail-item">1. 本平台提供的投诉渠道和话术仅供参考，具体以官方平台为准。</text>
+        <text class="notice-detail-item">2. 投诉前请先收集好相关证据（合同、聊天记录、转账记录等）。</text>
+        <text class="notice-detail-item">3. 建议先通过企业内部投诉渠道解决，无法解决再向监管部门投诉。</text>
+        <text class="notice-detail-item">4. 请勿虚假举报、恶意投诉，否则可能承担相应的法律责任。</text>
+        <text class="notice-detail-item">5. 紧急情况请直接拨打110、120、119等紧急电话。</text>
       </view>
 
       <!-- 热门搜索 -->
@@ -172,26 +180,6 @@
             <text class="recent-time">{{item.timeStr}}</text>
           </view>
           <text class="recent-arrow">›</text>
-        </view>
-      </view>
-    </view>
-
-    <!-- 维权须知（折叠） -->
-    <view class="section">
-      <view class="notice-card">
-        <view class="notice-header" bindtap="onNoticeToggle">
-          <text class="notice-title">维权须知</text>
-          <text class="notice-arrow {{noticeExpanded ? 'expanded' : ''}}">›</text>
-        </view>
-        <view class="notice-core">
-          <text>依法维权 · 虚假举报须承担法律责任 · 倡导先企业内部投诉</text>
-        </view>
-        <view class="notice-content" wx:if="{{noticeExpanded}}">
-          <text>1. 本平台提供的投诉渠道和话术仅供参考，具体以官方平台为准。</text>
-          <text>2. 投诉前请先收集好相关证据（合同、聊天记录、转账记录等）。</text>
-          <text>3. 建议先通过企业内部投诉渠道解决，无法解决再向监管部门投诉。</text>
-          <text>4. 请勿虚假举报、恶意投诉，否则可能承担相应的法律责任。</text>
-          <text>5. 紧急情况请直接拨打110、120、119等紧急电话。</text>
         </view>
       </view>
     </view>
