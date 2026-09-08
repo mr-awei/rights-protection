@@ -635,21 +635,7 @@ view, text, image, scroll-view, swiper, button, input, textarea {
   margin: 20rpx 0;
 }
 
-/* ---------- 空状态 ---------- */
-.ui-empty {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 80rpx 40rpx;
-}
-
-.ui-empty-text {
-  font-size: 28rpx;
-  color: #999999;
-  text-align: center;
-  line-height: 1.6;
-}
+/* ---------- 空状态（已迁移到下方统一样式） ---------- */
 
 /* ---------- 安全底部 ---------- */
 .ui-safe-bottom {
