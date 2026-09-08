@@ -20,8 +20,16 @@ Page({
       { label: '被骗了/诈骗', desc: '96110反诈报警', color: '#F0F5FF', textColor: '#2F54EB', iconClass: 'icon-shield', searchKeyword: '诈骗', issueType: 'fraud' }
     ],
     hotScripts: [],
+    displayScripts: [],
     recentViews: [],
     noticeExpanded: false,
+    // 工具箱快捷入口
+    toolEntries: [
+      { label: '通用投诉信', desc: '一键生成', iconClass: 'icon-doc', color: '#E6F4FF', textColor: '#1890FF', url: '/pages/general-template/general-template' },
+      { label: '投诉跟进表', desc: '时间轴管理', iconClass: 'icon-list', color: '#F6FFED', textColor: '#52C41A', url: '/pages/followup-schedule/followup-schedule' },
+      { label: '热线变更', desc: '速查最新', iconClass: 'icon-mobile', color: '#FFFBE6', textColor: '#FAAD14', url: '/pages/hotline-change/hotline-change' },
+      { label: '企业查询', desc: '工商信息', iconClass: 'icon-shop', color: '#FFF2F0', textColor: '#FF4D4F', url: '/pages/enterprise-query/enterprise-query' }
+    ],
     // 愿景弹窗
     showVisionModal: false,
     visionCountdown: 5,
@@ -133,7 +141,7 @@ Page({
   },
 
   loadHotScripts() {
-    const scripts = getHotScripts(5);
+    const scripts = getHotScripts(8);
     // 预处理话术数据，生成预览文本，移除"场景X："前缀
     const processed = scripts.map(s => {
       let preview = '点击查看完整话术';
@@ -157,8 +165,16 @@ Page({
     });
     this.setData({ 
       hotScripts: processed,
-      displayScripts: processed.slice(0, 3)
+      displayScripts: processed.slice(0, 5)
     });
+  },
+
+  // 工具箱入口点击
+  onToolEntryTap(e) {
+    const url = e.currentTarget.dataset.url;
+    if (url) {
+      wx.navigateTo({ url: url });
+    }
   },
 
   // 查看全部话术

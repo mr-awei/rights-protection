@@ -274,6 +274,65 @@
   text-align: left;
 }
 
+/* ========== 维权工具箱 ========== */
+.tool-grid {
+  display: flex;
+  flex-wrap: wrap;
+  background: #FFFFFF;
+  border-radius: 16rpx;
+  padding: 20rpx 12rpx;
+  box-shadow: 0 2rpx 12rpx rgba(0,0,0,0.04);
+}
+
+.tool-item {
+  width: 50%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 20rpx 12rpx;
+  border-radius: 12rpx;
+  transition: background 0.2s ease;
+  box-sizing: border-box;
+}
+
+.tool-item-hover {
+  background: #F5F7FA;
+}
+
+.tool-icon {
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: 18rpx;
+  margin-right: 16rpx;
+  flex-shrink: 0;
+}
+
+.tool-text {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+}
+
+.tool-name {
+  font-size: 26rpx;
+  color: #1A1A1A;
+  font-weight: 600;
+  line-height: 1.3;
+  margin-bottom: 4rpx;
+  text-align: left;
+}
+
+.tool-desc {
+  font-size: 20rpx;
+  color: #999999;
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: left;
+}
+
 /* ========== 高频话术 ========== */
 .script-list {
   background: #FFFFFF;
