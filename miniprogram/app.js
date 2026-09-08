@@ -697,15 +697,37 @@ App({
     return this.globalData._isOffline === true;
   },
 
+  // ========== 全局自定义弹窗方法 ==========
+  // 全局弹窗：优先调用当前页面的自定义弹窗，否则降级使用原生弹窗
+  showGlobalModal(options) {
+    const pages = getCurrentPages();
+    const currentPage = pages[pages.length - 1];
+    if (currentPage && typeof currentPage.showConfirmModal === 'function') {
+      currentPage.showConfirmModal(options);
+    } else {
+      // 降级使用原生弹窗
+      wx.showModal({
+        title: options.title || '提示',
+        content: options.content || '',
+        showCancel: options.showCancel !== false,
+        confirmText: options.confirmText || '确定',
+        cancelText: options.cancelText || '取消',
+        success: (res) => {
+          if (res.confirm && options.success) options.success({ confirm: true });
+          if (res.cancel && options.success) options.success({ cancel: true });
+        }
+      });
+    }
+  },
+
   // 离线模式提示（在需要网络的功能前调用）
   showOfflineTip() {
     if (this.isOffline()) {
-      wx.showModal({
+      this.showGlobalModal({
         title: '当前为离线模式',
         content: '该功能需要网络连接，请检查网络设置后重试。核心查询功能仍可离线使用。',
         showCancel: false,
-        confirmText: '知道了',
-        confirmColor: '#06B6D4'
+        confirmText: '知道了'
       });
       return true;
     }
@@ -716,12 +738,11 @@ App({
 
   // 显示错误提示
   showError(title, content) {
-    wx.showModal({
+    this.showGlobalModal({
       title: title || '出错了',
       content: content || '抱歉，操作失败，请稍后重试',
       showCancel: false,
-      confirmText: '知道了',
-      confirmColor: '#06B6D4'
+      confirmText: '知道了'
     });
   },
   // ========== 数据更新提示（Changelog）==========
@@ -744,17 +765,12 @@ App({
       const latest = changelog[0];
       const itemsText = latest.items.map((item, index) => `${index + 1}. ${item}`).join('\n');
 
-      wx.showModal({
+      this.showGlobalModal({
         title: latest.title || '数据更新',
         content: `版本：${latest.version}\n日期：${latest.date}\n\n本次更新：\n${itemsText}`,
         showCancel: false,
         confirmText: '知道了',
-        confirmColor: '#06B6D4',
         success: () => {
-          this.globalData._showChangelog = false;
-          if (callback) callback();
-        },
-        fail: () => {
           this.globalData._showChangelog = false;
           if (callback) callback();
         }

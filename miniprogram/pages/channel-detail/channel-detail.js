@@ -1,4 +1,4 @@
-// pages/channel-detail/channel-detail.js
+﻿// pages/channel-detail/channel-detail.js
 const app = getApp();
 const { getChannelById, getRelatedScripts, getLaws } = require('../../utils/data');
 
@@ -425,12 +425,11 @@ Page({
         const match = item.value.match(/\d{5}|\d{3,4}-?\d{7,8}|\d{11}/);
         phoneNumber = match ? match[0] : item.value.replace(/[^0-9-]/g, '');
       }
-      wx.showModal({
+      this.showConfirmModal({
         title: '确认拨打',
         content: `确认拨打投诉电话 ${phoneNumber}？`,
         confirmText: '确认拨打',
         cancelText: '取消',
-        confirmColor: '#52C41A',
         success: (res) => {
           if (res.confirm) {
             wx.makePhoneCall({
@@ -447,7 +446,7 @@ Page({
       wx.setClipboardData({
         data: item.value,
         success: () => {
-          wx.showModal({
+          this.showConfirmModal({
             title: '网址已复制',
             content: '官方网站地址已复制到剪贴板。\n\n由于微信小程序限制，无法直接打开外部网站，请复制后在手机浏览器（如Safari、Chrome、QQ浏览器等）中粘贴打开。',
             showCancel: false,
@@ -492,12 +491,11 @@ Page({
     const { channel, contactItems } = this.data;
     const phoneItem = contactItems.find(i => i.action === 'call');
     if (phoneItem) {
-      wx.showModal({
+      this.showConfirmModal({
         title: '确认拨打',
         content: `确认拨打投诉电话 ${phoneItem.cleanPhone}？`,
         confirmText: '确认拨打',
         cancelText: '取消',
-        confirmColor: '#52C41A',
         success: (res) => {
           if (res.confirm) {
             wx.makePhoneCall({
