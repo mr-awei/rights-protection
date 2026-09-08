@@ -11,11 +11,11 @@
         <text class="channel-title">{{channel.name}}</text>
       </view>
       <view class="channel-tags" wx:if="{{channel.tags && channel.tags.length > 0}}">
-        <ui-tag wx:for="{{channel.tags}}" wx:key="*this" wx:for-item="tag" text="{{tag}}" type="info" size="small"></ui-tag>
+        <ui-tag wx:for="{{channel.tags}}" wx:key="*this" wx:for-item="tag" text="{{tag}}" type="light" size="small"></ui-tag>
       </view>
       <view class="issue-type-tags" wx:if="{{issueTypeLabels && issueTypeLabels.length > 0}}">
         <text class="issue-type-label">适用问题：</text>
-        <ui-tag wx:for="{{issueTypeLabels}}" wx:key="key" text="{{item.name}}" type="primary" size="small"></ui-tag>
+        <ui-tag wx:for="{{issueTypeLabels}}" wx:key="key" text="{{item.name}}" type="warning-light" size="small"></ui-tag>
       </view>
     </view>
   </view>

@@ -56,6 +56,19 @@
   color: var(--info, #1890FF);
 }
 
+/* 适合深色/彩色背景的标签类型 */
+.ui-tag-light {
+  background: rgba(255, 255, 255, 0.18);
+  color: #FFFFFF;
+  border: 1rpx solid rgba(255, 255, 255, 0.25);
+}
+
+.ui-tag-warning-light {
+  background: rgba(255, 228, 181, 0.12);
+  color: #FFE4B5;
+  border: 1rpx solid rgba(255, 228, 181, 0.3);
+}
+
 .ui-tag-text {
   line-height: 1.4;
 }
