@@ -45,52 +45,36 @@
   <!-- 内容区 -->
   <view class="content">
     <!-- 工具箱 -->
-    <view class="card">
-      <view class="card-header">
-        <text class="card-title">工具箱</text>
-      </view>
-      <view class="item-list">
-        <view
-          class="item-row"
-          wx:for="{{toolList}}"
-          wx:key="name"
-          data-index="{{index}}"
-          bindtap="onToolTap"
-          hover-class="item-row-hover"
-        >
-          <view class="item-icon tool-icon app-icon app-icon-default {{item.iconClass}}" style="--icon-bg: {{item.color}}15; --icon-color: {{item.color}}; --icon-hover-bg: {{item.color}};"></view>
-          <view class="item-info">
-            <text class="item-name">{{item.name}}</text>
-            <text class="item-desc">{{item.desc}}</text>
-          </view>
-          <view class="item-arrow app-icon app-icon-default icon-chevron-right" style="width:24rpx;height:24rpx;--icon-bg:transparent;--icon-color:#999;"></view>
-        </view>
-      </view>
-    </view>
+    <ui-card title="工具箱">
+      <list-item
+        wx:for="{{toolList}}"
+        wx:key="name"
+        icon="{{item.iconClass}}"
+        icon-bg="{{item.color}}15"
+        icon-color="{{item.color}}"
+        title="{{item.name}}"
+        desc="{{item.desc}}"
+        show-arrow="{{true}}"
+        data-index="{{index}}"
+        bind:tap="onToolTap"
+      ></list-item>
+    </ui-card>
 
     <!-- 其他 -->
-    <view class="card">
-      <view class="card-header">
-        <text class="card-title">其他</text>
-      </view>
-      <view class="item-list">
-        <view
-          class="item-row"
-          wx:for="{{otherList}}"
-          wx:key="name"
-          data-index="{{index}}"
-          bindtap="onOtherTap"
-          hover-class="item-row-hover"
-        >
-          <view class="item-icon tool-icon app-icon app-icon-default {{item.iconClass}}" style="--icon-bg: {{item.color}}15; --icon-color: {{item.color}}; --icon-hover-bg: {{item.color}};"></view>
-          <view class="item-info">
-            <text class="item-name">{{item.name}}</text>
-            <text class="item-desc">{{item.desc}}</text>
-          </view>
-          <view class="item-arrow app-icon app-icon-default icon-chevron-right" style="width:24rpx;height:24rpx;--icon-bg:transparent;--icon-color:#999;"></view>
-        </view>
-      </view>
-    </view>
+    <ui-card title="其他">
+      <list-item
+        wx:for="{{otherList}}"
+        wx:key="name"
+        icon="{{item.iconClass}}"
+        icon-bg="{{item.color}}15"
+        icon-color="{{item.color}}"
+        title="{{item.name}}"
+        desc="{{item.desc}}"
+        show-arrow="{{true}}"
+        data-index="{{index}}"
+        bind:tap="onOtherTap"
+      ></list-item>
+    </ui-card>
 
     <!-- 友情链接 -->
     <view class="card">

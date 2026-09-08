@@ -19,8 +19,11 @@
       <view class="tip-text">投诉前先核实企业信息，确认企业全称、统一社会信用代码、法定代表人等信息，有助于提高投诉成功率。点击卡片查看详情，点击网址可复制。</view>
     </view>
 
+    <!-- 加载状态 -->
+    <loading-state wx:if="{{isLoading}}" text="正在加载查询平台..." size="medium"></loading-state>
+
     <!-- 平台列表 -->
-    <view class="platform-list">
+    <view class="platform-list" wx:if="{{!isLoading}}">
       <view
         class="platform-item"
         wx:for="{{list}}"

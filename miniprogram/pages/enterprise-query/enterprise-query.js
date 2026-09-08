@@ -4,7 +4,8 @@ const { getEnterpriseQueries } = require('../../utils/data');
 Page({
   data: {
     list: [],
-    statusBarHeight: 20
+    statusBarHeight: 20,
+    isLoading: true
   },
 
   // ========== 自定义弹窗通用方法 ==========
@@ -82,6 +83,7 @@ Page({
   },
 
   loadData() {
+    this.setData({ isLoading: true });
     const rawList = getEnterpriseQueries() || [];
     const iconMap = {
       'eq_001': 'icon-building',
@@ -95,7 +97,7 @@ Page({
       description: item.tips || '',
       url: item.website || ''
     }));
-    this.setData({ list });
+    this.setData({ list, isLoading: false });
   },
 
   onCopyUrl(e) {

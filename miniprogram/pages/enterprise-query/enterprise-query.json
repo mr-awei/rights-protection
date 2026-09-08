@@ -3,6 +3,7 @@
   "navigationBarBackgroundColor": "#4A90D9",
   "navigationBarTextStyle": "white",
   "usingComponents": {
-    "custom-modal": "/components/custom-modal/custom-modal"
+    "custom-modal": "/components/custom-modal/custom-modal",
+    "loading-state": "/components/loading-state/loading-state"
   }
 }

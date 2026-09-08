@@ -3,6 +3,8 @@
   "navigationBarBackgroundColor": "#4A90D9",
   "navigationBarTextStyle": "white",
   "usingComponents": {
-    "custom-modal": "/components/custom-modal/custom-modal"
+    "custom-modal": "/components/custom-modal/custom-modal",
+    "list-item": "/components/list-item/list-item",
+    "ui-card": "/components/ui-card/ui-card"
   }
 }
