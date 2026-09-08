@@ -10,6 +10,12 @@
         </view>
       </view>
 
+      <!-- 维权提示条（合规底线，必须显眼） -->
+      <view class="rights-notice-bar">
+        <view class="notice-bar-icon app-icon app-icon-default icon-warning" style="--icon-color: #FFFFFF;"></view>
+        <text class="notice-bar-text">依法维权 · 虚假举报须承担法律责任 · 倡导先企业内部投诉</text>
+      </view>
+
       <!-- 搜索框 -->
       <view class="search-box" bindtap="onSearchBoxTap">
         <view class="search-icon"></view>
@@ -23,12 +29,6 @@
           confirm-type="search"
         />
         <view class="search-btn" bindtap="onSearchButtonTap">搜索</view>
-      </view>
-
-      <!-- 维权提示条（显眼位置） -->
-      <view class="rights-notice-bar">
-        <view class="notice-bar-icon app-icon app-icon-default icon-shield" style="--icon-color: #FFD700;"></view>
-        <text class="notice-bar-text">依法维权 · 虚假举报须承担法律责任 · 倡导先企业内部投诉</text>
       </view>
 
       <!-- 热门搜索 -->
