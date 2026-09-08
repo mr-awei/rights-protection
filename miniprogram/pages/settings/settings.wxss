@@ -1,4 +1,4 @@
-﻿/* pages/settings/settings.wxss */
+/* pages/settings/settings.wxss */
 .container {
   min-height: 100vh;
   background: #F5F7FA;

@@ -1,4 +1,4 @@
-﻿/* pages/script-list/script-list.wxss */
+/* pages/script-list/script-list.wxss */
 .container {
   min-height: 100vh;
   background: #F5F7FA;

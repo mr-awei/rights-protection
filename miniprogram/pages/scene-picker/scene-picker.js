@@ -1,4 +1,4 @@
-﻿// pages/scene-picker/scene-picker.js
+// pages/scene-picker/scene-picker.js
 const { search } = require('../../utils/search');
 
 Page({

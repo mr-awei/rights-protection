@@ -1,4 +1,4 @@
-﻿module.exports = {
+module.exports = {
   "data_version": "2026.09.1",
   "data_verified_at": "2026-09-09",
   "changelog": [

@@ -1,4 +1,4 @@
-﻿module.exports = [
+module.exports = [
   {
     "id": "sc_001",
     "scene_name": "场景1：快递丢失/破损/延误（拨打12305邮政申诉）",

@@ -1,4 +1,4 @@
-﻿// pages/channel-detail/channel-detail.js
+// pages/channel-detail/channel-detail.js
 const app = getApp();
 const { getChannelById, getRelatedScripts, getLaws } = require('../../utils/data');
 

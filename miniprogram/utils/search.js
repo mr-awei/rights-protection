@@ -1,4 +1,4 @@
-﻿// utils/search.js
+// utils/search.js
 // 搜索逻辑（关键词提取+场景匹配+名称匹配兜底）
 // 使用data.js的分片加载，支持扩展到几千条数据
 

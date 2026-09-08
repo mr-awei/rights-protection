@@ -1,4 +1,4 @@
-﻿/* pages/search-quality/search-quality.wxss */
+/* pages/search-quality/search-quality.wxss */
 .container {
   min-height: 100vh;
   background: #F5F7FA;

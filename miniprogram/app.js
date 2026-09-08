@@ -1,4 +1,4 @@
-﻿// app.js
+// app.js
 const { tracker } = require('./utils/tracker');
 
 App({
