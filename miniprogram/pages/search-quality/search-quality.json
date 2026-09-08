@@ -2,5 +2,7 @@
   "navigationBarTitleText": "搜索质量看板",
   "navigationBarBackgroundColor": "#1677FF",
   "navigationBarTextStyle": "white",
-  "usingComponents": {}
+  "usingComponents": {
+    "custom-modal": "/components/custom-modal/custom-modal"
+  }
 }

@@ -28,6 +28,70 @@ Page({
     hasCustomContent: false
   },
 
+  // ========== 自定义弹窗通用方法 ==========
+  showConfirmModal(options) {
+    this.setData({
+      modalVisible: true,
+      modalType: 'confirm',
+      modalTitle: options.title || '提示',
+      modalContent: options.content || '',
+      modalConfirmText: options.confirmText || '确定',
+      modalCancelText: options.cancelText || '取消',
+      modalShowCancel: options.showCancel !== false,
+      modalCallback: options.success || null
+    });
+  },
+
+  showInputModal(options) {
+    this.setData({
+      modalVisible: true,
+      modalType: 'input',
+      modalTitle: options.title || '请输入',
+      modalPlaceholder: options.placeholder || '请输入',
+      modalDefaultValue: options.defaultValue || '',
+      modalConfirmText: options.confirmText || '确定',
+      modalCancelText: options.cancelText || '取消',
+      modalCallback: options.success || null
+    });
+  },
+
+  showActionSheetModal(options) {
+    this.setData({
+      modalVisible: true,
+      modalType: 'actionSheet',
+      modalItemList: options.itemList || [],
+      modalCallback: options.success || null
+    });
+  },
+
+  onModalConfirm(e) {
+    const callback = this.data.modalCallback;
+    this.setData({ modalVisible: false, modalCallback: null });
+    if (callback) {
+      if (this.data.modalType === 'input') {
+        callback({ confirm: true, content: e.detail.value });
+      } else {
+        callback({ confirm: true });
+      }
+    }
+  },
+
+  onModalCancel() {
+    const callback = this.data.modalCallback;
+    this.setData({ modalVisible: false, modalCallback: null });
+    if (callback && this.data.modalType !== 'actionSheet') {
+      callback({ cancel: true });
+    }
+  },
+
+  onModalSelect(e) {
+    const callback = this.data.modalCallback;
+    this.setData({ modalVisible: false, modalCallback: null });
+    if (callback) {
+      callback({ tapIndex: e.detail.index });
+    }
+  },
+
   onLoad(options) {
     const id = options.id;
     this.setData({ scriptId: id, loading: true });
@@ -359,7 +423,7 @@ Page({
     }
 
     if (unfilled.length > 0) {
-      wx.showModal({
+      this.showConfirmModal({
         title: '提示',
         content: `还有 ${unfilled.length} 项未填写：${unfilled.slice(0, 3).join('、')}${unfilled.length > 3 ? '等' : ''}，确定生成吗？`,
         success: (res) => {
@@ -413,7 +477,7 @@ Page({
    * 重置个性化话术
    */
   resetCustomScript() {
-    wx.showModal({
+    this.showConfirmModal({
       title: '提示',
       content: '确定要重置为原始话术吗？已填写的信息将被清空。',
       success: (res) => {
