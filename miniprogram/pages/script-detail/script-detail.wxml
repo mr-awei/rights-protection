@@ -1,4 +1,4 @@
-<!--pages/script-detail/script-detail.wxml-->
+﻿<!--pages/script-detail/script-detail.wxml-->
 <!-- 加载状态 -->
 <view class="loading-container {{themeClass}}" wx:if="{{loading}}">
   <view class="loading-spinner"></view>
@@ -202,7 +202,7 @@
             <text class="channel-name">{{item.name}}</text>
             <text class="channel-phone" wx:if="{{item.phone}}"> {{item.phone}}</text>
           </view>
-          <text class="channel-arrow">›</text>
+          <view class="channel-arrow app-icon app-icon-default icon-chevron-right" style="width:24rpx;height:24rpx;--icon-bg:transparent;--icon-color:#999;"></view>
         </view>
       </view>
     </view>

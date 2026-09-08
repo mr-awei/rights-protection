@@ -31,7 +31,7 @@
             <text class="link-name">开源协议</text>
             <text class="link-desc">MIT 开源协议</text>
           </view>
-          <text class="link-arrow">›</text>
+          <view class="link-arrow app-icon app-icon-default icon-chevron-right" style="width:24rpx;height:24rpx;--icon-bg:transparent;--icon-color:#999;"></view>
         </view>
         <view class="link-item" data-text="https://gitee.com/mr-awei/rights-protection" bindtap="onCopyContact" hover-class="link-item-hover">
           <view class="link-icon app-icon app-icon-default icon-building" style="--icon-bg:#EFF6FF;--icon-color:#3B82F6;"></view>

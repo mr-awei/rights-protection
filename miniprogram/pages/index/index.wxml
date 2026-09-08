@@ -29,7 +29,7 @@
       <view class="notice-card-top" bindtap="onNoticeToggle">
         <view class="notice-top-icon app-icon app-icon-default icon-warning"></view>
         <text class="notice-top-text">依法维权 · 虚假举报须承担法律责任 · 倡导先企业内部投诉</text>
-        <text class="notice-top-arrow {{noticeExpanded ? 'expanded' : ''}}">›</text>
+        <view class="notice-top-arrow {{noticeExpanded ? 'expanded' : ''}} app-icon app-icon-default icon-chevron-right" style="width:24rpx;height:24rpx;--icon-bg:transparent;--icon-color:#999;"></view>
       </view>
       <view class="notice-detail" wx:if="{{noticeExpanded}}">
         <text class="notice-detail-item">1. 本平台提供的投诉渠道和话术仅供参考，具体以官方平台为准。</text>
@@ -87,7 +87,7 @@
     <view class="section">
       <view class="section-header">
         <text class="section-title">常见场景</text>
-        <text class="section-more" bindtap="onMoreScriptsTap">全部分类 ›</text>
+        <text class="section-more" bindtap="onMoreScriptsTap">全部分类</text>
       </view>
       <view class="scene-grid">
         <view
@@ -112,7 +112,7 @@
     <view class="section" wx:if="{{hotScripts.length > 0}}">
       <view class="section-header">
         <text class="section-title">投诉话术</text>
-        <text class="section-more" bindtap="onViewAllScripts">共{{totalScripts}}套 ›</text>
+        <text class="section-more" bindtap="onViewAllScripts">共{{totalScripts}}套</text>
       </view>
       <view class="script-list">
         <view
@@ -128,7 +128,7 @@
             <text class="script-name">{{item.displayName || item.scene_name || item.name}}</text>
             <text class="script-desc">{{item.scene || '通用场景'}} · 电话版+书面版</text>
           </view>
-          <text class="script-arrow">›</text>
+          <view class="script-arrow app-icon app-icon-default icon-chevron-right" style="width:24rpx;height:24rpx;--icon-bg:transparent;--icon-color:#999;"></view>
         </view>
       </view>
       <view class="view-all-btn" wx:if="{{totalScripts > 5}}" bindtap="onViewAllScripts" hover-class="view-all-hover">
@@ -179,7 +179,7 @@
             <text class="recent-name">{{item.item_name}}</text>
             <text class="recent-time">{{item.timeStr}}</text>
           </view>
-          <text class="recent-arrow">›</text>
+          <view class="recent-arrow app-icon app-icon-default icon-chevron-right" style="width:24rpx;height:24rpx;--icon-bg:transparent;--icon-color:#999;"></view>
         </view>
       </view>
     </view>

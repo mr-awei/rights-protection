@@ -39,7 +39,7 @@
             <text class="url-copy">复制</text>
           </view>
         </view>
-        <text class="platform-arrow">›</text>
+        <view class="platform-arrow app-icon app-icon-default icon-chevron-right" style="width:24rpx;height:24rpx;--icon-bg:transparent;--icon-color:#999;"></view>
       </view>
     </view>
 

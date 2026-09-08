@@ -1,4 +1,4 @@
-<!--pages/settings/settings.wxml-->
+﻿<!--pages/settings/settings.wxml-->
 <view class="container">
   <!-- 通用设置 -->
   <view class="section">
@@ -10,7 +10,7 @@
           <text class="item-name">关于我们</text>
           <text class="item-desc">版本信息、功能介绍</text>
         </view>
-        <text class="item-arrow">›</text>
+        <view class="item-arrow app-icon app-icon-default icon-chevron-right" style="width:24rpx;height:24rpx;--icon-bg:transparent;--icon-color:#999;"></view>
       </view>
       <view class="setting-item" bindtap="onDisclaimerTap" hover-class="setting-item-hover">
         <view class="item-icon app-icon app-icon-default icon-shield" style="--icon-bg:#FEF2F2;--icon-color:#EF4444;"></view>
@@ -18,7 +18,7 @@
           <text class="item-name">免责声明</text>
           <text class="item-desc">使用须知与法律边界</text>
         </view>
-        <text class="item-arrow">›</text>
+        <view class="item-arrow app-icon app-icon-default icon-chevron-right" style="width:24rpx;height:24rpx;--icon-bg:transparent;--icon-color:#999;"></view>
       </view>
       <view class="setting-item" bindtap="onChangelogTap" hover-class="setting-item-hover">
         <view class="item-icon app-icon app-icon-default icon-clock" style="--icon-bg:#FFFBEB;--icon-color:#F59E0B;"></view>
@@ -26,7 +26,7 @@
           <text class="item-name">更新日志</text>
           <text class="item-desc">查看本次更新了什么</text>
         </view>
-        <text class="item-arrow">›</text>
+        <view class="item-arrow app-icon app-icon-default icon-chevron-right" style="width:24rpx;height:24rpx;--icon-bg:transparent;--icon-color:#999;"></view>
       </view>
     </view>
   </view>

@@ -1,4 +1,4 @@
-<!--pages/category/category.wxml-->
+﻿<!--pages/category/category.wxml-->
 <view class="container {{themeClass}}">
   <!-- 问题类型筛选栏（顶部固定） -->
   <scroll-view class="issue-type-bar" scroll-x enable-flex show-scrollbar="{{false}}">
@@ -79,7 +79,7 @@
               </view>
             </view>
             <view class="channel-card-right">
-              <text class="channel-arrow">›</text>
+              <view class="channel-arrow app-icon app-icon-default icon-chevron-right" style="width:24rpx;height:24rpx;--icon-bg:transparent;--icon-color:#999;"></view>
             </view>
           </view>
         </view>

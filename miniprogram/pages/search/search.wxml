@@ -42,7 +42,7 @@
         <text class="suggestion-type" wx:if="{{item.type === 'channel'}}">投诉渠道</text>
         <text class="suggestion-type" wx:else>投诉话术</text>
       </view>
-      <text class="suggestion-arrow">›</text>
+      <view class="suggestion-arrow app-icon app-icon-default icon-chevron-right" style="width:24rpx;height:24rpx;--icon-bg:transparent;--icon-color:#999;"></view>
     </view>
     <view class="empty-suggestion" wx:if="{{suggestions.length === 0}}">
       <text>未找到相关结果，点击搜索查看全部</text>

@@ -1,4 +1,4 @@
-<!--pages/channel-detail/channel-detail.wxml-->
+﻿<!--pages/channel-detail/channel-detail.wxml-->
 <!-- 加载状态 -->
 <view class="loading-container {{themeClass}}" wx:if="{{loading}}">
   <view class="loading-spinner"></view>
@@ -38,7 +38,7 @@
             <text class="status-replacement-name">{{statusInfo.replacementName}}</text>
             <text class="status-replacement-phone" wx:if="{{statusInfo.replacementPhone}}"> {{statusInfo.replacementPhone}}</text>
           </view>
-          <text class="status-replacement-arrow">›</text>
+          <view class="status-replacement-arrow app-icon app-icon-default icon-chevron-right" style="width:24rpx;height:24rpx;--icon-bg:transparent;--icon-color:#999;"></view>
         </view>
       </view>
     </view>
@@ -61,7 +61,7 @@
             <text class="contact-label">{{item.label}}</text>
             <text class="contact-value">{{item.value}}</text>
           </view>
-          <text class="contact-arrow" wx:if="{{item.action}}">›</text>
+          <view class="contact-arrow app-icon app-icon-default icon-chevron-right" wx:if="{{item.action}}" style="width:24rpx;height:24rpx;--icon-bg:transparent;--icon-color:#999;"></view>
         </view>
       </view>
     </view>
@@ -108,7 +108,7 @@
             <text class="law-name">{{item.name}}</text>
             <text class="law-desc">{{item.articles && item.articles.length > 0 ? '点击查看详细条款' : (item.description || item.article || '点击查看法律详情')}}</text>
           </view>
-          <text class="law-arrow">›</text>
+          <view class="law-arrow app-icon app-icon-default icon-chevron-right" style="width:24rpx;height:24rpx;--icon-bg:transparent;--icon-color:#999;"></view>
         </view>
       </view>
       <view class="law-disclaimer">
@@ -135,7 +135,7 @@
             <text class="script-name">{{item.scene_name || item.name}}</text>
             <text class="script-meta">电话版 + 书面版</text>
           </view>
-          <text class="script-arrow">›</text>
+          <view class="script-arrow app-icon app-icon-default icon-chevron-right" style="width:24rpx;height:24rpx;--icon-bg:transparent;--icon-color:#999;"></view>
         </view>
       </view>
     </view>

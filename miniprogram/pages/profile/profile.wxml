@@ -1,4 +1,4 @@
-<!--pages/profile/profile.wxml-->
+﻿<!--pages/profile/profile.wxml-->
 <view class="container" style="--status-bar-height: {{statusBarHeight}}px;">
   <!-- 渐变头部 -->
   <view class="gradient-header">
@@ -63,7 +63,7 @@
             <text class="item-name">{{item.name}}</text>
             <text class="item-desc">{{item.desc}}</text>
           </view>
-          <text class="item-arrow">›</text>
+          <view class="item-arrow app-icon app-icon-default icon-chevron-right" style="width:24rpx;height:24rpx;--icon-bg:transparent;--icon-color:#999;"></view>
         </view>
       </view>
     </view>
@@ -87,7 +87,7 @@
             <text class="item-name">{{item.name}}</text>
             <text class="item-desc">{{item.desc}}</text>
           </view>
-          <text class="item-arrow">›</text>
+          <view class="item-arrow app-icon app-icon-default icon-chevron-right" style="width:24rpx;height:24rpx;--icon-bg:transparent;--icon-color:#999;"></view>
         </view>
       </view>
     </view>
@@ -111,7 +111,7 @@
             <text class="friend-link-name">{{item.name}}</text>
             <text class="friend-link-desc">{{item.desc}}</text>
           </view>
-          <text class="friend-link-arrow">›</text>
+          <view class="friend-link-arrow app-icon app-icon-default icon-chevron-right" style="width:24rpx;height:24rpx;--icon-bg:transparent;--icon-color:#999;"></view>
         </view>
       </view>
     </view>
