@@ -136,8 +136,9 @@
             <text class="license-paragraph">在遵守以下条款的前提下，个人用户、非盈利组织、教育机构可免费使用、复制、修改、分发本软件：</text>
             <text class="license-paragraph">1. 保留原版权声明和本协议文本；</text>
             <text class="license-paragraph">2. 不得将本软件用于任何商业收费产品或付费服务；</text>
-            <text class="license-paragraph">3. 不得将本软件集成、嵌入或用于任何恶意软件、间谍软件、病毒、木马、勒索软件或其他有害程序；</text>
+            <text class="license-paragraph">3. 严禁将本软件、本软件的克隆体或变体，直接或间接植入、集成、嵌入或用于任何恶意软件、间谍软件、病毒、木马、勒索软件、挖矿程序、广告插件或其他任何形式的有害程序；</text>
             <text class="license-paragraph">4. 基于本软件修改的衍生作品，同样适用本协议条款。</text>
+            <text class="license-paragraph">违反上述第3条规定的，作者将保留追究法律责任、提起诉讼的权利，并有权要求侵权方承担全部经济损失和法律后果。</text>
 
             <text class="license-subtitle">二、商业使用授权</text>
             <text class="license-paragraph">任何将本软件用于商业用途的行为，包括但不限于：</text>
@@ -177,8 +178,9 @@
             <text class="license-paragraph">Individual users, non-profit organizations, and educational institutions may freely use, copy, modify, and distribute this software, provided that the following terms are met:</text>
             <text class="license-paragraph">1. Retain the original copyright notice and this license text;</text>
             <text class="license-paragraph">2. Do not use this software in any commercial paid products or paid services;</text>
-            <text class="license-paragraph">3. Do not integrate, embed, or use this software in any malware, spyware, virus, trojan, ransomware, or other harmful programs;</text>
+            <text class="license-paragraph">3. It is strictly prohibited to directly or indirectly implant, integrate, embed, or use this software, its clones, or variants in any malware, spyware, virus, trojan, ransomware, mining programs, adware, or any other form of harmful programs;</text>
             <text class="license-paragraph">4. Derivative works based on this software are also subject to the terms of this license.</text>
+            <text class="license-paragraph">In case of violation of Article 3 above, the author reserves the right to pursue legal liability, file lawsuits, and demand that the infringing party bear all economic losses and legal consequences.</text>
 
             <text class="license-subtitle">2. Commercial Use License</text>
             <text class="license-paragraph">Any commercial use of this software, including but not limited to:</text>
