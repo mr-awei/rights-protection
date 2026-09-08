@@ -1,0 +1,5 @@
+<!--loading-state.wxml-->
+<view class="loading-state">
+  <view class="loading-spinner" style="width:{{spinnerSize}}rpx;height:{{spinnerSize}}rpx;border-width:{{spinnerSize / 12}}rpx;"></view>
+  <view class="loading-text" wx:if="{{showText}}">{{text}}</view>
+</view>

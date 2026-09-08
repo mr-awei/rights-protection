@@ -1,0 +1,44 @@
+/* empty-state.wxss - 空状态组件样式 */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80rpx 40rpx;
+  text-align: center;
+}
+
+.empty-icon {
+  margin-bottom: 24rpx;
+  opacity: 0.5;
+}
+
+.empty-title {
+  font-size: var(--font-lg, 30rpx);
+  color: var(--text-secondary, #666666);
+  margin-bottom: 12rpx;
+  font-weight: 500;
+}
+
+.empty-desc {
+  font-size: var(--font-base, 24rpx);
+  color: var(--text-tertiary, #999999);
+  line-height: 1.6;
+  margin-bottom: 32rpx;
+}
+
+.empty-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16rpx 40rpx;
+  background: var(--primary, #4A90D9);
+  color: var(--text-inverse, #FFFFFF);
+  border-radius: var(--radius-full, 999rpx);
+  font-size: var(--font-normal, 28rpx);
+  font-weight: 500;
+}
+
+.empty-action:active {
+  opacity: 0.8;
+}

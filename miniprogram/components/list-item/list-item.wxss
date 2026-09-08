@@ -1,0 +1,75 @@
+/* list-item.wxss - 通用列表项组件样式 */
+.list-item {
+  display: flex;
+  align-items: center;
+  padding: var(--spacing-lg, 24rpx);
+  background: var(--bg-card, #FFFFFF);
+  position: relative;
+}
+
+.list-item-hover {
+  transition: background 0.2s ease;
+}
+
+.list-item-hover:active {
+  background: var(--bg-hover, #FAFAFA);
+}
+
+.list-item-divider::after {
+  content: '';
+  position: absolute;
+  left: var(--spacing-lg, 24rpx);
+  right: 0;
+  bottom: 0;
+  height: 1rpx;
+  background: var(--border-light, #F5F5F5);
+}
+
+.list-item-icon {
+  width: 72rpx;
+  height: 72rpx;
+  margin-right: var(--spacing-md, 16rpx);
+  flex-shrink: 0;
+}
+
+.list-item-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.list-item-title {
+  font-size: var(--font-normal, 28rpx);
+  color: var(--text-primary, #1A1A1A);
+  font-weight: 500;
+  line-height: 1.4;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.list-item-desc {
+  font-size: var(--font-base, 24rpx);
+  color: var(--text-tertiary, #999999);
+  margin-top: var(--spacing-xs, 8rpx);
+  line-height: 1.4;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.list-item-right {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  margin-left: var(--spacing-md, 16rpx);
+}
+
+.list-item-right-text {
+  font-size: var(--font-base, 24rpx);
+  color: var(--text-tertiary, #999999);
+  margin-right: var(--spacing-xs, 8rpx);
+}
+
+.list-item-arrow {
+  flex-shrink: 0;
+}

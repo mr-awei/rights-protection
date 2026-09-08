@@ -1,0 +1,5 @@
+<!--ui-tag.wxml-->
+<view class="ui-tag ui-tag-{{type}} ui-tag-{{size}} {{round ? 'ui-tag-round' : ''}}" bindtap="onTagTap">
+  <text class="ui-tag-text">{{text}}</text>
+  <view class="ui-tag-close app-icon app-icon-default icon-close" wx:if="{{closable}}" style="width:20rpx;height:20rpx;--icon-bg:transparent;--icon-color:currentColor;" bindtap="onCloseTap"></view>
+</view>

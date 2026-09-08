@@ -1,0 +1,10 @@
+<!--ui-card.wxml-->
+<view class="ui-card {{paddingClass}} {{hover ? 'ui-card-hover' : ''}} {{customClass}}" bindtap="onCardTap">
+  <view class="ui-card-header" wx:if="{{title || subtitle}}">
+    <view class="ui-card-title" wx:if="{{title}}">{{title}}</view>
+    <view class="ui-card-subtitle" wx:if="{{subtitle}}">{{subtitle}}</view>
+  </view>
+  <view class="ui-card-content">
+    <slot></slot>
+  </view>
+</view>

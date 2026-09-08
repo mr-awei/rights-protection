@@ -1,0 +1,49 @@
+/* ui-card.wxss - 通用卡片组件样式 */
+.ui-card {
+  background: var(--bg-card, #FFFFFF);
+  border-radius: var(--radius-md, 16rpx);
+  margin-bottom: var(--spacing-md, 16rpx);
+  box-shadow: var(--shadow-sm, 0 2rpx 12rpx rgba(0, 0, 0, 0.04));
+  overflow: hidden;
+}
+
+.ui-card-padding-sm {
+  padding: var(--spacing-md, 16rpx);
+}
+
+.ui-card-padding-md {
+  padding: var(--spacing-lg, 24rpx);
+}
+
+.ui-card-padding-lg {
+  padding: var(--spacing-xl, 32rpx);
+}
+
+.ui-card-hover {
+  transition: all 0.2s ease;
+}
+
+.ui-card-hover:active {
+  transform: scale(0.98);
+  box-shadow: var(--shadow-md, 0 4rpx 16rpx rgba(0, 0, 0, 0.06));
+}
+
+.ui-card-header {
+  margin-bottom: var(--spacing-md, 16rpx);
+}
+
+.ui-card-title {
+  font-size: var(--font-lg, 30rpx);
+  font-weight: 600;
+  color: var(--text-primary, #1A1A1A);
+  margin-bottom: var(--spacing-xs, 8rpx);
+}
+
+.ui-card-subtitle {
+  font-size: var(--font-base, 24rpx);
+  color: var(--text-tertiary, #999999);
+}
+
+.ui-card-content {
+  width: 100%;
+}
