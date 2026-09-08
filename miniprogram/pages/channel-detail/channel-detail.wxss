@@ -481,6 +481,12 @@
 .bottom-label {
   font-size: var(--font-xs);
   color: var(--text-secondary);
+  transition: color 0.2s;
+}
+
+.bottom-label-active {
+  color: #FAAD14;
+  font-weight: 600;
 }
 
 .bottom-btn {
