@@ -1,9 +1,6 @@
 <!--pages/channel-detail/channel-detail.wxml-->
 <!-- 加载状态 -->
-<view class="loading-container {{themeClass}}" wx:if="{{loading}}">
-  <view class="loading-spinner"></view>
-  <text class="loading-text">加载中...</text>
-</view>
+<loading-state wx:if="{{loading}}" text="加载中..."></loading-state>
 
 <view class="container" wx:if="{{channel && !loading}}">
   <!-- 渐变头部 -->
@@ -14,11 +11,11 @@
         <text class="channel-title">{{channel.name}}</text>
       </view>
       <view class="channel-tags" wx:if="{{channel.tags && channel.tags.length > 0}}">
-        <text class="channel-tag" wx:for="{{channel.tags}}" wx:key="*this" wx:for-item="tag">{{tag}}</text>
+        <ui-tag wx:for="{{channel.tags}}" wx:key="*this" wx:for-item="tag" text="{{tag}}" type="info" size="small"></ui-tag>
       </view>
       <view class="issue-type-tags" wx:if="{{issueTypeLabels && issueTypeLabels.length > 0}}">
         <text class="issue-type-label">适用问题：</text>
-        <text class="issue-type-tag" wx:for="{{issueTypeLabels}}" wx:key="key">{{item.name}}</text>
+        <ui-tag wx:for="{{issueTypeLabels}}" wx:key="key" text="{{item.name}}" type="primary" size="small"></ui-tag>
       </view>
     </view>
   </view>
