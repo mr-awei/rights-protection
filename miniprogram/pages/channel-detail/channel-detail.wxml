@@ -178,7 +178,7 @@
   <!-- 底部操作栏 -->
   <view class="bottom-bar">
     <view class="bottom-action" bindtap="onFavoriteTap">
-      <view class="bottom-icon app-icon {{isFavorite ? 'app-icon-active icon-star' : 'app-icon-default icon-star'}}" style="{{isFavorite ? '--icon-bg: #FFF7E6; --icon-color: #FAAD14;' : '--icon-bg: #F5F6F8; --icon-color: #666666;'}}"></view>
+      <view class="bottom-icon app-icon app-icon-default {{isFavorite ? 'icon-star-filled' : 'icon-star'}}" style="{{isFavorite ? '--icon-bg: #FFF7E6; --icon-color: #FAAD14;' : '--icon-bg: #F5F6F8; --icon-color: #666666;'}}"></view>
       <text class="bottom-label {{isFavorite ? 'bottom-label-active' : ''}}">{{isFavorite ? '已收藏' : '收藏'}}</text>
     </view>
     <view class="bottom-action" bindtap="onShareTap">
