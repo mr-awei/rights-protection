@@ -2,6 +2,7 @@
   "navigationStyle": "custom",
   "usingComponents": {
     "custom-modal": "/components/custom-modal/custom-modal",
-    "loading-state": "/components/loading-state/loading-state"
+    "loading-state": "/components/loading-state/loading-state",
+    "empty-state": "/components/empty-state/empty-state"
   }
 }

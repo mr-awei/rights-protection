@@ -25,31 +25,15 @@
     <view class="link-card">
       <view class="card-title">相关信息</view>
       <view class="link-list">
-        <view class="link-item" bindtap="onViewLicense" hover-class="link-item-hover">
-          <view class="link-icon app-icon app-icon-default icon-doc" style="--icon-bg:#F5F3FF;--icon-color:#8B5CF6;"></view>
-          <view class="link-info">
-            <text class="link-name">开源协议</text>
-            <text class="link-desc">MIT 开源协议</text>
-          </view>
-          <view class="link-arrow app-icon app-icon-default icon-chevron-right" style="width:24rpx;height:24rpx;--icon-bg:transparent;--icon-color:#999;"></view>
-        </view>
-        <view class="link-item" data-text="https://gitee.com/mr-awei/rights-protection" bindtap="onCopyContact" hover-class="link-item-hover">
-          <view class="link-icon app-icon app-icon-default icon-building" style="--icon-bg:#EFF6FF;--icon-color:#3B82F6;"></view>
-          <view class="link-info">
-            <text class="link-name">Gitee 开源地址</text>
-            <text class="link-url">gitee.com/mr-awei/rights-protection</text>
-          </view>
-          <view class="link-copy">复制</view>
-        </view>
-        <view class="link-item" data-text="https://github.com/mr-awei/rights-protection" bindtap="onCopyContact" hover-class="link-item-hover">
-          <view class="link-icon app-icon app-icon-default icon-building" style="--icon-bg:#F3F4F6;--icon-color:#4B5563;"></view>
-          <view class="link-info">
-            <text class="link-name">GitHub 开源地址</text>
-            <text class="link-url">github.com/mr-awei/rights-protection</text>
-          </view>
-          <view class="link-copy">复制</view>
-        </view>
+        <list-item icon="icon-doc" icon-bg="#F5F3FF" icon-color="#8B5CF6" title="开源协议" desc="自定义双授权协议" bind:tap="onViewLicense"></list-item>
+        <list-item icon="icon-building" icon-bg="#EFF6FF" icon-color="#3B82F6" title="Gitee 开源地址" desc="gitee.com/mr-awei/rights-protection" show-arrow="{{false}}" data-text="https://gitee.com/mr-awei/rights-protection" bind:tap="onCopyContact">
+          <view slot="right" class="list-copy-btn">复制</view>
+        </list-item>
+        <list-item icon="icon-building" icon-bg="#F3F4F6" icon-color="#4B5563" title="GitHub 开源地址" desc="github.com/mr-awei/rights-protection" show-arrow="{{false}}" data-text="https://github.com/mr-awei/rights-protection" bind:tap="onCopyContact">
+          <view slot="right" class="list-copy-btn">复制</view>
+        </list-item>
       </view>
+    </view>
     </view>
 
     <!-- 维权理念 -->

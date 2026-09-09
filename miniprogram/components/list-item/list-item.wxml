@@ -7,6 +7,7 @@
   </view>
   <view class="list-item-right">
     <text class="list-item-right-text" wx:if="{{rightText}}">{{rightText}}</text>
+    <slot name="right"></slot>
     <view class="list-item-arrow app-icon app-icon-default icon-chevron-right" wx:if="{{showArrow}}" style="width:24rpx;height:24rpx;--icon-bg:transparent;--icon-color:#999;"></view>
   </view>
 </view>

@@ -28,6 +28,11 @@ Component({
     iconClass: {
       type: String,
       value: ''
+    },
+    // 尺寸模式：normal（默认，完整模式）/ simple（简单模式，小图标+紧凑布局）
+    size: {
+      type: String,
+      value: 'normal'
     }
   },
 

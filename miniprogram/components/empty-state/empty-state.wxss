@@ -42,3 +42,20 @@
 .empty-action:active {
   opacity: 0.8;
 }
+
+/* 简单模式：小图标+紧凑布局，适合搜索建议为空等简单场景 */
+.empty-state-simple {
+  padding: 40rpx 20rpx;
+}
+
+.empty-state-simple .empty-icon {
+  margin-bottom: 16rpx;
+  opacity: 0.4;
+}
+
+.empty-title-simple {
+  font-size: var(--font-base, 24rpx);
+  color: var(--text-tertiary, #999999);
+  font-weight: 400;
+  margin-bottom: 0;
+}

@@ -44,9 +44,7 @@
       </view>
       <view class="suggestion-arrow app-icon app-icon-default icon-chevron-right" style="width:24rpx;height:24rpx;--icon-bg:transparent;--icon-color:#999;"></view>
     </view>
-    <view class="empty-suggestion" wx:if="{{suggestions.length === 0}}">
-      <text>未找到相关结果，点击搜索查看全部</text>
-    </view>
+    <empty-state wx:if="{{suggestions.length === 0}}" title="未找到相关结果，点击搜索查看全部" size="simple" icon-type="search"></empty-state>
   </view>
 
   <!-- 搜索历史和热门搜索 -->
