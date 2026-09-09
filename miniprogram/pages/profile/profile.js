@@ -19,14 +19,14 @@ Page({
     viewHistoryList: [],
     // 常用功能（宫格展示，功能越来越多后改为宫格更清晰）
     quickList: [
-      { key: 'template', name: '投诉信模板', color: '#1890FF', iconClass: 'icon-doc', page: 'general-template' },
-      { key: 'hotline', name: '热线速查', color: '#52C41A', iconClass: 'icon-phone', page: 'hotline-change' },
-      { key: 'followup', name: '跟进时间表', color: '#FAAD14', iconClass: 'icon-clock', page: 'followup-schedule' },
-      { key: 'enterprise', name: '企业查询', color: '#FF4D4F', iconClass: 'icon-building', page: 'enterprise-query' },
-      { key: 'search', name: '搜索看板', color: '#13C2C2', iconClass: 'icon-chart', page: 'search-quality' },
-      { key: 'origin', name: '小程序初衷', color: '#F59E0B', iconClass: 'icon-heart', page: 'origin' },
-      { key: 'feedback', name: '意见反馈', color: '#13C2C2', iconClass: 'icon-chat', page: '' },
-      { key: 'settings', name: '设置', color: '#722ED1', iconClass: 'icon-setting', page: 'settings' }
+      { key: 'template', name: '投诉信模板', desc: '结构化模板一键复制', color: '#1890FF', iconClass: 'icon-doc', page: 'general-template' },
+      { key: 'hotline', name: '热线速查', desc: '已取消/整合热线', color: '#52C41A', iconClass: 'icon-phone', page: 'hotline-change' },
+      { key: 'followup', name: '跟进时间表', desc: '法定时限+升级路径', color: '#FAAD14', iconClass: 'icon-clock', page: 'followup-schedule' },
+      { key: 'enterprise', name: '企业查询', desc: '4个官方查询平台', color: '#FF4D4F', iconClass: 'icon-building', page: 'enterprise-query' },
+      { key: 'search', name: '搜索看板', desc: '高频词/成功率', color: '#13C2C2', iconClass: 'icon-chart', page: 'search-quality' },
+      { key: 'origin', name: '小程序初衷', desc: '我为什么要做它', color: '#F59E0B', iconClass: 'icon-heart', page: 'origin' },
+      { key: 'feedback', name: '意见反馈', desc: '帮我们提建议', color: '#13C2C2', iconClass: 'icon-chat', page: '' },
+      { key: 'settings', name: '设置', desc: '关于/免责声明', color: '#722ED1', iconClass: 'icon-setting', page: 'settings' }
     ],
     // 友情链接
     friendLinks: [

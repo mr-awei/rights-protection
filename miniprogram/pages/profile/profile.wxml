@@ -60,6 +60,7 @@
         >
           <view class="quick-icon app-icon app-icon-default {{item.iconClass}}" style="--icon-bg: {{item.color}}15; --icon-color: {{item.color}};"></view>
           <text class="quick-name">{{item.name}}</text>
+          <text class="quick-desc">{{item.desc}}</text>
         </view>
       </view>
     </view>
