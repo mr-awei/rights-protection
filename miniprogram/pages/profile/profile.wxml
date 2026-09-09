@@ -44,37 +44,25 @@
 
   <!-- 内容区 -->
   <view class="content">
-    <!-- 工具箱 -->
-    <ui-card title="工具箱">
-      <list-item
-        wx:for="{{toolList}}"
-        wx:key="name"
-        icon="{{item.iconClass}}"
-        icon-bg="{{item.color}}15"
-        icon-color="{{item.color}}"
-        title="{{item.name}}"
-        desc="{{item.desc}}"
-        show-arrow="{{true}}"
-        data-index="{{index}}"
-        bind:tap="onToolTap"
-      ></list-item>
-    </ui-card>
-
-    <!-- 其他 -->
-    <ui-card title="其他">
-      <list-item
-        wx:for="{{otherList}}"
-        wx:key="name"
-        icon="{{item.iconClass}}"
-        icon-bg="{{item.color}}15"
-        icon-color="{{item.color}}"
-        title="{{item.name}}"
-        desc="{{item.desc}}"
-        show-arrow="{{true}}"
-        data-index="{{index}}"
-        bind:tap="onOtherTap"
-      ></list-item>
-    </ui-card>
+    <!-- 常用功能宫格 -->
+    <view class="card">
+      <view class="card-header">
+        <text class="card-title">常用功能</text>
+      </view>
+      <view class="quick-grid">
+        <view
+          class="quick-item"
+          wx:for="{{quickList}}"
+          wx:key="key"
+          data-index="{{index}}"
+          bindtap="onQuickTap"
+          hover-class="quick-item-hover"
+        >
+          <view class="quick-icon app-icon app-icon-default {{item.iconClass}}" style="--icon-bg: {{item.color}}15; --icon-color: {{item.color}};"></view>
+          <text class="quick-name">{{item.name}}</text>
+        </view>
+      </view>
+    </view>
 
     <!-- 友情链接 -->
     <view class="card">

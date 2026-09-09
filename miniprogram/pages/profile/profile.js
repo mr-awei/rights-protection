@@ -17,19 +17,16 @@ Page({
     favoriteScriptList: [],
     // 浏览历史
     viewHistoryList: [],
-    // 工具箱
-    toolList: [
-      { name: '通用投诉信模板', desc: '结构化模板，一键复制', color: '#1890FF', iconClass: 'icon-doc', page: 'general-template' },
-      { name: '热线变更速查', desc: '已取消/整合热线查询', color: '#52C41A', iconClass: 'icon-phone', page: 'hotline-change' },
-      { name: '投诉跟进时间表', desc: '法定时限+升级路径', color: '#FAAD14', iconClass: 'icon-clock', page: 'followup-schedule' },
-      { name: '企业信息查询', desc: '4个官方查询平台', color: '#FF4D4F', iconClass: 'icon-building', page: 'enterprise-query' },
-      { name: '搜索质量看板', desc: '高频词/无结果词/成功率', color: '#13C2C2', iconClass: 'icon-chart', page: 'search-quality' }
-    ],
-    // 其他功能
-    otherList: [
-      { name: '做这个小程序的初衷', desc: '走心聊聊，我为什么要做这件事', color: '#F59E0B', iconClass: 'icon-heart', page: 'origin' },
-      { name: '设置', desc: '关于、免责声明、数据版本', color: '#722ED1', iconClass: 'icon-setting', page: 'settings' },
-      { name: '意见反馈', desc: '帮助我们改进产品', color: '#13C2C2', iconClass: 'icon-chat', page: '' }
+    // 常用功能（宫格展示，功能越来越多后改为宫格更清晰）
+    quickList: [
+      { key: 'template', name: '投诉信模板', color: '#1890FF', iconClass: 'icon-doc', page: 'general-template' },
+      { key: 'hotline', name: '热线速查', color: '#52C41A', iconClass: 'icon-phone', page: 'hotline-change' },
+      { key: 'followup', name: '跟进时间表', color: '#FAAD14', iconClass: 'icon-clock', page: 'followup-schedule' },
+      { key: 'enterprise', name: '企业查询', color: '#FF4D4F', iconClass: 'icon-building', page: 'enterprise-query' },
+      { key: 'search', name: '搜索看板', color: '#13C2C2', iconClass: 'icon-chart', page: 'search-quality' },
+      { key: 'origin', name: '小程序初衷', color: '#F59E0B', iconClass: 'icon-heart', page: 'origin' },
+      { key: 'feedback', name: '意见反馈', color: '#13C2C2', iconClass: 'icon-chat', page: '' },
+      { key: 'settings', name: '设置', color: '#722ED1', iconClass: 'icon-setting', page: 'settings' }
     ],
     // 友情链接
     friendLinks: [
@@ -370,42 +367,19 @@ Page({
     });
   },
 
-  // 工具箱点击
-  onToolTap(e) {
-    const index = e.currentTarget.dataset.index;
-    const tool = this.data.toolList[index];
-
-    if (tool.page === 'about') {
-      nav.navigateTo({ url: '/subpages/about/about' });
-    } else if (tool.page === '') {
-      wx.showToast({ title: `${tool.name}功能开发中`, icon: 'none' });
-    } else {
-      nav.navigateTo({
-        url: `/subpages/${tool.page}/${tool.page}`,
-        fail: () => {
-          wx.showToast({ title: `${tool.name}功能开发中`, icon: 'none' });
-        }
-      });
+  // 常用功能宫格点击
+  onQuickTap(e) {
+    const item = this.data.quickList[e.currentTarget.dataset.index];
+    if (!item || !item.page) {
+      wx.showToast({ title: `${item ? item.name : ''}功能开发中`, icon: 'none' });
+      return;
     }
-  },
-
-  // 其他功能点击
-  onOtherTap(e) {
-    const index = e.currentTarget.dataset.index;
-    const item = this.data.otherList[index];
-
-    if (item.page === '') {
-      wx.showToast({ title: `${item.name}功能开发中`, icon: 'none' });
-    } else if (item.page === 'about') {
-      nav.navigateTo({ url: '/subpages/about/about' });
-    } else {
-      nav.navigateTo({
-        url: `/subpages/${item.page}/${item.page}`,
-        fail: () => {
-          wx.showToast({ title: `${item.name}功能开发中`, icon: 'none' });
-        }
-      });
-    }
+    nav.navigateTo({
+      url: `/subpages/${item.page}/${item.page}`,
+      fail: () => {
+        wx.showToast({ title: `${item.name}功能开发中`, icon: 'none' });
+      }
+    });
   },
 
   // 友情链接点击

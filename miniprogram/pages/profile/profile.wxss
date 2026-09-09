@@ -439,7 +439,7 @@
 .quick-grid {
   display: flex;
   flex-wrap: wrap;
-  padding: 8rpx 0 16rpx;
+  padding: 8rpx 24rpx 16rpx;
 }
 
 .quick-item {
@@ -456,14 +456,14 @@
 }
 
 .quick-icon {
-  width: 80rpx;
-  height: 80rpx;
-  border-radius: 20rpx;
-  margin-bottom: 12rpx;
+  width: 84rpx;
+  height: 84rpx;
+  border-radius: 22rpx;
+  margin-bottom: 14rpx;
 }
 
 .quick-name {
   font-size: var(--font-base);
-  color: #333333;
+  color: var(--text-primary);
   font-weight: 500;
 }
