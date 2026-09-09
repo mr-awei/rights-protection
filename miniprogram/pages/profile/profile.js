@@ -17,16 +17,18 @@ Page({
     favoriteScriptList: [],
     // 浏览历史
     viewHistoryList: [],
-    // 常用功能（宫格展示，功能越来越多后改为宫格更清晰）
-    quickList: [
-      { key: 'template', name: '投诉信模板', desc: '结构化模板一键复制', color: '#1890FF', iconClass: 'icon-doc', page: 'general-template' },
-      { key: 'hotline', name: '热线速查', desc: '已取消/整合热线', color: '#52C41A', iconClass: 'icon-phone', page: 'hotline-change' },
-      { key: 'followup', name: '跟进时间表', desc: '法定时限+升级路径', color: '#FAAD14', iconClass: 'icon-clock', page: 'followup-schedule' },
-      { key: 'enterprise', name: '企业查询', desc: '4个官方查询平台', color: '#FF4D4F', iconClass: 'icon-building', page: 'enterprise-query' },
-      { key: 'search', name: '搜索看板', desc: '高频词/成功率', color: '#13C2C2', iconClass: 'icon-chart', page: 'search-quality' },
-      { key: 'origin', name: '小程序初衷', desc: '我为什么要做它', color: '#F59E0B', iconClass: 'icon-heart', page: 'origin' },
-      { key: 'feedback', name: '意见反馈', desc: '帮我们提建议', color: '#13C2C2', iconClass: 'icon-chat', page: '' },
-      { key: 'settings', name: '设置', desc: '关于/免责声明', color: '#722ED1', iconClass: 'icon-setting', page: 'settings' }
+    // 实用工具
+    toolList: [
+      { name: '通用投诉信模板', desc: '结构化模板，一键复制', color: '#1890FF', iconClass: 'icon-doc', page: 'general-template' },
+      { name: '热线变更速查', desc: '已取消/整合热线查询', color: '#52C41A', iconClass: 'icon-phone', page: 'hotline-change' },
+      { name: '投诉跟进时间表', desc: '法定时限+升级路径', color: '#FAAD14', iconClass: 'icon-clock', page: 'followup-schedule' },
+      { name: '企业信息查询', desc: '4个官方查询平台', color: '#FF4D4F', iconClass: 'icon-building', page: 'enterprise-query' },
+      { name: '搜索质量看板', desc: '高频词/无结果词/成功率', color: '#13C2C2', iconClass: 'icon-chart', page: 'search-quality' }
+    ],
+    // 更多
+    moreList: [
+      { name: '意见反馈', desc: '帮助我们改进产品', color: '#13C2C2', iconClass: 'icon-chat', page: '' },
+      { name: '设置', desc: '关于、免责声明、数据版本', color: '#722ED1', iconClass: 'icon-setting', page: 'settings' }
     ],
     // 友情链接
     friendLinks: [
@@ -367,19 +369,35 @@ Page({
     });
   },
 
-  // 常用功能宫格点击
-  onQuickTap(e) {
-    const item = this.data.quickList[e.currentTarget.dataset.index];
-    if (!item || !item.page) {
-      wx.showToast({ title: `${item ? item.name : ''}功能开发中`, icon: 'none' });
+  // 通用跳转
+  navigateToPage(page, name) {
+    if (!page) {
+      wx.showToast({ title: `${name}功能开发中`, icon: 'none' });
       return;
     }
     nav.navigateTo({
-      url: `/subpages/${item.page}/${item.page}`,
+      url: `/subpages/${page}/${page}`,
       fail: () => {
-        wx.showToast({ title: `${item.name}功能开发中`, icon: 'none' });
+        wx.showToast({ title: `${name}功能开发中`, icon: 'none' });
       }
     });
+  },
+
+  // 初衷高亮卡片点击
+  onBannerTap() {
+    this.navigateToPage('origin', '做这个小程序的初衷');
+  },
+
+  // 实用工具点击
+  onToolTap(e) {
+    const item = this.data.toolList[e.currentTarget.dataset.index];
+    this.navigateToPage(item.page, item.name);
+  },
+
+  // 更多点击
+  onMoreTap(e) {
+    const item = this.data.moreList[e.currentTarget.dataset.index];
+    this.navigateToPage(item.page, item.name);
   },
 
   // 友情链接点击

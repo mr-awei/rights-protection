@@ -435,48 +435,54 @@
   display: block;
 }
 
-/* ========== 常用功能宫格 ========== */
-.quick-grid {
+/* ========== 初衷高亮卡片 ========== */
+.origin-banner {
   display: flex;
-  flex-wrap: wrap;
-  padding: 8rpx 24rpx 16rpx;
+  align-items: center;
+  background: linear-gradient(135deg, #FFF7E6 0%, #FFE9C7 100%);
+  border: 1rpx solid #FFD591;
+  border-radius: 16rpx;
+  padding: 24rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 2rpx 12rpx rgba(245, 158, 11, 0.12);
+  transition: opacity 0.2s ease;
 }
 
-.quick-item {
-  width: 25%;
+.origin-banner-hover {
+  opacity: 0.85;
+}
+
+.origin-banner-icon {
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: 18rpx;
+  margin-right: 20rpx;
+  flex-shrink: 0;
+}
+
+.origin-banner-text {
+  flex: 1;
+  min-width: 0;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  padding: 20rpx 0;
-  transition: opacity 0.2s;
 }
 
-.quick-item-hover {
-  opacity: 0.6;
+.origin-banner-title {
+  font-size: var(--font-lg);
+  font-weight: 600;
+  color: #B26A00;
+  margin-bottom: 6rpx;
 }
 
-.quick-icon {
-  width: 80rpx;
-  height: 80rpx;
-  border-radius: 22rpx;
-  margin-bottom: 12rpx;
-}
-
-.quick-name {
+.origin-banner-desc {
   font-size: var(--font-base);
-  color: var(--text-primary);
-  font-weight: 500;
-  margin-bottom: 4rpx;
+  color: #C8881F;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
-.quick-desc {
-  font-size: var(--font-xs);
-  color: var(--text-tertiary);
-  line-height: 1.3;
-  text-align: center;
-  max-width: 100%;
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
+.origin-banner-arrow {
+  margin-left: 12rpx;
+  flex-shrink: 0;
 }

@@ -44,26 +44,47 @@
 
   <!-- 内容区 -->
   <view class="content">
-    <!-- 常用功能宫格 -->
-    <view class="card">
-      <view class="card-header">
-        <text class="card-title">常用功能</text>
+    <!-- 初衷入口（高亮，确保大家都能看到） -->
+    <view class="origin-banner" bindtap="onBannerTap" hover-class="origin-banner-hover">
+      <view class="origin-banner-icon app-icon app-icon-default icon-heart" style="--icon-bg:#F59E0B15;--icon-color:#F59E0B;"></view>
+      <view class="origin-banner-text">
+        <text class="origin-banner-title">做这个小程序的初衷</text>
+        <text class="origin-banner-desc">走心聊聊，我为什么要做这件事</text>
       </view>
-      <view class="quick-grid">
-        <view
-          class="quick-item"
-          wx:for="{{quickList}}"
-          wx:key="key"
-          data-index="{{index}}"
-          bindtap="onQuickTap"
-          hover-class="quick-item-hover"
-        >
-          <view class="quick-icon app-icon app-icon-default {{item.iconClass}}" style="--icon-bg: {{item.color}}15; --icon-color: {{item.color}};"></view>
-          <text class="quick-name">{{item.name}}</text>
-          <text class="quick-desc">{{item.desc}}</text>
-        </view>
-      </view>
+      <view class="origin-banner-arrow app-icon app-icon-default icon-chevron-right" style="width:28rpx;height:28rpx;--icon-bg:transparent;--icon-color:#F59E0B;"></view>
     </view>
+
+    <!-- 实用工具 -->
+    <ui-card title="实用工具">
+      <list-item
+        wx:for="{{toolList}}"
+        wx:key="name"
+        icon="{{item.iconClass}}"
+        icon-bg="{{item.color}}15"
+        icon-color="{{item.color}}"
+        title="{{item.name}}"
+        desc="{{item.desc}}"
+        show-arrow="{{true}}"
+        data-index="{{index}}"
+        bind:tap="onToolTap"
+      ></list-item>
+    </ui-card>
+
+    <!-- 更多 -->
+    <ui-card title="更多">
+      <list-item
+        wx:for="{{moreList}}"
+        wx:key="name"
+        icon="{{item.iconClass}}"
+        icon-bg="{{item.color}}15"
+        icon-color="{{item.color}}"
+        title="{{item.name}}"
+        desc="{{item.desc}}"
+        show-arrow="{{true}}"
+        data-index="{{index}}"
+        bind:tap="onMoreTap"
+      ></list-item>
+    </ui-card>
 
     <!-- 友情链接 -->
     <view class="card">
