@@ -10,24 +10,35 @@ function isSubpackageUrl(url) {
   return typeof url === 'string' && SUBPKG_PREFIXES.some(prefix => url.indexOf(prefix) === 0);
 }
 
-/**
- * 跳转（仅在目标属于分包时显示加载态）
- */
+// 全局导航锁：防止双击/事件冒泡导致同一页面被 push 两次
+let navigating = false;
+
 function navigateTo(options) {
-  if (!options || !isSubpackageUrl(options.url)) {
+  if (!options) {
     return wx.navigateTo(options);
   }
 
-  wx.showLoading({ title: '加载中...', mask: true });
+  // 正在导航中，忽略本次调用
+  if (navigating) {
+    return;
+  }
+  navigating = true;
+
   const userSuccess = options.success;
   const userFail = options.fail;
 
-  options.success = function (res) {
+  const reset = () => {
+    navigating = false;
     wx.hideLoading();
+  };
+
+  options.success = function (res) {
+    // 保留一段锁定时长，覆盖页面转场动画期间，防止手势/快速连点重复入栈
+    setTimeout(reset, 400);
     if (typeof userSuccess === 'function') userSuccess(res);
   };
   options.fail = function (err) {
-    wx.hideLoading();
+    reset();
     if (typeof userFail === 'function') {
       userFail(err);
     } else {
@@ -36,6 +47,11 @@ function navigateTo(options) {
     }
   };
 
+  if (!isSubpackageUrl(options.url)) {
+    return wx.navigateTo(options);
+  }
+
+  wx.showLoading({ title: '加载中...', mask: true });
   return wx.navigateTo(options);
 }
 

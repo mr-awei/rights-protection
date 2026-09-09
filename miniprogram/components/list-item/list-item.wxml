@@ -1,5 +1,5 @@
 <!--list-item.wxml-->
-<view class="list-item {{hover ? 'list-item-hover' : ''}} {{showDivider ? 'list-item-divider' : ''}}" bindtap="onItemTap">
+<view class="list-item {{hover ? 'list-item-hover' : ''}} {{showDivider ? 'list-item-divider' : ''}}" catchtap="onItemTap">
   <view class="list-item-icon app-icon app-icon-default {{icon}}" wx:if="{{icon}}" style="--icon-bg: {{iconBg || 'var(--primary-bg)'}}; --icon-color: {{iconColor || 'var(--primary)'}};"></view>
   <view class="list-item-content">
     <view class="list-item-title">{{title}}</view>
