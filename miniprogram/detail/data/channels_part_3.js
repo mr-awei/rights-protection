@@ -71,7 +71,9 @@ module.exports = [
           "law_001_art_002"
         ]
       }
-    ]
+    ],
+    "path_type": "",
+    "materials": []
   },
   {
     "id": "ch_102",
@@ -144,7 +146,9 @@ module.exports = [
           "law_001_art_002"
         ]
       }
-    ]
+    ],
+    "path_type": "",
+    "materials": []
   },
   {
     "id": "ch_103",
@@ -218,7 +222,9 @@ module.exports = [
           "law_028_art_003"
         ]
       }
-    ]
+    ],
+    "path_type": "",
+    "materials": []
   },
   {
     "id": "ch_104",
@@ -295,7 +301,9 @@ module.exports = [
           "law_028_art_003"
         ]
       }
-    ]
+    ],
+    "path_type": "",
+    "materials": []
   },
   {
     "id": "ch_105",
@@ -380,7 +388,9 @@ module.exports = [
           "law_028_art_003"
         ]
       }
-    ]
+    ],
+    "path_type": "",
+    "materials": []
   },
   {
     "id": "ch_106",
@@ -454,7 +464,9 @@ module.exports = [
           "law_028_art_003"
         ]
       }
-    ]
+    ],
+    "path_type": "",
+    "materials": []
   },
   {
     "id": "ch_107",
@@ -540,7 +552,9 @@ module.exports = [
           "law_003_art_002"
         ]
       }
-    ]
+    ],
+    "path_type": "",
+    "materials": []
   },
   {
     "id": "ch_108",
@@ -621,7 +635,9 @@ module.exports = [
           "law_052_art_002"
         ]
       }
-    ]
+    ],
+    "path_type": "",
+    "materials": []
   },
   {
     "id": "ch_109",
@@ -694,7 +710,9 @@ module.exports = [
           "law_052_art_002"
         ]
       }
-    ]
+    ],
+    "path_type": "",
+    "materials": []
   },
   {
     "id": "ch_110",
@@ -787,7 +805,9 @@ module.exports = [
           "law_022_art_002"
         ]
       }
-    ]
+    ],
+    "path_type": "",
+    "materials": []
   },
   {
     "id": "ch_111",
@@ -863,7 +883,9 @@ module.exports = [
           "law_073_art_002"
         ]
       }
-    ]
+    ],
+    "path_type": "",
+    "materials": []
   },
   {
     "id": "ch_112",
@@ -958,7 +980,9 @@ module.exports = [
           "law_090_art_002"
         ]
       }
-    ]
+    ],
+    "path_type": "",
+    "materials": []
   },
   {
     "id": "ch_113",
@@ -1028,7 +1052,9 @@ module.exports = [
           "law_046_art_002"
         ]
       }
-    ]
+    ],
+    "path_type": "",
+    "materials": []
   },
   {
     "id": "ch_114",
@@ -1111,7 +1137,9 @@ module.exports = [
           "law_030_art_002"
         ]
       }
-    ]
+    ],
+    "path_type": "",
+    "materials": []
   },
   {
     "id": "ch_115",
@@ -1192,7 +1220,9 @@ module.exports = [
           "law_068_art_002"
         ]
       }
-    ]
+    ],
+    "path_type": "",
+    "materials": []
   },
   {
     "id": "ch_116",
@@ -1259,7 +1289,9 @@ module.exports = [
           "law_076_art_002"
         ]
       }
-    ]
+    ],
+    "path_type": "",
+    "materials": []
   },
   {
     "id": "ch_117",
@@ -1331,7 +1363,9 @@ module.exports = [
           "law_062_art_002"
         ]
       }
-    ]
+    ],
+    "path_type": "",
+    "materials": []
   },
   {
     "id": "ch_118",
@@ -1413,7 +1447,9 @@ module.exports = [
           "law_072_art_002"
         ]
       }
-    ]
+    ],
+    "path_type": "",
+    "materials": []
   },
   {
     "id": "ch_119",
@@ -1495,7 +1531,9 @@ module.exports = [
           "law_072_art_002"
         ]
       }
-    ]
+    ],
+    "path_type": "",
+    "materials": []
   },
   {
     "id": "ch_120",
@@ -1580,7 +1618,9 @@ module.exports = [
           "law_028_art_002"
         ]
       }
-    ]
+    ],
+    "path_type": "",
+    "materials": []
   },
   {
     "id": "ch_121",
@@ -1653,7 +1693,9 @@ module.exports = [
           "law_057_art_002"
         ]
       }
-    ]
+    ],
+    "path_type": "",
+    "materials": []
   },
   {
     "id": "ch_122",
@@ -1727,6 +1769,8 @@ module.exports = [
           "law_044_art_002"
         ]
       }
-    ]
+    ],
+    "path_type": "",
+    "materials": []
   }
 ];
