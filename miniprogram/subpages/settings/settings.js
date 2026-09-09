@@ -5,7 +5,7 @@ const { getChannels, getScripts, getConfig } = require('../../utils/data');
 Page({
   data: {
     appVersion: '1.1.2',
-    dataVersion: '2026.09.3',
+    dataVersion: '2026.09.4',
     dataVerifiedAt: '2026-09-09',
     channelCount: 122,
     scriptCount: 19,
@@ -30,7 +30,7 @@ Page({
         channelCount: stats.channels || (getChannels() || []).length,
         scriptCount: stats.scripts || (getScripts() || []).length,
         lawCount: stats.laws || 0,
-        dataVersion: config.dataVersion || '2026.09.3',
+        dataVersion: config.dataVersion || '2026.09.4',
         dataVerifiedAt: config.dataVerifiedAt || '2026-08-30'
       });
     } catch (e) {
