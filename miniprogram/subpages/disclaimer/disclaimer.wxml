@@ -81,20 +81,32 @@
 
         <view class="law-list">
           <view class="law-item">
-            <view class="law-title">虚假投诉 / 恶意投诉</view>
-            <text class="law-desc">明知不存在侵权事实，或故意捏造、歪曲事实，向平台、监管部门、媒体进行投诉，可能构成民事侵权（诽谤、名誉权侵害），情节严重的可被追究侵权责任，需赔偿损失、消除影响、赔礼道歉。</text>
+            <view class="law-marker"></view>
+            <view class="law-main">
+              <view class="law-title">虚假投诉 / 恶意投诉</view>
+              <text class="law-desc">明知不存在侵权事实，或故意捏造、歪曲事实，向平台、监管部门、媒体进行投诉，可能构成民事侵权（诽谤、名誉权侵害），情节严重的可被追究侵权责任，需赔偿损失、消除影响、赔礼道歉。</text>
+            </view>
           </view>
           <view class="law-item">
-            <view class="law-title">报假警 / 虚假报案</view>
-            <text class="law-desc">无事实依据拨打 110 或向公安机关报案，扰乱公共秩序或浪费警力资源的，依据《中华人民共和国治安管理处罚法》第二十五条，可处五日以上十日以下拘留，可并处五百元以下罚款；情节较轻的，处五日以下拘留或五百元以下罚款。</text>
+            <view class="law-marker"></view>
+            <view class="law-main">
+              <view class="law-title">报假警 / 虚假报案</view>
+              <text class="law-desc">无事实依据拨打 110 或向公安机关报案，扰乱公共秩序或浪费警力资源的，依据《中华人民共和国治安管理处罚法》第二十五条，可处五日以上十日以下拘留，可并处五百元以下罚款；情节较轻的，处五日以下拘留或五百元以下罚款。</text>
+            </view>
           </view>
           <view class="law-item">
-            <view class="law-title">诬告陷害</view>
-            <text class="law-desc">捏造事实，意图使他人受到刑事追究或行政处罚，情节严重的，依据《中华人民共和国刑法》第二百四十三条，可能构成诬告陷害罪，最高可处三年以上十年以下有期徒刑。</text>
+            <view class="law-marker"></view>
+            <view class="law-main">
+              <view class="law-title">诬告陷害</view>
+              <text class="law-desc">捏造事实，意图使他人受到刑事追究或行政处罚，情节严重的，依据《中华人民共和国刑法》第二百四十三条，可能构成诬告陷害罪，最高可处三年以上十年以下有期徒刑。</text>
+            </view>
           </view>
           <view class="law-item">
-            <view class="law-title">敲诈勒索</view>
-            <text class="law-desc">以投诉、举报、曝光相威胁，索取明显超出合法诉求范围的钱财或利益，可能构成敲诈勒索罪，需承担刑事责任。</text>
+            <view class="law-marker"></view>
+            <view class="law-main">
+              <view class="law-title">敲诈勒索</view>
+              <text class="law-desc">以投诉、举报、曝光相威胁，索取明显超出合法诉求范围的钱财或利益，可能构成敲诈勒索罪，需承担刑事责任。</text>
+            </view>
           </view>
         </view>
       </view>

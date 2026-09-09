@@ -204,27 +204,41 @@
 .law-list {
   display: flex;
   flex-direction: column;
-  gap: 20rpx;
-  margin-top: 12rpx;
+  margin-top: 16rpx;
 }
 
 .law-item {
-  padding: 20rpx;
-  background: rgba(255, 255, 255, 0.6);
-  border-radius: 12rpx;
-  border-left: 4rpx solid #DC2626;
+  display: flex;
+  align-items: flex-start;
+  padding: 24rpx 0;
+  border-bottom: 1rpx solid rgba(220, 38, 38, 0.08);
+}
+
+.law-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.law-marker {
+  width: 12rpx;
+  height: 12rpx;
+  border-radius: 50%;
+  background: #DC2626;
+  margin-right: 16rpx;
+  margin-top: 10rpx;
+  flex-shrink: 0;
 }
 
 .law-title {
   font-size: var(--font-normal);
-  font-weight: 700;
-  color: #991B1B;
-  margin-bottom: 10rpx;
+  font-weight: 600;
+  color: #7F1D1D;
+  margin-bottom: 8rpx;
 }
 
 .law-desc {
   font-size: var(--font-base);
-  color: #7F1D1D;
+  color: #555555;
   line-height: 1.7;
   text-align: justify;
 }
