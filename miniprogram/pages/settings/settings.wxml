@@ -8,7 +8,6 @@
       <list-item icon="icon-shield" icon-bg="#FEF2F2" icon-color="#EF4444" title="免责声明" desc="使用须知与法律边界" bind:tap="onDisclaimerTap"></list-item>
       <list-item icon="icon-clock" icon-bg="#FFFBEB" icon-color="#F59E0B" title="更新日志" desc="查看本次更新了什么" bind:tap="onChangelogTap"></list-item>
     </view>
-    </view>
   </view>
 
   <!-- 数据信息 -->
