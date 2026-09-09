@@ -12,20 +12,14 @@
   "subPackages": [
     {
       "root": "pages",
-      "name": "tools",
+      "name": "sub",
       "pages": [
         "followup-schedule/followup-schedule",
         "hotline-change/hotline-change",
         "enterprise-query/enterprise-query",
         "general-template/general-template",
         "search-quality/search-quality",
-        "scene-picker/scene-picker"
-      ]
-    },
-    {
-      "root": "pages",
-      "name": "mine",
-      "pages": [
+        "scene-picker/scene-picker",
         "favorites-history/favorites-history",
         "settings/settings",
         "about/about"
@@ -35,11 +29,7 @@
   "preloadRule": {
     "pages/index/index": {
       "network": "all",
-      "packages": ["tools"]
-    },
-    "pages/profile/profile": {
-      "network": "all",
-      "packages": ["mine"]
+      "packages": ["sub"]
     }
   },
   "window": {
