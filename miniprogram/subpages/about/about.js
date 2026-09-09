@@ -5,7 +5,7 @@ Page({
   data: {
     statusBarHeight: 20,
     version: '1.1.2',
-    dataVersion: '2026.09.4',
+    dataVersion: '2026.09.3',
     channelCount: 122,
     scriptCount: 19,
     lawCount: 90,
