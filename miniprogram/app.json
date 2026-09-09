@@ -11,7 +11,7 @@
   ],
   "subPackages": [
     {
-      "root": "pages",
+      "root": "subpages",
       "name": "sub",
       "pages": [
         "followup-schedule/followup-schedule",

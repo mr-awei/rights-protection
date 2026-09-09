@@ -26,10 +26,10 @@ Page({
     noticeExpanded: false,
     // 工具箱快捷入口
     toolEntries: [
-      { label: '通用投诉信', desc: '一键生成', iconClass: 'icon-doc', color: '#E6F4FF', textColor: '#1890FF', url: '/pages/general-template/general-template' },
-      { label: '投诉跟进表', desc: '时间轴管理', iconClass: 'icon-list', color: '#F6FFED', textColor: '#52C41A', url: '/pages/followup-schedule/followup-schedule' },
-      { label: '热线变更', desc: '速查最新', iconClass: 'icon-mobile', color: '#FFFBE6', textColor: '#FAAD14', url: '/pages/hotline-change/hotline-change' },
-      { label: '企业查询', desc: '工商信息', iconClass: 'icon-shop', color: '#FFF2F0', textColor: '#FF4D4F', url: '/pages/enterprise-query/enterprise-query' }
+      { label: '通用投诉信', desc: '一键生成', iconClass: 'icon-doc', color: '#E6F4FF', textColor: '#1890FF', url: '/subpages/general-template/general-template' },
+      { label: '投诉跟进表', desc: '时间轴管理', iconClass: 'icon-list', color: '#F6FFED', textColor: '#52C41A', url: '/subpages/followup-schedule/followup-schedule' },
+      { label: '热线变更', desc: '速查最新', iconClass: 'icon-mobile', color: '#FFFBE6', textColor: '#FAAD14', url: '/subpages/hotline-change/hotline-change' },
+      { label: '企业查询', desc: '工商信息', iconClass: 'icon-shop', color: '#FFF2F0', textColor: '#FF4D4F', url: '/subpages/enterprise-query/enterprise-query' }
     ],
     // 愿景弹窗
     showVisionModal: false,

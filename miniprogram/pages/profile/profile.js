@@ -317,17 +317,17 @@ Page({
     if (type === 'channels') {
       // 跳转到收藏历史页面，自动选中渠道Tab
       wx.navigateTo({
-        url: '/pages/favorites-history/favorites-history?tab=channels'
+        url: '/subpages/favorites-history/favorites-history?tab=channels'
       });
     } else if (type === 'scripts') {
       // 跳转到收藏历史页面，自动选中话术Tab
       wx.navigateTo({
-        url: '/pages/favorites-history/favorites-history?tab=scripts'
+        url: '/subpages/favorites-history/favorites-history?tab=scripts'
       });
     } else if (type === 'viewHistory') {
       // 跳转到收藏历史页面，自动选中历史Tab
       wx.navigateTo({
-        url: '/pages/favorites-history/favorites-history?tab=history'
+        url: '/subpages/favorites-history/favorites-history?tab=history'
       });
     } else if (type === 'search') {
       const history = app.getSearchHistory();
@@ -357,14 +357,14 @@ Page({
   onViewAllFavorites(e) {
     const tab = e.currentTarget.dataset.tab || this.data.activeFavTab;
     wx.navigateTo({
-      url: `/pages/favorites-history/favorites-history?tab=${tab}`
+      url: `/subpages/favorites-history/favorites-history?tab=${tab}`
     });
   },
 
   // 查看全部历史
   onViewAllHistory() {
     wx.navigateTo({
-      url: '/pages/favorites-history/favorites-history?tab=history'
+      url: '/subpages/favorites-history/favorites-history?tab=history'
     });
   },
 
@@ -374,12 +374,12 @@ Page({
     const tool = this.data.toolList[index];
 
     if (tool.page === 'about') {
-      wx.navigateTo({ url: '/pages/about/about' });
+      wx.navigateTo({ url: '/subpages/about/about' });
     } else if (tool.page === '') {
       wx.showToast({ title: `${tool.name}功能开发中`, icon: 'none' });
     } else {
       wx.navigateTo({
-        url: `/pages/${tool.page}/${tool.page}`,
+        url: `/subpages/${tool.page}/${tool.page}`,
         fail: () => {
           wx.showToast({ title: `${tool.name}功能开发中`, icon: 'none' });
         }
@@ -392,7 +392,7 @@ Page({
     const index = e.currentTarget.dataset.index;
     const item = this.data.otherList[index];
     if (item.page === 'settings') {
-      wx.navigateTo({ url: '/pages/settings/settings' });
+      wx.navigateTo({ url: '/subpages/settings/settings' });
     } else if (item.page === '') {
       wx.showToast({ title: `${item.name}功能开发中`, icon: 'none' });
     }

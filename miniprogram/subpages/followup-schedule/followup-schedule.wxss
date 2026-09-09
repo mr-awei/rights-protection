@@ -1,0 +1,247 @@
+/* subpages/followup-schedule/followup-schedule.wxss */
+.container {
+  min-height: 100vh;
+  background: var(--bg-page);
+}
+
+.gradient-header {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 50%, #2E6DB4 100%);
+  padding: 20rpx 0 28rpx;
+  position: relative;
+  overflow: hidden;
+}
+
+.gradient-header::before {
+  content: '';
+  position: absolute;
+  top: -60rpx;
+  right: -30rpx;
+  width: 200rpx;
+  height: 200rpx;
+  background: radial-gradient(circle, rgba(255,255,255,0.12) 0%, transparent 70%);
+  border-radius: 50%;
+}
+
+.header-content {
+  position: relative;
+  z-index: 1;
+  padding: 0 32rpx;
+}
+
+.header-top {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8rpx;
+}
+
+.header-icon {
+  margin-right: 16rpx;
+  flex-shrink: 0;
+}
+
+.header-title {
+  font-size: 38rpx;
+  font-weight: 700;
+  color: var(--text-inverse);
+  line-height: 1.2;
+}
+
+.header-desc {
+  font-size: var(--font-sm);
+  color: rgba(255,255,255,0.85);
+  line-height: 1.3;
+  padding-left: 72rpx;
+}
+
+.content {
+  padding: 20rpx 24rpx 24rpx;
+  margin-top: -12rpx;
+  position: relative;
+  z-index: 2;
+}
+
+/* 时间线 */
+.timeline {
+  background: var(--bg-card);
+  border-radius: 20rpx;
+  padding: 24rpx;
+  margin-bottom: 24rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.04);
+}
+
+.timeline-item {
+  display: flex;
+  position: relative;
+  padding-bottom: 24rpx;
+  transition: all 0.2s ease;
+}
+
+.timeline-item:last-child {
+  padding-bottom: 0;
+}
+
+.timeline-item-hover {
+  opacity: 0.8;
+}
+
+.timeline-dot {
+  width: 32rpx;
+  height: 32rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-right: 20rpx;
+  position: relative;
+  z-index: 2;
+}
+
+.dot-inner {
+  width: 20rpx;
+  height: 20rpx;
+  border-radius: 50%;
+  border: 4rpx solid #FFFFFF;
+  box-shadow: 0 0 0 2rpx currentColor;
+}
+
+.timeline-line {
+  position: absolute;
+  left: 15rpx;
+  top: 32rpx;
+  bottom: 0;
+  width: 2rpx;
+  background: var(--border);
+}
+
+.timeline-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.timeline-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8rpx 0;
+}
+
+.timeline-header-left {
+  flex: 1;
+  min-width: 0;
+}
+
+.timeline-arrow {
+  font-size: var(--font-xs);
+  color: var(--text-tertiary);
+  transition: transform 0.3s ease;
+  flex-shrink: 0;
+  margin-left: 16rpx;
+}
+
+.timeline-arrow.expanded {
+  transform: rotate(180deg);
+  color: #06B6D4;
+}
+
+.timeline-detail {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+.timeline-detail.show {
+  max-height: 1000rpx;
+}
+
+.timeline-extra {
+  background: #F8FAFC;
+  border-radius: 8rpx;
+  padding: 12rpx 14rpx;
+  margin-top: 8rpx;
+}
+
+.extra-text {
+  font-size: var(--font-sm);
+  color: #475569;
+  line-height: 1.7;
+}
+
+.timeline-time {
+  font-size: var(--font-sm);
+  color: #06B6D4;
+  font-weight: 600;
+  margin-bottom: 4rpx;
+}
+
+.timeline-title {
+  font-size: var(--font-normal);
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 6rpx;
+}
+
+.timeline-desc {
+  font-size: var(--font-base);
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 8rpx;
+}
+
+.timeline-action {
+  background: #F0FDFA;
+  border-radius: 8rpx;
+  padding: 10rpx 14rpx;
+  margin-top: 4rpx;
+}
+
+.action-label {
+  font-size: var(--font-sm);
+  color: #0E7490;
+  font-weight: 600;
+}
+
+.action-text {
+  font-size: var(--font-sm);
+  color: #155E75;
+}
+
+.timeline-escalate {
+  background: #FEF3C7;
+  border-radius: 8rpx;
+  padding: 10rpx 14rpx;
+  margin-top: 8rpx;
+}
+
+.escalate-label {
+  font-size: var(--font-sm);
+  color: #92400E;
+  font-weight: 600;
+}
+
+.escalate-text {
+  font-size: var(--font-sm);
+  color: #78350F;
+}
+
+/* 提示卡片 */
+.tip-card {
+  display: flex;
+  align-items: flex-start;
+  background: linear-gradient(135deg, #ECFEFF 0%, #CFFAFE 100%);
+  border: 1rpx solid #A5F3FC;
+  border-radius: 16rpx;
+  padding: 20rpx;
+}
+
+.tip-icon {
+  font-size: var(--font-normal);
+  margin-right: 12rpx;
+  flex-shrink: 0;
+}
+
+.tip-text {
+  flex: 1;
+  font-size: var(--font-base);
+  color: #155E75;
+  line-height: 1.7;
+}

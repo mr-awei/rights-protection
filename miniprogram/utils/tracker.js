@@ -31,13 +31,13 @@ const PAGE_NAMES = {
   'pages/profile/profile': '我的页',
   'pages/search/search': '搜索页',
   'pages/search-result/search-result': '搜索结果页',
-  'pages/scene-picker/scene-picker': '场景选择页',
+  'subpages/scene-picker/scene-picker': '场景选择页',
   'pages/channel-detail/channel-detail': '渠道详情页',
   'pages/script-detail/script-detail': '话术详情页',
-  'pages/general-template/general-template': '通用投诉信模板',
-  'pages/hotline-change/hotline-change': '热线变更速查',
-  'pages/followup-schedule/followup-schedule': '投诉跟进时间表',
-  'pages/enterprise-query/enterprise-query': '企业查询指引'
+  'subpages/general-template/general-template': '通用投诉信模板',
+  'subpages/hotline-change/hotline-change': '热线变更速查',
+  'subpages/followup-schedule/followup-schedule': '投诉跟进时间表',
+  'subpages/enterprise-query/enterprise-query': '企业查询指引'
 };
 
 class Tracker {

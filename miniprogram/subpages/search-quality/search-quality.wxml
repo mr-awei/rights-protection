@@ -1,0 +1,123 @@
+<!--subsubsubpages/search-quality/search-quality.wxml-->
+<view class="container {{themeClass}}">
+  <!-- 概览卡片 -->
+  <view class="overview-card">
+    <view class="overview-title">搜索质量概览</view>
+    <view class="overview-stats">
+      <view class="stat-item">
+        <text class="stat-num">{{analysis.total}}</text>
+        <text class="stat-label">总搜索次数</text>
+      </view>
+      <view class="stat-item">
+        <text class="stat-num">{{successRate}}%</text>
+        <text class="stat-label">搜索成功率</text>
+      </view>
+      <view class="stat-item">
+        <text class="stat-num">{{analysis.avgResultCount}}</text>
+        <text class="stat-label">平均结果数</text>
+      </view>
+      <view class="stat-item">
+        <text class="stat-num">{{analysis.noResultKeywords.length}}</text>
+        <text class="stat-label">无结果词</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 高频搜索词TOP20 -->
+  <view class="section">
+    <view class="section-header">
+      <view class="section-icon app-icon app-icon-default icon-fire" style="--icon-bg:#FEF3C7;--icon-color:#F59E0B;"></view>
+      <view class="section-info">
+        <text class="section-title">高频搜索词 TOP20</text>
+        <text class="section-desc">用户最常搜索的关键词</text>
+      </view>
+    </view>
+    <view class="keyword-list" wx:if="{{analysis.topKeywords.length > 0}}">
+      <view
+        class="keyword-item"
+        wx:for="{{analysis.topKeywords}}"
+        wx:key="keyword"
+      >
+        <view class="keyword-rank {{index < 3 ? 'top' : ''}}">{{index + 1}}</view>
+        <view class="keyword-info">
+          <text class="keyword-text">{{item.keyword}}</text>
+          <view class="keyword-bar-bg">
+            <view class="keyword-bar" style="width: {{item.percent}}%;"></view>
+          </view>
+        </view>
+        <text class="keyword-count">{{item.count}}次</text>
+        <view class="keyword-action" bindtap="onAddTag" data-keyword="{{item.keyword}}" hover-class="keyword-action-hover">
+          <text>加标签</text>
+        </view>
+      </view>
+    </view>
+    <view class="empty-box" wx:else>
+      <text class="empty-text">暂无搜索数据，多搜索几次再来看看吧</text>
+    </view>
+  </view>
+
+  <!-- 无结果搜索词 -->
+  <view class="section">
+    <view class="section-header">
+      <view class="section-icon app-icon app-icon-default icon-warning" style="--icon-bg:#FEE2E2;--icon-color:#EF4444;"></view>
+      <view class="section-info">
+        <text class="section-title">无结果搜索词</text>
+        <text class="section-desc">搜索后没有找到结果的关键词，需要补充数据或标签</text>
+      </view>
+    </view>
+    <view class="no-result-list" wx:if="{{analysis.noResultKeywords.length > 0}}">
+      <view
+        class="no-result-item"
+        wx:for="{{analysis.noResultKeywords}}"
+        wx:key="keyword"
+      >
+        <view class="no-result-info">
+          <text class="no-result-text">{{item.keyword}}</text>
+          <text class="no-result-count">搜索{{item.count}}次</text>
+        </view>
+        <view class="no-result-actions">
+          <view class="action-btn" bindtap="onAddSynonym" data-keyword="{{item.keyword}}" hover-class="action-btn-hover">
+            <text>加同义词</text>
+          </view>
+          <view class="action-btn primary" bindtap="onAddTag" data-keyword="{{item.keyword}}" hover-class="action-btn-hover">
+            <text>加标签</text>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="empty-box" wx:else>
+      <text class="empty-text">太棒了！所有搜索都有结果</text>
+    </view>
+  </view>
+
+  <!-- 操作按钮 -->
+  <view class="actions">
+    <view class="action-btn-large" bindtap="onOptimizeHotSearch" hover-class="action-btn-large-hover">
+      <view class="app-icon app-icon-default icon-fire" style="width:32rpx;height:32rpx;margin-right:10rpx;--icon-bg:transparent;--icon-color:#FFFFFF;"></view>
+      <text>一键优化热门搜索词</text>
+    </view>
+    <view class="action-btn-large secondary" bindtap="onClearLogs" hover-class="action-btn-large-hover">
+      <view class="app-icon app-icon-default icon-trash" style="width:32rpx;height:32rpx;margin-right:10rpx;--icon-bg:transparent;--icon-color:#666666;"></view>
+      <text>清空搜索日志</text>
+    </view>
+  </view>
+
+  <view style="height: 40rpx;"></view>
+
+  <!-- 自定义弹窗 -->
+  <custom-modal
+    visible="{{modalVisible}}"
+    type="{{modalType}}"
+    title="{{modalTitle}}"
+    content="{{modalContent}}"
+    confirmText="{{modalConfirmText}}"
+    cancelText="{{modalCancelText}}"
+    showCancel="{{modalShowCancel}}"
+    placeholder="{{modalPlaceholder}}"
+    defaultValue="{{modalDefaultValue}}"
+    itemList="{{modalItemList}}"
+    bind:confirm="onModalConfirm"
+    bind:cancel="onModalCancel"
+    bind:select="onModalSelect"
+  />
+</view>

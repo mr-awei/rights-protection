@@ -1,0 +1,134 @@
+<!--subsubsubpages/general-template/general-template.wxml-->
+<view class="container">
+  <!-- 渐变头部 -->
+  <view class="gradient-header">
+    <view class="header-content">
+      <view class="header-top">
+        <view class="header-icon app-icon app-icon-hover icon-doc" style="width:56rpx;height:56rpx;"></view>
+        <view class="header-title">通用投诉信模板</view>
+        <view class="copy-all-btn" bindtap="onCopyAll" hover-class="copy-all-btn-hover">
+          <text>{{hasCustomContent ? '复制个性化' : '复制完整模板'}}</text>
+        </view>
+      </view>
+      <view class="header-desc">结构化模板，按块填写，一键复制</view>
+      <view class="header-actions" wx:if="{{hasCustomContent}}">
+        <view class="reset-btn" bindtap="resetCustomTemplate" hover-class="reset-btn-hover">
+          <text>重置</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 内容区 -->
+  <view class="content">
+    <!-- 使用说明 -->
+    <view class="tip-card">
+      <view class="tip-header">
+        <view class="tip-icon app-icon app-icon-default icon-info" style="width:32rpx;height:32rpx;margin-right:10rpx;--icon-bg:#FEF3C7;--icon-color:#D97706;"></view>
+        <text class="tip-title">使用说明</text>
+      </view>
+      <view class="tip-content">
+        <text class="tip-text">1. 按照模板结构，逐块填写您的实际情况</text>
+        <text class="tip-text">2. 每个分块可单独复制，也可一键复制完整模板</text>
+        <text class="tip-text">3. 事实与理由部分请客观陈述，避免情绪化表达</text>
+        <text class="tip-text">4. 证据清单请列明证据名称、来源、证明事项</text>
+        <text class="tip-text">5. 提交前请仔细核对被投诉方信息和投诉请求</text>
+      </view>
+    </view>
+
+    <!-- 填写信息区域 -->
+    <view class="fill-section" wx:if="{{!hasCustomContent}}">
+      <view class="fill-header" bindtap="toggleFillForm" hover-class="fill-header-hover">
+        <view class="fill-header-left">
+          <view class="fill-icon app-icon app-icon-default icon-edit" style="width:36rpx;height:36rpx;margin-right:12rpx;--icon-bg:#DBEAFE;--icon-color:#2563EB;"></view>
+          <text class="fill-title">填写自定义信息</text>
+        </view>
+        <view class="fill-arrow app-icon app-icon-default icon-chevron-down" style="width:28rpx;height:28rpx;transform: rotate({{showFillForm ? 180 : 0}}deg);transition: transform 0.3s;"></view>
+      </view>
+      
+      <view class="fill-form" wx:if="{{showFillForm}}">
+        <view class="fill-form-tip">
+          <text>填写以下信息，自动生成个性化投诉信，可直接复制使用</text>
+        </view>
+        <view class="fill-form-list">
+          <view class="fill-form-item" wx:for="{{placeholders}}" wx:key="name">
+            <text class="fill-form-label">{{item.label}}</text>
+            <text class="fill-form-guide" wx:if="{{item.guide}}">{{item.guide}}</text>
+            <input
+              class="fill-form-input"
+              type="text"
+              placeholder="{{item.example ? '如：' + item.example : '请填写' + item.label}}"
+              placeholder-class="fill-placeholder"
+              value="{{formData[item.name]}}"
+              data-field="{{item.name}}"
+              bindinput="onFormInput"
+            />
+          </view>
+        </view>
+        <view class="fill-form-actions">
+          <view class="fill-cancel" bindtap="toggleFillForm" hover-class="fill-cancel-hover">
+            <text>取消</text>
+          </view>
+          <view class="fill-generate" bindtap="generateCustomTemplate" hover-class="fill-generate-hover">
+            <text>生成个性化投诉信</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 个性化提示 -->
+    <view class="custom-tip" wx:if="{{hasCustomContent}}">
+      <view class="custom-tip-icon app-icon app-icon-default icon-check" style="width:28rpx;height:28rpx;margin-right:8rpx;--icon-bg:#D1FAE5;--icon-color:#059669;"></view>
+      <text class="custom-tip-text">已根据您填写的信息生成个性化投诉信，可直接复制使用</text>
+    </view>
+
+    <!-- 模板分块 -->
+    <view class="section" wx:for="{{displaySections}}" wx:key="id">
+      <view class="section-header">
+        <view class="section-num">{{index + 1}}</view>
+        <text class="section-title">{{item.title}}</text>
+        <view class="copy-btn" bindtap="onCopySection" data-section="{{item}}" hover-class="copy-btn-hover">
+          <text>复制</text>
+        </view>
+      </view>
+      <view class="content-card">
+        <view class="content-text">
+          <rich-text nodes="{{item.content}}"></rich-text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 依法维权提示 -->
+    <view class="legal-notice">
+      <view class="legal-notice-header">
+        <view class="legal-icon app-icon app-icon-default icon-law" style="width:32rpx;height:32rpx;margin-right:10rpx;--icon-bg:#FEE2E2;--icon-color:#DC2626;"></view>
+        <text class="legal-title">依法维权提示</text>
+      </view>
+      <view class="legal-content">
+        <text class="legal-text">• 投诉应当基于真实事实，不得捏造、歪曲事实</text>
+        <text class="legal-text">• 不得诬告、陷害他人，否则将承担相应法律责任</text>
+        <text class="legal-text">• 建议先向企业内部投诉，无法解决再向监管部门投诉</text>
+        <text class="legal-text">• 保留好所有证据，包括聊天记录、合同、票据等</text>
+      </view>
+    </view>
+
+    <view style="height: 40rpx;"></view>
+  </view>
+
+  <!-- 自定义弹窗 -->
+  <custom-modal
+    visible="{{modalVisible}}"
+    type="{{modalType}}"
+    title="{{modalTitle}}"
+    content="{{modalContent}}"
+    confirmText="{{modalConfirmText}}"
+    cancelText="{{modalCancelText}}"
+    showCancel="{{modalShowCancel}}"
+    placeholder="{{modalPlaceholder}}"
+    defaultValue="{{modalDefaultValue}}"
+    itemList="{{modalItemList}}"
+    bind:confirm="onModalConfirm"
+    bind:cancel="onModalCancel"
+    bind:select="onModalSelect"
+  />
+</view>
