@@ -293,6 +293,8 @@ config(独立, 含 synonym_dict/hot_words/feature_flag)
 | | category | string | 分类 id |
 | | hot_level | int 1-5 | 热度权重 |
 | | part_num | int | 分片号 |
+| | path_type | enum | 路径类型：gov(政府部门)/legal(法律渠道)/regulator(监管部门)/media(媒体曝光) |
+| | materials | json? | 所需材料清单（数组：名称 + 必填/建议 + 说明），渠道/话术详情展示 |
 | | ext | json | 预留：effect_rating/response_speed/city_code |
 | platform | id, name, url, positioning, target | — | 高层级平台 |
 | script | id, scene, phone_version, written_version, placeholders, legal_basis, related_channel | — | 话术模板 |
