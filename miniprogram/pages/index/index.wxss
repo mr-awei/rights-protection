@@ -667,25 +667,6 @@
   text-align: center;
 }
 
-.vision-logo {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 20rpx;
-}
-
-.vision-logo-icon {
-  width: 88rpx;
-  height: 88rpx;
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 44rpx;
-  color: var(--text-inverse);
-  border: 3rpx solid rgba(255, 255, 255, 0.3);
-}
-
 .vision-title {
   display: block;
   font-size: 44rpx;
@@ -715,17 +696,6 @@
   margin-bottom: 28rpx;
   position: relative;
   overflow: hidden;
-}
-
-.quote-mark {
-  position: absolute;
-  top: 8rpx;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 64rpx;
-  color: rgba(74, 144, 217, 0.15);
-  font-family: Georgia, serif;
-  line-height: 1;
 }
 
 .quote-content {

@@ -1,4 +1,4 @@
-/* pages/script-detail/script-detail.wxss */
+/* detail/script-detail/script-detail.wxss */
 
 /* ========== 加载状态 ========== */
 .loading-container {

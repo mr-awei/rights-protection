@@ -1,6 +1,7 @@
-// pages/script-detail/script-detail.js
+// detail/script-detail/script-detail.js
 const app = getApp();
-const { getScriptById, getRelatedChannels, getScriptPhoneContent, getScriptWrittenContent, preloadChannelPart, getLaws } = require('../../utils/data');
+// 通过 Repository 抽象访问数据（TDD §3/§6），页面不再直接依赖数据模块
+const { channels: channelRepo, scripts: scriptRepo, laws: lawRepo } = require('../repositories').createRepositories();
 
 Page({
   data: {
@@ -103,7 +104,7 @@ Page({
   },
 
   loadScript(id) {
-    const script = getScriptById(id);
+    const script = scriptRepo.getScriptById(id);
     if (!script) {
       wx.showToast({ title: '话术不存在', icon: 'none' });
       setTimeout(() => wx.navigateBack(), 1000);
@@ -114,8 +115,8 @@ Page({
     app.addViewHistory('script', id, script.scene_name || script.name || '投诉话术', '');
 
     // 获取话术内容
-    const phoneRaw = getScriptPhoneContent(script);
-    const writtenRaw = getScriptWrittenContent(script);
+    const phoneRaw = scriptRepo.getScriptPhoneContent(script);
+    const writtenRaw = scriptRepo.getScriptWrittenContent(script);
     const phoneContent = this.highlightPlaceholders(phoneRaw);
     const writtenContent = this.highlightPlaceholders(writtenRaw);
     const evidenceList = script.evidence_list || [];
@@ -147,7 +148,7 @@ Page({
 
     // 第二批：异步加载关联渠道（非核心内容，不阻塞首屏渲染）
     setTimeout(() => {
-      const relatedChannels = getRelatedChannels(id);
+      const relatedChannels = scriptRepo.getRelatedChannels(id);
       this.setData({ relatedChannels });
     }, 50);
   },
@@ -187,7 +188,7 @@ Page({
 
   // 获取相关法律法规
   getRelatedLaws(script) {
-    const allLaws = getLaws();
+    const allLaws = lawRepo.getLaws();
     const keywords = script.keywords || [];
     const sceneName = script.scene_name || '';
 
@@ -252,8 +253,8 @@ Page({
       content = activeTab === 'phone' ? customPhoneText : customWrittenText;
     } else {
       content = activeTab === 'phone'
-        ? getScriptPhoneContent(script)
-        : getScriptWrittenContent(script);
+        ? scriptRepo.getScriptPhoneContent(script)
+        : scriptRepo.getScriptWrittenContent(script);
     }
 
     wx.setClipboardData({
@@ -442,8 +443,8 @@ Page({
    */
   doGenerate() {
     const { script, formData } = this.data;
-    const phoneRaw = getScriptPhoneContent(script);
-    const writtenRaw = getScriptWrittenContent(script);
+    const phoneRaw = scriptRepo.getScriptPhoneContent(script);
+    const writtenRaw = scriptRepo.getScriptWrittenContent(script);
 
     // 替换占位符
     let customPhone = phoneRaw;
@@ -526,9 +527,9 @@ Page({
   onChannelTap(e) {
     const id = e.currentTarget.dataset.id;
     // 预加载分片，跳转后直接使用缓存
-    preloadChannelPart(id);
+    channelRepo.preloadChannelPart(id);
     wx.navigateTo({
-      url: `/pages/channel-detail/channel-detail?id=${id}`
+      url: `/detail/channel-detail/channel-detail?id=${id}`
     });
   },
 
@@ -543,7 +544,7 @@ Page({
     const id = script && script.id ? script.id : '';
     return {
       title: name + ' - 一键复制直接用',
-      path: '/pages/script-detail/script-detail?id=' + id
+      path: '/detail/script-detail/script-detail?id=' + id
     };
   },
 

@@ -4,12 +4,12 @@ const app = getApp();
 Page({
   data: {
     statusBarHeight: 20,
-    version: '1.0.0',
-    dataVersion: '2026.08.30',
+    version: '1.1.0',
+    dataVersion: '2026.09.2',
     channelCount: 122,
-    scriptCount: 6,
-    lawCount: 36,
-    categoryCount: 10,
+    scriptCount: 19,
+    lawCount: 90,
+    categoryCount: 5,
     navTitle: '关于我们',
     showDisclaimer: false,
     fromSettings: false,

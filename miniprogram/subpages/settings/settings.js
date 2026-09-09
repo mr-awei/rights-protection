@@ -1,11 +1,12 @@
-// subsubsubpages/settings/settings.js
+// subpages/settings/settings.js
 const app = getApp();
+const { getChannels, getScripts, getConfig } = require('../../utils/data');
 
 Page({
   data: {
-    appVersion: '1.0.0',
-    dataVersion: '2026.09',
-    dataVerifiedAt: '2026-08-30',
+    appVersion: '1.1.0',
+    dataVersion: '2026.09.2',
+    dataVerifiedAt: '2026-09-09',
     channelCount: 122,
     scriptCount: 19,
     lawCount: 42,
@@ -20,20 +21,16 @@ Page({
   // 加载数据统计
   loadDataStats() {
     try {
-      // 从数据文件获取真实统计
-      const channels = require('../../data/channels_part_1.js').concat(
-        require('../../data/channels_part_2.js'),
-        require('../../data/channels_part_3.js')
-      );
-      const scripts = require('../../data/scripts.js');
-      const laws = require('../../data/laws.js');
-      const config = require('../../data/config.js');
+      // 统计优先取 config 中的静态值：避免为了计数去加载 laws.js(148KB) 等重数据
+      // 渠道/话术本身已在内存，仍按实际数量显示
+      const config = getConfig();
+      const stats = config.data_stats || {};
 
       this.setData({
-        channelCount: channels.length,
-        scriptCount: scripts.length,
-        lawCount: laws.length,
-        dataVersion: config.dataVersion || '2026.09',
+        channelCount: stats.channels || (getChannels() || []).length,
+        scriptCount: stats.scripts || (getScripts() || []).length,
+        lawCount: stats.laws || 0,
+        dataVersion: config.dataVersion || '2026.09.2',
         dataVerifiedAt: config.dataVerifiedAt || '2026-08-30'
       });
     } catch (e) {
@@ -54,7 +51,7 @@ Page({
   // 更新日志
   onChangelogTap() {
     try {
-      const config = require('../../data/config.js');
+      const config = getConfig();
       const changelog = config.changelog || [];
       if (changelog.length === 0) {
         wx.showToast({ title: '暂无更新日志', icon: 'none' });

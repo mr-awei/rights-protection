@@ -3,13 +3,19 @@
     "pages/index/index",
     "pages/category/category",
     "pages/script-list/script-list",
-    "pages/profile/profile",
-    "pages/search/search",
-    "pages/search-result/search-result",
-    "pages/channel-detail/channel-detail",
-    "pages/script-detail/script-detail"
+    "pages/profile/profile"
   ],
   "subPackages": [
+    {
+      "root": "detail",
+      "name": "detail",
+      "pages": [
+        "search/search",
+        "search-result/search-result",
+        "channel-detail/channel-detail",
+        "script-detail/script-detail"
+      ]
+    },
     {
       "root": "subpages",
       "name": "sub",
@@ -19,7 +25,6 @@
         "enterprise-query/enterprise-query",
         "general-template/general-template",
         "search-quality/search-quality",
-        "scene-picker/scene-picker",
         "favorites-history/favorites-history",
         "settings/settings",
         "about/about"
@@ -29,7 +34,19 @@
   "preloadRule": {
     "pages/index/index": {
       "network": "all",
-      "packages": ["sub"]
+      "packages": ["detail"]
+    },
+    "pages/category/category": {
+      "network": "all",
+      "packages": ["detail"]
+    },
+    "pages/script-list/script-list": {
+      "network": "all",
+      "packages": ["detail"]
+    },
+    "pages/profile/profile": {
+      "network": "all",
+      "packages": ["detail", "sub"]
     }
   },
   "window": {

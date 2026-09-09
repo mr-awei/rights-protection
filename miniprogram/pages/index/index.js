@@ -1,7 +1,9 @@
 // pages/index/index.js
 const app = getApp();
-const { search } = require('../../utils/search');
+// 注意：首页不引入搜索能力（utils/search 已下沉到 detail 分包，主包不可跨包引用）
+// 首页搜索统一跳转 detail/search-result，由分包承载检索逻辑
 const { getHotScripts, getConfig, getScripts } = require('../../utils/data');
+const nav = require('../../utils/nav');
 
 Page({
   data: {
@@ -195,12 +197,12 @@ Page({
   onRecentViewTap(e) {
     const item = e.currentTarget.dataset.item;
     if (item.item_type === 'channel') {
-      wx.navigateTo({
-        url: `/pages/channel-detail/channel-detail?id=${item.item_id}`
+      nav.navigateTo({
+        url: `/detail/channel-detail/channel-detail?id=${item.item_id}`
       });
     } else if (item.item_type === 'script') {
-      wx.navigateTo({
-        url: `/pages/script-detail/script-detail?id=${item.item_id}`
+      nav.navigateTo({
+        url: `/detail/script-detail/script-detail?id=${item.item_id}`
       });
     }
   },
@@ -241,7 +243,7 @@ Page({
   onToolEntryTap(e) {
     const url = e.currentTarget.dataset.url;
     if (url) {
-      wx.navigateTo({ url: url });
+      nav.navigateTo({ url: url });
     }
   },
 
@@ -252,7 +254,7 @@ Page({
 
   // 点击搜索框跳转到搜索态页面
   onSearchBoxTap() {
-    wx.navigateTo({ url: '/pages/search/search' });
+    nav.navigateTo({ url: '/detail/search/search' });
   },
 
   onSearchInput(e) {
@@ -283,8 +285,8 @@ Page({
     } catch (e) {}
 
     // 统一跳转到搜索结果页，体验一致
-    wx.navigateTo({
-      url: `/pages/search-result/search-result?keyword=${encodeURIComponent(keyword)}`
+    nav.navigateTo({
+      url: `/detail/search-result/search-result?keyword=${encodeURIComponent(keyword)}`
     });
   },
 
@@ -304,8 +306,8 @@ Page({
     const searchKeyword = e.currentTarget.dataset.keyword || '';
     const issueType = e.currentTarget.dataset.issuetype || '';
     // 跳转到搜索结果页，传递关键词和问题类型筛选
-    wx.navigateTo({
-      url: '/pages/search-result/search-result?keyword=' + encodeURIComponent(searchKeyword) + '&issue_type=' + issueType
+    nav.navigateTo({
+      url: '/detail/search-result/search-result?keyword=' + encodeURIComponent(searchKeyword) + '&issue_type=' + issueType
     });
   },
 
@@ -333,8 +335,8 @@ Page({
 
   onScriptTap(e) {
     const id = e.currentTarget.dataset.id;
-    wx.navigateTo({
-      url: `/pages/script-detail/script-detail?id=${id}`
+    nav.navigateTo({
+      url: `/detail/script-detail/script-detail?id=${id}`
     });
   },
 

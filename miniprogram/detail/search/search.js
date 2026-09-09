@@ -1,4 +1,4 @@
-// pages/search/search.js
+// detail/search/search.js
 const app = getApp();
 const { searchChannels, searchScripts, getChannels, getScripts, getConfig } = require('../../utils/data');
 
@@ -140,12 +140,12 @@ Page({
     if (item.type === 'channel') {
       this.doSearch(item.name);
       wx.navigateTo({
-        url: `/pages/channel-detail/channel-detail?id=${item.id}`
+        url: `/detail/channel-detail/channel-detail?id=${item.id}`
       });
     } else if (item.type === 'script') {
       this.doSearch(item.name);
       wx.navigateTo({
-        url: `/pages/script-detail/script-detail?id=${item.id}`
+        url: `/detail/script-detail/script-detail?id=${item.id}`
       });
     }
   },
@@ -159,7 +159,7 @@ Page({
     this.loadSearchHistory();
 
     wx.navigateTo({
-      url: `/pages/search-result/search-result?keyword=${encodeURIComponent(kw)}`
+      url: `/detail/search-result/search-result?keyword=${encodeURIComponent(kw)}`
     });
   },
 

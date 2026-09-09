@@ -4,7 +4,8 @@
 
 const { extractKeywords, KEYWORDS } = require('./keyword-extractor');
 const { correctTypos, fuzzyMatch, getPinyinInitials } = require('./search-enhance');
-const data = require('./data');
+const data = require('../../utils/data');
+const dataDetail = require('./data-detail');
 
 // 关键词词库引用（用于领域/问题匹配加权）
 const KEYWORDS_REF = KEYWORDS;
@@ -287,7 +288,7 @@ function fallbackSearch(query, keywords, domains = [], issues = []) {
   }
 
   // 搜索高层级平台
-  const platforms = data.getPlatforms();
+  const platforms = dataDetail.getPlatforms();
   for (const platform of platforms) {
     let score = 0;
     const name = (platform.name || '').toLowerCase();

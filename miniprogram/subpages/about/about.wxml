@@ -14,11 +14,11 @@
     <!-- Logo和应用信息 -->
     <view class="app-info">
       <view class="app-logo">
-        <image src="/images/logo.png" mode="aspectFit"></image>
+        <image src="/images/logo.jpg" mode="aspectFit"></image>
       </view>
       <view class="app-name">我不能被欺负</view>
       <view class="app-slogan">用法律武器，维护合法权益</view>
-      <view class="app-version">Version {{version}} · MVP</view>
+      <view class="app-version">Version {{version}}</view>
     </view>
 
     <!-- 相关信息 -->

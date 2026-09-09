@@ -1,6 +1,7 @@
 // pages/script-list/script-list.js
 const app = getApp();
 const { getScripts, searchScripts } = require('../../utils/data');
+const nav = require('../../utils/nav');
 
 Page({
   data: {
@@ -85,8 +86,8 @@ Page({
 
   onScriptTap(e) {
     const id = e.currentTarget.dataset.id;
-    wx.navigateTo({
-      url: `/pages/script-detail/script-detail?id=${id}`
+    nav.navigateTo({
+      url: `/detail/script-detail/script-detail?id=${id}`
     });
   },
 

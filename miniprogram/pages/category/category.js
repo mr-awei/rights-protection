@@ -1,5 +1,6 @@
 // pages/category/category.js
-const { getCategories, getChannelsByCategory, preloadChannelPart } = require('../../utils/data.js');
+const { getCategories, getChannelsByCategory } = require('../../utils/data.js');
+const nav = require('../../utils/nav');
 const config = require('../../data/config.js');
 
 Page({
@@ -186,11 +187,9 @@ Page({
   // 点击渠道
   onChannelTap(e) {
     const id = e.currentTarget.dataset.id;
-    // 预加载分片（轻量操作，只加载约60KB的分片文件，不做完整数据处理）
-    // 这样跳转后详情页可以直接使用缓存，避免同步加载导致的卡顿
-    preloadChannelPart(id);
-    wx.navigateTo({
-      url: `/pages/channel-detail/channel-detail?id=${id}`
+    // 注：分片预加载已随详情页下沉到 detail 分包，主包不再触碰分片数据
+    nav.navigateTo({
+      url: `/detail/channel-detail/channel-detail?id=${id}`
     });
   },
 

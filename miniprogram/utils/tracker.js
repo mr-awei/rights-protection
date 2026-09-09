@@ -1,6 +1,6 @@
 /**
  * 统一埋点接口（Tracker）
- * MVP版本：本地存储埋点数据，支持后续扩展为服务器上报
+ * 本地存储埋点数据，支持后续扩展为服务器上报
  * 设计原则：统一接口、异步非阻塞、可扩展、不影响主流程性能
  */
 
@@ -29,11 +29,10 @@ const PAGE_NAMES = {
   'pages/index/index': '首页',
   'pages/category/category': '分类页',
   'pages/profile/profile': '我的页',
-  'pages/search/search': '搜索页',
-  'pages/search-result/search-result': '搜索结果页',
-  'subpages/scene-picker/scene-picker': '场景选择页',
-  'pages/channel-detail/channel-detail': '渠道详情页',
-  'pages/script-detail/script-detail': '话术详情页',
+  'detail/search/search': '搜索页',
+  'detail/search-result/search-result': '搜索结果页',
+  'detail/channel-detail/channel-detail': '渠道详情页',
+  'detail/script-detail/script-detail': '话术详情页',
   'subpages/general-template/general-template': '通用投诉信模板',
   'subpages/hotline-change/hotline-change': '热线变更速查',
   'subpages/followup-schedule/followup-schedule': '投诉跟进时间表',

@@ -6,14 +6,14 @@
       <!-- 用户信息 -->
       <view class="user-section">
         <view class="avatar">
-          <image class="avatar-img" src="/images/logo.png" mode="aspectFill"></image>
+          <image class="avatar-img" src="/images/logo.jpg" mode="aspectFill"></image>
         </view>
         <view class="user-info">
           <text class="user-name">正义战士</text>
           <text class="user-desc">用法律维护自己的权益</text>
         </view>
         <view class="user-level">
-          <text class="level-text">MVP</text>
+          <text class="level-text">正式版</text>
         </view>
       </view>
 
@@ -102,7 +102,7 @@
 
     <!-- 底部版本信息 -->
     <view class="footer">
-      <text class="footer-version">我不能被欺负 v1.0.0 MVP</text>
+      <text class="footer-version">我不能被欺负 v1.1.0</text>
       <text class="footer-copyright">数据仅供参考，以官方平台为准</text>
     </view>
   </view>

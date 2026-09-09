@@ -1,6 +1,7 @@
-// pages/search-result/search-result.js
-const { search, highlightKeywords } = require('../../utils/search');
-const { getChannelById, getScriptById, getConfig } = require('../../utils/data');
+// detail/search-result/search-result.js
+const { search, highlightKeywords } = require('../utils/search');
+// 通过 Repository 抽象访问数据（TDD §3/§6），页面不再直接依赖数据模块
+const { channels: channelRepo, scripts: scriptRepo, config: configRepo } = require('../repositories').createRepositories();
 const config = require('../../data/config.js');
 
 Page({
@@ -40,7 +41,7 @@ Page({
       this.setData({ statusBarHeight: 20 });
     }
     // 从配置文件读取热门搜索
-    const appConfig = getConfig();
+    const appConfig = configRepo.getConfig();
     this.setData({ hotSearches: appConfig.hot_search_words || [] });
     
     // 加载问题类型列表
@@ -111,7 +112,7 @@ Page({
           scene.channels.forEach(channelId => {
             // 检查是否已经存在
             if (!sceneResults.find(r => r.id === channelId && r.type === 'channel')) {
-              const channel = getChannelById(channelId);
+              const channel = channelRepo.getChannelDetail(channelId);
               if (channel) {
                 sceneResults.push({
                   ...channel,
@@ -129,7 +130,7 @@ Page({
           scene.scripts.forEach(scriptId => {
             // 检查是否已经存在
             if (!sceneResults.find(r => r.id === scriptId && r.type === 'script')) {
-              const script = getScriptById(scriptId);
+              const script = scriptRepo.getScriptById(scriptId);
               if (script) {
                 sceneResults.push({
                   ...script,
@@ -207,15 +208,15 @@ Page({
 
   fallbackSearch(keyword) {
     // 简单名称匹配兜底
-    const { searchChannels, searchScripts } = require('../../utils/data');
-    const channels = searchChannels(keyword).map(c => ({
+    const repo = require('../repositories').createRepositories();
+    const channels = repo.channels.searchChannels(keyword).map(c => ({
       type: 'channel',
       id: c.id,
       name: c.name,
       scope: c.scope,
       score: 1
     }));
-    const scripts = searchScripts(keyword).map(s => ({
+    const scripts = repo.scripts.searchScripts(keyword).map(s => ({
       type: 'script',
       id: s.id,
       scene_name: s.scene_name,
@@ -300,14 +301,13 @@ Page({
     const item = e.currentTarget.dataset.item;
     if (item.type === 'channel' || item.type === 'platform') {
       // 预加载分片，跳转后直接使用缓存
-      const { preloadChannelPart } = require('../../utils/data');
-      preloadChannelPart(item.id);
+      channelRepo.preloadChannelPart(item.id);
       wx.navigateTo({
-        url: `/pages/channel-detail/channel-detail?id=${item.id}`
+        url: `/detail/channel-detail/channel-detail?id=${item.id}`
       });
     } else {
       wx.navigateTo({
-        url: `/pages/script-detail/script-detail?id=${item.id}`
+        url: `/detail/script-detail/script-detail?id=${item.id}`
       });
     }
   },

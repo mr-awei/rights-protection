@@ -1,6 +1,7 @@
 // pages/profile/profile.js
 const app = getApp();
 const { getChannelById, getScriptById } = require('../../utils/data.js');
+const nav = require('../../utils/nav');
 
 Page({
   data: {
@@ -231,16 +232,16 @@ Page({
   // 点击收藏的渠道
   onFavoriteChannelTap(e) {
     const id = e.currentTarget.dataset.id;
-    wx.navigateTo({
-      url: `/pages/channel-detail/channel-detail?id=${id}`
+    nav.navigateTo({
+      url: `/detail/channel-detail/channel-detail?id=${id}`
     });
   },
 
   // 点击收藏的话术
   onFavoriteScriptTap(e) {
     const id = e.currentTarget.dataset.id;
-    wx.navigateTo({
-      url: `/pages/script-detail/script-detail?id=${id}`
+    nav.navigateTo({
+      url: `/detail/script-detail/script-detail?id=${id}`
     });
   },
 
@@ -284,12 +285,12 @@ Page({
   onViewHistoryTap(e) {
     const item = e.currentTarget.dataset.item;
     if (item.item_type === 'channel') {
-      wx.navigateTo({
-        url: `/pages/channel-detail/channel-detail?id=${item.item_id}`
+      nav.navigateTo({
+        url: `/detail/channel-detail/channel-detail?id=${item.item_id}`
       });
     } else if (item.item_type === 'script') {
-      wx.navigateTo({
-        url: `/pages/script-detail/script-detail?id=${item.item_id}`
+      nav.navigateTo({
+        url: `/detail/script-detail/script-detail?id=${item.item_id}`
       });
     }
   },
@@ -316,17 +317,17 @@ Page({
     const type = e.currentTarget.dataset.type;
     if (type === 'channels') {
       // 跳转到收藏历史页面，自动选中渠道Tab
-      wx.navigateTo({
+      nav.navigateTo({
         url: '/subpages/favorites-history/favorites-history?tab=channels'
       });
     } else if (type === 'scripts') {
       // 跳转到收藏历史页面，自动选中话术Tab
-      wx.navigateTo({
+      nav.navigateTo({
         url: '/subpages/favorites-history/favorites-history?tab=scripts'
       });
     } else if (type === 'viewHistory') {
       // 跳转到收藏历史页面，自动选中历史Tab
-      wx.navigateTo({
+      nav.navigateTo({
         url: '/subpages/favorites-history/favorites-history?tab=history'
       });
     } else if (type === 'search') {
@@ -356,14 +357,14 @@ Page({
   // 查看全部收藏
   onViewAllFavorites(e) {
     const tab = e.currentTarget.dataset.tab || this.data.activeFavTab;
-    wx.navigateTo({
+    nav.navigateTo({
       url: `/subpages/favorites-history/favorites-history?tab=${tab}`
     });
   },
 
   // 查看全部历史
   onViewAllHistory() {
-    wx.navigateTo({
+    nav.navigateTo({
       url: '/subpages/favorites-history/favorites-history?tab=history'
     });
   },
@@ -374,11 +375,11 @@ Page({
     const tool = this.data.toolList[index];
 
     if (tool.page === 'about') {
-      wx.navigateTo({ url: '/subpages/about/about' });
+      nav.navigateTo({ url: '/subpages/about/about' });
     } else if (tool.page === '') {
       wx.showToast({ title: `${tool.name}功能开发中`, icon: 'none' });
     } else {
-      wx.navigateTo({
+      nav.navigateTo({
         url: `/subpages/${tool.page}/${tool.page}`,
         fail: () => {
           wx.showToast({ title: `${tool.name}功能开发中`, icon: 'none' });
@@ -392,7 +393,7 @@ Page({
     const index = e.currentTarget.dataset.index;
     const item = this.data.otherList[index];
     if (item.page === 'settings') {
-      wx.navigateTo({ url: '/subpages/settings/settings' });
+      nav.navigateTo({ url: '/subpages/settings/settings' });
     } else if (item.page === '') {
       wx.showToast({ title: `${item.name}功能开发中`, icon: 'none' });
     }

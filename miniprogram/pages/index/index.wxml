@@ -197,9 +197,6 @@
       <view class="vision-header">
         <view class="vision-header-bg"></view>
         <view class="vision-header-content">
-          <view class="vision-logo">
-            <view class="vision-logo-icon app-icon app-icon-default icon-shield"></view>
-          </view>
           <text class="vision-title">我们的愿景</text>
           <text class="vision-subtitle">愿每一个人都能被平等对待</text>
         </view>
@@ -209,7 +206,6 @@
       <view class="vision-body">
         <!-- 引言卡片 -->
         <view class="vision-quote-card">
-          <view class="quote-mark">"</view>
           <view class="quote-content">
             <text class="quote-line">当你遭遇不公，不必沉默</text>
             <text class="quote-line">当你权利受损，不必退缩</text>

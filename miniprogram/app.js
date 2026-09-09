@@ -11,7 +11,7 @@ App({
       scripts: []
     },
     searchLogs: [],
-    dataVersion: '2026.09',
+    dataVersion: '2026.09.2',
     pendingCategory: null,
     tracker: tracker
   },

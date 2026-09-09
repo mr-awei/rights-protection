@@ -1,17 +1,27 @@
 /**
  * 渠道索引自动生成脚本
  * 用法：node scripts/generate-index.js
- * 
- * 基于channels_part_1/2/3.js自动生成channels_index.js
+ *
+ * 基于 detail/data/channels_part_1/2/3.js 自动生成 data/channels_index.js
  * 确保索引文件与分片文件保持一致
+ *
+ * 同时自动维护 data/config.js 中的 data_stats（渠道/话术/法规/平台 条数），
+ * 设置页直接读该字段展示，无需在运行时加载 laws.js(148KB) 等重数据。
+ * 注意：分片与 laws/platforms 已下沉到 detail 分包，路径与运行时保持一致。
  */
 
 const fs = require('fs');
 const path = require('path');
 
 const DATA_DIR = path.join(__dirname, '..', 'miniprogram', 'data');
+const DETAIL_DATA_DIR = path.join(__dirname, '..', 'miniprogram', 'detail', 'data');
+
 const INDEX_FILE = path.join(DATA_DIR, 'channels_index.js');
-const PART_FILES = [1, 2, 3].map(i => path.join(DATA_DIR, `channels_part_${i}.js`));
+const CONFIG_FILE = path.join(DATA_DIR, 'config.js');
+const SCRIPTS_FILE = path.join(DATA_DIR, 'scripts.js');
+const LAWS_FILE = path.join(DETAIL_DATA_DIR, 'laws.js');
+const PLATFORMS_FILE = path.join(DETAIL_DATA_DIR, 'platforms.js');
+const PART_FILES = [1, 2, 3].map(i => path.join(DETAIL_DATA_DIR, 'channels_part_' + i + '.js'));
 
 console.log('========== 生成渠道索引 ==========\n');
 
@@ -20,7 +30,7 @@ const allChannels = [];
 PART_FILES.forEach((file, idx) => {
   delete require.cache[require.resolve(file)];
   const data = require(file);
-  data.forEach((c, i) => {
+  data.forEach(c => {
     c.part_num = idx + 1;
     allChannels.push(c);
   });
@@ -85,6 +95,47 @@ if (missingCount === 0) {
   console.log('  ✅ 所有必需字段完整');
 } else {
   console.log('  ❌ 共缺少' + missingCount + '个字段');
+  process.exit(1);
+}
+
+// ========== 同步 data_stats 到 config.js ==========
+console.log('\n========== 同步数据统计 ==========');
+
+function countOf(file) {
+  try {
+    delete require.cache[require.resolve(file)];
+    const d = require(file);
+    return Array.isArray(d) ? d.length : 0;
+  } catch (e) {
+    console.log('  ⚠️ 读取失败: ' + path.basename(file) + ' -> ' + e.message);
+    return 0;
+  }
+}
+
+const dataStats = {
+  channels: allChannels.length,
+  scripts: countOf(SCRIPTS_FILE),
+  laws: countOf(LAWS_FILE),
+  platforms: countOf(PLATFORMS_FILE)
+};
+console.log('  ' + JSON.stringify(dataStats));
+
+try {
+  let cfg = fs.readFileSync(CONFIG_FILE, 'utf8');
+  const block = '"data_stats": {\n' +
+    Object.keys(dataStats).map(k => '    "' + k + '": ' + dataStats[k]).join(',\n') +
+    '\n  }';
+
+  if (/"data_stats"\s*:\s*\{[^}]*\}/.test(cfg)) {
+    cfg = cfg.replace(/"data_stats"\s*:\s*\{[^}]*\}/, block);
+  } else {
+    // 首次写入：插到 data_verified_at 之后
+    cfg = cfg.replace(/("data_verified_at"\s*:\s*"[^"]*",)/, '$1\n  ' + block + ',');
+  }
+  fs.writeFileSync(CONFIG_FILE, cfg, 'utf8');
+  console.log('  ✅ config.js 的 data_stats 已更新');
+} catch (e) {
+  console.log('  ❌ 写入 config.js 失败: ' + e.message);
   process.exit(1);
 }
 

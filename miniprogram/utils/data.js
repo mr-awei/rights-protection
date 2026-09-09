@@ -1,20 +1,19 @@
 // utils/data.js
-// 数据管理（分片加载 + 内存缓存 + 按需查询）
-// 设计目标：支持扩展到几千条数据，单文件不超过500KB，启动速度快
+// 主包数据层：渠道索引、话术、分类、配置
+// 说明：渠道分片(268KB)、laws(148KB)、platforms(24KB) 已下沉到 detail 分包（detail/data/），
+//      主包不可跨包引用，相关能力见 detail/utils/data-detail.js。
+//      本文件只保留启动必需与列表展示所需的轻量数据，保证启动解析量最小。
 
 // 数据缓存
 let channelIndex = null;      // 轻量索引（启动时加载）
-let channelParts = {};        // 已加载的分片缓存 {part_num: [channels]}
 let scriptsData = null;
-let lawsData = null;
 let categoriesData = null;
 let configData = null;
-let shardConfig = null;       // 分片配置
+let shardConfig = null;       // 分片配置（仅用于索引元信息）
 let hotlineChangeData = null;  // 热线变更数据
 let followupScheduleData = null; // 跟进时间表数据
 let enterpriseQueryData = null;  // 企业查询数据
 let generalTemplateData = null;  // 通用投诉信模板数据
-let platformsData = null;        // 高层级诉求平台数据（独立表）
 
 /**
  * 初始化：加载索引和轻量数据（启动时调用，速度快）
@@ -38,77 +37,12 @@ function loadAllData() {
     shardConfig = null;
   }
 
-  // 3. 索引自动同步检测：检查索引是否包含必要字段
-  // 如果索引缺少issue_types等新字段，说明索引文件过时，自动从分片重建
+  // 3. 索引完整性校验：缺失关键字段时只告警，不再尝试从分片重建
+  //    （分片已下沉到 detail 分包，主包无法访问；索引需随构建脚本保持最新）
   if (channelIndex && channelIndex.length > 0) {
     const firstItem = channelIndex[0];
-    const indexNeedsRebuild = !firstItem.issue_types || 
-                               !firstItem.category_user_l2 ||
-                               !firstItem.related_script_id;
-    
-    if (indexNeedsRebuild) {
-      console.warn('[data] 检测到索引文件缺少必要字段（issue_types/category_user_l2等），自动从分片重建索引...');
-      try {
-        const rebuiltIndex = [];
-        const numParts = (shardConfig && shardConfig.num_parts) || 3;
-        for (let i = 1; i <= numParts; i++) {
-          try {
-            const part = require(`../data/channels_part_${i}.js`);
-            channelParts[i] = part;
-            part.forEach(c => {
-              rebuiltIndex.push({
-                id: c.id,
-                name: c.name,
-                phone: c.phone || '',
-                tags: c.tags || [],
-                category_l1: c.category_l1 || '',
-                category_l2: c.category_l2 || '',
-                category_user: c.category_user || '',
-                category_user_l2: c.category_user_l2 || '',
-                issue_types: c.issue_types || [],
-                related_script_id: c.related_script_id || '',
-                channel_type: c.channel_type || 'official',
-                hot_level: c.hot_level || 0,
-                part_num: i
-              });
-            });
-          } catch (e) {
-            console.warn('[data] 加载分片' + i + '失败:', e.message);
-          }
-        }
-        if (rebuiltIndex.length > 0) {
-          channelIndex = rebuiltIndex;
-
-        }
-      } catch (e) {
-        console.error('[data] 自动重建索引失败:', e);
-      }
-    }
-  }
-
-  // 4. 如果索引不存在，回退到完整数据模式（兼容旧版本）
-  if (!channelIndex) {
-    try {
-      const fullData = require('../data/channels.js');
-      // 将完整数据转换为索引格式
-      channelIndex = fullData.map(c => ({
-        id: c.id,
-        name: c.name,
-        category_l1: c.category_l1,
-        category_l2: c.category_l2,
-        category_user_l2: c.category_user_l2 || c.category_l2,
-        issue_types: c.issue_types || [],
-        tags: c.tags || [],
-        hot_level: c.hot_level || 0,
-        phone: c.phone || '',
-        part_num: 0,
-        _full: c  // 缓存完整数据
-      }));
-      // 同时缓存完整数据到part 0
-      channelParts[0] = fullData;
-    } catch (e) {
-      console.error('[data] 加载渠道数据失败:', e);
-      channelIndex = [];
+    if (!firstItem.issue_types || !firstItem.category_user_l2 || !firstItem.related_script_id) {
+      console.warn('[data] 索引文件缺少必要字段（issue_types/category_user_l2/related_script_id），请重新生成 channels_index.js');
     }
   }
 
@@ -120,53 +54,38 @@ function loadAllData() {
     scriptsData = [];
   }
 
-  // 5. 加载其他轻量数据
-  try { lawsData = require('../data/laws.js'); } catch (e) { lawsData = []; }
+  // 5. 启动仅加载分类与配置（都是几 KB）
+  //    说明：各工具页数据（热线变更/跟进表/企业查询/模板）以及分片、laws、platforms
+  //    全部改为首次使用时才加载，避免启动阶段同步解析数百 KB 拖慢 appLaunch
   try { categoriesData = require('../data/categories.js'); } catch (e) { categoriesData = []; }
   try { configData = require('../data/config.js'); } catch (e) { configData = {}; }
-  try { hotlineChangeData = require('../data/hotline_change.js'); } catch (e) { hotlineChangeData = []; }
-  try { followupScheduleData = require('../data/followup_schedule.js'); } catch (e) { followupScheduleData = []; }
-  try { enterpriseQueryData = require('../data/enterprise_query.js'); } catch (e) { enterpriseQueryData = []; }
-  try { generalTemplateData = require('../data/general_template.js'); } catch (e) { generalTemplateData = null; }
-  try { platformsData = require('../data/platforms.js'); } catch (e) { platformsData = []; }
 }
 
 /**
- * 按需加载指定分片（点击详情时调用）
+ * 非启动必需数据模块的懒加载入口（必须写成字面量 require，便于依赖分析）
+ * 只有真正调用对应 getter 时才会解析模块
  */
-function loadPart(partNum) {
-  if (channelParts[partNum]) return channelParts[partNum];
-  if (partNum === 0) return channelParts[0] || [];
-
-  try {
-    const part = require(`../data/channels_part_${partNum}.js`);
-    channelParts[partNum] = part;
-
-    return part;
-  } catch (e) {
-    console.error(`[data] 加载分片 ${partNum} 失败:`, e);
-    return [];
+function lazyRequire(name) {
+  switch (name) {
+    case 'hotline_change':
+      return require('../data/hotline_change.js');
+    case 'followup_schedule':
+      return require('../data/followup_schedule.js');
+    case 'enterprise_query':
+      return require('../data/enterprise_query.js');
+    case 'general_template':
+      return require('../data/general_template.js');
+    default:
+      throw new Error('未知的数据模块: ' + name);
   }
 }
 
 /**
- * 根据ID获取渠道详细信息（按需加载分片）
+ * 根据ID获取渠道基本信息（主包只持有轻量索引，不加载分片）
+ * 列表、收藏、历史等场景够用；需要完整字段请走 detail/utils/data-detail.js
  */
 function getChannelById(id) {
-  loadAllData();
-  if (!channelIndex) return null;
-
-  // 1. 从索引中查找
-  const idxItem = channelIndex.find(c => c.id === id);
-  if (!idxItem) return null;
-
-  // 2. 如果是完整数据模式（part_num=0且有_full），直接返回
-  if (idxItem._full) return idxItem._full;
-
-  // 3. 按需加载对应分片
-  const partNum = idxItem.part_num || 1;
-  const part = loadPart(partNum);
-  return part.find(c => c.id === id) || null;
+  return getChannelIndexItem(id);
 }
 
 /**
@@ -187,17 +106,13 @@ function getChannelIndexItem(id) {
 }
 
 /**
- * 预加载渠道分片（在列表页点击时调用，跳转后直接使用缓存）
+ * 由 detail 分包回写重建后的渠道索引（索引自愈用）
+ * 分片已下沉到分包，主包无法自行重建，只能由分包重建后写回
  */
-function preloadChannelPart(id) {
-  const idxItem = getChannelIndexItem(id);
-  if (!idxItem) return false;
-  const partNum = idxItem.part_num || 1;
-  if (partNum > 0) {
-    loadPart(partNum);
-    return true;
+function setChannelIndex(index) {
+  if (Array.isArray(index) && index.length > 0) {
+    channelIndex = index;
   }
-  return false;
 }
 
 /**
@@ -211,11 +126,6 @@ function getScripts() {
 /**
  * 获取所有法律
  */
-function getLaws() {
-  loadAllData();
-  return lawsData || [];
-}
-
 /**
  * 获取分类树（从categories.js读取用户视角分类配置）
  */
@@ -258,11 +168,6 @@ function getScriptById(id) {
 /**
  * 根据ID获取法律
  */
-function getLawById(id) {
-  loadAllData();
-  return lawsData.find(l => l.id === id);
-}
-
 /**
  * 根据分类获取渠道索引（用category_user字段精准匹配，100%准确）
  */
@@ -430,20 +335,13 @@ function getScriptWrittenContent(script) {
 /**
  * 获取分片统计信息（用于调试）
  */
-function getShardStats() {
-  loadAllData();
-  return {
-    total: channelIndex ? channelIndex.length : 0,
-    loadedParts: Object.keys(channelParts).length,
-    partConfig: shardConfig
-  };
-}
-
 /**
  * 获取热线变更数据
  */
 function getHotlineChanges() {
-  loadAllData();
+  if (hotlineChangeData === null) {
+    try { hotlineChangeData = lazyRequire('hotline_change'); } catch (e) { hotlineChangeData = []; }
+  }
   return hotlineChangeData || [];
 }
 
@@ -451,7 +349,9 @@ function getHotlineChanges() {
  * 获取跟进时间表数据
  */
 function getFollowupSchedule() {
-  loadAllData();
+  if (followupScheduleData === null) {
+    try { followupScheduleData = lazyRequire('followup_schedule'); } catch (e) { followupScheduleData = []; }
+  }
   return followupScheduleData || [];
 }
 
@@ -459,7 +359,9 @@ function getFollowupSchedule() {
  * 获取企业查询数据
  */
 function getEnterpriseQueries() {
-  loadAllData();
+  if (enterpriseQueryData === null) {
+    try { enterpriseQueryData = lazyRequire('enterprise_query'); } catch (e) { enterpriseQueryData = []; }
+  }
   return enterpriseQueryData || [];
 }
 
@@ -467,55 +369,27 @@ function getEnterpriseQueries() {
  * 获取通用投诉信模板
  */
 function getGeneralTemplate() {
-  loadAllData();
+  if (generalTemplateData === null) {
+    try { generalTemplateData = lazyRequire('general_template'); } catch (e) {
+      console.error('[data] 加载通用模板失败:', e);
+      generalTemplateData = null;
+    }
+  }
   return generalTemplateData;
-}
-
-/**
- * 获取所有高层级诉求平台
- */
-function getPlatforms() {
-  loadAllData();
-  return platformsData || [];
-}
-
-/**
- * 根据ID获取高层级平台
- */
-function getPlatformById(id) {
-  loadAllData();
-  if (!platformsData) return null;
-  return platformsData.find(p => p.id === id) || null;
-}
-
-/**
- * 搜索高层级平台
- */
-function searchPlatforms(keyword) {
-  loadAllData();
-  if (!keyword || !platformsData) return platformsData || [];
-  const kw = keyword.toLowerCase();
-  return platformsData.filter(p =>
-    (p.name && p.name.toLowerCase().includes(kw)) ||
-    (p.phone && p.phone.toLowerCase().includes(kw)) ||
-    (p.scope && p.scope.toLowerCase().includes(kw)) ||
-    (p.tags && p.tags.some(t => t.toLowerCase().includes(kw))) ||
-    (p.platform_category && p.platform_category.toLowerCase().includes(kw))
-  );
 }
 
 module.exports = {
   loadAllData,
   getChannels,
   getScripts,
-  getLaws,
   getCategories,
   getConfig,
+  // 主包只提供索引级渠道信息（列表/收藏/历史够用）
+  // 完整渠道详情、法律法规、高层级平台请从 detail/utils/data-detail.js 获取
   getChannelById,
   getChannelIndexItem,
-  preloadChannelPart,
+  setChannelIndex,
   getScriptById,
-  getLawById,
   getChannelsByCategory,
   getHotChannels,
   getHotScripts,
@@ -525,22 +399,20 @@ module.exports = {
   searchScripts,
   getScriptPhoneContent,
   getScriptWrittenContent,
-  getShardStats,
-  loadPart,
   getHotlineChanges,
   getFollowupSchedule,
   getEnterpriseQueries,
   getGeneralTemplate,
-  getPlatforms,
-  getPlatformById,
-  searchPlatforms,
   normalizeChannel,
   getChannelCategoryL1,
   getChannelUserCategory,
   getCategoryL1List,
   getUserCategoryList,
   getChannelsByCategoryL1,
-  CATEGORY_L1_TO_USER
+  // 延迟取值：该常量定义在下方，直接导出在转译后会拿到 undefined
+  get CATEGORY_L1_TO_USER() {
+    return CATEGORY_L1_TO_USER;
+  }
 };
 
 // ============================================================

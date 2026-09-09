@@ -1,6 +1,7 @@
 // subsubsubpages/favorites-history/favorites-history.js
 const app = getApp();
 const { getChannelById, getScriptById } = require('../../utils/data');
+const nav = require('../../utils/nav');
 
 const PAGE_SIZE = 10; // 每页加载10条
 
@@ -313,16 +314,16 @@ Page({
   // 点击收藏渠道
   onChannelTap(e) {
     const id = e.currentTarget.dataset.id;
-    wx.navigateTo({
-      url: `/pages/channel-detail/channel-detail?id=${id}`
+    nav.navigateTo({
+      url: `/detail/channel-detail/channel-detail?id=${id}`
     });
   },
 
   // 点击收藏话术
   onScriptTap(e) {
     const id = e.currentTarget.dataset.id;
-    wx.navigateTo({
-      url: `/pages/script-detail/script-detail?id=${id}`
+    nav.navigateTo({
+      url: `/detail/script-detail/script-detail?id=${id}`
     });
   },
 
@@ -330,12 +331,12 @@ Page({
   onHistoryTap(e) {
     const item = e.currentTarget.dataset.item;
     if (item.item_type === 'channel') {
-      wx.navigateTo({
-        url: `/pages/channel-detail/channel-detail?id=${item.item_id}`
+      nav.navigateTo({
+        url: `/detail/channel-detail/channel-detail?id=${item.item_id}`
       });
     } else if (item.item_type === 'script') {
-      wx.navigateTo({
-        url: `/pages/script-detail/script-detail?id=${item.item_id}`
+      nav.navigateTo({
+        url: `/detail/script-detail/script-detail?id=${item.item_id}`
       });
     }
   },

@@ -1,6 +1,7 @@
-// pages/channel-detail/channel-detail.js
+// detail/channel-detail/channel-detail.js
 const app = getApp();
-const { getChannelById, getRelatedScripts, getLaws } = require('../../utils/data');
+// 通过 Repository 抽象访问数据（TDD §3/§6），页面不再直接依赖数据模块
+const { channels: channelRepo, laws: lawRepo } = require('../repositories').createRepositories();
 const { convertSourceToName } = require('../../utils/source-utils');
 
 Page({
@@ -96,7 +97,7 @@ Page({
   },
 
   loadChannel(id) {
-    const channel = getChannelById(id);
+    const channel = channelRepo.getChannelDetail(id);
     if (!channel) {
       wx.showToast({ title: '渠道不存在', icon: 'none' });
       setTimeout(() => wx.navigateBack(), 1000);
@@ -132,8 +133,8 @@ Page({
 
     // 第二批：异步加载关联内容（话术、法律依据），不阻塞首屏渲染
     setTimeout(() => {
-      const relatedScripts = getRelatedScripts(id);
-      const allLaws = getLaws();
+      const relatedScripts = channelRepo.getRelatedScripts(id);
+      const allLaws = lawRepo.getLaws();
       
       // 根据渠道分类筛选相关法律法规
       const categoryLaws = this.getLawsByCategory(channel, allLaws);
@@ -285,7 +286,7 @@ Page({
 
     // 查找替代渠道
     if (channel.merged_to) {
-      const replacement = getChannelById(channel.merged_to);
+      const replacement = channelRepo.getChannelDetail(channel.merged_to);
       if (replacement) {
         info.replacementName = replacement.name;
         info.replacementPhone = replacement.phone || '';
@@ -416,7 +417,7 @@ Page({
     const { statusInfo } = this.data;
     if (statusInfo && statusInfo.replacementId) {
       wx.redirectTo({
-        url: `/pages/channel-detail/channel-detail?id=${statusInfo.replacementId}`
+        url: `/detail/channel-detail/channel-detail?id=${statusInfo.replacementId}`
       });
     }
   },
@@ -469,7 +470,7 @@ Page({
   onScriptTap(e) {
     const id = e.currentTarget.dataset.id;
     wx.navigateTo({
-      url: `/pages/script-detail/script-detail?id=${id}`
+      url: `/detail/script-detail/script-detail?id=${id}`
     });
   },
 
