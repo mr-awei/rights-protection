@@ -2,5 +2,7 @@
   "navigationBarTitleText": "设置",
   "navigationBarBackgroundColor": "#4A90D9",
   "navigationBarTextStyle": "white",
-  "usingComponents": {}
+  "usingComponents": {
+    "list-item": "/components/list-item/list-item"
+  }
 }
