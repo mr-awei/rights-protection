@@ -37,13 +37,13 @@
       </view>
       <view class="section-body">
         <text class="paragraph emphasis">有温度：你不是一个人在较劲。</text>
-        <text class="paragraph">这个小程序不会冷冰冰地丢给你一个号码就完事。我们希望它像一个懂点门道的朋友，在你慌乱、委屈、不知道怎么办的时候，帮你理清楚：先找谁、再怎么说、需要准备什么证据、如果这一步走不通下一步还能去哪。</text>
+        <text class="paragraph">做这个小程序的时候，我一直在想：一个人面对不公时，往往是最孤单的。它不想冷冰冰地甩给你一个投诉电话就完了。我希望它像个稍微懂点门道的朋友——你慌了、委屈了、不知道从哪下手的时候，它能帮你理清楚：先找谁、再怎么说、要准备什么证据、这一步走不通下一步还能去哪。你不是一个人在跟这些事较劲。</text>
 
-        <text class="paragraph emphasis">有力度：维权是正当权利，应当依法争取。</text>
-        <text class="paragraph">我们鼓励每一位用户，在合法权益受到侵害时，勇敢地拿起法律武器。该投诉的投诉，该举报的举报，该起诉的起诉。法律给我们的权利，不用忍着，也不能惯着那些欺负人的人。</text>
+        <text class="paragraph emphasis">有力度：维权是正当权利，得争。</text>
+        <text class="paragraph">但我也不想把它做成让你忍气吞声的地方。你的合法权益受法律保护，被欺负了，该投诉就投诉，该举报就举报，该起诉就起诉。法律给我们的东西，不该忍着，更不该惯着那些欺负人的人。该硬气的时候，就得硬气。</text>
 
         <text class="paragraph emphasis">有边界：维权不是武器，更不是生意。</text>
-        <text class="paragraph">我们坚决反对、也绝不会纵容任何利用维权名义去伤害他人、敲诈勒索、制造虚假信息的行为。真正的维权，一定是建立在事实和证据之上，而不是情绪、恶意或者利益的算计。</text>
+        <text class="paragraph">不过有一点我必须说在前面：维权是保护自己，不是伤害别人的武器，更不该变成一门生意。我绝不会、也绝不允许有人拿这个小程序去敲诈勒索、造谣生事、恶意整人。真正的维权，得站在事实和证据上，而不是站在情绪、恶意或者利益的算计上。</text>
       </view>
     </view>
 
@@ -54,19 +54,19 @@
         <text>几件必须说清楚的事</text>
       </view>
       <view class="section-body">
-        <text class="paragraph warn-text">做这个小程序，不是为了给"想靠维权获利"的人提供工具。我们一直想说：</text>
+        <text class="paragraph warn-text">说这些不是想吓你，是我真觉得得把丑话说在前头：这个小程序，从来不是给"想靠维权赚钱"的人准备的。有几件事，我必须跟你讲清楚——</text>
         <view class="warn-list">
           <view class="warn-item">
             <text class="warn-icon">!</text>
-            <text class="warn-item-text">报假警、虚假报案，是扰乱公共秩序的行为，情节轻的会受到行政处罚，造成严重后果的还要承担刑事责任。</text>
+            <text class="warn-item-text">报假警、报假案，是扰乱公共秩序，轻则行政处罚，重则要负刑事责任。公共资源不是给你拿来开玩笑的。</text>
           </view>
           <view class="warn-item">
             <text class="warn-icon">!</text>
-            <text class="warn-item-text">恶意投诉、捏造事实诬告陷害他人，可能构成诽谤、诬告陷害甚至敲诈勒索，法律不会因为你打着"维权"的旗号就网开一面。</text>
+            <text class="warn-item-text">恶意投诉、捏造事实诬告别人，可能构成诽谤、诬告陷害，甚至敲诈勒索。别以为打着"维权"的旗号，法律就会对你网开一面。</text>
           </view>
           <view class="warn-item">
             <text class="warn-icon">!</text>
-            <text class="warn-item-text">利用这个小程序发布、传播虚假投诉信息，或者教唆他人进行违法投诉，我们会配合有关部门调查，并保留追究法律责任的权利。</text>
+            <text class="warn-item-text">谁要拿这个小程序发假信息、教别人违法投诉，我们会配合有关部门调查，并追究法律责任。这条，没得商量。</text>
           </view>
         </view>
       </view>
@@ -79,11 +79,11 @@
         <text>对这个小程序的期望</text>
       </view>
       <view class="section-body">
-        <text class="paragraph">我希望它能活得久一点，帮到更多人。但前提是，大家都把它用在正道上。</text>
-        <text class="paragraph">只要每一位使用者都守住底线——真实投诉、理性维权、保留证据、依法逐级反映——这个工具就值得我们一直维护下去。</text>
-        <text class="paragraph">反过来，如果有人利用它去制造虚假信息、敲诈勒索、报复他人，那它不仅帮不到真正需要的人，反而会让开发者承担法律风险，最终只能被迫关闭。</text>
-        <text class="paragraph">所以，这是一份请求，也是一份约定：</text>
-        <text class="paragraph quote-line">请合法维权。只有这样，这个小程序才能陪我们走得更远。</text>
+        <text class="paragraph">我做这个小程序，真的希望它能活得久一点，帮到更多人。但有个前提：大家都得把它用在正道上。</text>
+        <text class="paragraph">只要每个人都守住底线——真实投诉、理性维权、留好证据、依法逐级反映——它就值得我一直维护下去。</text>
+        <text class="paragraph">反过来，要是有人拿它造谣、敲诈、报复别人，那它不仅帮不到真正需要的人，还会把开发者拖进法律风险里，最后只能被迫关掉。</text>
+        <text class="paragraph">所以，这是我的一个请求，也算一份约定：</text>
+        <text class="paragraph quote-line">请你合法维权。只有大家都依法维权，这个小程序才能陪我们走得更远。</text>
       </view>
     </view>
 
