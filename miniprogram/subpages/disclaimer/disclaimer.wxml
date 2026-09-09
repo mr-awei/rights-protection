@@ -1,0 +1,135 @@
+<!--subpages/disclaimer/disclaimer.wxml-->
+<view class="container" style="--status-bar-height: {{statusBarHeight}}px;">
+  <!-- 自定义导航栏 -->
+  <view class="nav-bar">
+    <view class="nav-back" catchtap="onBack">
+      <text>‹</text>
+    </view>
+    <view class="nav-title">免责声明</view>
+    <view class="nav-placeholder"></view>
+  </view>
+
+  <scroll-view class="content" scroll-y="{{true}}">
+    <!-- 顶部提示 -->
+    <view class="hero-card">
+      <view class="hero-icon app-icon app-icon-default icon-shield"></view>
+      <view class="hero-title">使用须知与法律边界</view>
+      <view class="hero-desc">在你拿起法律武器之前，请认真阅读并遵守以下约定。合法维权，是对自己负责，也是对这个小工具最好的保护。</view>
+    </view>
+
+    <!-- 工具定位 -->
+    <view class="section-card">
+      <view class="section-title">
+        <view class="section-dot" style="background: #3B82F6;"></view>
+        <text>一、工具定位</text>
+      </view>
+      <view class="section-body">
+        <text class="paragraph">「我不能被欺负」是一款民间公益性质的维权信息汇总工具，并非政府官方应用，也不具备任何行政、司法或执法职能。</text>
+        <text class="paragraph">本工具提供的投诉渠道、法律法规、投诉话术、流程模板等内容，仅供用户参考与学习，不构成正式法律意见、律师建议或官方答复。用户在维权过程中，仍应以相关政府部门、司法机关、行业协会的官方解释与处理结果为准。</text>
+      </view>
+    </view>
+
+    <!-- 数据来源与时效 -->
+    <view class="section-card">
+      <view class="section-title">
+        <view class="section-dot" style="background: #10B981;"></view>
+        <text>二、数据来源与时效</text>
+      </view>
+      <view class="section-body">
+        <text class="paragraph">本工具收录的投诉渠道、热线电话、官网链接、法规条文等信息，均整理自各级政府网站、监管部门官网、消费者权益保护机构、主流媒体等公开渠道。</text>
+        <text class="paragraph">由于政府部门职能调整、热线合并、网址变更或政策法规修订等原因，部分信息可能会失效或发生变化。我们尽量保持数据更新，但无法保证每一条信息在任一时刻都完全准确、完整、有效。如与官方最新公告不一致，请以官方最新公告为准。</text>
+      </view>
+    </view>
+
+    <!-- 投诉原则 -->
+    <view class="section-card">
+      <view class="section-title">
+        <view class="section-dot" style="background: #F59E0B;"></view>
+        <text>三、投诉原则</text>
+      </view>
+      <view class="section-body">
+        <text class="paragraph">维权是法律赋予每一位公民的正当权利，但权利的行使必须有边界。使用本工具发起投诉、举报或申诉时，请务必遵循以下原则：</text>
+        <view class="rule-list">
+          <view class="rule-item">
+            <text class="rule-num">1</text>
+            <text class="rule-text">基于真实、完整的事实与证据，不得捏造、歪曲、夸大或隐瞒关键情节。</text>
+          </view>
+          <view class="rule-item">
+            <text class="rule-num">2</text>
+            <text class="rule-text">投诉对象、诉求、金额、时间线等核心信息必须真实可靠，避免情绪化表达或人身攻击。</text>
+          </view>
+          <view class="rule-item">
+            <text class="rule-num">3</text>
+            <text class="rule-text">依法、理性、逐级维权，优先通过企业客服、平台纠纷处理、消费者协会、行政监管部门等法定渠道解决。</text>
+          </view>
+          <view class="rule-item">
+            <text class="rule-num">4</text>
+            <text class="rule-text">尊重他人合法权益，不得利用本工具骚扰、威胁、诽谤任何个人或组织。</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 法律边界 -->
+    <view class="section-card warn-card">
+      <view class="section-title">
+        <view class="section-dot" style="background: #DC2626;"></view>
+        <text>四、法律边界与责任</text>
+      </view>
+      <view class="section-body">
+        <text class="paragraph warn-text">请特别注意：维权不是泄愤，更不是牟利的手段。任何企图通过虚假投诉、恶意举报、报假警等方式获取不当利益的行为，都可能触犯法律，并需要承担相应法律责任。</text>
+
+        <view class="law-list">
+          <view class="law-item">
+            <view class="law-title">虚假投诉 / 恶意投诉</view>
+            <text class="law-desc">明知不存在侵权事实，或故意捏造、歪曲事实，向平台、监管部门、媒体进行投诉，可能构成民事侵权（诽谤、名誉权侵害），情节严重的可被追究侵权责任，需赔偿损失、消除影响、赔礼道歉。</text>
+          </view>
+          <view class="law-item">
+            <view class="law-title">报假警 / 虚假报案</view>
+            <text class="law-desc">无事实依据拨打 110 或向公安机关报案，扰乱公共秩序或浪费警力资源的，依据《中华人民共和国治安管理处罚法》第二十五条，可处五日以上十日以下拘留，可并处五百元以下罚款；情节较轻的，处五日以下拘留或五百元以下罚款。</text>
+          </view>
+          <view class="law-item">
+            <view class="law-title">诬告陷害</view>
+            <text class="law-desc">捏造事实，意图使他人受到刑事追究或行政处罚，情节严重的，依据《中华人民共和国刑法》第二百四十三条，可能构成诬告陷害罪，最高可处三年以上十年以下有期徒刑。</text>
+          </view>
+          <view class="law-item">
+            <view class="law-title">敲诈勒索</view>
+            <text class="law-desc">以投诉、举报、曝光相威胁，索取明显超出合法诉求范围的钱财或利益，可能构成敲诈勒索罪，需承担刑事责任。</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 证据与理性 -->
+    <view class="section-card">
+      <view class="section-title">
+        <view class="section-dot" style="background: #8B5CF6;"></view>
+        <text>五、证据与理性维权</text>
+      </view>
+      <view class="section-body">
+        <text class="paragraph">有效的维权，80% 取决于证据。请在投诉前尽量保留好以下材料：聊天记录、订单截图、支付凭证、合同协议、发票收据、录音录像、快递单号、平台规则截图等。</text>
+        <text class="paragraph">维权过程中请保持理性与克制，避免辱骂、威胁、骚扰对方工作人员，也避免在社交媒体发布未经核实的指控。一次合法、清晰、证据充分的投诉，往往比十次情绪化的攻击更有力量。</text>
+      </view>
+    </view>
+
+    <!-- 责任限制 -->
+    <view class="section-card">
+      <view class="section-title">
+        <view class="section-dot" style="background: #6B7280;"></view>
+        <text>六、责任限制</text>
+      </view>
+      <view class="section-body">
+        <text class="paragraph">用户因使用或参考本工具信息而产生的任何直接或间接损失，包括但不限于投诉失败、经济损失、时间成本、名誉影响、法律关系变化等，本工具及开发者不承担任何法律责任。</text>
+        <text class="paragraph">如用户违反本声明中的任何条款，本工具保留限制或终止其使用权限、配合有关部门调查、并向相关方提供必要信息的权利。</text>
+      </view>
+    </view>
+
+    <!-- 底部强调 -->
+    <view class="footer-card">
+      <text class="footer-text">只有大家都合法维权，这个小程序才能走得更远。</text>
+      <text class="footer-sub">感谢你的理解与支持。</text>
+    </view>
+
+    <view style="height: 40rpx;"></view>
+  </scroll-view>
+</view>

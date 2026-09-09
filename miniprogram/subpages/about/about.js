@@ -11,29 +11,15 @@ Page({
     lawCount: 90,
     categoryCount: 5,
     navTitle: '关于我们',
-    showDisclaimer: false,
-    fromSettings: false,
     showLicense: false
   },
 
-  onLoad(options) {
+  onLoad() {
     try {
       const systemInfo = wx.getSystemInfoSync();
       this.setData({ statusBarHeight: systemInfo.statusBarHeight || 20 });
     } catch (e) {
       this.setData({ statusBarHeight: 20 });
-    }
-
-    // 处理从设置页面跳转过来的tab参数
-    if (options && options.tab === 'disclaimer') {
-      this.setData({ 
-        navTitle: '免责声明',
-        fromSettings: true
-      });
-      // 延迟一点显示免责声明，确保页面加载完成
-      setTimeout(() => {
-        this.onViewDisclaimer();
-      }, 300);
     }
   },
 
@@ -68,20 +54,9 @@ Page({
     });
   },
 
-  // 查看免责声明
+  // 查看免责声明（独立页面）
   onViewDisclaimer() {
-    this.setData({ showDisclaimer: true });
-  },
-
-  // 关闭免责声明
-  onCloseDisclaimer() {
-    this.setData({ showDisclaimer: false });
-    // 如果是从设置页面跳转过来的，关闭后自动返回
-    if (this.data.fromSettings) {
-      setTimeout(() => {
-        wx.navigateBack({ fail: () => wx.switchTab({ url: '/pages/profile/profile' }) });
-      }, 200);
-    }
+    wx.navigateTo({ url: '/subpages/disclaimer/disclaimer' });
   },
 
   // 返回

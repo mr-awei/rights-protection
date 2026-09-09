@@ -45,7 +45,7 @@ Page({
 
   // 免责声明
   onDisclaimerTap() {
-    wx.navigateTo({ url: '/subpages/about/about?tab=disclaimer' });
+    wx.navigateTo({ url: '/subpages/disclaimer/disclaimer' });
   },
 
   // 更新日志

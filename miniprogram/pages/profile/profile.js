@@ -27,6 +27,7 @@ Page({
     ],
     // 其他功能
     otherList: [
+      { name: '做这个小程序的初衷', desc: '走心聊聊，我为什么要做这件事', color: '#F59E0B', iconClass: 'icon-heart', page: 'origin' },
       { name: '设置', desc: '关于、免责声明、数据版本', color: '#722ED1', iconClass: 'icon-setting', page: 'settings' },
       { name: '意见反馈', desc: '帮助我们改进产品', color: '#13C2C2', iconClass: 'icon-chat', page: '' }
     ],
@@ -392,10 +393,18 @@ Page({
   onOtherTap(e) {
     const index = e.currentTarget.dataset.index;
     const item = this.data.otherList[index];
-    if (item.page === 'settings') {
-      nav.navigateTo({ url: '/subpages/settings/settings' });
-    } else if (item.page === '') {
+
+    if (item.page === '') {
       wx.showToast({ title: `${item.name}功能开发中`, icon: 'none' });
+    } else if (item.page === 'about') {
+      nav.navigateTo({ url: '/subpages/about/about' });
+    } else {
+      nav.navigateTo({
+        url: `/subpages/${item.page}/${item.page}`,
+        fail: () => {
+          wx.showToast({ title: `${item.name}功能开发中`, icon: 'none' });
+        }
+      });
     }
   },
 

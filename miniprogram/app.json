@@ -27,7 +27,9 @@
         "search-quality/search-quality",
         "favorites-history/favorites-history",
         "settings/settings",
-        "about/about"
+        "about/about",
+        "disclaimer/disclaimer",
+        "origin/origin"
       ]
     }
   ],

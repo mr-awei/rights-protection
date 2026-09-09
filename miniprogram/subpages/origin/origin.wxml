@@ -1,0 +1,98 @@
+<!--subpages/origin/origin.wxml-->
+<view class="container" style="--status-bar-height: {{statusBarHeight}}px;">
+  <!-- 自定义导航栏 -->
+  <view class="nav-bar">
+    <view class="nav-back" catchtap="onBack">
+      <text>‹</text>
+    </view>
+    <view class="nav-title">做这个小程序的初衷</view>
+    <view class="nav-placeholder"></view>
+  </view>
+
+  <scroll-view class="content" scroll-y="{{true}}">
+    <!-- 顶部引言 -->
+    <view class="hero-card">
+      <view class="hero-quote">「维权不是闹事，而是每个普通人依法保护自己的尊严。」</view>
+    </view>
+
+    <!-- 为什么做这个小程序 -->
+    <view class="section-card">
+      <view class="section-title">
+        <view class="section-dot" style="background: #F59E0B;"></view>
+        <text>为什么会做这件事</text>
+      </view>
+      <view class="section-body">
+        <text class="paragraph">做这个小程序，源于一个很朴素的念头：在我们遇到不公平待遇时，往往并不是不想维权，而是不知道该怎么维权、该找谁维权。</text>
+        <text class="paragraph">电话打了一圈，不是占线就是被告知"不归我们管"；想写封投诉信，却连格式都拿不准；明明占理，最后却因为流程不熟、证据不全、渠道不对，把自己累得筋疲力尽，事情也没办成。</text>
+        <text class="paragraph">我见过太多人，因为几百块钱、一次不愉快的消费、一场被忽视的劳动纠纷，最后只能自认倒霉。不是他们懦弱，而是维权的门槛真的太高了。</text>
+        <text class="paragraph">所以我想，能不能做一个小工具，把官方投诉渠道、法律法规、投诉话术、流程模板都整理到一个地方？让普通人少踩坑、少走弯路，用更少的时间和成本，找到对口的部门，说清楚自己的问题。</text>
+      </view>
+    </view>
+
+    <!-- 想传递的态度 -->
+    <view class="section-card">
+      <view class="section-title">
+        <view class="section-dot" style="background: #3B82F6;"></view>
+        <text>想传递的态度</text>
+      </view>
+      <view class="section-body">
+        <text class="paragraph emphasis">有温度：你不是一个人在较劲。</text>
+        <text class="paragraph">这个小程序不会冷冰冰地丢给你一个号码就完事。我们希望它像一个懂点门道的朋友，在你慌乱、委屈、不知道怎么办的时候，帮你理清楚：先找谁、再怎么说、需要准备什么证据、如果这一步走不通下一步还能去哪。</text>
+
+        <text class="paragraph emphasis">有力度：维权是正当权利，应当依法争取。</text>
+        <text class="paragraph">我们鼓励每一位用户，在合法权益受到侵害时，勇敢地拿起法律武器。该投诉的投诉，该举报的举报，该起诉的起诉。法律给我们的权利，不用忍着，也不能惯着那些欺负人的人。</text>
+
+        <text class="paragraph emphasis">有边界：维权不是武器，更不是生意。</text>
+        <text class="paragraph">我们坚决反对、也绝不会纵容任何利用维权名义去伤害他人、敲诈勒索、制造虚假信息的行为。真正的维权，一定是建立在事实和证据之上，而不是情绪、恶意或者利益的算计。</text>
+      </view>
+    </view>
+
+    <!-- 明确的法律提醒 -->
+    <view class="section-card warn-card">
+      <view class="section-title">
+        <view class="section-dot" style="background: #DC2626;"></view>
+        <text>几件必须说清楚的事</text>
+      </view>
+      <view class="section-body">
+        <text class="paragraph warn-text">做这个小程序，不是为了给"想靠维权获利"的人提供工具。我们一直想说：</text>
+        <view class="warn-list">
+          <view class="warn-item">
+            <text class="warn-icon">!</text>
+            <text class="warn-item-text">报假警、虚假报案，是扰乱公共秩序的行为，情节轻的会受到行政处罚，造成严重后果的还要承担刑事责任。</text>
+          </view>
+          <view class="warn-item">
+            <text class="warn-icon">!</text>
+            <text class="warn-item-text">恶意投诉、捏造事实诬告陷害他人，可能构成诽谤、诬告陷害甚至敲诈勒索，法律不会因为你打着"维权"的旗号就网开一面。</text>
+          </view>
+          <view class="warn-item">
+            <text class="warn-icon">!</text>
+            <text class="warn-item-text">利用这个小程序发布、传播虚假投诉信息，或者教唆他人进行违法投诉，我们会配合有关部门调查，并保留追究法律责任的权利。</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 期望 -->
+    <view class="section-card">
+      <view class="section-title">
+        <view class="section-dot" style="background: #10B981;"></view>
+        <text>对这个小程序的期望</text>
+      </view>
+      <view class="section-body">
+        <text class="paragraph">我希望它能活得久一点，帮到更多人。但前提是，大家都把它用在正道上。</text>
+        <text class="paragraph">只要每一位使用者都守住底线——真实投诉、理性维权、保留证据、依法逐级反映——这个工具就值得我们一直维护下去。</text>
+        <text class="paragraph">反过来，如果有人利用它去制造虚假信息、敲诈勒索、报复他人，那它不仅帮不到真正需要的人，反而会让开发者承担法律风险，最终只能被迫关闭。</text>
+        <text class="paragraph">所以，这是一份请求，也是一份约定：</text>
+        <text class="paragraph quote-line">请合法维权。只有这样，这个小程序才能陪我们走得更远。</text>
+      </view>
+    </view>
+
+    <!-- 结尾 -->
+    <view class="footer-card">
+      <text class="footer-text">谢谢你愿意读到这儿。</text>
+      <text class="footer-sub">愿我们都不被欺负，也都不去欺负别人。</text>
+    </view>
+
+    <view style="height: 40rpx;"></view>
+  </scroll-view>
+</view>
