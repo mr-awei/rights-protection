@@ -1,23 +1,47 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/scene-picker/scene-picker",
-    "pages/search-result/search-result",
-    "pages/channel-detail/channel-detail",
-    "pages/script-detail/script-detail",
     "pages/category/category",
     "pages/script-list/script-list",
     "pages/profile/profile",
-    "pages/general-template/general-template",
-    "pages/hotline-change/hotline-change",
-    "pages/followup-schedule/followup-schedule",
-    "pages/enterprise-query/enterprise-query",
     "pages/search/search",
-    "pages/about/about",
-    "pages/favorites-history/favorites-history",
-    "pages/settings/settings",
-    "pages/search-quality/search-quality"
+    "pages/search-result/search-result",
+    "pages/channel-detail/channel-detail",
+    "pages/script-detail/script-detail"
   ],
+  "subPackages": [
+    {
+      "root": "pages",
+      "name": "tools",
+      "pages": [
+        "followup-schedule/followup-schedule",
+        "hotline-change/hotline-change",
+        "enterprise-query/enterprise-query",
+        "general-template/general-template",
+        "search-quality/search-quality",
+        "scene-picker/scene-picker"
+      ]
+    },
+    {
+      "root": "pages",
+      "name": "mine",
+      "pages": [
+        "favorites-history/favorites-history",
+        "settings/settings",
+        "about/about"
+      ]
+    }
+  ],
+  "preloadRule": {
+    "pages/index/index": {
+      "network": "all",
+      "packages": ["tools"]
+    },
+    "pages/profile/profile": {
+      "network": "all",
+      "packages": ["mine"]
+    }
+  },
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#4A90D9",
