@@ -15,9 +15,10 @@ const fs = require('fs');
 const path = require('path');
 
 const DATA_DIR = path.join(__dirname, '..', 'miniprogram', 'data');
+const DETAIL_DATA_DIR = path.join(__dirname, '..', 'miniprogram', 'detail', 'data');
 const CATEGORIES_FILE = path.join(DATA_DIR, 'categories.js');
 const INDEX_FILE = path.join(DATA_DIR, 'channels_index.js');
-const PART_FILES = [1, 2, 3].map(i => path.join(DATA_DIR, `channels_part_${i}.js`));
+const PART_FILES = [1, 2, 3].map(i => path.join(DETAIL_DATA_DIR, `channels_part_${i}.js`));
 
 let errors = [];
 let warnings = [];
