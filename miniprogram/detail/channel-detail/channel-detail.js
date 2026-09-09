@@ -2,7 +2,7 @@
 const app = getApp();
 // 通过 Repository 抽象访问数据（TDD §3/§6），页面不再直接依赖数据模块
 const { channels: channelRepo, laws: lawRepo } = require('../repositories').createRepositories();
-const { convertSourceToName } = require('../../utils/source-utils');
+const { convertSourceToName } = require('../utils/source-utils');
 
 Page({
   data: {
