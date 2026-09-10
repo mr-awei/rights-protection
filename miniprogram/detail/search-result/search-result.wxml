@@ -1,5 +1,7 @@
 <!--detail/search-result/search-result.wxml-->
 <view class="container {{themeClass}}" style="--status-bar-height: {{statusBarHeight}}px;">
+  <!-- 吸顶区：搜索框 + Tab（整体吸顶，滚动时不会被状态栏/胶囊遮挡） -->
+  <view class="sticky-head">
   <!-- 搜索框 -->
   <view class="search-header">
     <view class="search-header-top">
@@ -49,6 +51,7 @@
       data-tab="script"
       bindtap="onTabTap"
     >话术</view>
+  </view>
   </view>
 
   <!-- 问题类型筛选栏 -->

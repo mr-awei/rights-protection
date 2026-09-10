@@ -37,6 +37,9 @@ function search(query) {
   Object.keys(synonyms).forEach(origin => {
     if (correctedQuery.includes(origin)) {
       const target = synonyms[origin];
+      // 跳过自映射（如「物业」→「物业」）与查询中已包含的目标，
+      // 避免产生「物业 物业」这类冗余扩展干扰后续场景匹配。
+      if (!target || target === origin || correctedQuery.includes(target)) return;
       expandedQuery = expandedQuery + ' ' + target;
       expandedKeywords.push(target);
     }

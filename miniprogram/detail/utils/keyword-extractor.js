@@ -133,6 +133,13 @@ const SCENES = [
   { id: 'scene_030', name: '刷单/兼职诈骗', icon: 'icon-warning', color: '#FFF2F0', desc: '刷单兼职被骗、网络诈骗，立即拨打96110+110报警', keywords: ['网络安全'], matchMode: 'any', channels: ['ch_030'], scripts: [], priority: 95 }
 ];
 
+// 低区分度通用词：不作为「关键词加分」参与召回，避免「公司」「老板」等词
+// 把大量无关渠道/话术带进结果；仍保留在 matched 中用于领域/问题归类。
+const STOP_WORDS = new Set([
+  '公司', '老板', '平台', '服务', '问题', '单位', '企业', '商家',
+  '人员', '客服', '情况', '事情', '处理', '解决', '要求'
+]);
+
 // 构建全量词库
 const ALL_KEYWORDS = new Set();
 Object.values(KEYWORDS.domain).forEach(arr => arr.forEach(w => ALL_KEYWORDS.add(w)));
@@ -200,10 +207,14 @@ function extractKeywords(text) {
 
   // 匹配场景（支持领域分类和问题分类的模糊匹配）
   const matchedScenes = [];
+  // 用户查询是否包含领域词：若包含，则命中通用问题词（如「乱收费」）的场景需要更高匹配度才保留
+  const hasQueryDomain = domains.length > 0;
   for (const scene of SCENES) {
     let matchCount = 0;
     let totalWeight = 0;
     let matchedWeight = 0;
+    // 是否命中了场景的领域词（如「医疗教育」「房产物业」）
+    let hasDomainMatch = false;
 
     for (const kw of scene.keywords) {
       let isMatched = false;
@@ -215,6 +226,7 @@ function extractKeywords(text) {
         // 用户输入中包含该领域的任意关键词就算匹配
         if (domains.includes(kw)) {
           isMatched = true;
+          hasDomainMatch = true;
         }
       }
       // 检查是否是问题分类名
@@ -291,16 +303,45 @@ function extractKeywords(text) {
 
     // 特殊优化：如果用户输入包含场景名称中的核心词，大幅加分
     const coreNameWords = scene.name.split(/[\/、]/).filter(w => w.length >= 2);
+    const queryTokens = text.split(/\s+/).filter(t => t.length >= 2);
+    let nameCoreHit = false;
     for (const word of coreNameWords) {
-      if (text.includes(word)) {
+      // 「乱收费」「不作为」等纯问题词不足以判定场景强相关，跳过
+      if (KEYWORDS.issue[word]) continue;
+      // 双向匹配：查询含场景核心词，或场景核心词含查询分词（如「快递」↔「快递丢失」）
+      let hit = text.includes(word);
+      if (!hit) {
+        for (const tk of queryTokens) {
+          if (word.includes(tk)) { hit = true; break; }
+        }
+      }
+      if (hit) {
         finalMatchScore += 30;
+        nameCoreHit = true;
+      }
+    }
+
+    // any 模式判定：
+    // 1) 用户未输入领域词（只搜「乱收费」等通用问题词）→ 保留所有命中场景；
+    // 2) 场景名核心词命中查询（如「医院」↔「医院乱收费」）→ 强相关，保留；
+    // 3) 命中领域词且整体匹配度≥80% → 保留。
+    // 这样「医院乱收费」只会得到医院/医疗场景，不会把物业、快递、银行等
+    // 仅因「乱收费」一词而命中的无关场景一并召回。
+    let anyMatched = false;
+    if (scene.matchMode === 'any' && matchCount > 0) {
+      if (!hasQueryDomain) {
+        anyMatched = true;
+      } else if (nameCoreHit) {
+        anyMatched = true;
+      } else if (hasDomainMatch && matchRatio >= 0.8) {
+        anyMatched = true;
       }
     }
 
     if (scene.matchMode === 'all' && matchRatio >= 0.8) {
       // all模式：匹配度>=80%就算匹配（允许部分同义词差异）
       matchedScenes.push({ ...scene, matchScore: finalMatchScore, matchRatio: Math.round(matchRatio * 100) });
-    } else if (scene.matchMode === 'any' && matchCount > 0) {
+    } else if (anyMatched) {
       matchedScenes.push({ ...scene, matchScore: finalMatchScore, matchRatio: Math.round(matchRatio * 100) });
     }
   }
@@ -312,7 +353,7 @@ function extractKeywords(text) {
     domains,
     issues,
     targets,
-    allKeywords: Array.from(matched),
+    allKeywords: Array.from(matched).filter(w => !STOP_WORDS.has(w)),
     scenes: matchedScenes
   };
 }

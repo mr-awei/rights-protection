@@ -4,6 +4,15 @@
   background: var(--bg-page);
 }
 
+/* ========== 吸顶区 ========== */
+/* 搜索框 + Tab 整体吸顶，内部 search-header 的 padding-top 已含状态栏安全区，
+   滚动时整块头部停留在屏幕顶部，Tab 不会被状态栏/胶囊遮挡。 */
+.sticky-head {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
 /* ========== 搜索框 ========== */
 .search-header {
   background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 50%, var(--primary-dark) 100%);
@@ -104,9 +113,6 @@
   background: var(--bg-card);
   padding: 16rpx 24rpx;
   box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.04);
-  position: sticky;
-  top: 0;
-  z-index: 10;
 }
 
 .result-tab {
