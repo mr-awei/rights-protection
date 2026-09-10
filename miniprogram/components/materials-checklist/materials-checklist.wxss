@@ -123,3 +123,29 @@
   color: #00B42A;
   background: #E8FFEA;
 }
+
+.summary-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10rpx;
+}
+
+.summary-status {
+  color: #00B42A;
+  font-weight: 600;
+}
+
+.materials-progress {
+  width: 100%;
+  height: 6rpx;
+  border-radius: 3rpx;
+}
+
+.materials-progress .wx-progress-inner-bar {
+  border-radius: 3rpx;
+}
+
+.materials-progress .wx-progress-bar {
+  border-radius: 3rpx;
+}

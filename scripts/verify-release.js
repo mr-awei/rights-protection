@@ -116,8 +116,9 @@ const media = require(path.join(MINI, 'data/media_exposure.js'));
 ok(Array.isArray(media) && media.length === 4, 'media_exposure.js 含 4 条媒体曝光路径');
 ok(media.every(m => Array.isArray(m.materials) && m.materials.length > 0), '每条媒体曝光路径均含材料清单');
 ok(media.every(m => Array.isArray(m.compliance) && m.compliance.length > 0), '每条媒体曝光路径均含合规边界');
-// 首页入口
-ok(/page:\s*'\/subpages\/media-exposure\/media-exposure'/.test(aboutJs) || /page:\s*'\/subpages\/media-exposure\/media-exposure'/.test(read(path.join(MINI, 'pages/index/index.js'))), '首页存在「媒体曝光」入口');
+// 媒体曝光入口：每个渠道/话术详情页独立入口（不再放在首页场景里）
+ok(/onMediaExposureTap/.test(read(path.join(MINI, 'detail/channel-detail/channel-detail.js'))), 'channel-detail 存在「媒体曝光」入口');
+ok(/onMediaExposureTap/.test(read(path.join(MINI, 'detail/script-detail/script-detail.js'))), 'script-detail 存在「媒体曝光」入口');
 
 // ---- 总结 ----
 console.log('\n========== 验证总结 ==========');

@@ -799,6 +799,59 @@
   border: none;
 }
 
+/* ========== 媒体曝光入口卡片 ========== */
+.media-entry-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--bg-card);
+  border-radius: 24rpx;
+  padding: 28rpx;
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.04);
+  border-left: 6rpx solid #FA8C16;
+}
+
+.media-entry-main {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  min-width: 0;
+}
+
+.media-entry-icon {
+  width: 56rpx;
+  height: 56rpx;
+  --icon-bg: #FFF7E6;
+  --icon-color: #FA8C16;
+  border-radius: 14rpx;
+  margin-right: 20rpx;
+  flex-shrink: 0;
+}
+
+.media-entry-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+}
+
+.media-entry-title {
+  font-size: var(--font-normal);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 6rpx;
+}
+
+.media-entry-desc {
+  font-size: var(--font-sm);
+  color: var(--text-tertiary);
+  line-height: 1.5;
+}
+
+.media-entry-arrow {
+  flex-shrink: 0;
+  margin-left: 16rpx;
+}
 
 /* 法律依据免责声明 */
 .law-disclaimer {

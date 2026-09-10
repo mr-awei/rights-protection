@@ -605,6 +605,13 @@ Page({
     wx.navigateBack();
   },
 
+  // 跳转媒体曝光指南页（第四条维权路径）
+  onMediaExposureTap() {
+    wx.navigateTo({
+      url: '/subpages/media-exposure/media-exposure'
+    });
+  },
+
   // 分享给朋友
   onShareAppMessage() {
     const { channel } = this.data;

@@ -28,7 +28,18 @@
 
   <view class="materials-summary {{allDone ? 'done' : ''}}">
     <block wx:if="{{requiredTotal > 0}}">
-      <text>必带材料已准备 {{requiredDone}}/{{requiredTotal}}{{allDone ? ' · 材料齐全可提交' : ''}}</text>
+      <view class="summary-row">
+        <text>必带材料已准备 {{requiredDone}}/{{requiredTotal}}</text>
+        <text class="summary-status" wx:if="{{allDone}}">材料齐全</text>
+      </view>
+      <progress
+        class="materials-progress"
+        percent="{{requiredPercent}}"
+        stroke-width="6"
+        activeColor="{{allDone ? '#00B42A' : '#4A90D9'}}"
+        backgroundColor="#E5E6EB"
+        show-info="{{false}}"
+      />
     </block>
     <block wx:else>
       <text>共 {{materials.length}} 项材料，建议提交前逐项核对</text>

@@ -19,13 +19,14 @@ Component({
     checked: {},        // index -> bool
     requiredTotal: 0,   // 必带项总数
     requiredDone: 0,    // 已勾选必带项
-    allDone: false      // 必带项是否全部勾选
+    allDone: false,     // 必带项是否全部勾选
+    requiredPercent: 0  // 必带项完成百分比
   },
   observers: {
     'materials': function (list) {
       const arr = list || [];
       const requiredTotal = arr.filter(m => m && m.required).length;
-      this.setData({ checked: {}, requiredTotal, requiredDone: 0, allDone: false });
+      this.setData({ checked: {}, requiredTotal, requiredDone: 0, allDone: false, requiredPercent: 0 });
     }
   },
   methods: {
@@ -39,8 +40,10 @@ Component({
       (this.data.materials || []).forEach((m, i) => {
         if (m && m.required && checked[i]) requiredDone++;
       });
-      const allDone = this.data.requiredTotal > 0 && requiredDone >= this.data.requiredTotal;
-      this.setData({ checked, requiredDone, allDone });
+      const requiredTotal = this.data.requiredTotal;
+      const allDone = requiredTotal > 0 && requiredDone >= requiredTotal;
+      const requiredPercent = requiredTotal > 0 ? Math.round((requiredDone / requiredTotal) * 100) : 0;
+      this.setData({ checked, requiredDone, allDone, requiredPercent });
     }
   }
 });

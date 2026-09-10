@@ -151,8 +151,22 @@
       </view>
     </view>
 
+    <!-- 媒体曝光入口 -->
+    <view class="section" bindtap="onMediaExposureTap" hover-class="section-hover">
+      <view class="media-entry-card">
+        <view class="media-entry-main">
+          <view class="media-entry-icon app-icon app-icon-default icon-broadcast" style="--icon-bg:#FFF7E6;--icon-color:#FA8C16;"></view>
+          <view class="media-entry-info">
+            <text class="media-entry-title">这个渠道没解决？试试媒体曝光</text>
+            <text class="media-entry-desc">官方/监管渠道穷尽后，或事件具有公共性、典型性时，可作为第四条维权路径</text>
+          </view>
+        </view>
+        <view class="media-entry-arrow app-icon app-icon-default icon-chevron-right" style="width:28rpx;height:28rpx;--icon-bg:transparent;--icon-color:#C9CDD4;"></view>
+      </view>
+    </view>
+
     <!-- 所需材料清单 + 自检表 -->
-    <view class="section">
+    <view class="section" wx:if="{{materialsList.length > 0}}">
       <materials-checklist materials="{{materialsList}}"></materials-checklist>
     </view>
 
