@@ -43,7 +43,7 @@
 
   <!-- 底部 -->
   <view class="footer">
-    <text class="footer-text">© 2026 我不能被欺负</text>
+    <text class="footer-text">© 2026 消费维权信息助手</text>
     <text class="footer-text">数据仅供参考，以官方平台为准</text>
   </view>
 

@@ -42,7 +42,7 @@ const settingsJs = read(path.join(MINI, 'subpages/settings/settings.js'));
 const profileWxml = read(path.join(MINI, 'pages/profile/profile.wxml'));
 ok(/version:\s*'1\.1\.3'/.test(aboutJs), 'about.js version = 1.1.3');
 ok(/appVersion:\s*'1\.1\.3'/.test(settingsJs), 'settings.js appVersion = 1.1.3');
-ok(/我不能被欺负 v1\.1\.3/.test(profileWxml), 'profile.wxml 页脚版本 = v1.1.3');
+ok(/消费维权信息助手 v1\.1\.3/.test(profileWxml), 'profile.wxml 页脚版本 = v1.1.3');
 
 // ---- 2. 数据版本号 ----
 console.log('\n【2. 数据版本号 = 2026.09.4】');
