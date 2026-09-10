@@ -1,13 +1,13 @@
 /* media-exposure.wxss */
 .container {
   min-height: 100vh;
-  background: #F5F7FA;
+  background: var(--bg-page);
 }
 
+/* ========== 渐变头部（与其他页一致） ========== */
 .gradient-header {
-  background: #FFFFFF;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
   padding: 40rpx 32rpx 48rpx;
-  border-bottom: 1rpx solid #F2F3F5;
 }
 
 .header-content {
@@ -27,13 +27,13 @@
 .header-title {
   font-size: 38rpx;
   font-weight: 700;
-  color: #1D2129;
+  color: #FFFFFF;
 }
 
 .header-sub {
   margin-top: 16rpx;
   font-size: 24rpx;
-  color: #86909C;
+  color: rgba(255, 255, 255, 0.9);
   line-height: 1.6;
 }
 
@@ -52,12 +52,12 @@
 .section-title {
   font-size: 30rpx;
   font-weight: 600;
-  color: #1D2129;
+  color: var(--text-primary);
 }
 
-/* 通用信息卡片 */
+/* ========== 通用信息卡片 ========== */
 .info-card {
-  background: #FFFFFF;
+  background: var(--bg-card);
   border-radius: 24rpx;
   padding: 28rpx;
   box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.04);
@@ -66,7 +66,7 @@
 .info-text {
   display: block;
   font-size: 26rpx;
-  color: #4E5969;
+  color: var(--text-secondary);
   line-height: 1.6;
 }
 
@@ -74,7 +74,7 @@
   display: flex;
   align-items: flex-start;
   padding: 12rpx 0;
-  border-bottom: 1rpx solid #F2F3F5;
+  border-bottom: 1rpx solid var(--bg-divider);
 }
 
 .kv-item:last-child {
@@ -86,65 +86,28 @@
   width: 140rpx;
   flex-shrink: 0;
   font-size: 26rpx;
-  color: #86909C;
+  color: var(--text-tertiary);
   margin-right: 16rpx;
 }
 
 .kv-value {
   flex: 1;
   font-size: 26rpx;
-  color: #4E5969;
+  color: var(--text-secondary);
   line-height: 1.6;
 }
 
-/* 可选渠道 / 媒体列表 */
+/* ========== 媒体列表 ========== */
 .channel-list {
-  background: #FFFFFF;
+  background: var(--bg-card);
   border-radius: 24rpx;
   padding: 12rpx 28rpx;
   box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.04);
 }
 
-.channel-item {
-  padding: 16rpx 0;
-  border-bottom: 1rpx solid #F2F3F5;
-}
-
-.channel-item:last-child {
-  border-bottom: none;
-}
-
-.channel-name-row {
-  display: flex;
-  align-items: center;
-}
-
-.channel-dot {
-  width: 12rpx;
-  height: 12rpx;
-  border-radius: 50%;
-  background: #86909C;
-  margin-right: 12rpx;
-  flex-shrink: 0;
-}
-
-.channel-name {
-  font-size: 28rpx;
-  font-weight: 600;
-  color: #1D2129;
-}
-
-.channel-desc {
-  display: block;
-  font-size: 24rpx;
-  color: #86909C;
-  margin-top: 6rpx;
-  line-height: 1.5;
-}
-
 .media-row {
   padding: 20rpx 0;
-  border-bottom: 1rpx solid #F2F3F5;
+  border-bottom: 1rpx solid var(--bg-divider);
 }
 
 .media-row:last-child {
@@ -161,32 +124,25 @@
 .media-row-name {
   font-size: 28rpx;
   font-weight: 600;
-  color: #1D2129;
+  color: var(--text-primary);
   flex: 1;
   min-width: 0;
 }
 
 .media-row-scope {
   font-size: 20rpx;
-  color: #4E5969;
-  background: #F2F3F5;
+  color: var(--primary);
+  background: var(--primary-bg);
   padding: 4rpx 12rpx;
   border-radius: 8rpx;
   margin-left: 12rpx;
   flex-shrink: 0;
 }
 
-.media-row-meta {
-  display: block;
-  font-size: 24rpx;
-  color: #86909C;
-  line-height: 1.5;
-}
-
 .media-row-contact {
   display: block;
   font-size: 25rpx;
-  color: #4E5969;
+  color: var(--text-secondary);
   line-height: 1.6;
   margin-top: 4rpx;
 }
@@ -194,11 +150,12 @@
 .media-row-social {
   display: block;
   font-size: 25rpx;
-  color: #165DFF;
+  color: var(--primary);
   line-height: 1.6;
   margin-top: 4rpx;
 }
 
+/* ========== bullet 列表 ========== */
 .bullet-list {
   margin-top: 12rpx;
 }
@@ -213,7 +170,7 @@
   width: 10rpx;
   height: 10rpx;
   border-radius: 50%;
-  background: #86909C;
+  background: var(--text-tertiary);
   margin-right: 12rpx;
   margin-top: 12rpx;
   flex-shrink: 0;
@@ -222,8 +179,54 @@
 .bullet-text {
   flex: 1;
   font-size: 25rpx;
-  color: #4E5969;
+  color: var(--text-secondary);
   line-height: 1.6;
 }
 
+/* ========== 重点提示卡（法律兜底 / 合规边界） ========== */
+.legal-notice-card {
+  background: linear-gradient(135deg, #FEF2F2 0%, #FEE2E2 100%);
+  border: 1rpx solid #FECACA;
+  border-left: 6rpx solid var(--danger);
+  border-radius: 20rpx;
+  padding: 24rpx 28rpx;
+  margin-top: 16rpx;
+}
 
+.legal-notice-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12rpx;
+}
+
+.legal-notice-icon {
+  font-size: 28rpx;
+  margin-right: 8rpx;
+}
+
+.legal-notice-title {
+  font-size: 28rpx;
+  font-weight: 700;
+  color: var(--danger);
+}
+
+.legal-notice-text {
+  display: block;
+  font-size: 25rpx;
+  color: #7F1D1D;
+  line-height: 1.7;
+}
+
+.legal-notice-card .bullet-item {
+  padding: 4rpx 0;
+}
+
+.legal-notice-card .bullet-dot {
+  background: var(--danger);
+}
+
+.legal-notice-card .bullet-text {
+  font-size: 25rpx;
+  color: #7F1D1D;
+  line-height: 1.7;
+}

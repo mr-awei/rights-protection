@@ -4,7 +4,7 @@
   <view class="gradient-header">
     <view class="header-content">
       <view class="header-title-row">
-        <view class="header-badge app-icon app-icon-default icon-broadcast" style="width:44rpx;height:44rpx;--icon-bg:rgba(22,93,255,0.08);--icon-color:#165DFF;"></view>
+        <view class="header-badge app-icon app-icon-default icon-broadcast" style="width:44rpx;height:44rpx;--icon-bg:rgba(255,255,255,0.2);--icon-color:#fff;"></view>
         <text class="header-title">媒体曝光</text>
       </view>
       <text class="header-sub">舆论监督 / 社会监督：独立于官方投诉路径之外的并行监督路径，不替代行政、司法或监管程序。</text>
@@ -26,13 +26,17 @@
           </view>
           <view class="bullet-item">
             <text class="bullet-dot"></text>
-            <text class="bullet-text">{{guide.legal}}</text>
-          </view>
-          <view class="bullet-item">
-            <text class="bullet-dot"></text>
             <text class="bullet-text">{{guide.order}}</text>
           </view>
         </view>
+      </view>
+      <!-- 法律兜底（重点） -->
+      <view class="legal-notice-card">
+        <view class="legal-notice-header">
+          <text class="legal-notice-icon">⚖</text>
+          <text class="legal-notice-title">法律始终是最後兜底</text>
+        </view>
+        <text class="legal-notice-text">{{guide.legal}}</text>
       </view>
     </view>
 
@@ -82,12 +86,16 @@
       </view>
     </view>
 
-    <!-- 本渠道注意 -->
+    <!-- 本渠道注意（合规重点） -->
     <view class="section">
       <view class="section-header">
         <text class="section-title">本渠道注意</text>
       </view>
-      <view class="info-card">
+      <view class="legal-notice-card">
+        <view class="legal-notice-header">
+          <text class="legal-notice-icon">⚠</text>
+          <text class="legal-notice-title">合规边界</text>
+        </view>
         <view class="bullet-list">
           <view class="bullet-item" wx:for="{{guide.compliance}}" wx:key="*this">
             <text class="bullet-dot"></text>
