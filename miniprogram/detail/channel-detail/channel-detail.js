@@ -742,7 +742,7 @@ Page({
     wx.navigateBack();
   },
 
-  // 跳转媒体曝光指南页（第四条维权路径）
+  // 跳转媒体曝光指南页
   onMediaExposureTap() {
     wx.navigateTo({
       url: '/subpages/media-exposure/media-exposure'

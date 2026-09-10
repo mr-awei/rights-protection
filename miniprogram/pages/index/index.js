@@ -305,7 +305,7 @@ Page({
   onSceneEntryTap(e) {
     const page = e.currentTarget.dataset.page;
     if (page) {
-      // 媒体曝光：独立子页（第四条维权路径）
+      // 媒体曝光：独立子页
       nav.navigateTo({ url: page });
       return;
     }

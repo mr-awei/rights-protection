@@ -1,4 +1,4 @@
-// media_exposure.js - 媒体曝光路径（第四条维权路径：舆论监督/社会监督）
+// media_exposure.js - 媒体曝光路径（舆论监督/社会监督）
 // 独立并行的舆论监督/社会监督路径，与官方路径双轨并行、相互配合，不替代行政/司法/监管程序；法律是最终兜底。
 // 数据模型对齐渠道：id / name / type / desc / scope / submission / materials / compliance / url
 // 注：媒体曝光非官方受理渠道，不替代行政/司法/监管程序；须基于真实完整事实与证据。
