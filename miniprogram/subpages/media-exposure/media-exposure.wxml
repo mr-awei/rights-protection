@@ -4,43 +4,35 @@
   <view class="gradient-header">
     <view class="header-content">
       <view class="header-title-row">
-        <view class="header-badge app-icon app-icon-default icon-broadcast" style="width:44rpx;height:44rpx;--icon-bg:rgba(255,255,255,0.2);--icon-color:#fff;"></view>
+        <view class="header-badge app-icon app-icon-default icon-broadcast" style="width:44rpx;height:44rpx;--icon-bg:rgba(22,93,255,0.08);--icon-color:#165DFF;"></view>
         <text class="header-title">媒体曝光</text>
       </view>
-      <text class="header-sub">舆论监督 / 社会监督：独立于「企业投诉 → 监管投诉 → 法律途径」之外的并行监督路径，不替代行政、司法或监管程序。</text>
+      <text class="header-sub">舆论监督 / 社会监督：独立于官方投诉路径之外的并行监督路径，不替代行政、司法或监管程序。</text>
     </view>
   </view>
 
   <view class="content">
-    <!-- 定位与关系 -->
+    <!-- 说明 -->
     <view class="section">
       <view class="section-header">
-        <text class="section-title">定位与关系</text>
+        <text class="section-title">说明</text>
       </view>
-      <view class="tip-card tip-primary">
-        <text class="tip-text">{{guide.position}}</text>
-      </view>
-      <view class="notice-card" style="margin-top:16rpx;">
-        <view class="notice-item">
-          <text class="notice-dot">·</text>
-          <text class="notice-text">{{guide.role}}</text>
+      <view class="info-card">
+        <text class="info-text">{{guide.position}}</text>
+        <view class="bullet-list">
+          <view class="bullet-item">
+            <text class="bullet-dot"></text>
+            <text class="bullet-text">{{guide.role}}</text>
+          </view>
+          <view class="bullet-item">
+            <text class="bullet-dot"></text>
+            <text class="bullet-text">{{guide.legal}}</text>
+          </view>
+          <view class="bullet-item">
+            <text class="bullet-dot"></text>
+            <text class="bullet-text">{{guide.order}}</text>
+          </view>
         </view>
-      </view>
-      <view class="notice-card" style="margin-top:16rpx;">
-        <view class="notice-item">
-          <text class="notice-dot">·</text>
-          <text class="notice-text">{{guide.legal}}</text>
-        </view>
-      </view>
-    </view>
-
-    <!-- 与官方路径的关系 -->
-    <view class="section">
-      <view class="section-header">
-        <text class="section-title">与官方路径的关系</text>
-      </view>
-      <view class="tip-card tip-primary">
-        <text class="tip-text">{{guide.order}}</text>
       </view>
     </view>
 
@@ -56,19 +48,6 @@
             <text class="bullet-dot"></text>
             <text class="bullet-text">{{item}}</text>
           </view>
-        </view>
-      </view>
-    </view>
-
-    <!-- 投稿方式 -->
-    <view class="section">
-      <view class="section-header">
-        <text class="section-title">投稿方式</text>
-      </view>
-      <view class="info-card">
-        <view class="kv-item" wx:for="{{guide.submission}}" wx:key="label" wx:for-item="sub">
-          <text class="kv-label">{{sub.label}}</text>
-          <text class="kv-value">{{sub.value}}</text>
         </view>
       </view>
     </view>
@@ -90,15 +69,30 @@
       </view>
     </view>
 
+    <!-- 投稿方式 -->
+    <view class="section">
+      <view class="section-header">
+        <text class="section-title">投稿方式</text>
+      </view>
+      <view class="info-card">
+        <view class="kv-item" wx:for="{{guide.submission}}" wx:key="label" wx:for-item="sub">
+          <text class="kv-label">{{sub.label}}</text>
+          <text class="kv-value">{{sub.value}}</text>
+        </view>
+      </view>
+    </view>
+
     <!-- 本渠道注意 -->
     <view class="section">
       <view class="section-header">
         <text class="section-title">本渠道注意</text>
       </view>
-      <view class="notice-card">
-        <view class="notice-item" wx:for="{{guide.compliance}}" wx:key="*this">
-          <text class="notice-dot">·</text>
-          <text class="notice-text">{{item}}</text>
+      <view class="info-card">
+        <view class="bullet-list">
+          <view class="bullet-item" wx:for="{{guide.compliance}}" wx:key="*this">
+            <text class="bullet-dot"></text>
+            <text class="bullet-text">{{item}}</text>
+          </view>
         </view>
       </view>
     </view>
