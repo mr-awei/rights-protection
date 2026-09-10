@@ -3,14 +3,166 @@ const app = getApp();
 // 通过 Repository 抽象访问数据（TDD §3/§6），页面不再直接依赖数据模块
 const { channels: channelRepo, scripts: scriptRepo, laws: lawRepo } = require('../repositories').createRepositories();
 
-// 所需材料清单通用基线（话术详情共用，PRD §9.3.2）
+// 所需材料清单：通用基线 + 按话术场景名称/关键词的场景化补充（PRD §9.3.2）
 const DEFAULT_MATERIALS = [
-  { name: '身份与关系证明', required: true, desc: '本人身份证、与对方的关系证明' },
-  { name: '交易与合同凭证', required: true, desc: '订单、支付记录、合同、发票等' },
-  { name: '沟通记录', required: true, desc: '聊天记录、通话录音、邮件等' },
-  { name: '侵权证据', required: true, desc: '照片、视频、质检报告、录屏等' },
-  { name: '时间线说明', required: false, desc: '按时间顺序梳理事发经过' },
-  { name: '诉求与损失证明', required: false, desc: '退款 / 赔偿计算、损失凭证' }
+  { name: '身份与关系证明', required: true, desc: '本人身份证、手机号、与对方的关系证明' },
+  { name: '交易与合同凭证', required: true, desc: '订单截图、支付记录、合同/协议、发票、收据等证明交易关系' },
+  { name: '沟通记录', required: true, desc: '聊天记录截图、通话录音、邮件往来、客服工单等证明协商过程' },
+  { name: '侵权证据', required: true, desc: '问题照片/视频、质检报告、录屏、物流单、诊断证明等证明侵权事实' },
+  { name: '时间线说明', required: false, desc: '按日期整理的事件经过，帮助受理方快速了解案情' },
+  { name: '诉求与损失证明', required: false, desc: '具体诉求清单、损失金额计算依据、就医/维修票据' }
+];
+
+const EXPRESS_MATERIALS = [
+  { name: '快递单号截图', required: true, desc: '运单号、物流信息' },
+  { name: '物品价值证明', required: true, desc: '发票、购买记录等证明内件价值' },
+  { name: '企业投诉记录', required: true, desc: '与快递公司客服沟通记录、投诉工单编号' },
+  { name: '物品损坏 / 丢失证据', required: true, desc: '物品破损/丢失照片、视频' },
+  { name: '保价凭证', required: false, desc: '如有保价，提供保价记录' },
+  { name: '损失金额计算', required: false, desc: '索赔金额计算说明' }
+];
+
+const TELECOM_MATERIALS = [
+  { name: '手机号和身份信息', required: true, desc: '被收费号码、身份证后四位/实名信息' },
+  { name: '话费账单截图', required: true, desc: '含扣费明细的账单' },
+  { name: '业务开通记录', required: true, desc: '套餐/增值业务开通记录' },
+  { name: '未确认开通证据', required: false, desc: '从未同意开通业务的截图/录音' },
+  { name: '企业投诉记录', required: true, desc: '与运营商客服沟通记录、投诉工单编号' },
+  { name: '累计扣费金额计算', required: false, desc: '多扣费用汇总' }
+];
+
+const MERCHANT_MATERIALS = [
+  { name: '订单截图和支付凭证', required: true, desc: '订单、支付记录' },
+  { name: '商品宣传页面截图', required: true, desc: '宣传承诺、价格、功能说明' },
+  { name: '收到商品照片 / 视频', required: true, desc: '货不对板、假货、破损等证据' },
+  { name: '与商家沟通记录', required: true, desc: '聊天记录、通话录音' },
+  { name: '商品问题鉴定报告', required: false, desc: '如有质检/鉴定报告' },
+  { name: '损失金额计算', required: false, desc: '退款/赔偿金额计算' }
+];
+
+const BANK_MATERIALS = [
+  { name: '合同 / 保单原件', required: true, desc: '理财、保险、贷款等协议文本' },
+  { name: '支付凭证和扣费流水', required: true, desc: '银行流水、扣款记录' },
+  { name: '产品宣传材料截图', required: true, desc: '销售宣传、承诺截图，证明误导' },
+  { name: '风险测评记录', required: true, desc: '风险承受能力测评结果' },
+  { name: '销售过程录音 / 聊天', required: false, desc: '销售过程沟通记录' },
+  { name: '损失金额计算', required: false, desc: '具体损失金额' }
+];
+
+const PROPERTY_MATERIALS = [
+  { name: '物业服务合同', required: true, desc: '证明服务关系与约定' },
+  { name: '物业费缴费凭证', required: true, desc: '物业费、水电费等票据' },
+  { name: '报修 / 投诉记录', required: true, desc: '报修单、与物业沟通记录' },
+  { name: '问题现场照片 / 视频', required: true, desc: '房屋质量、设施损坏、乱收费等证据' },
+  { name: '违规收费依据对比', required: false, desc: '收费标准与实际收费对比' },
+  { name: '损失金额计算', required: false, desc: '多收费用/损失金额' }
+];
+
+const LABOR_MATERIALS = [
+  { name: '劳动合同 / 入职证明', required: true, desc: '劳动合同、工牌、工服、入职通知等证明劳动关系' },
+  { name: '工资条 / 银行流水', required: true, desc: '工资条、银行流水，证明欠薪/克扣' },
+  { name: '考勤记录', required: true, desc: '打卡、排班，证明出勤与加班' },
+  { name: '催要工资沟通记录', required: true, desc: '聊天记录、通话录音' },
+  { name: '社保 / 公积金记录', required: false, desc: '社保、公积金缴存明细' },
+  { name: '拖欠金额和月份明细', required: false, desc: '欠薪月份、金额汇总' }
+];
+
+const MEDICAL_MATERIALS = [
+  { name: '门诊 / 住院病历', required: true, desc: '病历、诊断证明' },
+  { name: '收费清单和发票', required: true, desc: '医疗费票据、收费明细' },
+  { name: '检查报告 / 用药清单', required: true, desc: '检验报告、影像资料、用药清单' },
+  { name: '与医院沟通记录', required: true, desc: '投诉、协商记录' },
+  { name: '损害后果证明', required: false, desc: '诊断/鉴定、后续治疗证明' },
+  { name: '就诊时间线', required: false, desc: '按日期整理就诊经过' }
+];
+
+const EDUCATION_MATERIALS = [
+  { name: '培训合同 / 协议', required: true, desc: '培训合同、补充协议' },
+  { name: '缴费凭证', required: true, desc: '转账记录、发票、收据' },
+  { name: '上课记录 / 考勤', required: true, desc: '课时记录、签到记录' },
+  { name: '与机构沟通记录', required: true, desc: '退费协商聊天记录、通话录音' },
+  { name: '剩余课时 / 金额计算', required: true, desc: '应退金额计算' },
+  { name: '机构停课 / 跑路证据', required: false, desc: '现场照片、通知、其他学员联合维权材料' }
+];
+
+const RENTAL_MATERIALS = [
+  { name: '房屋租赁合同', required: true, desc: '租赁合同、补充协议' },
+  { name: '押金 / 租金支付凭证', required: true, desc: '转账记录、收据' },
+  { name: '房屋交接清单和照片', required: true, desc: '入住/退租时房屋状态' },
+  { name: '与房东 / 中介沟通记录', required: true, desc: '聊天记录、通话录音' },
+  { name: '房屋设施损坏证明', required: false, desc: '如有争议，提供损坏证据' },
+  { name: '退租通知记录', required: false, desc: '提前退租通知、押金退还要求' }
+];
+
+const FOOD_MATERIALS = [
+  { name: '订单截图和支付凭证', required: true, desc: '外卖/餐饮订单、支付记录' },
+  { name: '问题食品照片 / 视频', required: true, desc: '异物、变质、过期等证据' },
+  { name: '与商家 / 平台沟通记录', required: true, desc: '聊天记录、投诉记录' },
+  { name: '就餐时间和地点', required: true, desc: '订单时间、门店/商家' },
+  { name: '就医诊断证明和医疗费票据', required: false, desc: '如身体不适就医' },
+  { name: '剩余食品保留', required: false, desc: '建议保留问题食品备查' }
+];
+
+const RIDE_MATERIALS = [
+  { name: '行程记录 / 订单截图', required: true, desc: '网约车/出租车订单' },
+  { name: '司机 / 车辆信息', required: true, desc: '车牌号、司机信息' },
+  { name: '支付凭证', required: true, desc: '实际支付金额' },
+  { name: '行驶路线对比图', required: true, desc: '实际路线与合理路线对比' },
+  { name: '与平台 / 司机沟通记录', required: false, desc: '投诉、协商记录' },
+  { name: '车内录音 / 录像', required: false, desc: '如有录音录像' }
+];
+
+const PREPAID_MATERIALS = [
+  { name: '会员卡 / 合同', required: true, desc: '健身卡/美容卡合同、会员协议' },
+  { name: '充值 / 付款凭证', required: true, desc: '转账记录、发票、收据' },
+  { name: '消费记录', required: true, desc: '剩余卡值/次数计算依据' },
+  { name: '与商家沟通记录', required: true, desc: '退费协商记录' },
+  { name: '商家关门 / 失联证据', required: false, desc: '现场照片、通知、其他消费者联合维权材料' }
+];
+
+const RENOVATION_MATERIALS = [
+  { name: '装修合同及附件', required: true, desc: '装修合同、报价单、设计图' },
+  { name: '付款凭证', required: true, desc: '转账记录、发票' },
+  { name: '施工质量问题照片 / 视频', required: true, desc: '偷工减料、质量问题证据' },
+  { name: '工程进度记录', required: true, desc: '约定进度与实际进度' },
+  { name: '延期天数和违约金计算', required: false, desc: '延期赔偿计算' },
+  { name: '第三方检测报告', required: false, desc: '如有空气质量、工程质量检测' }
+];
+
+const NOISE_MATERIALS = [
+  { name: '噪音录音 / 视频', required: true, desc: '录制噪音发生时的音频/视频' },
+  { name: '噪音发生时间记录', required: true, desc: '记录噪音发生的日期、时段' },
+  { name: '噪音源位置照片', required: true, desc: '噪音来源位置' },
+  { name: '报警 / 投诉记录', required: false, desc: '110 报警、12345/物业投诉记录' },
+  { name: '受影响证明', required: false, desc: '就医记录、失眠记录、邻居联名证明' },
+  { name: '与对方 / 物业沟通记录', required: false, desc: '协商记录' }
+];
+
+const ONLINE_SHOPPING_MATERIALS = [
+  { name: '订单截图和支付凭证', required: true, desc: '订单、支付记录' },
+  { name: '商家发货承诺截图', required: true, desc: '承诺发货时间、库存说明' },
+  { name: '物流信息截图', required: true, desc: '无记录或异常的物流信息' },
+  { name: '申请退款记录', required: true, desc: '平台退款申请记录' },
+  { name: '商品宣传页面截图', required: false, desc: '宣传承诺、价格' },
+  { name: '与商家 / 平台沟通记录', required: false, desc: '聊天记录、平台介入记录' }
+];
+
+const CAR_MATERIALS = [
+  { name: '购车合同 / 发票', required: true, desc: '购车合同、发票、车辆合格证' },
+  { name: '付款凭证', required: true, desc: '首付款/贷款/全款凭证' },
+  { name: '维修记录', required: true, desc: '4S 店维修、保养记录' },
+  { name: '车辆质量问题照片 / 视频', required: true, desc: '故障、损坏、强制消费证据' },
+  { name: '强制消费证据', required: false, desc: '合同条款、录音、加装/服务费明细' },
+  { name: '第三方检测报告', required: false, desc: '如有质量检测/鉴定' }
+];
+
+const LOCKER_MATERIALS = [
+  { name: '快递单号和物流信息', required: true, desc: '运单号、物流状态' },
+  { name: '取件收费截图 / 金额记录', required: true, desc: '收费金额、收费页面' },
+  { name: '未经同意存放证据', required: true, desc: '未授权投放截图、短信' },
+  { name: '快递柜 / 驿站现场照片', required: true, desc: '现场取件收费照片' },
+  { name: '与快递员 / 客服沟通记录', required: true, desc: '投诉、沟通记录' },
+  { name: '多次违规记录', required: false, desc: '多次被违规收费的截图/记录' }
 ];
 
 Page({
@@ -153,7 +305,7 @@ Page({
       formData,
       isFavorite: app.isFavorite('scripts', id),
       loading: false,
-      materialsList: script.materials && script.materials.length > 0 ? script.materials : DEFAULT_MATERIALS
+      materialsList: this.buildMaterialsList(script)
     });
 
     wx.setNavigationBarTitle({ title: script.scene_name || '话术详情' });
@@ -163,6 +315,33 @@ Page({
       const relatedChannels = scriptRepo.getRelatedChannels(id);
       this.setData({ relatedChannels });
     }, 50);
+  },
+
+  // 构建所需材料清单：脚本自带 > 按场景名称/关键词场景化 > 通用基线
+  buildMaterialsList(script) {
+    if (script.materials && script.materials.length > 0) return script.materials;
+    const sceneName = (script.scene_name || '').toLowerCase();
+    const keywords = (script.keywords || []).join(',').toLowerCase();
+    const text = sceneName + '|' + keywords;
+
+    if (/快递柜|驿站违规收费/.test(text)) return LOCKER_MATERIALS;
+    if (/快递|邮政|驿站/.test(text)) return EXPRESS_MATERIALS;
+    if (/电信|运营商|话费|宽带/.test(text)) return TELECOM_MATERIALS;
+    if (/外卖|餐饮|食品安全/.test(text)) return FOOD_MATERIALS;
+    if (/网约车|出租车|拒载|绕路/.test(text)) return RIDE_MATERIALS;
+    if (/汽车|4S|购车|车辆/.test(text)) return CAR_MATERIALS;
+    if (/装修|装潢|施工|延期|偷工减料/.test(text)) return RENOVATION_MATERIALS;
+    if (/噪音|噪声/.test(text)) return NOISE_MATERIALS;
+    if (/网购|不发货|虚假发货/.test(text)) return ONLINE_SHOPPING_MATERIALS;
+    if (/健身|美容|预付卡|预付费|跑路/.test(text)) return PREPAID_MATERIALS;
+    if (/租房|房东|押金|租赁/.test(text)) return RENTAL_MATERIALS;
+    if (/教育|培训|退费|学校/.test(text)) return EDUCATION_MATERIALS;
+    if (/医疗|医院|医生|收费/.test(text)) return MEDICAL_MATERIALS;
+    if (/劳动|社保|欠薪|工资|仲裁/.test(text)) return LABOR_MATERIALS;
+    if (/物业|房产|房地产/.test(text)) return PROPERTY_MATERIALS;
+    if (/银行|保险|证券|基金|理财|金融/.test(text)) return BANK_MATERIALS;
+    if (/消费者|12315|电商|商家|退款|假货|虚假宣传/.test(text)) return MERCHANT_MATERIALS;
+    return DEFAULT_MATERIALS;
   },
 
   // 构建书面版分块

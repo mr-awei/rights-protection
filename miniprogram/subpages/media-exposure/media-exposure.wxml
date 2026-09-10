@@ -7,18 +7,34 @@
         <view class="header-badge app-icon app-icon-default icon-broadcast" style="width:44rpx;height:44rpx;--icon-bg:rgba(255,255,255,0.2);--icon-color:#fff;"></view>
         <text class="header-title">媒体曝光</text>
       </view>
-      <text class="header-sub">第四条维权路径：舆论监督 / 社会监督，作为官方渠道之外的补充手段</text>
+      <text class="header-sub">舆论监督 / 社会监督：企业、平台、监管、法律渠道穷尽后的补充手段。法律永远是最后兜底。</text>
     </view>
   </view>
 
   <view class="content">
+    <!-- 推荐顺序 -->
+    <view class="section">
+      <view class="section-header">
+        <text class="section-title">推荐顺序</text>
+      </view>
+      <view class="tip-card tip-primary">
+        <text class="tip-text">{{guide.order}}</text>
+      </view>
+    </view>
+
     <!-- 适用场景 -->
     <view class="section">
       <view class="section-header">
         <text class="section-title">适用场景</text>
       </view>
       <view class="info-card">
-        <text class="info-text">{{guide.scope}}</text>
+        <text class="info-text">{{guide.scopeDesc}}</text>
+        <view class="bullet-list">
+          <view class="bullet-item" wx:for="{{guide.scopeItems}}" wx:key="*this">
+            <text class="bullet-dot"></text>
+            <text class="bullet-text">{{item}}</text>
+          </view>
+        </view>
       </view>
     </view>
 
@@ -35,18 +51,36 @@
       </view>
     </view>
 
-    <!-- 可选渠道 -->
+    <!-- 主流媒体爆料渠道 -->
     <view class="section">
       <view class="section-header">
-        <text class="section-title">可选渠道</text>
+        <text class="section-title">主流媒体爆料渠道</text>
       </view>
       <view class="channel-list">
-        <view class="channel-item" wx:for="{{guide.channels}}" wx:key="name">
-          <view class="channel-name-row">
-            <text class="channel-dot"></text>
-            <text class="channel-name">{{item.name}}</text>
+        <view class="media-row" wx:for="{{guide.mainstream}}" wx:key="name">
+          <view class="media-row-head">
+            <text class="media-row-name">{{item.name}}</text>
+            <text class="media-row-scope" wx:if="{{item.scope}}">{{item.scope}}</text>
           </view>
-          <text class="channel-desc" wx:if="{{item.desc}}">{{item.desc}}</text>
+          <text class="media-row-contact">{{item.contact}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 正规自媒体 / 维权栏目 -->
+    <view class="section">
+      <view class="section-header">
+        <text class="section-title">正规自媒体 / 维权栏目</text>
+      </view>
+      <view class="channel-list">
+        <view class="media-row" wx:for="{{guide.selfMedia}}" wx:key="name">
+          <view class="media-row-head">
+            <text class="media-row-name">{{item.name}}</text>
+            <text class="media-row-scope" wx:if="{{item.fans}}">{{item.fans}}</text>
+          </view>
+          <text class="media-row-meta" wx:if="{{item.platform}}">平台：{{item.platform}}</text>
+          <text class="media-row-meta" wx:if="{{item.direction}}">方向：{{item.direction}}</text>
+          <text class="media-row-contact">投稿：{{item.contact}}</text>
         </view>
       </view>
     </view>
@@ -67,14 +101,6 @@
     <!-- 投稿所需材料清单 + 自检表 -->
     <view class="section">
       <materials-checklist materials="{{guide.materials}}" title="投稿所需材料清单"></materials-checklist>
-    </view>
-
-    <!-- 提示 -->
-    <view class="section">
-      <view class="tip-card">
-        <text class="tip-title">推荐顺序</text>
-        <text class="tip-text">优先走企业投诉 → 监管投诉 → 法律途径；以上渠道已穷尽或事件具有公共性、典型性时，再考虑媒体曝光。</text>
-      </view>
     </view>
 
     <view style="height: 60rpx;"></view>

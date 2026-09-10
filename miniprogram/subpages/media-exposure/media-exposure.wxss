@@ -96,11 +96,11 @@
   line-height: 1.6;
 }
 
-/* 可选渠道 */
+/* 可选渠道 / 媒体列表 */
 .channel-list {
   background: #FFFFFF;
   border-radius: 24rpx;
-  padding: 24rpx 28rpx;
+  padding: 12rpx 28rpx;
   box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.04);
 }
 
@@ -139,6 +139,91 @@
   color: #86909C;
   margin-top: 6rpx;
   line-height: 1.5;
+}
+
+.media-row {
+  padding: 20rpx 0;
+  border-bottom: 1rpx solid #F2F3F5;
+}
+
+.media-row:last-child {
+  border-bottom: none;
+}
+
+.media-row-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8rpx;
+}
+
+.media-row-name {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #1D2129;
+  flex: 1;
+  min-width: 0;
+}
+
+.media-row-scope {
+  font-size: 20rpx;
+  color: #FA8C16;
+  background: #FFF7E6;
+  padding: 4rpx 12rpx;
+  border-radius: 8rpx;
+  margin-left: 12rpx;
+  flex-shrink: 0;
+}
+
+.media-row-meta {
+  display: block;
+  font-size: 24rpx;
+  color: #86909C;
+  line-height: 1.5;
+}
+
+.media-row-contact {
+  display: block;
+  font-size: 25rpx;
+  color: #4E5969;
+  line-height: 1.6;
+  margin-top: 4rpx;
+}
+
+.bullet-list {
+  margin-top: 12rpx;
+}
+
+.bullet-item {
+  display: flex;
+  align-items: flex-start;
+  padding: 6rpx 0;
+}
+
+.bullet-dot {
+  width: 10rpx;
+  height: 10rpx;
+  border-radius: 50%;
+  background: #FA8C16;
+  margin-right: 12rpx;
+  margin-top: 12rpx;
+  flex-shrink: 0;
+}
+
+.bullet-text {
+  flex: 1;
+  font-size: 25rpx;
+  color: #4E5969;
+  line-height: 1.6;
+}
+
+.tip-primary {
+  background: #FFF7E6;
+  border: 1rpx solid #FFE0B2;
+}
+
+.tip-primary .tip-text {
+  color: #614700;
 }
 
 /* 本渠道注意 */
