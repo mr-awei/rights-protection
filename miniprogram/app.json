@@ -29,7 +29,8 @@
         "settings/settings",
         "about/about",
         "disclaimer/disclaimer",
-        "origin/origin"
+        "origin/origin",
+        "media-exposure/media-exposure"
       ]
     }
   ],

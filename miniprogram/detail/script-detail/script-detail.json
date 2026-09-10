@@ -2,6 +2,7 @@
   "navigationBarTitleText": "话术详情",
   "usingComponents": {
     "custom-modal": "/components/custom-modal/custom-modal",
-    "loading-state": "/components/loading-state/loading-state"
+    "loading-state": "/components/loading-state/loading-state",
+    "materials-checklist": "/components/materials-checklist/materials-checklist"
   }
 }

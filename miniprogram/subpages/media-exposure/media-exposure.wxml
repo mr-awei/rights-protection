@@ -1,0 +1,73 @@
+<!--media-exposure.wxml-->
+<view class="container">
+  <!-- 头部 -->
+  <view class="gradient-header">
+    <view class="header-content">
+      <view class="header-title-row">
+        <view class="header-badge app-icon app-icon-default icon-broadcast" style="width:44rpx;height:44rpx;--icon-bg:rgba(255,255,255,0.2);--icon-color:#fff;"></view>
+        <text class="header-title">媒体曝光 · 第四条维权路径</text>
+      </view>
+      <text class="header-sub">舆论监督 / 社会监督，与「政府部门 · 法律渠道 · 监管部门」并列，作为官方渠道之外的补充手段</text>
+    </view>
+  </view>
+
+  <view class="content">
+    <!-- 合规边界 -->
+    <view class="section">
+      <view class="section-header">
+        <text class="section-title">合规边界（务必先读）</text>
+      </view>
+      <view class="compliance-card">
+        <view class="compliance-item" wx:for="{{compliance}}" wx:key="index">
+          <view class="compliance-dot"></view>
+          <text class="compliance-text">{{item}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 媒体曝光渠道列表 -->
+    <view class="section" wx:for="{{mediaList}}" wx:key="id">
+      <view class="media-card">
+        <view class="media-card-head">
+          <view class="media-icon app-icon app-icon-default icon-broadcast" style="width:40rpx;height:40rpx;--icon-bg:#FFF7E6;--icon-color:#FA8C16;"></view>
+          <view class="media-head-text">
+            <text class="media-name">{{item.name}}</text>
+            <text class="media-type">{{item.type}}</text>
+          </view>
+        </view>
+
+        <view class="media-desc">{{item.desc}}</view>
+
+        <view class="media-block" wx:if="{{item.scope}}">
+          <text class="media-block-label">适用场景</text>
+          <text class="media-block-text">{{item.scope}}</text>
+        </view>
+
+        <view class="media-block" wx:if="{{item.submission.length > 0}}">
+          <text class="media-block-label">投稿方式</text>
+          <view class="submission-item" wx:for="{{item.submission}}" wx:for-item="sub" wx:key="label">
+            <text class="submission-label">{{sub.label}}</text>
+            <text class="submission-value">{{sub.value}}</text>
+          </view>
+        </view>
+
+        <view class="media-block" wx:if="{{item.compliance.length > 0}}">
+          <text class="media-block-label">本渠道注意</text>
+          <view class="submission-item" wx:for="{{item.compliance}}" wx:for-item="c" wx:key="*this">
+            <text class="submission-value">· {{c}}</text>
+          </view>
+        </view>
+
+        <!-- 所需材料清单 + 自检表 -->
+        <materials-checklist materials="{{item.materials}}" title="投稿所需材料清单"></materials-checklist>
+
+        <view class="media-url" wx:if="{{item.url}}" data-url="{{item.url}}" bindtap="onCopyUrl" hover-class="media-url-hover">
+          <text class="media-url-text">{{item.url}}</text>
+          <text class="media-url-copy">复制</text>
+        </view>
+      </view>
+    </view>
+
+    <view style="height: 60rpx;"></view>
+  </view>
+</view>

@@ -17,6 +17,10 @@
         <text class="issue-type-label">适用问题：</text>
         <ui-tag wx:for="{{issueTypeLabels}}" wx:key="key" text="{{item.name}}" type="warning-light" size="small"></ui-tag>
       </view>
+      <view class="path-type-tags" wx:if="{{pathTypeLabel}}">
+        <text class="path-type-label">维权路径：</text>
+        <ui-tag text="{{pathTypeLabel}}" type="info" size="small"></ui-tag>
+      </view>
     </view>
   </view>
 
@@ -145,6 +149,11 @@
       <view class="tips-card">
         <rich-text nodes="{{tipsText}}"></rich-text>
       </view>
+    </view>
+
+    <!-- 所需材料清单 + 自检表 -->
+    <view class="section">
+      <materials-checklist materials="{{materialsList}}"></materials-checklist>
     </view>
 
     <!-- 依法维权提示 -->

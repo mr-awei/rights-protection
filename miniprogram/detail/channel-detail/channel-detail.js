@@ -4,6 +4,64 @@ const app = getApp();
 const { channels: channelRepo, laws: lawRepo } = require('../repositories').createRepositories();
 const { convertSourceToName } = require('../utils/source-utils');
 
+// 所需材料清单：通用基线（多数投诉适用）+ 按二级分类的场景化补充（PRD §9.3.2）
+const DEFAULT_MATERIALS = [
+  { name: '身份与关系证明', required: true, desc: '本人身份证、与对方的关系证明（如劳动合同、会员信息）' },
+  { name: '交易与合同凭证', required: true, desc: '订单、支付记录、合同、发票等证明交易关系' },
+  { name: '沟通记录', required: true, desc: '聊天记录、通话录音、邮件等证明协商与诉求' },
+  { name: '侵权证据', required: true, desc: '照片、视频、质检报告、录屏、物流单等证明侵权事实' },
+  { name: '时间线说明', required: false, desc: '按时间顺序梳理事发经过，条理清晰' },
+  { name: '诉求与损失证明', required: false, desc: '退款 / 赔偿计算、损失凭证等' }
+];
+
+const CONSUMER_MATERIALS = [
+  { name: '订单与支付凭证', required: true, desc: '订单截图、支付记录、发票' },
+  { name: '商品 / 服务问题证据', required: true, desc: '照片、视频、质检报告、录屏' },
+  { name: '与商家协商记录', required: true, desc: '聊天记录、通话录音，证明已先企业内部投诉' },
+  { name: '诉求说明', required: true, desc: '退款、赔偿、换货等具体诉求' },
+  { name: '本人身份信息', required: false, desc: '实名投诉所需' }
+];
+
+const LABOR_MATERIALS = [
+  { name: '劳动合同', required: true, desc: '证明劳动关系与权利义务' },
+  { name: '工资流水', required: true, desc: '银行流水、工资条，证明欠薪 / 克扣' },
+  { name: '考勤记录', required: true, desc: '打卡、排班，证明出勤与加班' },
+  { name: '解除 / 辞退通知', required: true, desc: '辞退证明、解除协议' },
+  { name: '社保 / 公积金记录', required: false, desc: '社保、公积金缴存明细' },
+  { name: '本人身份证明', required: false, desc: '身份证等实名材料' }
+];
+
+const PROPERTY_MATERIALS = [
+  { name: '物业 / 租房合同', required: true, desc: '证明服务关系与约定' },
+  { name: '缴费凭证', required: true, desc: '物业费、水电费等票据' },
+  { name: '报修 / 投诉记录', required: true, desc: '报修单、与物业沟通记录' },
+  { name: '现场照片 / 视频', required: true, desc: '房屋质量、设施损坏等证据' },
+  { name: '沟通记录', required: false, desc: '与物业协商过程' }
+];
+
+const FINANCE_MATERIALS = [
+  { name: '合同 / 协议', required: true, desc: '理财、保险、贷款等协议文本' },
+  { name: '营销页截图', required: true, desc: '销售宣传、承诺截图，证明误导' },
+  { name: '扣费流水', required: true, desc: '银行流水、扣款记录' },
+  { name: '销售录音 / 聊天', required: true, desc: '销售过程沟通记录' },
+  { name: '本人身份证明', required: false, desc: '身份证、保单信息等' }
+];
+
+const TELECOM_MATERIALS = [
+  { name: '账单 / 套餐截图', required: true, desc: '证明订购与收费' },
+  { name: '扣费记录', required: true, desc: '异常扣费明细' },
+  { name: '与运营商沟通记录', required: true, desc: '客服聊天 / 通话，证明已投诉' },
+  { name: '本人身份证明', required: false, desc: '实名办理所需' }
+];
+
+// 维权路径类型标签（path_type 枚举，media 为第四条路径）
+const PATH_TYPE_LABELS = {
+  gov: '政府部门',
+  legal: '法律渠道',
+  regulator: '监管部门',
+  media: '媒体曝光'
+};
+
 Page({
   data: {
     channelId: '',
@@ -18,7 +76,9 @@ Page({
     loading: true,  // 加载状态
     showLawModal: false,
     currentLaw: null,
-    sourceName: ''
+    sourceName: '',
+    materialsList: [],     // 所需材料清单（渠道自带 / 场景化 / 通用基线）
+    pathTypeLabel: ''      // 维权路径标签（政府部门/法律渠道/监管部门/媒体曝光）
   },
 
   // ========== 自定义弹窗通用方法 ==========
@@ -121,6 +181,8 @@ Page({
     
     // 转换信息来源：网址转网站名
     const sourceName = convertSourceToName(channel.source || '');
+    const materialsList = this.buildMaterialsList(channel);
+    const pathTypeLabel = PATH_TYPE_LABELS[channel.path_type] || '';
     this.setData({
       channel,
       contactItems,
@@ -128,7 +190,9 @@ Page({
       issueTypeLabels,
       loading: false,
       isFavorite: app.isFavorite('channels', id),
-      sourceName
+      sourceName,
+      materialsList,
+      pathTypeLabel
     });
 
     // 第二批：异步加载关联内容（话术、法律依据），不阻塞首屏渲染
@@ -146,6 +210,18 @@ Page({
         preconditionText: channel.precondition || ''
       });
     }, 50);
+  },
+
+  // 构建所需材料清单：渠道自带 > 按二级分类场景化 > 通用基线
+  buildMaterialsList(channel) {
+    if (channel.materials && channel.materials.length > 0) return channel.materials;
+    const l2 = channel.category_l2 || '';
+    if (l2.indexOf('劳动') >= 0 || l2.indexOf('社保') >= 0) return LABOR_MATERIALS;
+    if (l2.indexOf('物业') >= 0 || l2.indexOf('房地产') >= 0) return PROPERTY_MATERIALS;
+    if (l2.indexOf('银行') >= 0 || l2.indexOf('保险') >= 0 || l2.indexOf('证券') >= 0 || l2.indexOf('金融') >= 0) return FINANCE_MATERIALS;
+    if (l2.indexOf('电信') >= 0) return TELECOM_MATERIALS;
+    if (l2.indexOf('电商') >= 0 || l2.indexOf('消费者权益') >= 0 || l2.indexOf('网购') >= 0) return CONSUMER_MATERIALS;
+    return DEFAULT_MATERIALS;
   },
 
   // 根据渠道分类筛选相关法律法规（优先使用渠道自带的legal_basis_with_articles字段）

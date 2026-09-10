@@ -19,7 +19,8 @@ Page({
       { label: '银行/保险坑人', desc: '12378金融监管', color: '#E6FFFB', textColor: '#13C2C2', iconClass: 'icon-coin', searchKeyword: '金融', issueType: 'fraud' },
       { label: '老板欠薪', desc: '劳动监察投诉', color: '#F9F0FF', textColor: '#722ED1', iconClass: 'icon-briefcase', searchKeyword: '劳动', issueType: 'overcharge' },
       { label: '医院/学校乱收费', desc: '12320/12391投诉', color: '#FFF0F6', textColor: '#EB2F96', iconClass: 'icon-medical', searchKeyword: '收费', issueType: 'overcharge' },
-      { label: '被骗了/诈骗', desc: '96110反诈报警', color: '#F0F5FF', textColor: '#2F54EB', iconClass: 'icon-shield', searchKeyword: '诈骗', issueType: 'fraud' }
+      { label: '被骗了/诈骗', desc: '96110反诈报警', color: '#F0F5FF', textColor: '#2F54EB', iconClass: 'icon-shield', searchKeyword: '诈骗', issueType: 'fraud' },
+      { label: '媒体曝光', desc: '舆论监督·第四条路径', color: '#FFF7E6', textColor: '#FA8C16', iconClass: 'icon-broadcast', searchKeyword: '', issueType: '', page: '/subpages/media-exposure/media-exposure' }
     ],
     hotScripts: [],
     displayScripts: [],
@@ -303,6 +304,12 @@ Page({
   },
 
   onSceneEntryTap(e) {
+    const page = e.currentTarget.dataset.page;
+    if (page) {
+      // 媒体曝光：独立子页（第四条维权路径）
+      nav.navigateTo({ url: page });
+      return;
+    }
     const searchKeyword = e.currentTarget.dataset.keyword || '';
     const issueType = e.currentTarget.dataset.issuetype || '';
     // 跳转到搜索结果页，传递关键词和问题类型筛选

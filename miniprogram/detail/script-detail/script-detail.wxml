@@ -204,6 +204,11 @@
       </view>
     </view>
 
+    <!-- 所需材料清单 + 自检表 -->
+    <view class="section">
+      <materials-checklist materials="{{materialsList}}"></materials-checklist>
+    </view>
+
     <!-- 依法维权提示 -->
     <view class="section">
       <view class="legal-notice-card">

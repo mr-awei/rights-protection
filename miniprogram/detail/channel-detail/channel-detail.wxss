@@ -142,6 +142,19 @@
   color: rgba(255,255,255,0.7);
 }
 
+.path-type-tags {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10rpx;
+  margin-top: 12rpx;
+}
+
+.path-type-label {
+  font-size: var(--font-sm);
+  color: rgba(255,255,255,0.7);
+}
+
 .issue-type-tag {
   background: rgba(255,255,255,0.12);
   color: #FFE4B5;

@@ -97,6 +97,7 @@
           wx:key="label"
           data-keyword="{{item.searchKeyword}}"
           data-issuetype="{{item.issueType}}"
+          data-page="{{item.page}}"
           bindtap="onSceneEntryTap"
           hover-class="scene-item-hover"
         >

@@ -1,0 +1,37 @@
+<!--materials-checklist.wxml-->
+<view class="materials-card" wx:if="{{materials.length > 0}}">
+  <view class="materials-header">
+    <text class="materials-title">{{title}}</text>
+    <text class="materials-count">{{materials.length}}项</text>
+  </view>
+  <view class="materials-tip">提交前请按以下清单逐项自检，必带项全部打勾即视为材料齐全</view>
+
+  <view
+    class="material-item {{checked[index] ? 'material-item-checked' : ''}}"
+    wx:for="{{materials}}"
+    wx:key="index"
+    data-index="{{index}}"
+    bindtap="onToggle"
+    hover-class="material-item-hover"
+  >
+    <view class="material-check {{checked[index] ? 'checked' : ''}}">
+      <text class="check-mark" wx:if="{{checked[index]}}">✓</text>
+    </view>
+    <view class="material-body">
+      <view class="material-name-row">
+        <text class="material-name">{{item.name}}</text>
+        <text class="material-flag {{item.required ? 'required' : 'optional'}}">{{item.required ? '必带' : '建议'}}</text>
+      </view>
+      <text class="material-desc" wx:if="{{item.desc}}">{{item.desc}}</text>
+    </view>
+  </view>
+
+  <view class="materials-summary {{allDone ? 'done' : ''}}">
+    <block wx:if="{{requiredTotal > 0}}">
+      <text>必带材料已准备 {{requiredDone}}/{{requiredTotal}}{{allDone ? ' · 材料齐全可提交' : ''}}</text>
+    </block>
+    <block wx:else>
+      <text>共 {{materials.length}} 项材料，建议提交前逐项核对</text>
+    </block>
+  </view>
+</view>

@@ -3,6 +3,16 @@ const app = getApp();
 // 通过 Repository 抽象访问数据（TDD §3/§6），页面不再直接依赖数据模块
 const { channels: channelRepo, scripts: scriptRepo, laws: lawRepo } = require('../repositories').createRepositories();
 
+// 所需材料清单通用基线（话术详情共用，PRD §9.3.2）
+const DEFAULT_MATERIALS = [
+  { name: '身份与关系证明', required: true, desc: '本人身份证、与对方的关系证明' },
+  { name: '交易与合同凭证', required: true, desc: '订单、支付记录、合同、发票等' },
+  { name: '沟通记录', required: true, desc: '聊天记录、通话录音、邮件等' },
+  { name: '侵权证据', required: true, desc: '照片、视频、质检报告、录屏等' },
+  { name: '时间线说明', required: false, desc: '按时间顺序梳理事发经过' },
+  { name: '诉求与损失证明', required: false, desc: '退款 / 赔偿计算、损失凭证' }
+];
+
 Page({
   data: {
     scriptId: '',
@@ -26,7 +36,8 @@ Page({
     customWrittenContent: '',
     customPhoneText: '',
     customWrittenText: '',
-    hasCustomContent: false
+    hasCustomContent: false,
+    materialsList: []
   },
 
   // ========== 自定义弹窗通用方法 ==========
@@ -141,7 +152,8 @@ Page({
       placeholders,
       formData,
       isFavorite: app.isFavorite('scripts', id),
-      loading: false
+      loading: false,
+      materialsList: script.materials && script.materials.length > 0 ? script.materials : DEFAULT_MATERIALS
     });
 
     wx.setNavigationBarTitle({ title: script.scene_name || '话术详情' });

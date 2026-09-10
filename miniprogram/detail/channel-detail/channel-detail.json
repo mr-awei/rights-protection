@@ -5,6 +5,7 @@
   "usingComponents": {
     "custom-modal": "/components/custom-modal/custom-modal",
     "loading-state": "/components/loading-state/loading-state",
-    "ui-tag": "/components/ui-tag/ui-tag"
+    "ui-tag": "/components/ui-tag/ui-tag",
+    "materials-checklist": "/components/materials-checklist/materials-checklist"
   }
 }
