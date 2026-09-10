@@ -11,7 +11,7 @@
         <input
           class="search-input"
           type="text"
-          placeholder="搜索投诉渠道、话术、关键词..."
+          placeholder="搜索维权渠道、话术、关键词..."
           placeholder-class="search-placeholder"
           value="{{keyword}}"
           focus="{{true}}"
@@ -39,7 +39,7 @@
       <view class="suggestion-icon app-icon app-icon-default {{item.type === 'channel' ? 'icon-channel' : 'icon-doc'}} suggestion-icon-{{item.type}}"></view>
       <view class="suggestion-info">
         <text class="suggestion-name">{{item.name}}</text>
-        <text class="suggestion-type" wx:if="{{item.type === 'channel'}}">投诉渠道</text>
+        <text class="suggestion-type" wx:if="{{item.type === 'channel'}}">维权渠道</text>
         <text class="suggestion-type" wx:else>投诉话术</text>
       </view>
       <view class="suggestion-arrow app-icon app-icon-default icon-chevron-right" style="width:24rpx;height:24rpx;--icon-bg:transparent;--icon-color:#999;"></view>
@@ -103,7 +103,7 @@
       <view class="tip-content">
         <text class="tip-text">• 输入关键词如"快递"、"物业"、"银行"等，系统会自动匹配相关场景</text>
         <text class="tip-text">• 可以描述具体问题，如"快递丢了不赔偿"、"物业乱收费"</text>
-        <text class="tip-text">• 搜索结果包含投诉渠道和投诉话术两部分</text>
+        <text class="tip-text">• 搜索结果包含维权渠道和投诉话术两部分</text>
         <text class="tip-text">• 建议先向企业内部投诉，无法解决再向监管部门投诉</text>
       </view>
     </view>

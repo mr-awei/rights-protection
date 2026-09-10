@@ -201,7 +201,7 @@
       </view>
 
       <!-- 空状态 -->
-      <empty-state wx:if="{{historyList.length === 0}}" title="还没有浏览记录" desc="去看看有哪些投诉渠道吧" icon-type="history"></empty-state>
+      <empty-state wx:if="{{historyList.length === 0}}" title="还没有浏览记录" desc="去看看有哪些维权渠道吧" icon-type="history"></empty-state>
 
       <!-- 加载更多 -->
       <view class="load-more" wx:if="{{historyList.length > 0}}">

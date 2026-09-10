@@ -18,8 +18,8 @@ const FOLLOWUP_SCHEDULE = [
     time_node: '3个工作日内',
     time_display: 'Day 1-3',
     legal_basis: '多数部门承诺3个工作日内告知是否受理',
-    action: '未收到受理通知的，拨打投诉渠道查询进度，确认投诉是否被受理',
-    escalate_to: '原投诉渠道',
+    action: '未收到受理通知的，拨打维权渠道查询进度，确认投诉是否被受理',
+    escalate_to: '原维权渠道',
     status: 'pending',
     color: '#8B5CF6',
     icon: 'icon-phone'

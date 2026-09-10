@@ -17,7 +17,7 @@
         <input
           class="search-input"
           type="text"
-          placeholder="搜索投诉渠道、话术、关键词..."
+          placeholder="搜索维权渠道、话术、关键词..."
           placeholder-class="search-placeholder"
           value="{{searchInput}}"
           confirm-type="search"

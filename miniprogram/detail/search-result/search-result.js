@@ -337,7 +337,7 @@ Page({
   onShareAppMessage() {
     const kw = this.data.keyword || '';
     return {
-      title: kw ? ('搜索"' + kw + '" - 维权投诉渠道') : '维权投诉渠道大全',
+      title: kw ? ('搜索"' + kw + '" - 维权渠道') : '维权渠道大全',
       path: '/pages/index/index'
     };
   },
@@ -345,7 +345,7 @@ Page({
   // 分享到朋友圈
   onShareTimeline() {
     return {
-      title: '维权投诉渠道大全'
+      title: '维权渠道大全'
     };
   },
 

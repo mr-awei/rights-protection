@@ -188,7 +188,8 @@
 
 /* ========== 结果列表 ========== */
 .result-list {
-  padding: 0 24rpx;
+  /* 底部预留安全区，避免最后一条结果贴边或被遮挡 */
+  padding: 0 24rpx calc(60rpx + env(safe-area-inset-bottom));
 }
 
 .result-item {

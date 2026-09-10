@@ -182,7 +182,7 @@
     <!-- 关联渠道 -->
     <view class="section" wx:if="{{relatedChannels.length > 0}}">
       <view class="section-header">
-        <text class="section-title">关联投诉渠道</text>
+        <text class="section-title">关联维权渠道</text>
         <text class="section-count">{{relatedChannels.length}}个</text>
       </view>
       <view class="channel-list">

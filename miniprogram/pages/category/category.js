@@ -202,7 +202,7 @@ Page({
   // 分享给朋友
   onShareAppMessage() {
     return {
-      title: '维权投诉渠道分类大全',
+      title: '维权渠道分类大全',
       path: '/pages/category/category'
     };
   },
@@ -210,7 +210,7 @@ Page({
   // 分享到朋友圈
   onShareTimeline() {
     return {
-      title: '维权投诉渠道分类大全'
+      title: '维权渠道分类大全'
     };
   },
 });

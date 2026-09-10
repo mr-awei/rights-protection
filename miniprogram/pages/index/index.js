@@ -8,6 +8,7 @@ const nav = require('../../utils/nav');
 Page({
   data: {
     searchKeyword: '',
+    searchFocus: false,
     statusBarHeight: 0,
     hotSearches: [],
     emergencyPhones: [],
@@ -252,9 +253,14 @@ Page({
     wx.switchTab({ url: '/pages/script-list/script-list' });
   },
 
-  // 点击搜索框跳转到搜索态页面
+  // 点击搜索框：就地聚焦编辑（不再跳转搜索页）
   onSearchBoxTap() {
-    nav.navigateTo({ url: '/detail/search/search' });
+    this.setData({ searchFocus: true });
+  },
+
+  // 失焦后复位，保证下次点击仍能聚焦
+  onSearchBlur() {
+    this.setData({ searchFocus: false });
   },
 
   onSearchInput(e) {
@@ -360,7 +366,7 @@ Page({
   // 分享给朋友
   onShareAppMessage() {
     return {
-      title: '我不能被欺负 - 维权投诉渠道大全',
+      title: '我不能被欺负 - 维权渠道大全',
       path: '/pages/index/index'
     };
   },
@@ -368,7 +374,7 @@ Page({
   // 分享到朋友圈
   onShareTimeline() {
     return {
-      title: '我不能被欺负 - 维权投诉渠道大全'
+      title: '我不能被欺负 - 维权渠道大全'
     };
   },
 });
