@@ -110,10 +110,10 @@ ok(fs.existsSync(mediaPage), 'media-exposure 页 js 存在');
 ok(fs.existsSync(path.join(MINI, 'components/materials-checklist/materials-checklist.js')), 'materials-checklist 组件存在');
 ok(/materials-checklist/.test(read(path.join(MINI, 'detail/channel-detail/channel-detail.wxml'))), 'channel-detail 引用 materials-checklist');
 ok(/materials-checklist/.test(read(path.join(MINI, 'detail/script-detail/script-detail.wxml'))), 'script-detail 引用 materials-checklist');
-// 媒体曝光数据：4 条路径，每条含必带材料与合规边界
+// 媒体曝光数据：3 条路径，每条含必带材料与合规边界
 delete require.cache[require.resolve(path.join(MINI, 'data/media_exposure.js'))];
 const media = require(path.join(MINI, 'data/media_exposure.js'));
-ok(Array.isArray(media) && media.length === 4, 'media_exposure.js 含 4 条媒体曝光路径');
+ok(Array.isArray(media) && media.length === 3, 'media_exposure.js 含 3 条媒体曝光路径');
 ok(media.every(m => Array.isArray(m.materials) && m.materials.length > 0), '每条媒体曝光路径均含材料清单');
 ok(media.every(m => Array.isArray(m.compliance) && m.compliance.length > 0), '每条媒体曝光路径均含合规边界');
 // 媒体曝光入口：每个渠道/话术详情页独立入口（不再放在首页场景里）
