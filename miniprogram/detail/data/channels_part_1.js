@@ -128,7 +128,7 @@ module.exports = [
     "success_rate": "",
     "user_feedback_count": "",
     "ext": "",
-    "category_user": "交通物流",
+    "category_user": "快递物流",
     "category_user_l2": "快递与邮政",
     "issue_types": [
       "service_attitude",
@@ -208,7 +208,7 @@ module.exports = [
     "success_rate": "",
     "user_feedback_count": "",
     "ext": "",
-    "category_user": "公共事业",
+    "category_user": "公用事业",
     "category_user_l2": "供电",
     "issue_types": [
       "service_attitude",
@@ -273,7 +273,7 @@ module.exports = [
     "success_rate": "",
     "user_feedback_count": "",
     "ext": "",
-    "category_user": "公共事业",
+    "category_user": "公用事业",
     "category_user_l2": "供电",
     "issue_types": [
       "service_attitude",
@@ -341,7 +341,7 @@ module.exports = [
     "success_rate": "",
     "user_feedback_count": "",
     "ext": "",
-    "category_user": "公共事业",
+    "category_user": "政务纪检",
     "category_user_l2": "政务服务(12345)",
     "issue_types": [
       "service_attitude",
@@ -422,7 +422,7 @@ module.exports = [
     "success_rate": "",
     "user_feedback_count": "",
     "ext": "",
-    "category_user": "公共事业",
+    "category_user": "公用事业",
     "category_user_l2": "供水",
     "issue_types": [
       "service_attitude",
@@ -490,7 +490,7 @@ module.exports = [
     "success_rate": "",
     "user_feedback_count": "",
     "ext": "",
-    "category_user": "公共事业",
+    "category_user": "公用事业",
     "category_user_l2": "燃气",
     "issue_types": [
       "service_attitude",
@@ -560,7 +560,7 @@ module.exports = [
     "success_rate": "",
     "user_feedback_count": "",
     "ext": "",
-    "category_user": "公共事业",
+    "category_user": "公用事业",
     "category_user_l2": "燃气",
     "issue_types": [
       "service_attitude",
@@ -630,7 +630,7 @@ module.exports = [
     "success_rate": "",
     "user_feedback_count": "",
     "ext": "",
-    "category_user": "公共事业",
+    "category_user": "公用事业",
     "category_user_l2": "供热/供暖",
     "issue_types": [
       "service_attitude",
@@ -694,7 +694,7 @@ module.exports = [
     "success_rate": "",
     "user_feedback_count": "",
     "ext": "",
-    "category_user": "交通物流",
+    "category_user": "交通出行",
     "category_user_l2": "铁路",
     "issue_types": [
       "service_attitude",
@@ -767,7 +767,7 @@ module.exports = [
     "success_rate": "",
     "user_feedback_count": "",
     "ext": "",
-    "category_user": "交通物流",
+    "category_user": "交通出行",
     "category_user_l2": "铁路",
     "issue_types": [
       "service_attitude",
@@ -847,7 +847,7 @@ module.exports = [
     "success_rate": "",
     "user_feedback_count": "",
     "ext": "",
-    "category_user": "交通物流",
+    "category_user": "交通出行",
     "category_user_l2": "民航",
     "issue_types": [
       "service_attitude",
@@ -936,7 +936,7 @@ module.exports = [
     "success_rate": "",
     "user_feedback_count": "",
     "ext": "",
-    "category_user": "交通物流",
+    "category_user": "交通出行",
     "category_user_l2": "公路/网约车/出租车",
     "issue_types": [
       "service_attitude",
@@ -1022,7 +1022,7 @@ module.exports = [
     "success_rate": "",
     "user_feedback_count": "",
     "ext": "",
-    "category_user": "交通物流",
+    "category_user": "交通出行",
     "category_user_l2": "公路/网约车/出租车",
     "issue_types": [
       "service_attitude",
@@ -1109,7 +1109,7 @@ module.exports = [
     "success_rate": "",
     "user_feedback_count": "",
     "ext": "",
-    "category_user": "交通物流",
+    "category_user": "交通出行",
     "category_user_l2": "公路/网约车/出租车",
     "issue_types": [
       "service_attitude",
@@ -1189,7 +1189,7 @@ module.exports = [
     "success_rate": "",
     "user_feedback_count": "",
     "ext": "",
-    "category_user": "交通物流",
+    "category_user": "交通出行",
     "category_user_l2": "城市公交/地铁",
     "issue_types": [
       "service_attitude",
@@ -1269,7 +1269,7 @@ module.exports = [
     "success_rate": "",
     "user_feedback_count": "",
     "ext": "",
-    "category_user": "交通物流",
+    "category_user": "交通出行",
     "category_user_l2": "城市公交/地铁",
     "issue_types": [
       "service_attitude",
@@ -2926,7 +2926,7 @@ module.exports = [
     "success_rate": "",
     "user_feedback_count": "",
     "ext": "",
-    "category_user": "消费购物",
+    "category_user": "政务纪检",
     "category_user_l2": "农业生产资料",
     "issue_types": [
       "service_attitude",
@@ -3004,7 +3004,7 @@ module.exports = [
     "success_rate": "",
     "user_feedback_count": "",
     "ext": "",
-    "category_user": "消费购物",
+    "category_user": "政务纪检",
     "category_user_l2": "烟草专卖",
     "issue_types": [
       "service_attitude",
@@ -3081,7 +3081,7 @@ module.exports = [
     "success_rate": "",
     "user_feedback_count": "",
     "ext": "",
-    "category_user": "消费购物",
+    "category_user": "政务纪检",
     "category_user_l2": "农业生产资料",
     "issue_types": [
       "service_attitude",
@@ -3409,7 +3409,7 @@ module.exports = [
     "success_rate": "",
     "user_feedback_count": "",
     "ext": "",
-    "category_user": "金融保险",
+    "category_user": "消费购物",
     "category_user_l2": "消费者权益(12315)",
     "issue_types": [
       "service_attitude",

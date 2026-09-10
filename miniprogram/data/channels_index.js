@@ -62,7 +62,7 @@ module.exports = [
     ],
     "category_l1": "基础民生与公共交通",
     "category_l2": "快递与邮政",
-    "category_user": "交通物流",
+    "category_user": "快递物流",
     "category_user_l2": "快递与邮政",
     "issue_types": [
       "service_attitude",
@@ -99,7 +99,7 @@ module.exports = [
     ],
     "category_l1": "基础民生与公共交通",
     "category_l2": "供电",
-    "category_user": "公共事业",
+    "category_user": "公用事业",
     "category_user_l2": "供电",
     "issue_types": [
       "service_attitude",
@@ -128,7 +128,7 @@ module.exports = [
     ],
     "category_l1": "基础民生与公共交通",
     "category_l2": "供电",
-    "category_user": "公共事业",
+    "category_user": "公用事业",
     "category_user_l2": "供电",
     "issue_types": [
       "service_attitude",
@@ -158,7 +158,7 @@ module.exports = [
     ],
     "category_l1": "社会服务与政务司法",
     "category_l2": "政务服务(12345)",
-    "category_user": "公共事业",
+    "category_user": "政务纪检",
     "category_user_l2": "政务服务(12345)",
     "issue_types": [
       "service_attitude",
@@ -193,7 +193,7 @@ module.exports = [
     ],
     "category_l1": "基础民生与公共交通",
     "category_l2": "供水",
-    "category_user": "公共事业",
+    "category_user": "公用事业",
     "category_user_l2": "供水",
     "issue_types": [
       "service_attitude",
@@ -225,7 +225,7 @@ module.exports = [
     ],
     "category_l1": "基础民生与公共交通",
     "category_l2": "燃气",
-    "category_user": "公共事业",
+    "category_user": "公用事业",
     "category_user_l2": "燃气",
     "issue_types": [
       "service_attitude",
@@ -258,7 +258,7 @@ module.exports = [
     ],
     "category_l1": "基础民生与公共交通",
     "category_l2": "燃气",
-    "category_user": "公共事业",
+    "category_user": "公用事业",
     "category_user_l2": "燃气",
     "issue_types": [
       "service_attitude",
@@ -291,7 +291,7 @@ module.exports = [
     ],
     "category_l1": "基础民生与公共交通",
     "category_l2": "供热/供暖",
-    "category_user": "公共事业",
+    "category_user": "公用事业",
     "category_user_l2": "供热/供暖",
     "issue_types": [
       "service_attitude",
@@ -319,7 +319,7 @@ module.exports = [
     ],
     "category_l1": "基础民生与公共交通",
     "category_l2": "铁路",
-    "category_user": "交通物流",
+    "category_user": "交通出行",
     "category_user_l2": "铁路",
     "issue_types": [
       "service_attitude",
@@ -347,7 +347,7 @@ module.exports = [
     ],
     "category_l1": "基础民生与公共交通",
     "category_l2": "铁路",
-    "category_user": "交通物流",
+    "category_user": "交通出行",
     "category_user_l2": "铁路",
     "issue_types": [
       "service_attitude",
@@ -381,7 +381,7 @@ module.exports = [
     ],
     "category_l1": "基础民生与公共交通",
     "category_l2": "民航",
-    "category_user": "交通物流",
+    "category_user": "交通出行",
     "category_user_l2": "民航",
     "issue_types": [
       "service_attitude",
@@ -425,7 +425,7 @@ module.exports = [
     ],
     "category_l1": "基础民生与公共交通",
     "category_l2": "公路/网约车/出租车",
-    "category_user": "交通物流",
+    "category_user": "交通出行",
     "category_user_l2": "公路/网约车/出租车",
     "issue_types": [
       "service_attitude",
@@ -467,7 +467,7 @@ module.exports = [
     ],
     "category_l1": "基础民生与公共交通",
     "category_l2": "公路/网约车/出租车",
-    "category_user": "交通物流",
+    "category_user": "交通出行",
     "category_user_l2": "公路/网约车/出租车",
     "issue_types": [
       "service_attitude",
@@ -509,7 +509,7 @@ module.exports = [
     ],
     "category_l1": "基础民生与公共交通",
     "category_l2": "公路/网约车/出租车",
-    "category_user": "交通物流",
+    "category_user": "交通出行",
     "category_user_l2": "公路/网约车/出租车",
     "issue_types": [
       "service_attitude",
@@ -545,7 +545,7 @@ module.exports = [
     ],
     "category_l1": "基础民生与公共交通",
     "category_l2": "城市公交/地铁",
-    "category_user": "交通物流",
+    "category_user": "交通出行",
     "category_user_l2": "城市公交/地铁",
     "issue_types": [
       "service_attitude",
@@ -581,7 +581,7 @@ module.exports = [
     ],
     "category_l1": "基础民生与公共交通",
     "category_l2": "城市公交/地铁",
-    "category_user": "交通物流",
+    "category_user": "交通出行",
     "category_user_l2": "城市公交/地铁",
     "issue_types": [
       "service_attitude",
@@ -1387,7 +1387,7 @@ module.exports = [
     ],
     "category_l1": "金融与商业消费",
     "category_l2": "农业生产资料",
-    "category_user": "消费购物",
+    "category_user": "政务纪检",
     "category_user_l2": "农业生产资料",
     "issue_types": [
       "service_attitude",
@@ -1428,7 +1428,7 @@ module.exports = [
     ],
     "category_l1": "金融与商业消费",
     "category_l2": "烟草专卖",
-    "category_user": "消费购物",
+    "category_user": "政务纪检",
     "category_user_l2": "烟草专卖",
     "issue_types": [
       "service_attitude",
@@ -1468,7 +1468,7 @@ module.exports = [
     ],
     "category_l1": "金融与商业消费",
     "category_l2": "农业生产资料",
-    "category_user": "消费购物",
+    "category_user": "政务纪检",
     "category_user_l2": "农业生产资料",
     "issue_types": [
       "service_attitude",
@@ -1635,7 +1635,7 @@ module.exports = [
     ],
     "category_l1": "金融与商业消费",
     "category_l2": "消费者权益(12315)",
-    "category_user": "金融保险",
+    "category_user": "消费购物",
     "category_user_l2": "消费者权益(12315)",
     "issue_types": [
       "service_attitude",
@@ -1941,7 +1941,7 @@ module.exports = [
     ],
     "category_l1": "社会服务与政务司法",
     "category_l2": "政务服务(12345)",
-    "category_user": "消费购物",
+    "category_user": "政务纪检",
     "category_user_l2": "政务服务(12345)",
     "issue_types": [
       "service_attitude",
@@ -2018,7 +2018,7 @@ module.exports = [
     ],
     "category_l1": "社会服务与政务司法",
     "category_l2": "餐饮食品",
-    "category_user": "消费购物",
+    "category_user": "食品餐饮",
     "category_user_l2": "餐饮食品",
     "issue_types": [
       "service_attitude",
@@ -2097,7 +2097,7 @@ module.exports = [
     ],
     "category_l1": "社会服务与政务司法",
     "category_l2": "政务服务(12345)",
-    "category_user": "房产物业",
+    "category_user": "政务纪检",
     "category_user_l2": "政务服务(12345)",
     "issue_types": [
       "service_attitude",
@@ -2166,7 +2166,7 @@ module.exports = [
     ],
     "category_l1": "金融与商业消费",
     "category_l2": "产品质量",
-    "category_user": "房产物业",
+    "category_user": "消费购物",
     "category_user_l2": "产品质量",
     "issue_types": [
       "service_attitude",
@@ -2201,7 +2201,7 @@ module.exports = [
     ],
     "category_l1": "社会服务与政务司法",
     "category_l2": "政务服务(12345)",
-    "category_user": "环保城管",
+    "category_user": "政务纪检",
     "category_user_l2": "政务服务(12345)",
     "issue_types": [
       "service_attitude",
@@ -2236,7 +2236,7 @@ module.exports = [
     ],
     "category_l1": "社会服务与政务司法",
     "category_l2": "信访",
-    "category_user": "环保城管",
+    "category_user": "政务纪检",
     "category_user_l2": "信访",
     "issue_types": [
       "service_attitude",
@@ -2271,7 +2271,7 @@ module.exports = [
     ],
     "category_l1": "社会服务与政务司法",
     "category_l2": "城市管理",
-    "category_user": "政务纪检",
+    "category_user": "环保城管",
     "category_user_l2": "城市管理",
     "issue_types": [
       "service_attitude",
@@ -2305,7 +2305,7 @@ module.exports = [
     ],
     "category_l1": "社会服务与政务司法",
     "category_l2": "城市管理",
-    "category_user": "政务纪检",
+    "category_user": "环保城管",
     "category_user_l2": "城市管理",
     "issue_types": [
       "service_attitude",
@@ -2367,12 +2367,6 @@ module.exports = [
       "举报",
       "违规",
       "12329",
-      "老板欠薪",
-      "不发工资",
-      "不交社保",
-      "裁员",
-      "工伤",
-      "劳动局",
       "缴存登记",
       "积金",
       "设部",
@@ -2388,7 +2382,7 @@ module.exports = [
     ],
     "category_l1": "社会服务与政务司法",
     "category_l2": "房地产/物业",
-    "category_user": "劳动用工",
+    "category_user": "房产物业",
     "category_user_l2": "房地产/物业",
     "issue_types": [
       "service_attitude",
@@ -2452,11 +2446,6 @@ module.exports = [
       "举报",
       "违法",
       "全国",
-      "老板欠薪",
-      "不发工资",
-      "不交社保",
-      "裁员",
-      "工伤",
       "纳税咨询",
       "办税指引",
       "检举",
@@ -2470,7 +2459,7 @@ module.exports = [
     ],
     "category_l1": "社会服务与政务司法",
     "category_l2": "税务",
-    "category_user": "劳动用工",
+    "category_user": "政务纪检",
     "category_user_l2": "税务",
     "issue_types": [
       "service_attitude",
@@ -3320,9 +3309,9 @@ module.exports = [
       "国海关总署"
     ],
     "category_l1": "社会服务与政务司法",
-    "category_l2": "城市管理",
+    "category_l2": "涉外贸易与海关",
     "category_user": "政务纪检",
-    "category_user_l2": "城市管理",
+    "category_user_l2": "涉外贸易与海关",
     "issue_types": [
       "service_attitude",
       "quality",
@@ -3495,9 +3484,9 @@ module.exports = [
       "中华全国总工"
     ],
     "category_l1": "社会服务与政务司法",
-    "category_l2": "税务",
+    "category_l2": "劳动用工/社保",
     "category_user": "劳动用工",
-    "category_user_l2": "税务",
+    "category_user_l2": "劳动用工/社保",
     "issue_types": [
       "service_attitude",
       "overcharge",
@@ -3865,7 +3854,7 @@ module.exports = [
     ],
     "category_l1": "基础民生与公共交通",
     "category_l2": "城市公交/地铁",
-    "category_user": "交通物流",
+    "category_user": "交通出行",
     "category_user_l2": "城市公交/地铁",
     "issue_types": [
       "service_attitude",
@@ -3948,7 +3937,7 @@ module.exports = [
     ],
     "category_l1": "金融与商业消费",
     "category_l2": "反垄断与经济违法",
-    "category_user": "政务纪检",
+    "category_user": "金融保险",
     "category_user_l2": "反垄断与经济违法",
     "issue_types": [
       "service_attitude",
@@ -4031,7 +4020,7 @@ module.exports = [
     ],
     "category_l1": "社会服务与政务司法",
     "category_l2": "环保",
-    "category_user": "政务纪检",
+    "category_user": "环保城管",
     "category_user_l2": "环保",
     "issue_types": [
       "service_attitude",
@@ -4376,7 +4365,7 @@ module.exports = [
     ],
     "category_l1": "社会服务与政务司法",
     "category_l2": "政务服务(12345)",
-    "category_user": "医疗教育",
+    "category_user": "政务纪检",
     "category_user_l2": "政务服务(12345)",
     "issue_types": [
       "service_attitude",

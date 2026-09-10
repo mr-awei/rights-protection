@@ -137,7 +137,9 @@ function fallbackSearch(query, keywords, domains = [], issues = []) {
       if (categoryL2.includes(kwLower)) score += kwWeight + 2;  // 新增category_l2匹配
     }
 
-    // 领域匹配加权：如果渠道的分类属于用户搜索的领域，额外加分
+    // 领域匹配加权：如果渠道的分类明确属于用户搜索的领域，额外加分
+    // 仅看 category_user / category_l1 / category_l2 是否包含领域名，
+    // 不再遍历领域词库给 tags/name 宽泛加分，避免“公司”等高频词导致泛滥匹配。
     if (domains.length > 0) {
       for (const domain of domains) {
         const domainLower = domain.toLowerCase();
@@ -145,27 +147,6 @@ function fallbackSearch(query, keywords, domains = [], issues = []) {
             categoryL1.includes(domainLower) || categoryL2.includes(domainLower)) {
           score += 20; // 领域匹配大幅加分
           break;
-        }
-        // 检查tags中是否包含该领域的关键词
-        const domainWords = KEYWORDS_REF.domain[domain] || [];
-        for (const dw of domainWords) {
-          if (tags.includes(dw.toLowerCase()) || name.includes(dw.toLowerCase())) {
-            score += 10;
-            break;
-          }
-        }
-      }
-    }
-
-    // 问题匹配加权：如果渠道的tags中包含用户搜索的问题关键词，额外加分
-    if (issues.length > 0) {
-      for (const issue of issues) {
-        const issueWords = KEYWORDS_REF.issue[issue] || [];
-        for (const iw of issueWords) {
-          if (tags.includes(iw.toLowerCase()) || name.includes(iw.toLowerCase())) {
-            score += 8;
-            break;
-          }
         }
       }
     }
@@ -184,9 +165,10 @@ function fallbackSearch(query, keywords, domains = [], issues = []) {
       // 拼音首字母匹配 + 编辑距离模糊匹配（兜底）
       const queryInitials = getPinyinInitials(queryLower);
       const nameInitials = getPinyinInitials(name);
-      
-      // 拼音首字母匹配（用户输入拼音首字母也能匹配中文名称）
-      if (queryInitials.length >= 2 && nameInitials.includes(queryInitials)) {
+
+      // 拼音首字母匹配：要求输入≥3个字符且名称首字母以输入首字母开头，
+      // 避免“ld”等两字母子串匹配到大量无关结果。
+      if (queryInitials.length >= 3 && nameInitials.startsWith(queryInitials)) {
         results.push({
           type: 'channel',
           id: channel.id,
@@ -198,9 +180,9 @@ function fallbackSearch(query, keywords, domains = [], issues = []) {
         });
         continue;
       }
-      
-      // 编辑距离模糊匹配（相似度≥0.6）
-      const fuzzyResult = fuzzyMatch(queryLower, name, 0.6);
+
+      // 编辑距离模糊匹配（相似度≥0.7）
+      const fuzzyResult = fuzzyMatch(queryLower, name, 0.7);
       if (fuzzyResult.matched && fuzzyResult.score > 0) {
         results.push({
           type: 'channel',
@@ -241,34 +223,14 @@ function fallbackSearch(query, keywords, domains = [], issues = []) {
       if (keywords_list.includes(kwLower)) score += kwWeight + 1;
     }
 
-    // 领域匹配加权：如果话术的场景名称属于用户搜索的领域，额外加分
+    // 领域匹配加权：如果话术的场景名称/applicable 明确包含用户搜索的领域名，额外加分
+    // 不再遍历领域词库做宽泛扩展，避免“公司”“老板”等词导致无关场景被召回。
     if (domains.length > 0) {
       for (const domain of domains) {
         const domainLower = domain.toLowerCase();
         if (sceneName.includes(domainLower) || applicable.includes(domainLower)) {
           score += 25; // 领域匹配大幅加分
           break;
-        }
-        // 检查场景名称中是否包含该领域的关键词
-        const domainWords = KEYWORDS_REF.domain[domain] || [];
-        for (const dw of domainWords) {
-          if (sceneName.includes(dw.toLowerCase()) || applicable.includes(dw.toLowerCase())) {
-            score += 12;
-            break;
-          }
-        }
-      }
-    }
-
-    // 问题匹配加权
-    if (issues.length > 0) {
-      for (const issue of issues) {
-        const issueWords = KEYWORDS_REF.issue[issue] || [];
-        for (const iw of issueWords) {
-          if (sceneName.includes(iw.toLowerCase()) || applicable.includes(iw.toLowerCase())) {
-            score += 10;
-            break;
-          }
         }
       }
     }

@@ -521,7 +521,7 @@ module.exports = [
     "success_rate": "",
     "user_feedback_count": "",
     "ext": "",
-    "category_user": "交通物流",
+    "category_user": "交通出行",
     "category_user_l2": "城市公交/地铁",
     "issue_types": [
       "service_attitude",
@@ -686,7 +686,7 @@ module.exports = [
     "success_rate": "",
     "user_feedback_count": "",
     "ext": "",
-    "category_user": "政务纪检",
+    "category_user": "金融保险",
     "category_user_l2": "反垄断与经济违法",
     "issue_types": [
       "service_attitude",
@@ -859,7 +859,7 @@ module.exports = [
     "success_rate": "",
     "user_feedback_count": "",
     "ext": "",
-    "category_user": "政务纪检",
+    "category_user": "环保城管",
     "category_user_l2": "环保",
     "issue_types": [
       "service_attitude",
@@ -1585,7 +1585,7 @@ module.exports = [
     "success_rate": "",
     "user_feedback_count": "",
     "ext": "",
-    "category_user": "医疗教育",
+    "category_user": "政务纪检",
     "category_user_l2": "政务服务(12345)",
     "issue_types": [
       "service_attitude",

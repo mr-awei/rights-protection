@@ -729,20 +729,22 @@ function fuzzyMatch(query, target, threshold = 0.6) {
     return { matched: true, score: 100, type: 'exact_contains' };
   }
   
-  // 2. 拼音首字母匹配
+  // 2. 拼音首字母匹配（仅当输入≥3个字符且目标首字母以输入首字母开头，
+  //    避免“ld”等两字母子串命中大量无关结果）
   const queryInitials = getPinyinInitials(queryLower);
   const targetInitials = getPinyinInitials(targetLower);
-  if (targetInitials.includes(queryInitials) && queryInitials.length >= 2) {
+  if (queryInitials.length >= 3 && targetInitials.startsWith(queryInitials)) {
     return { matched: true, score: 85, type: 'pinyin_initial' };
   }
-  
+
   // 3. 编辑距离相似度匹配
   const sim = similarity(queryLower, targetLower);
   if (sim >= threshold) {
     return { matched: true, score: sim * 70, type: 'edit_distance' };
   }
-  
+
   // 4. 部分包含匹配（query的部分字符在target中）
+  // 仅对≥3个字符的查询启用，避免两个字母太容易命中。
   let matchCount = 0;
   for (let i = 0; i < queryLower.length; i++) {
     if (targetLower.includes(queryLower[i])) {
@@ -750,7 +752,7 @@ function fuzzyMatch(query, target, threshold = 0.6) {
     }
   }
   const partialRatio = matchCount / queryLower.length;
-  if (partialRatio >= 0.7 && queryLower.length >= 2) {
+  if (queryLower.length >= 3 && partialRatio >= 0.7) {
     return { matched: true, score: partialRatio * 50, type: 'partial_chars' };
   }
   

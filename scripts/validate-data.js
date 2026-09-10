@@ -154,8 +154,86 @@ if (emptyIssueTypes === 0 && invalidIssueTypes === 0) {
   if (invalidIssueTypes > 0) error(invalidIssueTypes + '个无效issue_type');
 }
 
-// 7. 空字段检查
-console.log('\n【7. 空字段检查】');
+// 7. category_user 语义一致性检查
+console.log('\n【7. category_user 语义一致性检查】');
+const L2_TO_EXPECTED_USER = {
+  // 基础民生与公共交通
+  '电信运营': '电信运营',
+  '快递与邮政': '快递物流',
+  '供电': '公用事业',
+  '供水': '公用事业',
+  '燃气': '公用事业',
+  '供热/供暖': '公用事业',
+  '铁路': '交通出行',
+  '民航': '交通出行',
+  '公路/网约车/出租车': '交通出行',
+  '城市公交/地铁': '交通出行',
+  // 金融与商业消费
+  '银行': '金融保险',
+  '保险': '金融保险',
+  '证券/基金/期货': '金融保险',
+  '消费者权益(12315)': '消费购物',
+  '互联网电商': '消费购物',
+  '价格监管': '金融保险',
+  '市场监管(综合)': '消费购物',
+  '广告违法': '消费购物',
+  '产品质量': '消费购物',
+  '知识产权': '消费购物',
+  '电信诈骗/金融诈骗': '网络安全',
+  '反垄断与经济违法': '金融保险',
+  '政府采购': '政务纪检',
+  '商务领域(预付卡/二手车)': '消费购物',
+  '烟草专卖': '政务纪检',
+  '农业生产资料': '政务纪检',
+  '跨境与境外维权': '金融保险',
+  // 社会服务与政务司法
+  '医疗': '医疗教育',
+  '教育': '医疗教育',
+  '旅游': '旅游住宿',
+  '餐饮食品': '食品餐饮',
+  '药品/医疗器械': '医疗教育',
+  '房地产/物业': '房产物业',
+  '环保': '环保城管',
+  '劳动用工/社保': '劳动用工',
+  '税务': '政务纪检',
+  '公安警务': '政务纪检',
+  '法院司法': '政务纪检',
+  '纪检监察': '政务纪检',
+  '公职人员监督': '政务纪检',
+  '文化广电': '政务纪检',
+  '民政': '政务纪检',
+  '网络安全/个人信息': '网络安全',
+  '政务服务(12345)': '政务纪检',
+  '信访': '政务纪检',
+  '安全生产应急': '政务纪检',
+  '涉外贸易与海关': '政务纪检',
+  '国家安全': '政务纪检',
+  '城市管理': '环保城管',
+  '特殊群体维权': '政务纪检',
+  // 高层级诉求平台：按实际业务设置 category_user，不强制映射
+  '投诉求助类': null,
+  '问政建议类': null,
+  '监督举报类': null
+  // 四川/成都地方渠道：按实际业务设置 category_user，不强制映射
+};
+let userMismatch = 0;
+allChannels.forEach(c => {
+  const expected = L2_TO_EXPECTED_USER[c.category_l2];
+  if (expected && c.category_user !== expected) {
+    userMismatch++;
+    if (userMismatch <= 5) {
+      error('  ' + c.name + ': l2=' + c.category_l2 + ', category_user=' + c.category_user + ', 期望=' + expected);
+    }
+  }
+});
+if (userMismatch === 0) {
+  console.log('  ✅ category_user 语义一致');
+} else {
+  error('共' + userMismatch + '条渠道 category_user 语义不一致');
+}
+
+// 8. 空字段检查
+console.log('\n【8. 空字段检查】');
 let emptyFields = { category_l1: 0, category_l2: 0, category_user: 0, category_user_l2: 0 };
 allChannels.forEach(c => {
   Object.keys(emptyFields).forEach(field => {
@@ -173,8 +251,8 @@ if (!hasEmpty) {
   console.log('  ✅ 所有分类字段均不为空');
 }
 
-// 8. 各分类统计
-console.log('\n【8. 各一级分类统计】');
+// 9. 各分类统计
+console.log('\n【9. 各一级分类统计】');
 categories.forEach(cat => {
   const count = allChannels.filter(c => c.category_l1 === cat.name).length;
   const l2Count = new Set(allChannels.filter(c => c.category_l1 === cat.name).map(c => c.category_l2)).size;

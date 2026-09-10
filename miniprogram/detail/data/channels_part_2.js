@@ -112,7 +112,7 @@ module.exports = [
     "success_rate": "",
     "user_feedback_count": "",
     "ext": "",
-    "category_user": "消费购物",
+    "category_user": "政务纪检",
     "category_user_l2": "政务服务(12345)",
     "issue_types": [
       "service_attitude",
@@ -280,7 +280,7 @@ module.exports = [
     "success_rate": "",
     "user_feedback_count": "",
     "ext": "",
-    "category_user": "消费购物",
+    "category_user": "食品餐饮",
     "category_user_l2": "餐饮食品",
     "issue_types": [
       "service_attitude",
@@ -439,7 +439,7 @@ module.exports = [
     "success_rate": "",
     "user_feedback_count": "",
     "ext": "",
-    "category_user": "房产物业",
+    "category_user": "政务纪检",
     "category_user_l2": "政务服务(12345)",
     "issue_types": [
       "service_attitude",
@@ -599,7 +599,7 @@ module.exports = [
     "success_rate": "",
     "user_feedback_count": "",
     "ext": "",
-    "category_user": "房产物业",
+    "category_user": "消费购物",
     "category_user_l2": "产品质量",
     "issue_types": [
       "service_attitude",
@@ -671,7 +671,7 @@ module.exports = [
     "success_rate": "",
     "user_feedback_count": "",
     "ext": "",
-    "category_user": "环保城管",
+    "category_user": "政务纪检",
     "category_user_l2": "政务服务(12345)",
     "issue_types": [
       "service_attitude",
@@ -751,7 +751,7 @@ module.exports = [
     "success_rate": "",
     "user_feedback_count": "",
     "ext": "",
-    "category_user": "环保城管",
+    "category_user": "政务纪检",
     "category_user_l2": "信访",
     "issue_types": [
       "service_attitude",
@@ -824,7 +824,7 @@ module.exports = [
     "success_rate": "",
     "user_feedback_count": "",
     "ext": "",
-    "category_user": "政务纪检",
+    "category_user": "环保城管",
     "category_user_l2": "城市管理",
     "issue_types": [
       "service_attitude",
@@ -895,7 +895,7 @@ module.exports = [
     "success_rate": "",
     "user_feedback_count": "",
     "ext": "",
-    "category_user": "政务纪检",
+    "category_user": "环保城管",
     "category_user_l2": "城市管理",
     "issue_types": [
       "service_attitude",
@@ -1036,12 +1036,6 @@ module.exports = [
       "举报",
       "违规",
       "12329",
-      "老板欠薪",
-      "不发工资",
-      "不交社保",
-      "裁员",
-      "工伤",
-      "劳动局",
       "缴存登记",
       "积金",
       "设部",
@@ -1068,7 +1062,7 @@ module.exports = [
     "success_rate": "",
     "user_feedback_count": "",
     "ext": "",
-    "category_user": "劳动用工",
+    "category_user": "房产物业",
     "category_user_l2": "房地产/物业",
     "issue_types": [
       "service_attitude",
@@ -1219,11 +1213,6 @@ module.exports = [
       "举报",
       "违法",
       "全国",
-      "老板欠薪",
-      "不发工资",
-      "不交社保",
-      "裁员",
-      "工伤",
       "纳税咨询",
       "办税指引",
       "检举",
@@ -1248,7 +1237,7 @@ module.exports = [
     "success_rate": "",
     "user_feedback_count": "",
     "ext": "",
-    "category_user": "劳动用工",
+    "category_user": "政务纪检",
     "category_user_l2": "税务",
     "issue_types": [
       "service_attitude",
@@ -3164,7 +3153,7 @@ module.exports = [
     "tips": "",
     "source": "海关总署官网；《海关法》",
     "category_l1": "社会服务与政务司法",
-    "category_l2": "城市管理",
+    "category_l2": "涉外贸易与海关",
     "tags": [
       "12360",
       "举报",
@@ -3193,7 +3182,7 @@ module.exports = [
     "user_feedback_count": "",
     "ext": "",
     "category_user": "政务纪检",
-    "category_user_l2": "城市管理",
+    "category_user_l2": "涉外贸易与海关",
     "issue_types": [
       "service_attitude",
       "quality",
@@ -3530,7 +3519,7 @@ module.exports = [
     "tips": "与12333人社热线互补，12333管社保政策，12351管工会维权和劳动争议调解。",
     "source": "全国总工会官网；《工会法》",
     "category_l1": "社会服务与政务司法",
-    "category_l2": "税务",
+    "category_l2": "劳动用工/社保",
     "tags": [
       "12351",
       "违法",
@@ -3569,7 +3558,7 @@ module.exports = [
     "user_feedback_count": "",
     "ext": "",
     "category_user": "劳动用工",
-    "category_user_l2": "税务",
+    "category_user_l2": "劳动用工/社保",
     "issue_types": [
       "service_attitude",
       "overcharge",
