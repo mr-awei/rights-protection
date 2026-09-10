@@ -34,7 +34,7 @@
       <view class="legal-notice-card">
         <view class="legal-notice-header">
           <text class="legal-notice-icon">⚖</text>
-          <text class="legal-notice-title">法律始终是最後兜底</text>
+          <text class="legal-notice-title">法律始终是最后兜底</text>
         </view>
         <text class="legal-notice-text">{{guide.legal}}</text>
       </view>
@@ -60,6 +60,7 @@
     <view class="section">
       <view class="section-header">
         <text class="section-title">主流媒体及民生栏目爆料渠道</text>
+        <text class="section-subtitle">{{guide.mainstreamNote}}</text>
       </view>
       <view class="channel-list">
         <view class="media-row" wx:for="{{guide.mainstream}}" wx:key="name">
@@ -67,8 +68,8 @@
             <text class="media-row-name">{{item.name}}</text>
             <text class="media-row-scope" wx:if="{{item.scope}}">{{item.scope}}</text>
           </view>
-          <text class="media-row-contact" selectable="true">{{item.contact}}</text>
-          <text class="media-row-social" wx:if="{{item.social}}" selectable="true">官方账号：{{item.social}}</text>
+          <text class="media-row-contact" user-select="{{true}}">{{item.contact}}</text>
+          <text class="media-row-social" wx:if="{{item.social}}" user-select="{{true}}">官方账号：{{item.social}}</text>
         </view>
       </view>
     </view>

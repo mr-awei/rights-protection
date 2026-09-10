@@ -55,6 +55,14 @@
   color: var(--text-primary);
 }
 
+.section-subtitle {
+  display: block;
+  margin-top: 8rpx;
+  font-size: 24rpx;
+  color: var(--text-tertiary);
+  line-height: 1.5;
+}
+
 /* ========== 通用信息卡片 ========== */
 .info-card {
   background: var(--bg-card);
