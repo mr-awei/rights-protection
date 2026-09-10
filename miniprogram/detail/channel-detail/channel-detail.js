@@ -533,7 +533,7 @@ Page({
   onShareAppMessage() {
     const { channel } = this.data;
     return {
-      title: channel ? channel.name : '消费维权信息助手 - 官方投诉渠道大全',
+      title: channel ? channel.name : '我不能被欺负 - 官方投诉渠道大全',
       path: '/pages/index/index'
     };
   },
@@ -542,7 +542,7 @@ Page({
   onShareTimeline() {
     const { channel } = this.data;
     return {
-      title: channel ? channel.name : '消费维权信息助手 - 官方投诉渠道大全'
+      title: channel ? channel.name : '我不能被欺负 - 官方投诉渠道大全'
     };
   },
 

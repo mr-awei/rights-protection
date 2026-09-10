@@ -16,7 +16,7 @@
       <view class="app-logo">
         <image src="/images/logo.jpg" mode="aspectFit"></image>
       </view>
-      <view class="app-name">消费维权信息助手</view>
+      <view class="app-name">我不能被欺负</view>
       <view class="app-slogan">用法律武器，维护合法权益</view>
       <view class="app-version">Version {{version}}</view>
     </view>
@@ -50,7 +50,7 @@
 
     <!-- 底部版权 -->
     <view class="footer">
-      <text class="footer-text">© 2026 消费维权信息助手</text>
+      <text class="footer-text">© 2026 我不能被欺负</text>
       <text class="footer-text">Made with <view class="app-icon app-icon-default icon-heart" style="width:20rpx;height:20rpx;--icon-bg:transparent;--icon-color:#FF4D4F;display:inline-block;vertical-align:middle;"></view> for 消费者权益保护</text>
     </view>
 
@@ -65,7 +65,7 @@
         <view class="modal-icon-wrap">
           <view class="modal-icon app-icon app-icon-default icon-doc"></view>
         </view>
-        <text class="modal-title">消费维权信息助手 双授权协议</text>
+        <text class="modal-title">我不能被欺负 双授权协议</text>
         <text class="modal-subtitle">Version 1.0 · 中英双语</text>
       </view>
       <view class="modal-body">
@@ -73,8 +73,8 @@
         <view class="license-section">
           <view class="license-lang">中文</view>
           <view class="license-text">
-            <text class="license-title-cn">消费维权信息助手 双授权协议 v1.0</text>
-            <text class="license-paragraph">版权所有 © 2026 消费维权信息助手（new_mr_awei@163.com）</text>
+            <text class="license-title-cn">我不能被欺负 双授权协议 v1.0</text>
+            <text class="license-paragraph">版权所有 © 2026 我不能被欺负（new_mr_awei@163.com）</text>
             <text class="license-paragraph">本软件采用双授权模式，根据使用场景适用不同授权条款：</text>
 
             <text class="license-subtitle">一、非商业免费使用授权</text>

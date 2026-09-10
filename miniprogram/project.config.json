@@ -1,5 +1,5 @@
 {
-  "description": "消费维权信息助手 - 维权信息查询工具",
+  "description": "我不能被欺负 - 维权工具小程序",
   "packOptions": {
     "ignore": [],
     "include": []
@@ -42,7 +42,7 @@
   "compileType": "miniprogram",
   "libVersion": "3.0.0",
   "appid": "wx3bc8dddf4c52f76d",
-  "projectname": "消费维权信息助手",
+  "projectname": "我不能被欺负",
   "condition": {},
   "editorSetting": {
     "tabIndent": "insertSpaces",

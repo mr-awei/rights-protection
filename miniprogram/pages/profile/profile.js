@@ -472,7 +472,7 @@ Page({
   // 分享给朋友
   onShareAppMessage() {
     return {
-      title: '消费维权信息助手 - 随身维权工具箱',
+      title: '我不能被欺负 - 随身维权工具箱',
       desc: '122个官方投诉渠道+投诉话术模板，遇到问题一键找到对口部门',
       path: '/pages/index/index',
       imageUrl: ''
@@ -482,7 +482,7 @@ Page({
   // 分享到朋友圈
   onShareTimeline() {
     return {
-      title: '消费维权信息助手 - 随身维权工具箱',
+      title: '我不能被欺负 - 随身维权工具箱',
       query: '',
       imageUrl: ''
     };

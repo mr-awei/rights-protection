@@ -354,7 +354,7 @@ Page({
   // 分享给朋友
   onShareAppMessage() {
     return {
-      title: '消费维权信息助手 - 维权投诉渠道大全',
+      title: '我不能被欺负 - 维权投诉渠道大全',
       path: '/pages/index/index'
     };
   },
@@ -362,7 +362,7 @@ Page({
   // 分享到朋友圈
   onShareTimeline() {
     return {
-      title: '消费维权信息助手 - 维权投诉渠道大全'
+      title: '我不能被欺负 - 维权投诉渠道大全'
     };
   },
 });
