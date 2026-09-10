@@ -7,15 +7,37 @@
         <view class="header-badge app-icon app-icon-default icon-broadcast" style="width:44rpx;height:44rpx;--icon-bg:rgba(255,255,255,0.2);--icon-color:#fff;"></view>
         <text class="header-title">媒体曝光</text>
       </view>
-      <text class="header-sub">舆论监督 / 社会监督：企业、平台、监管、法律渠道穷尽后的补充手段。法律永远是最后兜底。</text>
+      <text class="header-sub">舆论监督 / 社会监督：独立于「企业投诉 → 监管投诉 → 法律途径」之外的并行监督路径，不替代行政、司法或监管程序。</text>
     </view>
   </view>
 
   <view class="content">
-    <!-- 推荐顺序 -->
+    <!-- 定位与关系 -->
     <view class="section">
       <view class="section-header">
-        <text class="section-title">推荐顺序</text>
+        <text class="section-title">定位与关系</text>
+      </view>
+      <view class="tip-card tip-primary">
+        <text class="tip-text">{{guide.position}}</text>
+      </view>
+      <view class="notice-card" style="margin-top:16rpx;">
+        <view class="notice-item">
+          <text class="notice-dot">·</text>
+          <text class="notice-text">{{guide.role}}</text>
+        </view>
+      </view>
+      <view class="notice-card" style="margin-top:16rpx;">
+        <view class="notice-item">
+          <text class="notice-dot">·</text>
+          <text class="notice-text">{{guide.legal}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 与官方路径的关系 -->
+    <view class="section">
+      <view class="section-header">
+        <text class="section-title">与官方路径的关系</text>
       </view>
       <view class="tip-card tip-primary">
         <text class="tip-text">{{guide.order}}</text>
