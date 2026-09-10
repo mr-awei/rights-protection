@@ -119,7 +119,8 @@ Page({
                   id: channelId,
                   type: 'channel',
                   sceneName: scene.name,
-                  matchRatio: scene.matchRatio || 100
+                  matchRatio: scene.matchRatio || 100,
+                  score: 10
                 });
               }
             }
@@ -137,7 +138,8 @@ Page({
                   id: scriptId,
                   type: 'script',
                   sceneName: scene.name,
-                  matchRatio: scene.matchRatio || 100
+                  matchRatio: scene.matchRatio || 100,
+                  score: 10
                 });
               }
             }

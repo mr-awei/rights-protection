@@ -87,8 +87,10 @@ function search(query) {
  * @param {Array} domains - 匹配的领域分类
  * @param {Array} issues - 匹配的问题分类
  */
-function fallbackSearch(query, keywords, domains = [], issues = []) {
+function fallbackSearch(query, keywords, domains = [], issues = [], options = {}) {
   data.loadAllData();
+  const relaxed = !!options.relaxed; // 宽松模式：允许领域词库命中给较低加分
+  const applyDomainFilter = options.applyDomainFilter !== false; // 是否启用严格领域过滤
   const results = [];
   const queryLower = query.toLowerCase();
 
@@ -140,9 +142,7 @@ function fallbackSearch(query, keywords, domains = [], issues = []) {
       if (categoryL2.includes(kwLower)) score += kwWeight + 2;  // 新增category_l2匹配
     }
 
-    // 领域匹配加权：如果渠道的分类明确属于用户搜索的领域，额外加分
-    // 仅看 category_user / category_l1 / category_l2 是否包含领域名，
-    // 不再遍历领域词库给 tags/name 宽泛加分，避免“公司”等高频词导致泛滥匹配。
+    // 领域匹配加权：分类明确属于该领域时大幅加分
     if (domains.length > 0) {
       for (const domain of domains) {
         const domainLower = domain.toLowerCase();
@@ -152,6 +152,30 @@ function fallbackSearch(query, keywords, domains = [], issues = []) {
           break;
         }
       }
+      // 宽松模式（严格领域过滤无结果时的兜底）：允许领域词库命中给较低加分，
+      // 保证「酒店」这类同领域词能被召回，但不影响正常精准搜索。
+      if (relaxed) {
+        for (const dw of domainKeywords) {
+          if (name.includes(dw) || tags.includes(dw)) { score += 5; break; }
+        }
+      }
+    }
+
+    // 领域过滤：查询自带领域词时，结果必须真正命中该领域（或完整查询词），
+    // 否则仅靠「乱收费」等通用问题词得分的无关渠道会被丢弃。
+    if (applyDomainFilter && domains.length > 0 && domainKeywords.size > 0) {
+      let hitDomain = name.includes(queryLower) || tags.includes(queryLower) ||
+        categoryUser.includes(queryLower) || categoryL2.includes(queryLower);
+      if (!hitDomain) {
+        for (const dw of domainKeywords) {
+          if (name.includes(dw) || tags.includes(dw) || categoryUser.includes(dw) ||
+              categoryUserL2.includes(dw) || categoryL1.includes(dw) || categoryL2.includes(dw)) {
+            hitDomain = true;
+            break;
+          }
+        }
+      }
+      if (!hitDomain) continue;
     }
 
     if (score > 0) {
@@ -226,8 +250,7 @@ function fallbackSearch(query, keywords, domains = [], issues = []) {
       if (keywords_list.includes(kwLower)) score += kwWeight + 1;
     }
 
-    // 领域匹配加权：如果话术的场景名称/applicable 明确包含用户搜索的领域名，额外加分
-    // 不再遍历领域词库做宽泛扩展，避免“公司”“老板”等词导致无关场景被召回。
+    // 领域匹配加权：场景名/applicable 含领域名时大幅加分
     if (domains.length > 0) {
       for (const domain of domains) {
         const domainLower = domain.toLowerCase();
@@ -236,6 +259,30 @@ function fallbackSearch(query, keywords, domains = [], issues = []) {
           break;
         }
       }
+      // 宽松模式兜底：允许领域词库命中给较低加分
+      if (relaxed) {
+        for (const dw of domainKeywords) {
+          if (sceneName.includes(dw) || applicable.includes(dw) || keywords_list.includes(dw)) {
+            score += 6;
+            break;
+          }
+        }
+      }
+    }
+
+    // 领域过滤：查询自带领域词时，话术必须真正命中该领域，否则丢弃
+    if (applyDomainFilter && domains.length > 0 && domainKeywords.size > 0) {
+      let hitDomain = sceneName.includes(queryLower) || applicable.includes(queryLower) ||
+        keywords_list.includes(queryLower);
+      if (!hitDomain) {
+        for (const dw of domainKeywords) {
+          if (sceneName.includes(dw) || applicable.includes(dw) || keywords_list.includes(dw)) {
+            hitDomain = true;
+            break;
+          }
+        }
+      }
+      if (!hitDomain) continue;
     }
 
     if (score > 0) {
@@ -276,6 +323,28 @@ function fallbackSearch(query, keywords, domains = [], issues = []) {
       if (scope.includes(kwLower)) score += 3;
     }
 
+    // 宽松模式兜底：命中领域词库中的词时给较低加分
+    if (relaxed && domains.length > 0) {
+      for (const dw of domainKeywords) {
+        if (name.includes(dw) || tags.includes(dw) || scope.includes(dw)) { score += 5; break; }
+      }
+    }
+
+    // 领域过滤：查询自带领域词时，平台必须真正命中该领域，否则丢弃
+    if (applyDomainFilter && domains.length > 0 && domainKeywords.size > 0) {
+      let hitDomain = name.includes(queryLower) || tags.includes(queryLower) ||
+        scope.includes(queryLower) || platCategory.includes(queryLower);
+      if (!hitDomain) {
+        for (const dw of domainKeywords) {
+          if (name.includes(dw) || tags.includes(dw) || scope.includes(dw) || platCategory.includes(dw)) {
+            hitDomain = true;
+            break;
+          }
+        }
+      }
+      if (!hitDomain) continue;
+    }
+
     if (score > 0) {
       results.push({
         type: 'platform',
@@ -291,7 +360,13 @@ function fallbackSearch(query, keywords, domains = [], issues = []) {
   }
 
   // 按得分排序
-  return results.sort((a, b) => b.score - a.score);
+  const sorted = results.sort((a, b) => b.score - a.score);
+  // 兜底：严格领域过滤后无结果时，回退为宽松模式（不做领域过滤 + 允许领域词库
+  // 命中加分），避免因词库/标签用词差异导致「酒店」这类查询完全无结果。
+  if (sorted.length === 0 && domains.length > 0 && !relaxed) {
+    return fallbackSearch(query, keywords, domains, issues, { relaxed: true, applyDomainFilter: false });
+  }
+  return sorted;
 }
 
 /**

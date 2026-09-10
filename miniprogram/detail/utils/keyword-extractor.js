@@ -140,6 +140,10 @@ const STOP_WORDS = new Set([
   '人员', '客服', '情况', '事情', '处理', '解决', '要求'
 ]);
 
+// 领域词全量集合（用于判断查询中是否含「领域细分词」）
+const ALL_DOMAIN_WORDS = new Set();
+Object.values(KEYWORDS.domain).forEach(arr => arr.forEach(w => ALL_DOMAIN_WORDS.add(w)));
+
 // 构建全量词库
 const ALL_KEYWORDS = new Set();
 Object.values(KEYWORDS.domain).forEach(arr => arr.forEach(w => ALL_KEYWORDS.add(w)));
@@ -185,6 +189,9 @@ function extractKeywords(text) {
   const targets = [];
 
   for (const word of matched) {
+    // 低区分度通用词（公司/老板等）不参与领域/问题/对象归类，
+    // 否则「装修公司」会因「公司」被判定为劳动用工，召回大量无关渠道。
+    if (STOP_WORDS.has(word)) continue;
     // 匹配领域分类
     for (const [domain, words] of Object.entries(KEYWORDS.domain)) {
       if (words.includes(word) && !domains.includes(domain)) {
@@ -209,6 +216,9 @@ function extractKeywords(text) {
   const matchedScenes = [];
   // 用户查询是否包含领域词：若包含，则命中通用问题词（如「乱收费」）的场景需要更高匹配度才保留
   const hasQueryDomain = domains.length > 0;
+  // 查询中的「领域细分词」（排除低区分度词），用于过滤跨细分领域的误召回：
+  // 例如「医院乱收费」不应把「教育乱收费」场景带进来。
+  const queryDomainWords = [...matched].filter(w => !STOP_WORDS.has(w) && ALL_DOMAIN_WORDS.has(w));
   for (const scene of SCENES) {
     let matchCount = 0;
     let totalWeight = 0;
@@ -323,17 +333,23 @@ function extractKeywords(text) {
 
     // any 模式判定：
     // 1) 用户未输入领域词（只搜「乱收费」等通用问题词）→ 保留所有命中场景；
-    // 2) 场景名核心词命中查询（如「医院」↔「医院乱收费」）→ 强相关，保留；
-    // 3) 命中领域词且整体匹配度≥80% → 保留。
+    // 2) 场景名核心词命中查询（如「快递」↔「快递丢失」）→ 强相关，保留；
+    // 3) 命中场景领域词且整体匹配度≥70%（如「物业乱收费」↔ 房产物业+乱收费）→ 保留。
     // 这样「医院乱收费」只会得到医院/医疗场景，不会把物业、快递、银行等
     // 仅因「乱收费」一词而命中的无关场景一并召回。
+    // 查询自带领域细分词（如「医院」）时，场景必须命中其中之一，
+    // 避免同一大领域下的跨细分场景被误召回（如「医院乱收费」→「教育乱收费」）。
+    const hitQueryDomainWord = queryDomainWords.length === 0 ||
+      queryDomainWords.some(w => scene.name.includes(w) || (scene.desc || '').includes(w) ||
+        (scene.keywords || []).some(k => k === w));
+
     let anyMatched = false;
     if (scene.matchMode === 'any' && matchCount > 0) {
       if (!hasQueryDomain) {
         anyMatched = true;
       } else if (nameCoreHit) {
         anyMatched = true;
-      } else if (hasDomainMatch && matchRatio >= 0.8) {
+      } else if (hasDomainMatch && matchRatio >= 0.699 && hitQueryDomainWord) {
         anyMatched = true;
       }
     }
