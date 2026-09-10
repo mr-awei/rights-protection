@@ -7,11 +7,11 @@
 | 文档属性 | 内容 |
 |----------|------|
 | 产品名称 | 我不能被欺负 |
-| 文档版本 | v1.1.3（正式运营版） |
+| 文档版本 | v1.5.1（正式运营版） |
 | 文档状态 | 已发布（Baseline） |
 | 创建日期 | 2026-09-05 |
-| 最后更新 | 2026-09-10 |
-| 产品阶段 | 正式运营版（V1.1.3） |
+| 最后更新 | 2026-09-11 |
+| 产品阶段 | 正式运营版（V1.5.1） |
 | 配套文档 | 《产品需求文档 PRD》《产品远景规划》《备案信息备注》 |
 
 ---
@@ -300,7 +300,7 @@ config(独立, 含 synonym_dict/hot_words/feature_flag)
 | script | id, scene, phone_version, written_version, placeholders, legal_basis, related_channel | — | 话术模板 |
 | law | id, name, clause, content | — | 法规条款 |
 | category | id, name, parent_id, order | — | 分类树 |
-| config | data_version, synonym_dict, hot_words, feature_flag | — | 当前 data_version=2026.09.3 |
+| config | data_version, synonym_dict, hot_words, feature_flag | — | 当前 data_version=2026.09.6 |
 
 ### 5.3 三层数据架构与分片
 

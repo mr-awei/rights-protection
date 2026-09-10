@@ -7,15 +7,15 @@
 | 文档属性 | 内容 |
 |----------|------|
 | 产品名称 | 我不能被欺负 |
-| 文档版本 | v1.1.3（正式运营版） |
+| 文档版本 | v1.5.1（正式运营版） |
 | 文档状态 | 已发布（Baseline） |
 | 创建日期 | 2026-09-05 |
-| 最后更新 | 2026-09-10 |
-| 产品阶段 | 正式运营版（V1.1.3） |
+| 最后更新 | 2026-09-11 |
+| 产品阶段 | 正式运营版（V1.5.1） |
 | 配套文档 | 《技术设计文档 TDD》《产品远景规划》《备案信息备注》 |
 | Owner | 产品 / 研发负责人 |
 | 评审人 | 产品、研发、测试、设计、合规 |
-| 变更说明 | 随 v1.1.3 发布同步刷新：文档版本对齐 v1.1.3；补充 V1.5 规划「媒体曝光」第四条维权路径与「投诉所需材料清单」细则；与代码版本保持一致 |
+| 变更说明 | 随 v1.5.1 发布同步刷新：文档版本对齐 v1.5.1；补充 V1.5「媒体曝光」第四条维权路径与「所需材料清单」落地细则；同步搜索相关性修复与全站「维权渠道」表述统一；与代码版本保持一致 |
 
 ---
 
@@ -326,7 +326,7 @@
 | script | id, scene, phone_version, written_version, placeholders, legal_basis, related_channel | 话术模板（19 套） |
 | law | id, name, clause, content | 法律法规（90 部，条款级） |
 | category | id, name, parent_id, order | 五大分类 + 二级 |
-| config | data_version, synonym_dict, hot_words, feature_flag | 应用配置（当前 data_version = 2026.09.3） |
+| config | data_version, synonym_dict, hot_words, feature_flag | 应用配置（当前 data_version = 2026.09.6） |
 | 【预留】user | id, openid, device_id, ext | V2.0 |
 | 【预留】complaint_ticket | id, user_id, channel_id, status, timeline | V2.0 |
 | 【预留】evidence | id, ticket_id, type, url | V2.0 |

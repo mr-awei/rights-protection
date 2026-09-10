@@ -12,51 +12,61 @@
   <scroll-view class="content" scroll-y="{{true}}">
     <!-- 顶部引言 -->
     <view class="hero-card">
-      <view class="hero-quote">「维权不是闹事，而是每个普通人依法保护自己的尊严。」</view>
+      <text class="hero-mark">“</text>
+      <text class="hero-quote">「维权不是闹事，是每个普通人依法守住自己的尊严。」</text>
     </view>
 
     <!-- 为什么做这个小程序 -->
     <view class="section-card">
       <view class="section-title">
-        <view class="section-dot" style="background: #F59E0B;"></view>
+        <view class="section-icon app-icon app-icon-default icon-fire" style="--icon-bg:#FFF7E6;--icon-color:#FA8C16;"></view>
         <text>为什么会做这件事</text>
       </view>
       <view class="section-body">
-        <text class="paragraph">做这个小程序，最初真就是个机缘巧合。</text>
-        <text class="paragraph">八月中下旬，我刷到一个视频——星宇车灯违规解聘了 107 名应届大学生。我随手转发给一个朋友，没想到他完全没听说过这事儿。信息茧房嘛，我倒也能理解。后来闲聊，我随口问了他一句："要是你碰上这种事，你咋办？"他也没多想，说："仲裁呗。"我劝他："可仲裁可能拖很久，而且企业其实没什么违法成本，你折腾一圈，拿回来的也只是本就属于你的东西。"他沉默了一下，回了一句："那还能咋办，受着呗。"</text>
-        <text class="paragraph">还有一回，他跟我抱怨家里网特别卡。我问他："你有没有找过运营商来修网？"他一脸懵："这还能找他们来修？"我说："当然能啊，如果一直修不好，你甚至可以直接投诉。"他说："我之前压根不知道——连哪些才是我的合法权益都分不清。"</text>
-        <text class="paragraph">就这两次聊天，突然点醒了我：很多时候，大家不是不想维权，是不知道该怎么维权、该找谁维权，甚至不知道哪些本来就是自己的合法权益！</text>
-        <text class="paragraph">你有没有过这种时候？电话打了一圈，不是占线就是一句"不归我们管"；想写封投诉信，连格式都拿不准；明明占着理，最后却因为流程不熟、证据不全、渠道不对，把自己累得筋疲力尽，事也没办成。我见过太多人，为了几百块钱、一次不痛快消费、一场被忽略的劳动争议，不是不想争，是不知道怎么争，最后只能自认倒霉。这真不是懦弱，是维权的门槛，对普通人来说太高了。</text>
-        <text class="paragraph">我自己，算是个有点"轴"、敢较真的人。当年"八两秤"缺斤少两闹得沸沸扬扬，我出门甚至每次都自带手提秤；也是看超级英雄长大的，心里一直揣着个"想帮更多人"的念头。所以我就想：能不能做个小工具，把官方的维权渠道、法律法规、投诉话术、流程模板，都归置到一处？让普通人少踩坑、少走弯路，用更少的力气，找到对口的部门，把话说清楚。</text>
+        <text class="paragraph">做这个小程序，说起来真就是个机缘巧合 —— 被两句话给刺激的。</text>
+        <text class="paragraph lead">第一句是 "受着呗"。</text>
+        <text class="paragraph">八月中下旬，我刷到一条视频：星宇车灯违规解聘了 107 名应届大学生。我随手转给一个朋友，没想到他压根没听说过这事儿 —— 信息茧房嘛，倒也正常。后来闲聊，我顺口问："要是你碰上这种事，你咋办？" 他想都没想："仲裁呗。" 我劝他："仲裁可能拖很久，企业也没什么违法成本，你折腾一圈，拿回来的也只是本就属于你的东西。" 他沉默了几秒，回了一句："那还能咋办，受着呗。"</text>
+        <text class="paragraph lead">第二句是 "这还能找他们来修？"</text>
+        <text class="paragraph">还是这个朋友，有一回跟我抱怨家里网特别卡。我问："你没找运营商来修？" 他一脸懵："这还能找他们来修？" 我说："当然能啊，一直修不好你甚至可以直接投诉。" 他说："我之前压根不知道 —— 连哪些是自己的合法权益都分不清。"</text>
+        <text class="paragraph">就这两句话，把我给点醒了。</text>
+        <text class="paragraph">很多时候，大家不是不想维权，是不知道怎么维权、该找谁维权，甚至不知道哪些本来就是自己的合法权益。你有没有过这种时候？电话打了一圈，不是占线就是一句 "不归我们管"；想写封投诉信，连格式都拿不准；明明占着理，最后却因为流程不熟、证据不全、渠道不对，把自己累得筋疲力尽，事也没办成。</text>
+        <text class="paragraph">我见过太多人，为了几百块钱、一次不痛快的消费、一场被忽略的劳动争议，不是不想争，是不知道怎么争，最后只能自认倒霉。这真不是懦弱，是维权的门槛，对普通人来说太高了。</text>
+        <text class="paragraph">我自己呢，算是个有点 "轴"、敢较真的人。当年 "八两秤" 缺斤少两闹得沸沸扬扬，我出门甚至每次都自带手提秤 —— 没错，就是这么轴。也是看超级英雄长大的，心里一直揣着个 "想帮更多人" 的念头。所以我就想：能不能做个小工具，把官方的维权渠道、法律法规、投诉话术、流程模板，都归置到一处？让普通人少踩坑、少走弯路，用更少的力气，找到对口的部门，把话说清楚。</text>
       </view>
     </view>
 
     <!-- 想传递的态度 -->
     <view class="section-card">
       <view class="section-title">
-        <view class="section-dot" style="background: #3B82F6;"></view>
+        <view class="section-icon app-icon app-icon-default icon-heart" style="--icon-bg:#FFF1F0;--icon-color:#F5222D;"></view>
         <text>想传递的态度</text>
       </view>
       <view class="section-body">
-        <text class="paragraph emphasis">有温度：你不是一个人在硬扛。</text>
-        <text class="paragraph">一个人遇上不公，往往最孤单、最无措。我不希望它像个冰冷的号码簿，它该是个懂点门道的朋友——你慌了、委屈了，它能帮你捋清楚：先找谁、再怎么说、要留什么证据、这一步走不通下一步去哪。你不是一个人在较劲。</text>
+        <view class="attitude-item" style="border-left-color:#F59E0B;">
+          <text class="attitude-title attitude-title-warm">有温度：你不是一个人在硬扛。</text>
+          <text class="attitude-text">一个人遇上不公，往往最孤单、最无措。我不希望它像个冰冷的号码簿，它该是个懂点门道的朋友 —— 你慌了、委屈了，它能帮你捋清楚：先找谁、再怎么说、要留什么证据、这一步走不通下一步去哪。你不是一个人在较劲。</text>
+        </view>
 
-        <text class="paragraph emphasis">有力度：该争的，得争。</text>
-        <text class="paragraph">但它绝不是让你忍气吞声的地方。合法权益受法律保护，被欺负了，该投诉投诉、该举报举报、该起诉起诉。法律给的，不该忍，更不该惯着欺负人的人。</text>
+        <view class="attitude-item" style="border-left-color:#3B82F6;">
+          <text class="attitude-title attitude-title-force">有力度：该争的，得争。</text>
+          <text class="attitude-text">但它绝不是让你忍气吞声的地方。合法权益受法律保护，被欺负了，该投诉投诉、该举报举报、该起诉起诉。法律给的，不该忍，更不该惯着欺负人的人。</text>
+        </view>
 
-        <text class="paragraph emphasis">有边界：维权不是武器，更不是生意。</text>
-        <text class="paragraph">有一点必须说清：维权是保护自己，不是伤害别人的武器，更不是一门生意。我绝不允许有人拿它敲诈勒索、造谣整人。真正的维权，站在事实和证据上，不是情绪、恶意或利益之上。</text>
+        <view class="attitude-item" style="border-left-color:#10B981;">
+          <text class="attitude-title attitude-title-bound">有边界：维权不是武器，更不是生意。</text>
+          <text class="attitude-text">有一点必须说清：维权是保护自己，不是伤害别人的武器，更不是一门生意。我绝不允许有人拿它敲诈勒索、造谣整人。真正的维权，站在事实和证据上，不是情绪、恶意或利益之上。</text>
+        </view>
       </view>
     </view>
 
     <!-- 明确的法律提醒 -->
     <view class="section-card warn-card">
       <view class="section-title">
-        <view class="section-dot" style="background: #DC2626;"></view>
+        <view class="section-icon app-icon app-icon-default icon-warning" style="--icon-bg:rgba(220,38,38,0.12);--icon-color:#DC2626;"></view>
         <text>几件必须说清楚的事</text>
       </view>
       <view class="section-body">
-        <text class="paragraph warn-text">本小程序从来不是给"想靠维权获利"的人准备的。以下三件事，必须说清楚：</text>
+        <text class="paragraph warn-text">本小程序从来不是给 "想靠维权获利" 的人准备的。以下三件事，必须说清楚：</text>
         <view class="warn-list">
           <view class="warn-item">
             <text class="warn-icon">!</text>
@@ -64,7 +74,7 @@
           </view>
           <view class="warn-item">
             <text class="warn-icon">!</text>
-            <text class="warn-item-text">恶意投诉、捏造事实诬告他人，可能构成诽谤、诬告陷害，甚至敲诈勒索。打着"维权"的旗号，不等于可以免于法律责任。</text>
+            <text class="warn-item-text">恶意投诉、捏造事实诬告他人，可能构成诽谤、诬告陷害，甚至敲诈勒索。打着 "维权" 的旗号，不等于可以免于法律责任。</text>
           </view>
           <view class="warn-item">
             <text class="warn-icon">!</text>
@@ -77,12 +87,12 @@
     <!-- 期望 -->
     <view class="section-card">
       <view class="section-title">
-        <view class="section-dot" style="background: #10B981;"></view>
+        <view class="section-icon app-icon app-icon-default icon-star" style="--icon-bg:#ECFDF5;--icon-color:#10B981;"></view>
         <text>对这个小程序的期望</text>
       </view>
       <view class="section-body">
         <text class="paragraph">我希望它能活得久一点，多帮些人。但有个前提：大家都得把它用在正道上。</text>
-        <text class="paragraph">只要每个人都守住底线——真实投诉、理性维权、留好证据、依法逐级反映——它就值得我一直守下去。反过来，若有人拿它造谣、敲诈、报复，它不仅帮不到真正需要的人，还会把开发者拖进法律风险，最后只能关掉。</text>
+        <text class="paragraph">只要每个人都守住底线 —— 真实投诉、理性维权、留好证据、依法逐级反映 —— 它就值得我一直守下去。反过来，若有人拿它造谣、敲诈、报复，它不仅帮不到真正需要的人，还会把开发者拖进法律风险，最后只能关掉。</text>
         <text class="paragraph">所以，这是一份请求，也是一份约定：</text>
         <text class="paragraph quote-line">请你合法维权。只有大家都依法维权，这个小程序才能陪我们走得更远。</text>
       </view>
@@ -90,12 +100,17 @@
 
     <!-- 心里话 -->
     <view class="heart-card">
-      <view class="heart-title">写在最后的话</view>
+      <text class="heart-mark">“</text>
+      <view class="heart-head">
+        <view class="section-icon app-icon app-icon-default icon-heart" style="--icon-bg:#FEF3C7;--icon-color:#D97706;"></view>
+        <text class="heart-title">写在最后的话</text>
+      </view>
       <text class="heart-text">这个工具想交到大家手里的，是一把能护自己周全、也为公道出头的剑。但请千万记住：剑锋该指向违法犯罪、道德败坏，以及不作为、乱作为、懒作为，绝不要把它挥向好人，绝不要对准良心商家、良心企业家。好人不应该让人拿枪指着！！！</text>
     </view>
 
     <!-- 结尾 -->
     <view class="footer-card">
+      <view class="footer-icon app-icon app-icon-default icon-check" style="--icon-bg:rgba(30,64,175,0.1);--icon-color:#1E40AF;"></view>
       <text class="footer-text">谢谢你愿意读到这儿。</text>
       <text class="footer-sub">愿我们都不被欺负，也都不去欺负别人。</text>
     </view>

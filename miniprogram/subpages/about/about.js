@@ -4,8 +4,8 @@ const app = getApp();
 Page({
   data: {
     statusBarHeight: 20,
-    version: '1.5.0',
-    dataVersion: '2026.09.5',
+    version: '1.5.1',
+    dataVersion: '2026.09.6',
     channelCount: 122,
     scriptCount: 19,
     lawCount: 90,
