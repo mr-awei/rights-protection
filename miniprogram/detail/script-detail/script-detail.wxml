@@ -128,11 +128,11 @@
               </picker>
             </view>
 
-            <!-- 普通文本输入 -->
+            <!-- 普通文本输入（金额/天数等数字类自动切换为数字键盘） -->
             <input
               wx:else
               class="fill-form-input"
-              type="text"
+              type="{{item.type === 'number' ? 'digit' : 'text'}}"
               placeholder="{{item.example ? '如：' + item.example : '请填写' + item.label}}"
               placeholder-class="fill-placeholder"
               value="{{formData[item.name]}}"
