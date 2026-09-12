@@ -58,10 +58,22 @@ function clean(v) {
   return (s === '（无）' || s === '（待补充）') ? '' : s;
 }
 
+/**
+ * 递归扫描目录下的所有 md（含子目录）。
+ * 现在按一级分类是单文件；将来某分类条数过多时，可把该分类拆成「目录 + 按二级分类的多个 md」，脚本无需改动即可继续工作。
+ */
 function listDir(dir) {
   const p = path.join(KB, dir);
-  if (!fs.existsSync(p)) return [];
-  return fs.readdirSync(p).filter(f => f.endsWith('.md')).map(f => path.join(p, f));
+  const out = [];
+  if (!fs.existsSync(p)) return out;
+  (function walk(d) {
+    for (const e of fs.readdirSync(d, { withFileTypes: true })) {
+      const fp = path.join(d, e.name);
+      if (e.isDirectory()) walk(fp);
+      else if (e.name.endsWith('.md')) out.push(fp);
+    }
+  })(p);
+  return out.sort();
 }
 
 // ---------- 读取知识库 ----------
