@@ -76,6 +76,59 @@ function listDir(dir) {
   return out.sort();
 }
 
+// ---------- 法条切片 / 引用关系辅助 ----------
+function sliceArticles(text) {
+  if (!text) return [];
+  const re = /(第[一二三四五六七八九十百千零0-9]+条)/g;
+  const ms = [...text.matchAll(re)];
+  if (ms.length === 0) return [];
+  const out = [];
+  for (let i = 0; i < ms.length; i++) {
+    const no = ms[i][1];
+    const start = ms[i].index + no.length;
+    const end = i + 1 < ms.length ? ms[i + 1].index : text.length;
+    const content = text.slice(start, end).trim();
+    if (content) out.push({ no, content });
+  }
+  return out;
+}
+function buildLawNameMap() {
+  const map = {};
+  listDir('laws').forEach(f => {
+    const raw = fs.readFileSync(f, 'utf8');
+    const body = raw.replace(/^---\r?\n[\s\S]*?\r?\n---\r?\n/, '');
+    body.split(/^##\s+/m).filter(s => s.trim()).forEach(chunk => {
+      const idm = chunk.split(/\r?\n/)[0].trim().match(/^(law_\w+)/);
+      if (!idm) return;
+      const id = idm[1];
+      const nm = chunk.match(/^-\s+name:\s*(.+)$/m);
+      const fn = chunk.match(/^-\s+full_name:\s*(.+)$/m);
+      [nm && nm[1], fn && fn[1]].filter(Boolean).forEach(s => {
+        const n = String(s).trim();
+        map[n] = id;
+        map[n.replace('中华人民共和国', '')] = id;
+      });
+    });
+  });
+  return map;
+}
+const LAW_NAME_MAP = buildLawNameMap();
+/** 从文本提取「引用的法条」（可到条文级 law_id#条） */
+function extractLawRefs(text, map) {
+  const out = new Set();
+  if (!text) return [];
+  const re = /《([^》]{2,30})》/g;
+  let m;
+  while ((m = re.exec(text))) {
+    const book = m[1].trim();
+    const lawId = map[book] || map[book.replace('中华人民共和国', '')];
+    if (!lawId) continue;
+    const after = text.slice(m.index + m[0].length, m.index + m[0].length + 40);
+    const artM = after.match(/第([一二三四五六七八九十百千零0-9]+)条/);
+    out.add(artM ? lawId + '#' + artM[1] : lawId);
+  }
+  return [...out];
+}
 // ---------- 读取知识库 ----------
 const CH_KEYS = ['id', 'name', 'phone', 'website', 'regulator', 'category_l2', 'category_user',
   'category_user_l2', 'channel_type', 'hot_level', 'related_script_id', 'law_ids', 'issue_types', 'tags'];
@@ -91,7 +144,8 @@ listDir('channels').forEach(f => {
       category_user: clean(d.category_user), category_user_l2: clean(d.category_user_l2),
       channel_type: clean(d.channel_type), hot_level: Number(d.hot_level || 0),
       related_script_id: clean(d.related_script_id),
-      law_ids: ids(d.law_ids), issue_types: ids(d.issue_types), tags: ids(d.tags),
+      law_ids: [...new Set([...ids(d.law_ids), ...extractLawRefs([clean(d.scope), clean(d.precondition), clean(d.tips), clean(d.name)].join(' '), LAW_NAME_MAP)])],
+      issue_types: ids(d.issue_types), tags: ids(d.tags),
       scope: clean(d['§适用范围']), precondition: clean(d['§前置条件']), tips: clean(d['§实用提示']),
       category_l1: (fs.readFileSync(f, 'utf8').match(/^category_l1:\s*(.+)$/m) || [])[1] || '',
       file: path.basename(f)
@@ -111,6 +165,7 @@ listDir('scripts').forEach(f => {
       applicable: clean(d.applicable),
       is_general: String(d.is_general) === 'true',
       hot_level: Number(d.hot_level || 0), keywords: ids(d.keywords),
+      law_ids: extractLawRefs([clean(d.applicable), clean(d['§电话版话术']), clean(d['§书面版话术']), clean(d.scene_name)].join(' '), LAW_NAME_MAP),
       phone_script: clean(d['§电话版话术']), written_template: clean(d['§书面版话术'])
     });
   });
@@ -119,21 +174,39 @@ scripts.sort((a, b) => String(a.id).localeCompare(String(b.id)));
 
 let laws = [];
 listDir('laws').forEach(f => {
-  parseEntities(f, []).forEach(e => {
-    const d = e.data;
-    if (!d.id) return;
-    // 正文 = 字段行之后的内容
-    const raw = fs.readFileSync(f, 'utf8');
-    const sec = raw.split(new RegExp('^##\\s+' + d.id.replace(/[_]/g, '_') + '[^\\n]*\\n'));
-    let article = '';
-    if (sec[1]) {
-      const rest = sec[1].split(/^##\s+/m)[0];
-      article = rest.split(/\r?\n/).filter(l => !/^-\s+\w+:/.test(l.trim())).join('\n').trim();
-    }
-    laws.push({ id: d.id, name: clean(d.name), full_name: clean(d.full_name), category: ids(d.category), article });
+  const raw = fs.readFileSync(f, 'utf8');
+  const body = raw.replace(/^---\r?\n[\s\S]*?\r?\n---\r?\n/, '');
+  body.split(/^##\s+/m).filter(s => s.trim()).forEach(chunk => {
+    const lines = chunk.split(/\r?\n/);
+    const idm = lines[0].trim().match(/^(law_\w+)/);
+    if (!idm) return;
+    const d = {};
+    const articleLines = [];
+    lines.slice(1).forEach(line => {
+      const item = line.match(/^-\s+(\w+):\s*(.*)$/);
+      if (item) { d[item[1]] = String(item[2]).trim(); return; }
+      if (/^#\s/.test(line.trim())) return; // 跳过重复的 H1 法规名
+      const t = line.trim();
+      if (t) articleLines.push(t);
+    });
+    const article = articleLines.join('\n').trim();
+    laws.push({
+      id: idm[1], name: clean(d.name), full_name: clean(d.full_name),
+      category: ids(d.category), article, articles: sliceArticles(article)
+    });
   });
 });
 laws.sort((a, b) => String(a.id).localeCompare(String(b.id)));
+
+// 反向引用：法条 → 被哪些渠道/话术引用（含条文级）
+const citedBy = {};
+const reg = (lawRef, type, id, name) => {
+  const lid = String(lawRef).split('#')[0];
+  (citedBy[lid] = citedBy[lid] || []).push({ type, id, name });
+};
+channels.forEach(c => (c.law_ids || []).forEach(l => reg(l, 'channel', c.id, c.name)));
+scripts.forEach(s => (s.law_ids || []).forEach(l => reg(l, 'script', s.id, s.scene_name)));
+laws.forEach(l => { l.cited_by = citedBy[l.id] || []; });
 
 console.log('知识库读取: 渠道 ' + channels.length + ' / 话术 ' + scripts.length + ' / 法规 ' + laws.length);
 

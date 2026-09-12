@@ -7,6 +7,107 @@ const { correctTypos, fuzzyMatch, getPinyinInitials } = require('./search-enhanc
 const data = require('../../utils/data');
 const dataDetail = require('./data-detail');
 
+// ---------- BM25 索引搜索（瘦身倒排，detail/data/search_index.json） ----------
+let _index = null, _trie = null;
+function loadSearchIndex() {
+  if (!_index) _index = require('../data/search_index.json');
+  if (!_trie) _trie = require('../data/suggest_trie.json');
+  return _index;
+}
+function tokenize(text) {
+  if (!text) return [];
+  const t = String(text).toLowerCase();
+  const tokens = [];
+  const en = t.match(/[a-z0-9]+/g); if (en) tokens.push(...en);
+  const cn = t.replace(/[a-z0-9\s]/g, '');
+  if (cn.length === 1) tokens.push(cn);
+  for (let i = 0; i < cn.length - 1; i++) tokens.push(cn[i] + cn[i + 1]);
+  return tokens;
+}
+function bm25Scores(query) {
+  const idx = loadSearchIndex();
+  const qToks = tokenize(query);
+  const scores = {};
+  qToks.forEach(t => {
+    const term = idx.terms[t]; if (!term) return;
+    const df = term.d.length;
+    const idf = term.idf;
+    term.d.forEach(([i, tf]) => {
+      const doc = idx.docs[i];
+      const dl = doc.len || idx.avgdl;
+      const denom = tf * (idx.k1 + 1) / (tf + idx.k1 * (1 - idx.b + idx.b * dl / idx.avgdl));
+      scores[i] = (scores[i] || 0) + idf * denom;
+    });
+  });
+  return scores;
+}
+function toResult(doc, score, keywords) {
+  const base = { type: doc.type, id: doc.id, score, matchedTerms: keywords || [] };
+  if (doc.type === 'channel') {
+    const c = data.getChannelById(doc.id);
+    return Object.assign(base, { name: doc.title, phone: doc.phone, desc: doc.title + ' ' + (doc.phone || ''), category_user: c && c.category_user, category_l1: c && c.category_l1, category_l2: c && c.category_l2 });
+  }
+  if (doc.type === 'script') {
+    const s = data.getScriptById(doc.id);
+    return Object.assign(base, { scene_name: doc.title, name: doc.title, applicable: s && s.applicable, desc: s && s.applicable || '', category: s && s.category });
+  }
+  if (doc.type === 'platform') {
+    const p = (dataDetail.getPlatforms() || []).find(x => x.id === doc.id);
+    return Object.assign(base, { name: doc.title, phone: doc.phone, desc: p && p.scope || doc.title, platform_category: p && p.platform_category });
+  }
+  return Object.assign(base, { name: doc.title, phone: doc.phone, desc: doc.title, law_id: doc.law_id });
+}
+function hitDomain(result, domains, query) {
+  const cats = [];
+  if (result.category_user) cats.push(result.category_user.toLowerCase());
+  if (result.category_l1) cats.push(result.category_l1.toLowerCase());
+  if (result.category_l2) cats.push(result.category_l2.toLowerCase());
+  if (result.category) cats.push(String(result.category).toLowerCase());
+  if (result.platform_category) cats.push(result.platform_category.toLowerCase());
+  const q = (query || '').toLowerCase();
+  for (const d of domains) {
+    const dl = d.toLowerCase();
+    if (cats.some(c => c.includes(dl)) || q.includes(dl)) return true;
+  }
+  return false;
+}
+function pinyinFuzzyFallback(query, keywords) {
+  data.loadAllData();
+  const results = [];
+  const ql = query.toLowerCase();
+  const channels = data.getChannels();
+  const queryInitials = getPinyinInitials(ql);
+  for (const channel of channels) {
+    const name = (channel.name || '').toLowerCase();
+    if (queryInitials.length >= 3 && getPinyinInitials(name).startsWith(queryInitials)) {
+      results.push({ type: 'channel', id: channel.id, name: channel.name, phone: channel.phone, desc: channel.name + ' ' + (channel.phone || ''), score: 50, matchedTerms: ['拼音匹配:' + queryInitials] });
+      continue;
+    }
+    const fr = fuzzyMatch(ql, name, 0.7);
+    if (fr.matched && fr.score > 0) {
+      results.push({ type: 'channel', id: channel.id, name: channel.name, phone: channel.phone, desc: channel.name + ' ' + (channel.phone || ''), score: fr.score, matchedTerms: ['模糊匹配:' + fr.type] });
+    }
+  }
+  return results;
+}
+function bm25FallbackSearch(query, keywords, domains, issues, options) {
+  data.loadAllData();
+  const idx = loadSearchIndex();
+  const opts = options || {};
+  const relaxed = !!opts.relaxed;
+  const applyDomainFilter = opts.applyDomainFilter !== false;
+  const scores = bm25Scores(query);
+  let results = Object.keys(scores).map(i => toResult(idx.docs[i], scores[i], keywords));
+  if (applyDomainFilter && domains && domains.length > 0) {
+    const filtered = results.filter(r => hitDomain(r, domains, query));
+    if (filtered.length) return filtered.sort((a, b) => b.score - a.score);
+    if (!relaxed) return bm25FallbackSearch(query, keywords, domains, issues, { relaxed: true, applyDomainFilter: false });
+    return results.sort((a, b) => b.score - a.score);
+  }
+  if (results.length === 0) results = pinyinFuzzyFallback(query, keywords);
+  return results.sort((a, b) => b.score - a.score);
+}
+
 // 关键词词库引用（用于领域/问题匹配加权）
 const KEYWORDS_REF = KEYWORDS;
 
@@ -73,7 +174,7 @@ function search(query) {
   }
 
   // 4. 无场景匹配 → 名称匹配搜索（兜底，用索引数据，轻量快速）
-  const results = fallbackSearch(correctedQuery, keywords, domains, issues);
+  const results = bm25FallbackSearch(correctedQuery, keywords, domains, issues);
   if (results.length === 0) {
     return { type: 'empty', scenes: [], results: [], keywords: keywords };
   }
@@ -387,22 +488,23 @@ function findScriptById(id) {
  * 搜索联想（简单前缀匹配，用索引数据）
  */
 function suggest(prefix) {
-  data.loadAllData();
+  loadSearchIndex();
   if (!prefix || prefix.length < 1) return [];
-
-  const results = [];
-  const prefixLower = prefix.toLowerCase();
-
-  const channels = data.getChannels();
-  for (const channel of channels) {
-    const name = channel.name || '';
-    if (name.toLowerCase().includes(prefixLower)) {
-      results.push(name);
-      if (results.length >= 10) break;
-    }
+  let node = _trie.trie;
+  for (const ch of prefix) {
+    if (!node[ch]) return [];
+    node = node[ch];
   }
-
-  return results;
+  const ids = [];
+  (function collect(n) {
+    if (!n) return;
+    if (n._) n._.forEach(id => { if (ids.length < 8) ids.push(id); });
+    Object.keys(n).forEach(k => { if (k !== '_') collect(n[k]); });
+  })(node);
+  return ids.map(id => {
+    const c = _trie.docs[id];
+    return { type: c.type, id: c.id, name: c.name, phone: c.phone || '' };
+  });
 }
 
 /**

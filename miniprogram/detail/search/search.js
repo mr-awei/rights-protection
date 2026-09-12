@@ -1,6 +1,7 @@
 // detail/search/search.js
 const app = getApp();
 const { searchChannels, searchScripts, getChannels, getScripts, getConfig } = require('../../utils/data');
+const search = require('../utils/search');
 const { getStatusBarHeight } = require('../../utils/layout');
 
 Page({
@@ -110,24 +111,7 @@ Page({
 
   // 获取联想建议
   getSuggestions(keyword) {
-    const channelResults = searchChannels(keyword, 5);
-    const scriptResults = searchScripts(keyword, 3);
-
-    const suggestions = [
-      ...channelResults.map(item => ({
-        type: 'channel',
-        id: item.id,
-        name: item.name,
-        phone: item.phone || ''
-      })),
-      ...scriptResults.map(item => ({
-        type: 'script',
-        id: item.id,
-        name: item.scene_name || item.name,
-        phone: ''
-      }))
-    ].slice(0, 8);
-
+    const suggestions = (search.suggest(keyword) || []).slice(0, 8);
     this.setData({ suggestions });
   },
 
