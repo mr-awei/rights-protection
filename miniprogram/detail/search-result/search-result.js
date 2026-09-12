@@ -3,6 +3,7 @@ const { search, highlightKeywords } = require('../utils/search');
 // 通过 Repository 抽象访问数据（TDD §3/§6），页面不再直接依赖数据模块
 const { channels: channelRepo, scripts: scriptRepo, config: configRepo } = require('../repositories').createRepositories();
 const config = require('../../data/config.js');
+const { getStatusBarHeight } = require('../../utils/layout');
 
 Page({
   data: {
@@ -34,12 +35,8 @@ Page({
   },
 
   onLoad(options) {
-    try {
-      const systemInfo = wx.getSystemInfoSync();
-      this.setData({ statusBarHeight: systemInfo.statusBarHeight || 20 });
-    } catch (e) {
-      this.setData({ statusBarHeight: 20 });
-    }
+
+    this.setData({ statusBarHeight: getStatusBarHeight() });
     // 从配置文件读取热门搜索
     const appConfig = configRepo.getConfig();
     this.setData({ hotSearches: appConfig.hot_search_words || [] });

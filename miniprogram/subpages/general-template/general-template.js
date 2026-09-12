@@ -1,6 +1,7 @@
 // subsubsubpages/general-template/general-template.js
 const app = getApp();
 const { getGeneralTemplate } = require('../../utils/data');
+const { getStatusBarHeight } = require('../../utils/layout');
 
 // 占位符定义
 const PLACEHOLDERS = [
@@ -99,12 +100,8 @@ Page({
   },
 
   onLoad() {
-    try {
-      const systemInfo = wx.getSystemInfoSync();
-      this.setData({ statusBarHeight: systemInfo.statusBarHeight || 20 });
-    } catch (e) {
-      this.setData({ statusBarHeight: 20 });
-    }
+
+    this.setData({ statusBarHeight: getStatusBarHeight() });
     this.loadTemplate();
   },
 

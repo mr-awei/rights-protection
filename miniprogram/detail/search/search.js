@@ -1,6 +1,7 @@
 // detail/search/search.js
 const app = getApp();
 const { searchChannels, searchScripts, getChannels, getScripts, getConfig } = require('../../utils/data');
+const { getStatusBarHeight } = require('../../utils/layout');
 
 Page({
   data: {
@@ -77,12 +78,8 @@ Page({
   },
 
   onLoad() {
-    try {
-      const systemInfo = wx.getSystemInfoSync();
-      this.setData({ statusBarHeight: systemInfo.statusBarHeight || 20 });
-    } catch (e) {
-      this.setData({ statusBarHeight: 20 });
-    }
+
+    this.setData({ statusBarHeight: getStatusBarHeight() });
     // 从配置文件读取热门搜索
     const config = getConfig();
     this.setData({ hotSearches: config.hot_search_words || [] });

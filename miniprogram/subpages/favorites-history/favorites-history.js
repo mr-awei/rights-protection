@@ -2,6 +2,7 @@
 const app = getApp();
 const { getChannelById, getScriptById } = require('../../utils/data');
 const nav = require('../../utils/nav');
+const { getStatusBarHeight } = require('../../utils/layout');
 
 const PAGE_SIZE = 10; // 每页加载10条
 
@@ -49,12 +50,8 @@ Page({
 
   onLoad(options) {
     // 动态获取状态栏高度
-    try {
-      const systemInfo = wx.getSystemInfoSync();
-      this.setData({ statusBarHeight: systemInfo.statusBarHeight || 20 });
-    } catch (e) {
-      this.setData({ statusBarHeight: 20 });
-    }
+
+    this.setData({ statusBarHeight: getStatusBarHeight() });
 
     // 从参数中获取初始Tab
     if (options.tab) {

@@ -2,6 +2,7 @@
 const app = getApp();
 const { getScripts, searchScripts } = require('../../utils/data');
 const nav = require('../../utils/nav');
+const { getStatusBarHeight } = require('../../utils/layout');
 
 Page({
   data: {
@@ -13,12 +14,8 @@ Page({
   },
 
   onLoad() {
-    try {
-      const systemInfo = wx.getSystemInfoSync();
-      this.setData({ statusBarHeight: systemInfo.statusBarHeight || 20 });
-    } catch (e) {
-      this.setData({ statusBarHeight: 20 });
-    }
+
+    this.setData({ statusBarHeight: getStatusBarHeight() });
     this.loadScripts();
   },
 

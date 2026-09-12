@@ -4,6 +4,7 @@ const app = getApp();
 // 首页搜索统一跳转 detail/search-result，由分包承载检索逻辑
 const { getHotScripts, getConfig, getScripts } = require('../../utils/data');
 const nav = require('../../utils/nav');
+const { getStatusBarHeight } = require('../../utils/layout');
 
 Page({
   data: {
@@ -107,12 +108,8 @@ Page({
 
   onLoad() {
     // 动态获取状态栏高度，用于自定义导航栏适配
-    try {
-      const systemInfo = wx.getSystemInfoSync();
-      this.setData({ statusBarHeight: systemInfo.statusBarHeight || 20 });
-    } catch (e) {
-      this.setData({ statusBarHeight: 20 });
-    }
+
+    this.setData({ statusBarHeight: getStatusBarHeight() });
     // 从配置文件读取热门搜索和紧急电话
     const config = getConfig();
     const hotSearches = config.hot_search_words || [];
