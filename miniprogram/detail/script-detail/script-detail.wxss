@@ -758,6 +758,32 @@
   font-size: var(--font-sm);
 }
 
+/* 组合控件：输入框 + 选择按钮（地区补充详细地址 / 平台公司候选选择） */
+.fill-form-combo {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+}
+
+.fill-form-combo .fill-form-input {
+  flex: 1;
+  min-width: 0;
+}
+
+.fill-form-combo-btn {
+  flex-shrink: 0;
+  padding: 0 20rpx;
+  height: 64rpx;
+  line-height: 64rpx;
+  font-size: var(--font-sm);
+  color: var(--primary);
+  background: var(--primary-light);
+  border-radius: 10rpx;
+  white-space: nowrap;
+}
+
 /* 日期 / 地区选择器 */
 .fill-form-picker-wrap {
   flex: 1;

@@ -3,6 +3,16 @@ const app = getApp();
 // 通过 Repository 抽象访问数据（TDD §3/§6），页面不再直接依赖数据模块
 const { channels: channelRepo, scripts: scriptRepo, laws: lawRepo } = require('../repositories').createRepositories();
 
+// 常见平台/公司类字段的候选选项（行业集中度高、常见就那几家）。
+// 表单仍保留文本输入：用户可直接手输，也可点「选择」快速填入。
+const SELECT_OPTIONS = {
+  '外卖平台': ['美团外卖', '饿了么', '京东秒送', '抖音外卖', '淘宝闪购'],
+  '快递公司名称': ['顺丰速运', '中通快递', '圆通速递', '申通快递', '韵达快递', '极兔速递', '京东物流', '邮政EMS', '德邦快递', '菜鸟速递'],
+  '平台名称': ['淘宝', '天猫', '京东', '拼多多', '抖音商城', '快手小店', '唯品会', '苏宁易购'],
+  '运营商名称': ['中国移动', '中国联通', '中国电信', '中国广电'],
+  '快递柜或驿站名称': ['丰巢', '菜鸟驿站', '中邮速递易', '京东快递柜', '妈妈驿站']
+};
+
 // 所需材料清单：通用基线 + 按话术场景名称/关键词的场景化补充（PRD §9.3.2）
 const DEFAULT_MATERIALS = [
   { name: '身份与关系证明', required: true, desc: '本人身份证、手机号、与对方的关系证明' },
@@ -477,6 +487,7 @@ Page({
       guide: this.getPlaceholderGuide(name),
       example: this.getPlaceholderExample(name),
       type: this.getPlaceholderType(name),
+      options: this.getPlaceholderOptions(name),
       rule: this.getPlaceholderRule(name)
     }));
   },
@@ -629,7 +640,8 @@ Page({
   /**
    * 判断占位符对应的输入控件类型
    * - date  ：日期类（X月X日 / X年X月X日 / 标签为「日期」「完整日期」）→ 日期选择器
-   * - region：地区类（城市 / 地址 / 地区 / 所在地）→ 省市区选择器
+   * - region：地区类（城市 / 地址 / 地区 / 所在地）→ 省市区选择 + 手动补充详细地址
+   * - select：常见平台/公司类（外卖平台、快递公司、运营商等）→ 候选选择 + 手动输入
    * - text  ：其余一律普通文本输入
    */
   getPlaceholderType(name) {
@@ -640,9 +652,18 @@ Page({
     // 标准日期占位符或标签已明确为日期
     if (label === '日期' || label === '完整日期') return 'date';
     if (/^X年X月X日$/.test(name) || /^X月X日$/.test(name)) return 'date';
+    // 常见平台 / 公司类：给出候选，减少手输
+    if ((SELECT_OPTIONS[name] || []).length) return 'select';
     // 地区类
     if (/城市|地址|地区|所在地/.test(text)) return 'region';
     return 'text';
+  },
+
+  /**
+   * 获取占位符的候选选项（无候选返回空数组）
+   */
+  getPlaceholderOptions(name) {
+    return SELECT_OPTIONS[name] || [];
   },
 
   /**
@@ -740,15 +761,39 @@ Page({
   },
 
   /**
-   * 地区（省市区）选择器变更
+   * 地区（省市区）选择：写入省市区，并保留用户已补充的详细地址。
+   * 例：已填「四川省成都市武侯区天府大道 1 号」，重选地区后仍保留「天府大道 1 号」。
    */
   onRegionChange(e) {
     const field = e.currentTarget.dataset.field;
     const parts = (e.detail.value || []).filter(Boolean);
     // 去掉省市区重名（如「北京市北京市东城区」→「北京市东城区」）
     const unique = parts.filter((p, i) => parts.indexOf(p) === i);
+    const region = unique.join('');
+    const oldValue = String(this.data.formData[field] || '');
+    const cache = this._regionCache || (this._regionCache = {});
+    const prevRegion = cache[field] || '';
+    // 剥离上一次选择的省市区，保留用户手输的详细地址
+    let detail = oldValue;
+    if (prevRegion && oldValue.startsWith(prevRegion)) detail = oldValue.slice(prevRegion.length);
+    cache[field] = region;
+
     const formData = { ...this.data.formData };
-    formData[field] = unique.join('');
+    formData[field] = region + detail;
+    this.setData({ formData });
+  },
+
+  /**
+   * 候选选择器变更（外卖平台 / 快递公司 / 运营商等常见选项）
+   */
+  onSelectChange(e) {
+    const field = e.currentTarget.dataset.field;
+    const item = (this.data.placeholders || []).find(p => p.name === field);
+    const options = (item && item.options) || [];
+    const value = options[Number(e.detail.value)];
+    if (!value) return;
+    const formData = { ...this.data.formData };
+    formData[field] = value;
     this.setData({ formData });
   },
 
