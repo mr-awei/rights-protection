@@ -7,11 +7,11 @@
 | 文档属性 | 内容 |
 |----------|------|
 | 产品名称 | 我不能被欺负 |
-| 文档版本 | v1.5.2（正式运营版） |
+| 文档版本 | v1.5.3（正式运营版） |
 | 文档状态 | 已发布（Baseline） |
 | 创建日期 | 2026-09-05 |
-| 最后更新 | 2026-09-11 |
-| 产品阶段 | 正式运营版（V1.5.2） |
+| 最后更新 | 2026-09-13 |
+| 产品阶段 | 正式运营版（V1.5.3） |
 | 配套文档 | 《产品需求文档 PRD》《产品远景规划》《备案信息备注》 |
 
 ---
@@ -98,7 +98,7 @@
 | 候选 | 优势 | 劣势 | 状态 |
 |------|------|------|------|
 | 本地关键词提取 + 场景选项卡 + 索引匹配 | 零 API 成本、< 20ms、离线、透明可信 | 需维护 330+ 词库、NLP 能力有限 | ✅ 采纳（当前） |
-| 本地倒排索引（JS） | 离线、全文检索 | 索引 696KB 超限 | ⚠️ 已弃用（代码保留） |
+| 本地倒排索引（JS / BM25） | 离线、全文检索、条文级 | 索引 ~669KB，下沉 detail 分包（主包不增） | ✅ 已采用（v1.5.3 重建 search_index.json 并接入 search.js） |
 | 第三方库（flexsearch） | 功能强 | +50KB、学习成本 | ⚠️ V2.0 量大时考虑 |
 | 后端搜索 API（Elasticsearch） | 复杂查询强 | 需服务器、不离线、成本高 | ❌ V3.0 再考虑 |
 | AI 大模型语义理解 | NLP 强 | API 费用、依赖网络、不可解释 | ⚠️ V2.0 可选接入，架构预留 |
@@ -300,7 +300,7 @@ config(独立, 含 synonym_dict/hot_words/feature_flag)
 | script | id, scene, phone_version, written_version, placeholders, legal_basis, related_channel | — | 话术模板 |
 | law | id, name, clause, content | — | 法规条款 |
 | category | id, name, parent_id, order | — | 分类树 |
-| config | data_version, synonym_dict, hot_words, feature_flag | — | 当前 data_version=2026.09.7 |
+| config | data_version, synonym_dict, hot_words, feature_flag | — | 当前 data_version=2026.09.13 |
 
 ### 5.3 三层数据架构与分片
 

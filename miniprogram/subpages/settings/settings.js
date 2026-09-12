@@ -4,12 +4,12 @@ const { getChannels, getScripts, getConfig } = require('../../utils/data');
 
 Page({
   data: {
-    appVersion: '1.5.2',
-    dataVersion: '2026.09.7',
-    dataVerifiedAt: '2026-09-11',
+    appVersion: '1.5.3',
+    dataVersion: '2026.09.13',
+    dataVerifiedAt: '2026-09-13',
     channelCount: 122,
     scriptCount: 19,
-    lawCount: 42,
+    lawCount: 90,
     showChangelog: false,
     changelogData: null
   },

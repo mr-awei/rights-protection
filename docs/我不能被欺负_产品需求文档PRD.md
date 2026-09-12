@@ -7,15 +7,15 @@
 | 文档属性 | 内容 |
 |----------|------|
 | 产品名称 | 我不能被欺负 |
-| 文档版本 | v1.5.2（正式运营版） |
+| 文档版本 | v1.5.3（正式运营版） |
 | 文档状态 | 已发布（Baseline） |
 | 创建日期 | 2026-09-05 |
-| 最后更新 | 2026-09-12 |
-| 产品阶段 | 正式运营版（V1.5.2） |
+| 最后更新 | 2026-09-13 |
+| 产品阶段 | 正式运营版（V1.5.3） |
 | 配套文档 | 《技术设计文档 TDD》《产品远景规划》《备案信息备注》 |
 | Owner | 产品 / 研发负责人 |
 | 评审人 | 产品、研发、测试、设计、合规 |
-| 变更说明 | 随 v1.5.2 发布同步刷新：文档版本对齐 v1.5.2；落地 V1.5.2「话术模板全面修复」（书面版补齐寄件/收件城市等缺失字段、两版同义占位符去重、占位符只保留变量、拆分同名不同义的【XX元】、表单占位符友好标签、通用投诉信模板补齐输入项）；与代码版本保持一致 |
+| 变更说明 | 随 v1.5.3 发布同步刷新：文档版本对齐 v1.5.3；落地 V1.5.3「法条切片与搜索索引升级」（法律法规按条文切片 articles + 双向 cites_law 引用关系 law_id#条、搜索重建 BM25 倒排索引与 Trie 联想树并下沉 detail 分包）。v1.5.2 历史：话术模板全面修复（书面版补齐缺失字段、两版同义占位符去重、占位符只保留变量、拆分同名不同义【XX元】、表单友好标签、通用投诉信模板补齐输入项） |
 
 ---
 
@@ -326,7 +326,7 @@
 | script | id, scene, phone_version, written_version, placeholders, legal_basis, related_channel | 话术模板（19 套） |
 | law | id, name, clause, content | 法律法规（90 部，条款级） |
 | category | id, name, parent_id, order | 五大分类 + 二级 |
-| config | data_version, synonym_dict, hot_words, feature_flag | 应用配置（当前 data_version = 2026.09.7） |
+| config | data_version, synonym_dict, hot_words, feature_flag | 应用配置（当前 data_version = 2026.09.13） |
 | 【预留】user | id, openid, device_id, ext | V2.0 |
 | 【预留】complaint_ticket | id, user_id, channel_id, status, timeline | V2.0 |
 | 【预留】evidence | id, ticket_id, type, url | V2.0 |

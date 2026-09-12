@@ -5,8 +5,8 @@ const { getStatusBarHeight } = require('../../utils/layout');
 Page({
   data: {
     statusBarHeight: 20,
-    version: '1.5.2',
-    dataVersion: '2026.09.7',
+    version: '1.5.3',
+    dataVersion: '2026.09.13',
     channelCount: 122,
     scriptCount: 19,
     lawCount: 90,

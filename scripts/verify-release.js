@@ -3,9 +3,9 @@
  * 用法：node scripts/verify-release.js
  *
  * 验证维度（多轮交叉验证 + 单元测试替代）：
- *  1. 应用版本号一致性：about / settings / profile 页均显示 v1.5.2
- *  2. 数据版本号一致性：app.js / config.js / about / settings 均为 2026.09.7
- *  3. config.js changelog 首条为 2026.09.7（V1.5.2），且字段完整
+ *  1. 应用版本号一致性：about / settings / profile 页均显示 v1.5.3
+ *  2. 数据版本号一致性：app.js / config.js / about / settings 均为 2026.09.13
+ *  3. config.js changelog 首条为 2026.09.13（V1.5.3），且字段完整
  *  4. 全站「心里话」6 处文案一致，剑锋指向为最新正确表述
  *  5. 旧表述「侵权与失信」在全仓代码中零残留
  *  6. V1.5 特性：媒体曝光路径 + 所需材料清单组件/数据就绪
@@ -35,35 +35,35 @@ function read(p) {
   return fs.readFileSync(p, 'utf8');
 }
 
-console.log('========== 发布交叉验证（v1.5.2）==========\n');
+console.log('========== 发布交叉验证（v1.5.3）==========\n');
 
 // ---- 1. 应用版本号 ----
-console.log('【1. 应用版本号 = v1.5.2】');
+console.log('【1. 应用版本号 = v1.5.3】');
 const aboutJs = read(path.join(MINI, 'subpages/about/about.js'));
 const settingsJs = read(path.join(MINI, 'subpages/settings/settings.js'));
 const profileWxml = read(path.join(MINI, 'pages/profile/profile.wxml'));
-ok(/version:\s*'1\.5\.2'/.test(aboutJs), 'about.js version = 1.5.2');
-ok(/appVersion:\s*'1\.5\.2'/.test(settingsJs), 'settings.js appVersion = 1.5.2');
-ok(/我不能被欺负 v1\.5\.2/.test(profileWxml), 'profile.wxml 页脚版本 = v1.5.2');
+ok(/version:\s*'1\.5\.3'/.test(aboutJs), 'about.js version = 1.5.3');
+ok(/appVersion:\s*'1\.5\.3'/.test(settingsJs), 'settings.js appVersion = 1.5.3');
+ok(/我不能被欺负 v1\.5\.3/.test(profileWxml), 'profile.wxml 页脚版本 = v1.5.3');
 
 // ---- 2. 数据版本号 ----
-console.log('\n【2. 数据版本号 = 2026.09.7】');
+console.log('\n【2. 数据版本号 = 2026.09.13】');
 const appJs = read(path.join(MINI, 'app.js'));
 const configJs = read(path.join(MINI, 'data/config.js'));
-ok(/dataVersion:\s*'2026\.09\.7'/.test(aboutJs), 'about.js dataVersion = 2026.09.7');
-ok(/dataVersion:\s*'2026\.09\.7'/.test(settingsJs), 'settings.js dataVersion = 2026.09.7');
-ok(/dataVersion:\s*'2026\.09\.7'/.test(appJs), 'app.js globalData.dataVersion = 2026.09.7');
-ok(/"data_version":\s*"2026\.09\.7"/.test(configJs), 'config.js data_version = 2026.09.7');
-ok(/"dataVersion":\s*"2026\.09\.7"/.test(configJs), 'config.js dataVersion = 2026.09.7');
+ok(/dataVersion:\s*'2026\.09\.13'/.test(aboutJs), 'about.js dataVersion = 2026.09.13');
+ok(/dataVersion:\s*'2026\.09\.13'/.test(settingsJs), 'settings.js dataVersion = 2026.09.13');
+ok(/dataVersion:\s*'2026\.09\.13'/.test(appJs), 'app.js globalData.dataVersion = 2026.09.13');
+ok(/"data_version":\s*"2026\.09\.13"/.test(configJs), 'config.js data_version = 2026.09.13');
+ok(/"dataVersion":\s*"2026\.09\.13"/.test(configJs), 'config.js dataVersion = 2026.09.13');
 
 // ---- 3. changelog 首条 ----
-console.log('\n【3. config.js changelog[0] = V1.5.2】');
+console.log('\n【3. config.js changelog[0] = V1.5.3】');
 delete require.cache[require.resolve(path.join(MINI, 'data/config.js'))];
 const config = require(path.join(MINI, 'data/config.js'));
 const first = config.changelog && config.changelog[0];
 ok(!!first, 'changelog 存在且非空');
-ok(first && first.version === '2026.09.7', 'changelog[0].version = 2026.09.7');
-ok(first && /V1\.5\.2/.test(first.title || ''), 'changelog[0].title 含 V1.5.2');
+ok(first && first.version === '2026.09.13', 'changelog[0].version = 2026.09.13');
+ok(first && /V1\.5\.3/.test(first.title || ''), 'changelog[0].title 含 V1.5.3');
 ok(first && Array.isArray(first.items) && first.items.length >= 1, 'changelog[0].items 非空');
 // V1.5 特性条目分布在历史 changelog 中，检查全量条目而非仅首条
 const allLogItems = (config.changelog || []).reduce((acc, c) => acc.concat(c.items || []), []).join('');
@@ -194,6 +194,6 @@ if (failures.length > 0) {
   failures.forEach(f => console.log('  - ' + f));
   process.exit(1);
 } else {
-  console.log('\n✅ 全部交叉验证通过，可以发布 v1.5.2。');
+  console.log('\n✅ 全部交叉验证通过，可以发布 v1.5.3。');
   process.exit(0);
 }
