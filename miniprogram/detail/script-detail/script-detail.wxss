@@ -787,24 +787,46 @@
   min-width: 0;
   height: 64rpx;
   line-height: 64rpx;
-  padding-right: 52rpx;
+  padding-right: 118rpx;
 }
 
+/* 右侧「选择 ▾」入口：主题色文字，醒目且不突兀 */
 .fill-form-combo-suffix {
   position: absolute;
   right: 0;
   top: 0;
   bottom: 0;
-  width: 52rpx;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  padding-left: 14rpx;
 }
 
-.fill-form-combo-icon {
-  width: 28rpx;
-  height: 28rpx;
-  opacity: 0.45;
+/* 淡色竖线，分隔输入区与选择入口 */
+.fill-form-combo-suffix::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 26%;
+  bottom: 26%;
+  width: 2rpx;
+  background: #F5E3A8;
+}
+
+.fill-form-combo-btn {
+  display: flex;
+  align-items: center;
+}
+
+.fill-form-combo-btn-text {
+  font-size: 26rpx;
+  color: #4A90D9;
+  font-weight: 500;
+}
+
+.fill-form-combo-btn-arrow {
+  font-size: 20rpx;
+  color: #4A90D9;
+  margin-left: 4rpx;
 }
 
 /* 日期 / 地区选择器 */

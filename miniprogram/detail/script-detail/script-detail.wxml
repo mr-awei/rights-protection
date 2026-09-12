@@ -85,7 +85,7 @@
               <input
                 class="fill-form-input"
                 type="text"
-                placeholder="输入详细地址，或点右侧箭头选省市区"
+                placeholder="输入详细地址，或点右侧「选择」选省市区"
                 placeholder-class="fill-placeholder"
                 value="{{formData[item.name]}}"
                 data-field="{{item.name}}"
@@ -97,7 +97,10 @@
                 data-field="{{item.name}}"
                 bindchange="onRegionChange"
               >
-                <view class="fill-form-combo-icon app-icon app-icon-default icon-chevron-down"></view>
+                <view class="fill-form-combo-btn">
+                  <text class="fill-form-combo-btn-text">选择</text>
+                  <text class="fill-form-combo-btn-arrow">▾</text>
+                </view>
               </picker>
             </view>
 
@@ -106,7 +109,7 @@
               <input
                 class="fill-form-input"
                 type="text"
-                placeholder="{{item.example ? '如：' + item.example + '，可点右箭头选择' : '请选择或直接输入'}}"
+                placeholder="{{item.example ? '如：' + item.example + '（可点右侧选择）' : '请选择或直接输入'}}"
                 placeholder-class="fill-placeholder"
                 value="{{formData[item.name]}}"
                 data-field="{{item.name}}"
@@ -118,7 +121,10 @@
                 data-field="{{item.name}}"
                 bindchange="onSelectChange"
               >
-                <view class="fill-form-combo-icon app-icon app-icon-default icon-chevron-down"></view>
+                <view class="fill-form-combo-btn">
+                  <text class="fill-form-combo-btn-text">选择</text>
+                  <text class="fill-form-combo-btn-arrow">▾</text>
+                </view>
               </picker>
             </view>
 
