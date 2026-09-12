@@ -710,7 +710,7 @@
   flex-wrap: wrap;
   background: #fff;
   border-radius: 12rpx;
-  padding: 12rpx 16rpx;
+  padding: 14rpx 18rpx;
   border: 2rpx solid #FDE68A;
 }
 
@@ -729,28 +729,42 @@
   line-height: 1.5;
 }
 
+/* 第一行：标签 + 填写说明 */
 .fill-form-label {
   font-size: var(--font-base);
   color: #78350F;
   font-weight: 500;
-  width: 160rpx;
   flex-shrink: 0;
 }
 
 .fill-form-guide {
   font-size: var(--font-xs);
   color: #92400E;
-  opacity: 0.7;
-  margin-left: 8rpx;
+  opacity: 0.65;
+  margin-left: 10rpx;
   flex: 1;
   min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 第二行：输入控件独占整行，避免与标签/说明挤在一行 */
+.fill-form-item > .fill-form-input,
+.fill-form-item > .fill-form-picker-wrap,
+.fill-form-item > .fill-form-combo {
+  flex: 0 0 100%;
+  width: 100%;
+  min-width: 0;
+  margin-top: 10rpx;
 }
 
 .fill-form-input {
-  flex: 1;
   font-size: var(--font-base);
   color: var(--text-primary);
   min-width: 0;
+  height: 64rpx;
+  line-height: 64rpx;
 }
 
 .fill-placeholder {
@@ -758,30 +772,39 @@
   font-size: var(--font-sm);
 }
 
-/* 组合控件：输入框 + 选择按钮（地区补充详细地址 / 平台公司候选选择） */
+/* 组合控件：整行输入框 + 右侧内嵌选择入口（地区补充详细地址 / 平台公司候选选择）
+   注意：外层 fill-form-item 已有边框与底色，这里刻意不再加边框，避免双重描边显脏 */
 .fill-form-combo {
-  flex: 1;
-  min-width: 0;
+  position: relative;
   display: flex;
   align-items: center;
-  gap: 12rpx;
+  width: 100%;
+  min-width: 0;
 }
 
 .fill-form-combo .fill-form-input {
   flex: 1;
   min-width: 0;
-}
-
-.fill-form-combo-btn {
-  flex-shrink: 0;
-  padding: 0 20rpx;
   height: 64rpx;
   line-height: 64rpx;
-  font-size: var(--font-sm);
-  color: var(--primary);
-  background: var(--primary-light);
-  border-radius: 10rpx;
-  white-space: nowrap;
+  padding-right: 52rpx;
+}
+
+.fill-form-combo-suffix {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 52rpx;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.fill-form-combo-icon {
+  width: 28rpx;
+  height: 28rpx;
+  opacity: 0.45;
 }
 
 /* 日期 / 地区选择器 */

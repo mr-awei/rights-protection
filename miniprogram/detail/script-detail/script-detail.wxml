@@ -80,43 +80,45 @@
               </view>
             </picker>
 
-            <!-- 地区：省市区选择 + 可继续补充详细地址 -->
+            <!-- 地区：可直接输入详细地址，也可点右侧箭头选省市区 -->
             <view wx:elif="{{item.type === 'region'}}" class="fill-form-combo">
               <input
                 class="fill-form-input"
                 type="text"
-                placeholder="选择省市区后，可补充门牌号等详细地址"
+                placeholder="输入详细地址，或点右侧箭头选省市区"
                 placeholder-class="fill-placeholder"
                 value="{{formData[item.name]}}"
                 data-field="{{item.name}}"
                 bindinput="onFormInput"
               />
               <picker
+                class="fill-form-combo-suffix"
                 mode="region"
                 data-field="{{item.name}}"
                 bindchange="onRegionChange"
               >
-                <view class="fill-form-combo-btn">选择地区</view>
+                <view class="fill-form-combo-icon app-icon app-icon-default icon-chevron-down"></view>
               </picker>
             </view>
 
-            <!-- 常见平台/公司：可从候选选择，也可直接输入 -->
+            <!-- 常见平台/公司：可点右侧箭头从候选选择，也可直接输入 -->
             <view wx:elif="{{item.type === 'select'}}" class="fill-form-combo">
               <input
                 class="fill-form-input"
                 type="text"
-                placeholder="{{item.example ? '如：' + item.example : '请填写' + item.label}}"
+                placeholder="{{item.example ? '如：' + item.example + '，可点右箭头选择' : '请选择或直接输入'}}"
                 placeholder-class="fill-placeholder"
                 value="{{formData[item.name]}}"
                 data-field="{{item.name}}"
                 bindinput="onFormInput"
               />
               <picker
+                class="fill-form-combo-suffix"
                 range="{{item.options}}"
                 data-field="{{item.name}}"
                 bindchange="onSelectChange"
               >
-                <view class="fill-form-combo-btn">选择</view>
+                <view class="fill-form-combo-icon app-icon app-icon-default icon-chevron-down"></view>
               </picker>
             </view>
 
