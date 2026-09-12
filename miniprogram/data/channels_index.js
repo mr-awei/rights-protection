@@ -1,3 +1,4 @@
+// 本文件由 scripts/kb-build.js 从 kb/ 自动生成，请勿手工编辑
 module.exports = [
   {
     "id": "ch_001",

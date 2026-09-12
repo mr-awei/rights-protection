@@ -34,6 +34,18 @@
 
 `export-kb.js` 把分散的数据合并为 `data/knowledge-base.json`：231 个实体（渠道 122 / 话术 19 / 法条 90）+ 显式关系表。
 
+### Markdown 知识库（`kb/`，唯一数据源）
+
+- `kb-init.js`：**一次性**把现有运行时数据反向生成 `kb/*.md`（231 个文件）。**已执行过，不需要再跑**（再跑会跳过已存在的文件）。
+
+- `kb-build.js`：`kb/*.md` → `miniprogram/data/*.js`。
+  - `node scripts/kb-build.js` 校验模式（只对比不写入）
+  - `node scripts/kb-build.js --write` 写入模式
+
+**日常维护流程**：编辑 `kb/*.md` → `node scripts/kb-build.js` 看差异 → 确认后 `node scripts/kb-build.js --write` → `node scripts/validate-data.js` + `node scripts/verify-release.js`
+
+**不要再手工编辑 `miniprogram/data/*.js`**。详见 [`kb/README.md`](../kb/README.md)。
+
 结构定义见 **[`docs/知识库结构说明.md`](../docs/知识库结构说明.md)**，含各实体字段、关系类型、已知缺口与 AI 接入的分阶段建议。
 
 > 该导出**不改变小程序运行时存储**，对用户功能、包体积、离线能力**零影响**。
