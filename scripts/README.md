@@ -11,6 +11,7 @@
 | `audit-fill-fields.js` | 审计话术填充表单字段：类型分布、候选覆盖、长名（会退化成「投诉事由」）、高频纯文本 | 优化表单字段前后 |
 | `code-audit.js` | 代码审计：未引用组件 / 数据文件、console 统计、大文件清单 | 定期 |
 | `generate-index.js` | 生成搜索索引 / 建议词典 | 数据大版本更新后 |
+| `export-kb.js` | 导出 AI 友好的知识库 `data/knowledge-base.json`（统一 schema + 显式关系表，不进小程序包） | 改数据后、供 AI 消费前 |
 
 > 用法示例：
 > ```bash
@@ -28,6 +29,14 @@
 | `audit-laws.js`、`deep-audit-laws.js` | 法规数据审计 |
 | `enrich-laws.js`、`restructure-laws.js`、`update-article-summary.js` | 法规数据补充与重构 |
 | `match-channel-articles.js`、`auto-match-legal-basis.js`、`auto-match-scripts.js` | 渠道 ↔ 法规条文 / 话术的自动匹配 |
+
+## 二之二、知识库（AI 接入）
+
+`export-kb.js` 把分散的数据合并为 `data/knowledge-base.json`：231 个实体（渠道 122 / 话术 19 / 法条 90）+ 显式关系表。
+
+结构定义见 **[`docs/知识库结构说明.md`](../docs/知识库结构说明.md)**，含各实体字段、关系类型、已知缺口与 AI 接入的分阶段建议。
+
+> 该导出**不改变小程序运行时存储**，对用户功能、包体积、离线能力**零影响**。
 
 ## 三、legacy/ 目录
 
