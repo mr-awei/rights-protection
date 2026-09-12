@@ -217,6 +217,8 @@ Page({
     showFillForm: false,
     placeholders: [],
     formData: {},
+    regionView: {},    // 地址双框-框1：省市区（picker 选择）
+    detailView: {},    // 地址双框-框2：详细地址（手动输入）
     formErrors: {},
     customPhoneContent: '',
     customWrittenContent: '',
@@ -784,8 +786,7 @@ Page({
   },
 
   /**
-   * 地区（省市区）选择：写入省市区，并保留用户已补充的详细地址。
-   * 例：已填「四川省成都市武侯区天府大道 1 号」，重选地区后仍保留「天府大道 1 号」。
+   * 省市区选择（地址双框-框 1）：只写省市区；详细地址由独立输入框维护。
    */
   onRegionChange(e) {
     const field = e.currentTarget.dataset.field;
@@ -793,17 +794,26 @@ Page({
     // 去掉省市区重名（如「北京市北京市东城区」→「北京市东城区」）
     const unique = parts.filter((p, i) => parts.indexOf(p) === i);
     const region = unique.join('');
-    const oldValue = String(this.data.formData[field] || '');
-    const cache = this._regionCache || (this._regionCache = {});
-    const prevRegion = cache[field] || '';
-    // 剥离上一次选择的省市区，保留用户手输的详细地址
-    let detail = oldValue;
-    if (prevRegion && oldValue.startsWith(prevRegion)) detail = oldValue.slice(prevRegion.length);
-    cache[field] = region;
-
+    const regionView = { ...this.data.regionView };
+    regionView[field] = region;
+    const detailView = this.data.detailView || {};
     const formData = { ...this.data.formData };
-    formData[field] = region + detail;
-    this.setData({ formData });
+    formData[field] = region + (detailView[field] || '');
+    this.setData({ regionView, formData });
+  },
+
+  /**
+   * 详细地址输入（地址双框-框 2）：与已选省市区拼接为完整地址。
+   */
+  onDetailInput(e) {
+    const field = e.currentTarget.dataset.field;
+    const detail = e.detail.value;
+    const detailView = { ...this.data.detailView };
+    detailView[field] = detail;
+    const regionView = this.data.regionView || {};
+    const formData = { ...this.data.formData };
+    formData[field] = (regionView[field] || '') + detail;
+    this.setData({ detailView, formData });
   },
 
   /**

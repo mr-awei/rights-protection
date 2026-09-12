@@ -752,7 +752,8 @@
 /* 第二行：输入控件独占整行，避免与标签/说明挤在一行 */
 .fill-form-item > .fill-form-input,
 .fill-form-item > .fill-form-picker-wrap,
-.fill-form-item > .fill-form-combo {
+.fill-form-item > .fill-form-combo,
+.fill-form-item > .fill-form-region-group {
   flex: 0 0 100%;
   width: 100%;
   min-width: 0;
@@ -788,6 +789,29 @@
   height: 64rpx;
   line-height: 64rpx;
   padding-right: 118rpx;
+}
+
+/* 地址双框：框 1（省市区，整框可点选）+ 框 2（详细地址输入） */
+.fill-form-region-group .fill-form-combo .fill-form-input,
+.fill-form-region-group .fill-form-input-readonly {
+  padding-right: 118rpx;
+}
+
+.fill-form-input-readonly {
+  color: #1D2129;
+  font-size: 28rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.fill-form-input-readonly.is-placeholder {
+  color: #C9CDD4;
+  font-size: 26rpx;
+}
+
+.fill-form-input-detail {
+  margin-top: 8rpx;
 }
 
 /* 右侧「选择 ▾」入口：主题色文字，醒目且不突兀 */

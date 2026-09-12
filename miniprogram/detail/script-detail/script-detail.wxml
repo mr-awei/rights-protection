@@ -80,28 +80,28 @@
               </view>
             </picker>
 
-            <!-- 地区：可直接输入详细地址，也可点右侧箭头选省市区 -->
-            <view wx:elif="{{item.type === 'region'}}" class="fill-form-combo">
-              <input
-                class="fill-form-input"
-                type="text"
-                placeholder="输入详细地址，或点右侧「选择」选省市区"
-                placeholder-class="fill-placeholder"
-                value="{{formData[item.name]}}"
-                data-field="{{item.name}}"
-                bindinput="onFormInput"
-              />
-              <picker
-                class="fill-form-combo-suffix"
-                mode="region"
-                data-field="{{item.name}}"
-                bindchange="onRegionChange"
-              >
-                <view class="fill-form-combo-btn">
-                  <text class="fill-form-combo-btn-text">选择</text>
-                  <text class="fill-form-combo-btn-arrow">▾</text>
+            <!-- 地址：双框填写——框 1 整框可点选省市区，框 2 输入详细地址 -->
+            <view wx:elif="{{item.type === 'region'}}" class="fill-form-region-group">
+              <picker mode="region" data-field="{{item.name}}" bindchange="onRegionChange">
+                <view class="fill-form-combo">
+                  <view class="fill-form-input fill-form-input-readonly {{regionView[item.name] ? '' : 'is-placeholder'}}">
+                    {{regionView[item.name] || '点此处选择省市区'}}
+                  </view>
+                  <view class="fill-form-combo-btn">
+                    <text class="fill-form-combo-btn-text">选择</text>
+                    <text class="fill-form-combo-btn-arrow">▾</text>
+                  </view>
                 </view>
               </picker>
+              <input
+                class="fill-form-input fill-form-input-detail"
+                type="text"
+                placeholder="详细地址：街道/小区/楼栋/门牌号"
+                placeholder-class="fill-placeholder"
+                value="{{detailView[item.name]}}"
+                data-field="{{item.name}}"
+                bindinput="onDetailInput"
+              />
             </view>
 
             <!-- 常见平台/公司：可点右侧箭头从候选选择，也可直接输入 -->
