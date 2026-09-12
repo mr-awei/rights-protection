@@ -707,10 +707,26 @@
 .fill-form-item {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   background: #fff;
   border-radius: 12rpx;
   padding: 12rpx 16rpx;
   border: 2rpx solid #FDE68A;
+}
+
+/* 格式校验失败态 */
+.fill-form-item.has-error {
+  border-color: var(--danger);
+  background: #FFF7F7;
+}
+
+.fill-form-error {
+  width: 100%;
+  margin-top: 8rpx;
+  padding-left: 4rpx;
+  font-size: var(--font-xs);
+  color: var(--danger);
+  line-height: 1.5;
 }
 
 .fill-form-label {
@@ -740,6 +756,48 @@
 .fill-placeholder {
   color: var(--text-quaternary);
   font-size: var(--font-sm);
+}
+
+/* 日期 / 地区选择器 */
+.fill-form-picker-wrap {
+  flex: 1;
+  min-width: 0;
+}
+
+.fill-form-picker {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  min-width: 0;
+}
+
+.fill-form-picker-text {
+  flex: 1;
+  min-width: 0;
+  font-size: var(--font-base);
+  color: var(--text-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.fill-form-picker.is-placeholder .fill-form-picker-text {
+  color: var(--text-quaternary);
+  font-size: var(--font-sm);
+}
+
+.picker-arrow {
+  width: 30rpx;
+  height: 30rpx;
+  flex-shrink: 0;
+  margin-left: 8rpx;
+  opacity: 0.5;
+}
+
+.picker-arrow::before {
+  -webkit-mask-size: 80%;
+  mask-size: 80%;
 }
 
 .fill-form-actions {

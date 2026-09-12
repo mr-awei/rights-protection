@@ -184,6 +184,7 @@ Page({
     showFillForm: false,
     placeholders: [],
     formData: {},
+    formErrors: {},
     customPhoneContent: '',
     customWrittenContent: '',
     customPhoneText: '',
@@ -303,6 +304,7 @@ Page({
       laws,
       placeholders,
       formData,
+      formErrors: {},
       isFavorite: app.isFavorite('scripts', id),
       loading: false,
       materialsList: this.buildMaterialsList(script)
@@ -412,20 +414,25 @@ Page({
   onCopySection(e) {
     const section = e.currentTarget.dataset.section;
     if (!section) return;
-    wx.setClipboardData({
-      data: section.content,
-      success: () => {
-        wx.showToast({ title: `${section.title}已复制`, icon: 'success' });
-      }
-    });
+    // 已生成个性化话术时，优先复制替换后的纯文本，避免复制到带【占位符】的原始模板
+    const { hasCustomContent, customWrittenText } = this.data;
+    const content = (hasCustomContent && customWrittenText) ? customWrittenText : section.content;
+    this.copyText(content, (section.title || '内容') + '已复制');
   },
 
   highlightPlaceholders(text) {
     if (!text) return '';
+    // rich-text 不加载外部 class，占位符高亮必须用内联 style；
+    // 同时转义 HTML 特殊字符，避免用户填写内容里的 < > & 破坏渲染。
+    const escaped = String(text)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;');
+    const style = 'style="color:#FA8C16;font-weight:600;"';
     // 高亮 【占位符】 格式
-    let result = text.replace(/【([^】]+)】/g, '<span class="placeholder">【$1】</span>');
+    let result = escaped.replace(/【([^】]+)】/g, '<span ' + style + '>【$1】</span>');
     // 高亮 [占位符] 格式
-    result = result.replace(/\[([^\]]+)\]/g, '<span class="placeholder">[$1]</span>');
+    result = result.replace(/\[([^\]]+)\]/g, '<span ' + style + '>[$1]</span>');
     // 换行转 <br>
     result = result.replace(/\n/g, '<br/>');
     return result;
@@ -447,13 +454,7 @@ Page({
         ? scriptRepo.getScriptPhoneContent(script)
         : scriptRepo.getScriptWrittenContent(script);
     }
-
-    wx.setClipboardData({
-      data: content,
-      success: () => {
-        wx.showToast({ title: '话术已复制', icon: 'success' });
-      }
-    });
+    this.copyText(content, hasCustomContent ? '个性化话术已复制' : '话术已复制');
   },
 
   // ===== 占位符自动填充功能 =====
@@ -474,7 +475,9 @@ Page({
       name: name,
       label: this.getPlaceholderLabel(name),
       guide: this.getPlaceholderGuide(name),
-      example: this.getPlaceholderExample(name)
+      example: this.getPlaceholderExample(name),
+      type: this.getPlaceholderType(name),
+      rule: this.getPlaceholderRule(name)
     }));
   },
 
@@ -497,7 +500,49 @@ Page({
       'X点至X点': '时间段',
       'XX分贝': '分贝数',
       'X天内发货': '发货期限',
-      'X天': '天数'
+      'X天': '天数',
+      // —— 以下为各场景「选项类/复合类」占位符的友好标签 ——
+      // 这些占位符名较长，若不映射会被统一显示为「投诉事由」，用户无从填写。
+      '电梯长期故障不修/公共区域照明损坏/垃圾清理不及时/擅自上涨物业费/收取未公示的停车费': '物业问题类型',
+      'X年X月': '年/月',
+      '停课/更换老师/缩减课时/负责人失联': '机构违约情形',
+      '拒绝退款/拖延处理/联系不上': '机构处理态度',
+      '房东姓名/中介公司名称': '房东/中介名称',
+      'X年X月至X年X月': '租期起止',
+      '租期届满/提前解除合同': '合同状态',
+      'X月X日X时': '日期时间',
+      '出租车公司或网约车平台名称': '出租车公司/平台',
+      '拒载/绕道行驶/不打表/乱收费/态度恶劣/中途甩客': '司机违规行为',
+      '健身卡/美容卡/会员卡': '卡类型',
+      'X次/X年': '次数/年限',
+      '关门停业/负责人失联/转让后不承认原会员卡': '商家违约情形',
+      'X次/X个月': '剩余次数/月数',
+      'X月X日至X月X日': '日期范围',
+      '偷工减料/施工质量不合格/无故延期/未经同意增项加价': '装修公司违规情形',
+      '质量不达标/已延期X天/仍未完工': '工程现状',
+      '夜间施工/高音喇叭/装修噪音/车辆鸣笛': '噪音类型',
+      '每天X点至X点': '噪音时段',
+      '无法休息/影响学习/身体健康受损': '造成的损害',
+      'X天内发货/预售X月X日前发货': '发货承诺',
+      '不回复/拒绝退款/拖延处理': '商家处理态度',
+      '强制捆绑保险/装潢/上牌服务/加价提车/售后以次充好/车辆质量问题推诿': '4S店违规情形',
+      '具体描述问题，如服务态度差/乱收费/未按约定履行/质量问题等': '问题描述',
+      '未得到解决/处理结果不满意/对方态度恶劣': '此前处理情况',
+      '具体诉求一，如退款/赔偿/整改/道歉': '诉求一',
+      '具体诉求一，如退还费用XX元/赔偿损失XX元/立即整改/书面道歉': '诉求一',
+      '办理业务/购买商品/接受服务': '事项类型',
+      '具体描述问题，如未按约定履行/乱收费/服务态度差/质量不合格等': '问题描述',
+      '详细说明时间、地点、人物、经过': '详细经过',
+      '相关法律法规名称，如《消费者权益保护法》《民法典》等': '法律依据',
+      '证据一，如合同/订单/发票': '证据一',
+      '证据三，如照片/视频/录音': '证据三',
+      '证据四，如与被投诉人沟通记录': '证据四',
+      '具体描述违法行为，如价格欺诈/虚假宣传/无证经营/安全生产隐患/偷税漏税等': '违法行为描述',
+      '详细说明时间、地点、经过': '详细经过',
+      '消费者权益/公共利益/市场秩序': '侵害的法益',
+      '证据说明，如照片/视频/票据/证人': '证据说明',
+      '证据清单，如照片/视频/票据/合同/证人证言': '证据清单',
+      '消费者权益/市场秩序/公共利益': '侵害的法益'
     };
     if (labels[name]) return labels[name];
     // 如果名称已经是友好的（不含X且长度<=10），直接返回
@@ -571,7 +616,7 @@ Page({
   getPlaceholderExample(name) {
     const examples = {
       '姓名': '张三',
-      '手机号': '138****8888',
+      '手机号': '13812345678',
       '单号': 'SF1234567890',
       '金额': '500',
       'X月X日': '3月15日',
@@ -579,6 +624,152 @@ Page({
     };
     if (examples[name]) return examples[name];
     return '';
+  },
+
+  /**
+   * 判断占位符对应的输入控件类型
+   * - date  ：日期类（X月X日 / X年X月X日 / 标签为「日期」「完整日期」）→ 日期选择器
+   * - region：地区类（城市 / 地址 / 地区 / 所在地）→ 省市区选择器
+   * - text  ：其余一律普通文本输入
+   */
+  getPlaceholderType(name) {
+    const label = this.getPlaceholderLabel(name);
+    const text = name + '|' + label;
+    // 时间段（X点至X点）、小时数不适用日期选择器
+    if (/X点|点钟|小时/.test(text)) return 'text';
+    // 标准日期占位符或标签已明确为日期
+    if (label === '日期' || label === '完整日期') return 'date';
+    if (/^X年X月X日$/.test(name) || /^X月X日$/.test(name)) return 'date';
+    // 地区类
+    if (/城市|地址|地区|所在地/.test(text)) return 'region';
+    return 'text';
+  },
+
+  /**
+   * 判断占位符的格式校验规则
+   * phone=手机号 / idcard=身份证号 / email=邮箱 / ''=不校验
+   */
+  getPlaceholderRule(name) {
+    const label = this.getPlaceholderLabel(name);
+    const text = name + '|' + label;
+    if (/身份证/.test(text)) {
+      // 「身份证号后四位 / 后 4 位 / 尾号」这类只需 4 位，不做完整号码校验
+      if (/后四?位|后4位|末四?位|尾号/.test(text)) return '';
+      return 'idcard';
+    }
+    if (/手机|联系电话|电话号|手机号/.test(text)) return 'phone';
+    if (/邮箱|电子邮箱|邮件地址/.test(text)) return 'email';
+    return '';
+  },
+
+  /**
+   * 校验单个字段值，返回错误信息（空字符串代表通过）；空值不在此处报错
+   */
+  validateField(rule, value) {
+    const v = String(value === undefined || value === null ? '' : value).trim();
+    if (!v || !rule) return '';
+    if (rule === 'phone') {
+      return /^1[3-9]\d{9}$/.test(v) ? '' : '请输入 11 位有效手机号（1 开头）';
+    }
+    if (rule === 'idcard') {
+      return this.validateIdCard(v);
+    }
+    if (rule === 'email') {
+      return /^[\w.+-]+@[\w-]+(\.[\w-]+)+$/.test(v) ? '' : '请输入有效的邮箱地址';
+    }
+    return '';
+  },
+
+  /**
+   * 身份证号校验（15 位 / 18 位，含出生日期与校验位）
+   */
+  validateIdCard(value) {
+    const s = String(value).trim().toUpperCase();
+    if (!/^\d{15}$/.test(s) && !/^\d{17}[\dX]$/.test(s)) {
+      return '身份证号应为 15 位或 18 位';
+    }
+    let y;
+    let m;
+    let d;
+    if (s.length === 15) {
+      y = Number('19' + s.substr(6, 2));
+      m = Number(s.substr(8, 2));
+      d = Number(s.substr(10, 2));
+    } else {
+      y = Number(s.substr(6, 4));
+      m = Number(s.substr(10, 2));
+      d = Number(s.substr(12, 2));
+    }
+    const date = new Date(y, m - 1, d);
+    if (y < 1900 || y > 2100 || date.getFullYear() !== y || date.getMonth() !== m - 1 || date.getDate() !== d) {
+      return '身份证号中的出生日期无效';
+    }
+    if (s.length === 18) {
+      const weights = [7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2];
+      const codes = ['1', '0', 'X', '9', '8', '7', '6', '5', '4', '3', '2'];
+      let sum = 0;
+      for (let i = 0; i < 17; i++) sum += Number(s[i]) * weights[i];
+      if (codes[sum % 11] !== s[17]) return '身份证号校验位不正确，请核对';
+    }
+    return '';
+  },
+
+  /**
+   * 汇总所有字段的格式错误
+   */
+  buildErrors(formData) {
+    const errors = {};
+    (this.data.placeholders || []).forEach(p => {
+      if (!p.rule) return;
+      const msg = this.validateField(p.rule, (formData || {})[p.name]);
+      if (msg) errors[p.name] = msg;
+    });
+    return errors;
+  },
+
+  /**
+   * 日期选择器变更
+   */
+  onDateChange(e) {
+    const field = e.currentTarget.dataset.field;
+    const parts = String(e.detail.value || '').split('-');
+    if (parts.length !== 3) return;
+    const formData = { ...this.data.formData };
+    formData[field] = `${parts[0]}年${Number(parts[1])}月${Number(parts[2])}日`;
+    this.setData({ formData });
+  },
+
+  /**
+   * 地区（省市区）选择器变更
+   */
+  onRegionChange(e) {
+    const field = e.currentTarget.dataset.field;
+    const parts = (e.detail.value || []).filter(Boolean);
+    // 去掉省市区重名（如「北京市北京市东城区」→「北京市东城区」）
+    const unique = parts.filter((p, i) => parts.indexOf(p) === i);
+    const formData = { ...this.data.formData };
+    formData[field] = unique.join('');
+    this.setData({ formData });
+  },
+
+  /**
+   * 复制文本到剪贴板（统一反馈，避免静默失败）
+   */
+  copyText(text, successTitle) {
+    const content = (text === undefined || text === null) ? '' : String(text);
+    if (!content.trim()) {
+      wx.showToast({ title: '暂无可复制内容', icon: 'none' });
+      return;
+    }
+    wx.setClipboardData({
+      data: content,
+      success: () => {
+        wx.showToast({ title: successTitle || '已复制', icon: 'success' });
+      },
+      fail: () => {
+        wx.showToast({ title: '复制失败，请重试', icon: 'none' });
+      }
+    });
   },
 
   /**
@@ -597,20 +788,44 @@ Page({
     const value = e.detail.value;
     const formData = { ...this.data.formData };
     formData[field] = value;
-    this.setData({ formData });
+    // 实时校验该字段格式（手机号 / 身份证 / 邮箱）
+    const meta = (this.data.placeholders || []).find(p => p.name === field);
+    const formErrors = { ...this.data.formErrors };
+    const msg = meta && meta.rule ? this.validateField(meta.rule, value) : '';
+    if (msg) {
+      formErrors[field] = msg;
+    } else {
+      delete formErrors[field];
+    }
+    this.setData({ formData, formErrors });
   },
 
   /**
    * 生成个性化话术
    */
   generateCustomScript() {
-    const { script, formData } = this.data;
+    const { script, formData, placeholders } = this.data;
 
-    // 检查是否有未填写的占位符
+    // 1. 格式校验（手机号 / 身份证号 / 邮箱）——不通过直接拦截
+    const errors = this.buildErrors(formData);
+    this.setData({ formErrors: errors });
+    const errorKeys = Object.keys(errors);
+    if (errorKeys.length > 0) {
+      const meta = (placeholders || []).find(p => p.name === errorKeys[0]);
+      wx.showToast({
+        title: (meta ? meta.label : '') + '：' + errors[errorKeys[0]],
+        icon: 'none',
+        duration: 2600
+      });
+      return;
+    }
+
+    // 2. 检查是否有未填写的占位符（提示用友好标签而非原始占位符名）
     const unfilled = [];
     for (const [key, value] of Object.entries(formData)) {
       if (!value || !value.trim()) {
-        unfilled.push(key);
+        const p = (placeholders || []).find(x => x.name === key);
+        unfilled.push(p ? p.label : key);
       }
     }
 
@@ -680,7 +895,10 @@ Page({
             hasCustomContent: false,
             customPhoneContent: '',
             customWrittenContent: '',
+            customPhoneText: '',
+            customWrittenText: '',
             formData,
+            formErrors: {},
             showFillForm: false
           });
           wx.showToast({ title: '已重置', icon: 'success' });
@@ -694,15 +912,10 @@ Page({
    */
   copyCustomScript(e) {
     const type = e.currentTarget.dataset.type;
-    const { customPhoneContent, customWrittenContent } = this.data;
-    const content = type === 'phone' ? customPhoneContent : customWrittenContent;
-
-    wx.setClipboardData({
-      data: content,
-      success: () => {
-        wx.showToast({ title: '个性化话术已复制', icon: 'success' });
-      }
-    });
+    // 复制纯文本版本（customXxxContent 是带 <br/> 与高亮的 HTML，不能直接进剪贴板）
+    const { customPhoneText, customWrittenText } = this.data;
+    const content = type === 'phone' ? customPhoneText : customWrittenText;
+    this.copyText(content, '个性化话术已复制');
   },
 
   onToggleFavorite() {

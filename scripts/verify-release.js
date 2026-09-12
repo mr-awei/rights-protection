@@ -9,7 +9,7 @@
  *  4. 全站「心里话」6 处文案一致，剑锋指向为最新正确表述
  *  5. 旧表述「侵权与失信」在全仓代码中零残留
  *  6. V1.5 特性：媒体曝光路径 + 所需材料清单组件/数据就绪
- *  7. V1.5.1 搜索相关性回归：无关召回、跨领域召回、同义词自映射、吸顶与首页搜索交互
+ *  7. V1.5.1 搜索相关性回归：无关召回、跨领域召回、同义词自映射、话术内容完整性、吸顶与首页搜索交互
  */
 
 const fs = require('fs');
@@ -167,6 +167,13 @@ ok(wuyeScenes.some(n => n.includes('物业')), '「物业乱收费」命中物�
 // 7.4 同义词库无自映射
 const selfSynonyms = Object.entries(configMain.synonyms || {}).filter(([k, v]) => k === v).map(([k]) => k);
 ok(selfSynonyms.length === 0, 'config.synonyms 无自映射' + (selfSynonyms.length ? '（' + selfSynonyms.length + ' 条）' : ''));
+
+// 7.4b 话术内容完整性（避免 written_template 未被读取导致书面版空白）
+const allScripts = dataMain.getScripts();
+const emptyWritten = allScripts.filter(s => !dataMain.getScriptWrittenContent(s)).map(s => s.id);
+const emptyPhone = allScripts.filter(s => !dataMain.getScriptPhoneContent(s)).map(s => s.id);
+ok(emptyWritten.length === 0, '所有话术书面版内容非空' + (emptyWritten.length ? '（空：' + emptyWritten.join(',') + '）' : ''));
+ok(emptyPhone.length === 0, '所有话术电话版内容非空' + (emptyPhone.length ? '（空：' + emptyPhone.join(',') + '）' : ''));
 
 // 7.5 搜索结果页：整体吸顶 + 底部安全区留白
 const srWxss = read(path.join(MINI, 'detail/search-result/search-result.wxss'));

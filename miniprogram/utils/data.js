@@ -316,13 +316,15 @@ function searchScripts(keyword) {
  * 获取话术的电话版内容
  */
 function getScriptPhoneContent(script) {
-  return script.phone_script || script.phone_version || '';
+  return script.phone_script || script.phone_version || script.phone_template || '';
 }
 
 /**
- * 获取话术的书面版内容（组合多个字段）
+ * 获取话术的书面版内容
+ * 优先取新版统一字段 written_template；旧版由多个 written_* 字段拼接（兼容保留）。
  */
 function getScriptWrittenContent(script) {
+  if (script.written_template) return script.written_template;
   const parts = [];
   if (script.written_complainant) parts.push('投诉人：' + script.written_complainant);
   if (script.written_respondent) parts.push('被投诉人：' + script.written_respondent);

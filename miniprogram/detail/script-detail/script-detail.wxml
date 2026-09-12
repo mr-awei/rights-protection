@@ -62,10 +62,41 @@
           <text>填写以下信息，自动生成个性化话术</text>
         </view>
         <view class="fill-form-list">
-          <view class="fill-form-item" wx:for="{{placeholders}}" wx:key="name">
+          <view class="fill-form-item {{formErrors[item.name] ? 'has-error' : ''}}" wx:for="{{placeholders}}" wx:key="name">
             <text class="fill-form-label">{{item.label}}</text>
             <text class="fill-form-guide" wx:if="{{item.guide}}">{{item.guide}}</text>
+
+            <!-- 日期选择器 -->
+            <picker
+              wx:if="{{item.type === 'date'}}"
+              class="fill-form-picker-wrap"
+              mode="date"
+              data-field="{{item.name}}"
+              bindchange="onDateChange"
+            >
+              <view class="fill-form-picker {{formData[item.name] ? '' : 'is-placeholder'}}">
+                <text class="fill-form-picker-text">{{formData[item.name] || '请选择' + item.label}}</text>
+                <view class="picker-arrow app-icon app-icon-default icon-chevron-down"></view>
+              </view>
+            </picker>
+
+            <!-- 地区选择器 -->
+            <picker
+              wx:elif="{{item.type === 'region'}}"
+              class="fill-form-picker-wrap"
+              mode="region"
+              data-field="{{item.name}}"
+              bindchange="onRegionChange"
+            >
+              <view class="fill-form-picker {{formData[item.name] ? '' : 'is-placeholder'}}">
+                <text class="fill-form-picker-text">{{formData[item.name] || '请选择' + item.label}}</text>
+                <view class="picker-arrow app-icon app-icon-default icon-chevron-down"></view>
+              </view>
+            </picker>
+
+            <!-- 普通文本输入 -->
             <input
+              wx:else
               class="fill-form-input"
               type="text"
               placeholder="{{item.example ? '如：' + item.example : '请填写' + item.label}}"
@@ -74,6 +105,9 @@
               data-field="{{item.name}}"
               bindinput="onFormInput"
             />
+
+            <!-- 格式校验错误提示 -->
+            <text class="fill-form-error" wx:if="{{formErrors[item.name]}}">{{formErrors[item.name]}}</text>
           </view>
         </view>
         <view class="fill-form-actions">
@@ -103,8 +137,8 @@
         </view>
       </view>
 
-      <!-- 书面版分块展示 -->
-      <view class="written-sections" wx:if="{{activeTab === 'written' && writtenSections.length > 0}}">
+      <!-- 书面版分块展示（生成个性化话术后隐藏，避免与个性化内容重复） -->
+      <view class="written-sections" wx:if="{{activeTab === 'written' && !hasCustomContent && writtenSections.length > 0}}">
         <view class="script-tip" style="margin-bottom: 16rpx;">
           书面投诉时，按照以下格式撰写，每块可单独复制
         </view>

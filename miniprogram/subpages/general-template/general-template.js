@@ -7,8 +7,11 @@ const PLACEHOLDERS = [
   { name: 'complainant_name', label: '投诉人姓名', example: '张三', guide: '您的真实姓名' },
   { name: 'complainant_phone', label: '联系电话', example: '13800138000', guide: '便于受理部门联系您' },
   { name: 'complainant_address', label: '联系地址', example: 'XX市XX区XX路XX号', guide: '您的详细地址（可选）' },
+  { name: 'complainant_idcard', label: '身份证号', example: '5101**********1234', guide: '涉及金融、实名投诉时填写（可选）' },
   { name: 'respondent_name', label: '被投诉方名称', example: 'XX公司/XX店铺', guide: '被投诉单位的全称' },
+  { name: 'respondent_credit_code', label: '统一社会信用代码', example: '91XXXXXXXXXXXXXXXX', guide: '被投诉单位的信用代码（可选，可在企业信用信息公示系统查询）' },
   { name: 'respondent_address', label: '被投诉方地址', example: 'XX市XX区XX路XX号', guide: '被投诉单位的地址（可选）' },
+  { name: 'respondent_phone', label: '被投诉方电话', example: '028-XXXXXXXX', guide: '被投诉单位的联系电话（可选）' },
   { name: 'complaint_subject', label: '投诉事项', example: '违规收费/服务质量问题/不履行合同义务', guide: '简明概括投诉事项' },
   { name: 'complaint_request1', label: '投诉请求1', example: '退还费用XX元', guide: '具体、可执行的诉求' },
   { name: 'complaint_request2', label: '投诉请求2', example: '赔偿损失XX元', guide: '第二条诉求（可选）' },
@@ -150,11 +153,12 @@ Page({
       content = content.replace(/【姓名】/g, formData.complainant_name || '【姓名】');
       content = content.replace(/【手机号码】/g, formData.complainant_phone || '【手机号码】');
       content = content.replace(/【详细地址】/g, formData.complainant_address || '【详细地址】');
-      content = content.replace(/【身份证号码，可选】/g, '【身份证号码，可选】');
+      content = content.replace(/【身份证号码，可选】/g, formData.complainant_idcard || '【身份证号】');
       content = content.replace(/【单位全称，如：XX公司\/XX店铺】/g, formData.respondent_name || '【单位全称】');
       content = content.replace(/【单位全称】/g, formData.respondent_name || '【单位全称】');
       content = content.replace(/【单位地址】/g, formData.respondent_address || '【单位地址】');
-      content = content.replace(/【对方电话，可选】/g, '【对方电话，可选】');
+      content = content.replace(/【代码，可选】/g, formData.respondent_credit_code || '【统一社会信用代码】');
+      content = content.replace(/【对方电话，可选】/g, formData.respondent_phone || '【对方电话】');
       content = content.replace(/【具体诉求1，如：退还费用XX元】/g, formData.complaint_request1 || '【具体诉求1】');
       content = content.replace(/【具体诉求1】/g, formData.complaint_request1 || '【具体诉求1】');
       content = content.replace(/【具体诉求2，如：赔偿损失XX元】/g, formData.complaint_request2 || '【具体诉求2】');
