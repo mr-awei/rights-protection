@@ -81,6 +81,9 @@ temp/
 tmp/
 .cache/
 
+# 工作记忆（CodeBuddy IDE）
+.codebuddy/
+
 # 文档临时文件
 *.docx.tmp
 *.doc.tmp
