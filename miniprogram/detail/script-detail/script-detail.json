@@ -3,6 +3,7 @@
   "usingComponents": {
     "custom-modal": "/components/custom-modal/custom-modal",
     "loading-state": "/components/loading-state/loading-state",
-    "materials-checklist": "/components/materials-checklist/materials-checklist"
+    "materials-checklist": "/components/materials-checklist/materials-checklist",
+    "final-checklist": "/components/final-checklist/final-checklist"
   }
 }

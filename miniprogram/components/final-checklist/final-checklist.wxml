@@ -1,0 +1,38 @@
+<!--final-checklist.wxml-->
+<view class="final-checklist-card">
+  <view class="fc-header">
+    <text class="fc-title">投诉前最终自检清单</text>
+    <text class="fc-count">{{doneCount}}/{{items.length}}</text>
+  </view>
+  <view class="fc-tip">提交投诉前，请逐项确认：</view>
+
+  <view
+    class="fc-item {{checked[index] ? 'fc-item-checked' : ''}}"
+    wx:for="{{items}}"
+    wx:key="index"
+    data-index="{{index}}"
+    bindtap="onToggle"
+    hover-class="fc-item-hover"
+  >
+    <view class="fc-check {{checked[index] ? 'checked' : ''}}">
+      <text class="fc-mark" wx:if="{{checked[index]}}">✓</text>
+    </view>
+    <text class="fc-text">{{item}}</text>
+  </view>
+
+  <progress
+    class="fc-progress"
+    percent="{{percent}}"
+    stroke-width="6"
+    activeColor="{{allDone ? '#00B42A' : '#4A90D9'}}"
+    backgroundColor="#E5E6EB"
+    show-info="{{false}}"
+  />
+
+  <view class="fc-summary {{allDone ? 'done' : ''}}">
+    <text wx:if="{{allDone}}">✅ 已全部确认，可以提交投诉了</text>
+    <text wx:else>已确认 {{doneCount}}/{{items.length}} 项，全部勾选后再提交</text>
+  </view>
+
+  <view class="fc-reset" bindtap="onReset" hover-class="fc-reset-hover">重置勾选</view>
+</view>

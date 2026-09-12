@@ -111,6 +111,11 @@
       <materials-checklist materials="{{guide.materials}}" title="投稿所需材料清单"></materials-checklist>
     </view>
 
+    <!-- 投诉前最终自检清单 -->
+    <view class="section">
+      <final-checklist></final-checklist>
+    </view>
+
     <view style="height: 60rpx;"></view>
   </view>
 </view>

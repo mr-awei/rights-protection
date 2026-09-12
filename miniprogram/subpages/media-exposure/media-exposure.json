@@ -1,6 +1,7 @@
 {
   "navigationBarTitleText": "媒体曝光",
   "usingComponents": {
-    "materials-checklist": "/components/materials-checklist/materials-checklist"
+    "materials-checklist": "/components/materials-checklist/materials-checklist",
+    "final-checklist": "/components/final-checklist/final-checklist"
   }
 }

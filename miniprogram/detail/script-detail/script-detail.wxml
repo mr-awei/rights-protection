@@ -285,6 +285,11 @@
       <materials-checklist materials="{{materialsList}}"></materials-checklist>
     </view>
 
+    <!-- 投诉前最终自检清单 -->
+    <view class="section">
+      <final-checklist></final-checklist>
+    </view>
+
     <!-- 依法维权提示 -->
     <view class="section">
       <view class="legal-notice-card">
