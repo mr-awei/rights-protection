@@ -86,7 +86,8 @@ module.exports = [
       }
     ],
     "path_type": "",
-    "materials": []
+    "materials": [],
+    "file": "基础民生与公共交通.md"
   },
   {
     "id": "ch_002",
@@ -162,7 +163,8 @@ module.exports = [
       }
     ],
     "path_type": "",
-    "materials": []
+    "materials": [],
+    "file": "基础民生与公共交通.md"
   },
   {
     "id": "ch_003",
@@ -235,7 +237,8 @@ module.exports = [
       }
     ],
     "path_type": "",
-    "materials": []
+    "materials": [],
+    "file": "基础民生与公共交通.md"
   },
   {
     "id": "ch_004",
@@ -302,7 +305,8 @@ module.exports = [
       }
     ],
     "path_type": "",
-    "materials": []
+    "materials": [],
+    "file": "基础民生与公共交通.md"
   },
   {
     "id": "ch_005",
@@ -378,7 +382,8 @@ module.exports = [
       }
     ],
     "path_type": "",
-    "materials": []
+    "materials": [],
+    "file": "社会服务与政务司法.md"
   },
   {
     "id": "ch_006",
@@ -449,7 +454,8 @@ module.exports = [
       }
     ],
     "path_type": "",
-    "materials": []
+    "materials": [],
+    "file": "基础民生与公共交通.md"
   },
   {
     "id": "ch_007",
@@ -518,7 +524,8 @@ module.exports = [
       }
     ],
     "path_type": "",
-    "materials": []
+    "materials": [],
+    "file": "基础民生与公共交通.md"
   },
   {
     "id": "ch_008",
@@ -588,7 +595,8 @@ module.exports = [
       }
     ],
     "path_type": "",
-    "materials": []
+    "materials": [],
+    "file": "基础民生与公共交通.md"
   },
   {
     "id": "ch_009",
@@ -657,7 +665,8 @@ module.exports = [
       }
     ],
     "path_type": "",
-    "materials": []
+    "materials": [],
+    "file": "基础民生与公共交通.md"
   },
   {
     "id": "ch_010",
@@ -728,7 +737,8 @@ module.exports = [
       }
     ],
     "path_type": "",
-    "materials": []
+    "materials": [],
+    "file": "基础民生与公共交通.md"
   },
   {
     "id": "ch_011",
@@ -802,7 +812,8 @@ module.exports = [
       }
     ],
     "path_type": "",
-    "materials": []
+    "materials": [],
+    "file": "基础民生与公共交通.md"
   },
   {
     "id": "ch_012",
@@ -882,7 +893,8 @@ module.exports = [
       }
     ],
     "path_type": "",
-    "materials": []
+    "materials": [],
+    "file": "基础民生与公共交通.md"
   },
   {
     "id": "ch_013",
@@ -969,7 +981,8 @@ module.exports = [
       }
     ],
     "path_type": "",
-    "materials": []
+    "materials": [],
+    "file": "基础民生与公共交通.md"
   },
   {
     "id": "ch_014",
@@ -1056,7 +1069,8 @@ module.exports = [
       }
     ],
     "path_type": "",
-    "materials": []
+    "materials": [],
+    "file": "基础民生与公共交通.md"
   },
   {
     "id": "ch_015",
@@ -1142,7 +1156,8 @@ module.exports = [
       }
     ],
     "path_type": "",
-    "materials": []
+    "materials": [],
+    "file": "基础民生与公共交通.md"
   },
   {
     "id": "ch_016",
@@ -1222,7 +1237,8 @@ module.exports = [
       }
     ],
     "path_type": "",
-    "materials": []
+    "materials": [],
+    "file": "基础民生与公共交通.md"
   },
   {
     "id": "ch_017",
@@ -1302,7 +1318,8 @@ module.exports = [
       }
     ],
     "path_type": "",
-    "materials": []
+    "materials": [],
+    "file": "基础民生与公共交通.md"
   },
   {
     "id": "ch_018",
@@ -1386,7 +1403,8 @@ module.exports = [
       }
     ],
     "path_type": "",
-    "materials": []
+    "materials": [],
+    "file": "金融与商业消费.md"
   },
   {
     "id": "ch_019",
@@ -1470,7 +1488,8 @@ module.exports = [
       }
     ],
     "path_type": "",
-    "materials": []
+    "materials": [],
+    "file": "金融与商业消费.md"
   },
   {
     "id": "ch_020",
@@ -1558,7 +1577,8 @@ module.exports = [
       }
     ],
     "path_type": "",
-    "materials": []
+    "materials": [],
+    "file": "金融与商业消费.md"
   },
   {
     "id": "ch_021",
@@ -1641,7 +1661,8 @@ module.exports = [
       }
     ],
     "path_type": "",
-    "materials": []
+    "materials": [],
+    "file": "金融与商业消费.md"
   },
   {
     "id": "ch_022",
@@ -1730,7 +1751,8 @@ module.exports = [
       }
     ],
     "path_type": "",
-    "materials": []
+    "materials": [],
+    "file": "金融与商业消费.md"
   },
   {
     "id": "ch_023",
@@ -1813,7 +1835,8 @@ module.exports = [
       }
     ],
     "path_type": "",
-    "materials": []
+    "materials": [],
+    "file": "金融与商业消费.md"
   },
   {
     "id": "ch_024",
@@ -1899,7 +1922,8 @@ module.exports = [
       }
     ],
     "path_type": "",
-    "materials": []
+    "materials": [],
+    "file": "金融与商业消费.md"
   },
   {
     "id": "ch_025",
@@ -1984,7 +2008,8 @@ module.exports = [
       }
     ],
     "path_type": "",
-    "materials": []
+    "materials": [],
+    "file": "金融与商业消费.md"
   },
   {
     "id": "ch_026",
@@ -2068,7 +2093,8 @@ module.exports = [
       }
     ],
     "path_type": "",
-    "materials": []
+    "materials": [],
+    "file": "金融与商业消费.md"
   },
   {
     "id": "ch_027",
@@ -2156,7 +2182,8 @@ module.exports = [
       }
     ],
     "path_type": "",
-    "materials": []
+    "materials": [],
+    "file": "金融与商业消费.md"
   },
   {
     "id": "ch_028",
@@ -2240,7 +2267,8 @@ module.exports = [
       }
     ],
     "path_type": "",
-    "materials": []
+    "materials": [],
+    "file": "金融与商业消费.md"
   },
   {
     "id": "ch_029",
@@ -2328,7 +2356,8 @@ module.exports = [
       }
     ],
     "path_type": "",
-    "materials": []
+    "materials": [],
+    "file": "金融与商业消费.md"
   },
   {
     "id": "ch_030",
@@ -2415,7 +2444,8 @@ module.exports = [
       }
     ],
     "path_type": "",
-    "materials": []
+    "materials": [],
+    "file": "金融与商业消费.md"
   },
   {
     "id": "ch_031",
@@ -2496,7 +2526,8 @@ module.exports = [
       }
     ],
     "path_type": "",
-    "materials": []
+    "materials": [],
+    "file": "金融与商业消费.md"
   },
   {
     "id": "ch_032",
@@ -2569,7 +2600,8 @@ module.exports = [
       }
     ],
     "path_type": "",
-    "materials": []
+    "materials": [],
+    "file": "金融与商业消费.md"
   },
   {
     "id": "ch_033",
@@ -2636,7 +2668,8 @@ module.exports = [
       }
     ],
     "path_type": "",
-    "materials": []
+    "materials": [],
+    "file": "金融与商业消费.md"
   },
   {
     "id": "ch_034",
@@ -2700,7 +2733,8 @@ module.exports = [
       }
     ],
     "path_type": "",
-    "materials": []
+    "materials": [],
+    "file": "社会服务与政务司法.md"
   },
   {
     "id": "ch_035",
@@ -2757,7 +2791,8 @@ module.exports = [
       }
     ],
     "path_type": "",
-    "materials": []
+    "materials": [],
+    "file": "社会服务与政务司法.md"
   },
   {
     "id": "ch_036",
@@ -2825,7 +2860,8 @@ module.exports = [
       }
     ],
     "path_type": "",
-    "materials": []
+    "materials": [],
+    "file": "社会服务与政务司法.md"
   },
   {
     "id": "ch_037",
@@ -2886,7 +2922,8 @@ module.exports = [
       }
     ],
     "path_type": "",
-    "materials": []
+    "materials": [],
+    "file": "金融与商业消费.md"
   },
   {
     "id": "ch_038",
@@ -2964,7 +3001,8 @@ module.exports = [
       }
     ],
     "path_type": "",
-    "materials": []
+    "materials": [],
+    "file": "金融与商业消费.md"
   },
   {
     "id": "ch_039",
@@ -3042,7 +3080,8 @@ module.exports = [
       }
     ],
     "path_type": "",
-    "materials": []
+    "materials": [],
+    "file": "金融与商业消费.md"
   },
   {
     "id": "ch_040",
@@ -3119,7 +3158,8 @@ module.exports = [
       }
     ],
     "path_type": "",
-    "materials": []
+    "materials": [],
+    "file": "金融与商业消费.md"
   },
   {
     "id": "ch_041",
@@ -3193,7 +3233,8 @@ module.exports = [
       }
     ],
     "path_type": "",
-    "materials": []
+    "materials": [],
+    "file": "金融与商业消费.md"
   },
   {
     "id": "ch_042",
@@ -3280,7 +3321,8 @@ module.exports = [
       }
     ],
     "path_type": "",
-    "materials": []
+    "materials": [],
+    "file": "金融与商业消费.md"
   },
   {
     "id": "ch_043",
@@ -3369,7 +3411,8 @@ module.exports = [
       }
     ],
     "path_type": "",
-    "materials": []
+    "materials": [],
+    "file": "金融与商业消费.md"
   },
   {
     "id": "ch_044",
@@ -3454,7 +3497,8 @@ module.exports = [
       }
     ],
     "path_type": "",
-    "materials": []
+    "materials": [],
+    "file": "金融与商业消费.md"
   },
   {
     "id": "ch_045",
@@ -3534,7 +3578,8 @@ module.exports = [
       }
     ],
     "path_type": "",
-    "materials": []
+    "materials": [],
+    "file": "金融与商业消费.md"
   },
   {
     "id": "ch_046",
@@ -3612,7 +3657,8 @@ module.exports = [
       }
     ],
     "path_type": "",
-    "materials": []
+    "materials": [],
+    "file": "金融与商业消费.md"
   },
   {
     "id": "ch_047",
@@ -3698,7 +3744,8 @@ module.exports = [
       }
     ],
     "path_type": "",
-    "materials": []
+    "materials": [],
+    "file": "社会服务与政务司法.md"
   },
   {
     "id": "ch_048",
@@ -3793,7 +3840,8 @@ module.exports = [
       }
     ],
     "path_type": "",
-    "materials": []
+    "materials": [],
+    "file": "社会服务与政务司法.md"
   },
   {
     "id": "ch_049",
@@ -3881,7 +3929,8 @@ module.exports = [
       }
     ],
     "path_type": "",
-    "materials": []
+    "materials": [],
+    "file": "社会服务与政务司法.md"
   },
   {
     "id": "ch_050",
@@ -3961,6 +4010,7 @@ module.exports = [
       }
     ],
     "path_type": "",
-    "materials": []
+    "materials": [],
+    "file": "社会服务与政务司法.md"
   }
 ];

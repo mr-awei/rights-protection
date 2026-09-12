@@ -1,11 +1,13 @@
 /**
  * 知识库构建：kb/*.md（唯一数据源） → 小程序运行时数据
  *
- * 设计原则：Markdown 是人维护的 SSOT，JS 数据一律由本脚本生成，**不要再手工编辑 miniprogram/data/*.js**。
+ * kb 按「一级分类」聚合成 7 个文件（便于人工阅读与交接）：
+ *   kb/channels/<一级分类>.md（5 个）、kb/scripts/投诉话术.md、kb/laws/法律法规.md
+ * 每个实体用 "## id · 名称" 分节，字段用 "- key: value"，长文本用 **小节名** 段落。
  *
  * 用法：
  *   node scripts/kb-build.js          校验模式（只对比，不写文件）
- *   node scripts/kb-build.js --write  写入模式（校验通过后才覆盖）
+ *   node scripts/kb-build.js --write  写入模式
  */
 const fs = require('fs');
 const path = require('path');
@@ -13,96 +15,118 @@ const path = require('path');
 const KB = path.join(__dirname, '../kb');
 const WRITE = process.argv.includes('--write');
 
-// ============ 极简 YAML front-matter 解析（本项目格式固定，不引第三方库）============
-function unquote(v) {
-  let s = String(v).trim();
-  if (s.startsWith('"') && s.endsWith('"')) {
-    s = s.slice(1, -1).replace(/\\"/g, '"').replace(/\\n/g, '\n').replace(/\\\\/g, '\\');
-  } else if (s === '[]') return [];
-  return s;
+// ---------- 解析 ----------
+function parseSection(line) {
+  const m = line.match(/^\*\*(.+?)\*\*\s*$/);
+  return m ? m[1] : null;
 }
 
-function parseFrontMatter(content) {
-  const m = content.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n?/);
-  if (!m) return { data: {}, body: content };
-  const data = {};
-  let key = null;
-  m[1].split(/\r?\n/).forEach(line => {
-    const item = line.match(/^\s*-\s+(.*)$/);
-    if (item && key) {
-      if (!Array.isArray(data[key])) data[key] = [];
-      data[key].push(unquote(item[1]));
-      return;
-    }
-    const kv = line.match(/^(\w+):\s*(.*)$/);
-    if (kv) { key = kv[1]; data[key] = unquote(kv[2]); }
-  });
-  return { data, body: content.slice(m[0].length) };
-}
-
-// 从正文按 "## 标题" 提取小节
-function section(body, title) {
-  const re = new RegExp('##\\s*' + title + '\\s*\\r?\\n([\\s\\S]*?)(?=\\n##\\s|$)');
-  const m = body.match(re);
-  if (!m) return '';
-  const t = m[1].trim();
-  return (t === '（无）' || t === '（待补充）') ? '' : t;
-}
-
-function readDir(dir) {
-  const p = path.join(KB, dir);
-  if (!fs.existsSync(p)) return [];
-  return fs.readdirSync(p).filter(f => f.endsWith('.md')).map(f => {
-    const raw = fs.readFileSync(path.join(p, f), 'utf8');
-    const { data, body } = parseFrontMatter(raw);
-    return { data, body, file: dir + '/' + f };
+function parseEntities(file, longSections) {
+  const raw = fs.readFileSync(file, 'utf8');
+  const body = raw.replace(/^---\r?\n[\s\S]*?\r?\n---\r?\n/, '');
+  const chunks = body.split(/^##\s+/m).filter(s => s.trim());
+  return chunks.map(chunk => {
+    const lines = chunk.split(/\r?\n/);
+    const heading = lines[0].trim();
+    const data = {};
+    let cur = null;
+    lines.slice(1).forEach(line => {
+      const item = line.match(/^-\s+(\w+):\s*(.*)$/);
+      if (item) { data[item[1]] = String(item[2]).trim(); cur = null; return; }
+      const sec = parseSection(line.trim());
+      if (sec && longSections.includes(sec)) { cur = sec; data['§' + sec] = [];
+        return;
+      }
+      if (cur) {
+        const t = line.trim();
+        if (t) data['§' + cur].push(t);
+      }
+    });
+    longSections.forEach(s => { data['§' + s] = (data['§' + s] || []).join('\n').trim(); });
+    return { heading, data };
   });
 }
 
-// ============ 读取知识库 ============
-const channels = readDir('channels').map(x => {
-  const d = x.data;
-  return {
-    id: d.id, name: d.name, phone: d.phone, website: d.website, regulator: d.regulator,
-    category_l1: d.category_l1, category_l2: d.category_l2,
-    category_user: d.category_user, category_user_l2: d.category_user_l2,
-    issue_types: d.issue_types || [], tags: d.tags || [],
-    channel_type: d.channel_type, hot_level: Number(d.hot_level || 0),
-    related_script_id: d.related_script_id || '', law_ids: d.law_ids || [],
-    scope: section(x.body, '适用范围'),
-    precondition: section(x.body, '前置条件'),
-    tips: section(x.body, '实用提示')
-  };
-}).sort((a, b) => String(a.id).localeCompare(String(b.id)));
-
-const scripts = readDir('scripts').map(x => ({
-  id: x.data.id, scene_name: x.data.scene_name, category: x.data.category,
-  applicable: x.data.applicable, is_general: x.data.is_general === 'true' || x.data.is_general === true,
-  hot_level: Number(x.data.hot_level || 0), keywords: x.data.keywords || [],
-  phone_script: section(x.body, '电话版话术'),
-  written_template: section(x.body, '书面版话术')
-})).sort((a, b) => String(a.id).localeCompare(String(b.id)));
-
-const laws = readDir('laws').map(x => ({
-  id: x.data.id, name: x.data.name, full_name: x.data.full_name,
-  category: x.data.category || [], article: x.body.trim()
-})).sort((a, b) => String(a.id).localeCompare(String(b.id)));
-
-console.log('知识库读取: 渠道 ' + channels.length + ' / 话术 ' + scripts.length + ' / 法规 ' + laws.length);
-
-// ============ 与现有运行时数据对比 ============
-function norm(v) {
-  return JSON.stringify(v, Object.keys(v || {}).sort ? Object.keys(v || {}).sort() : null);
-}
-
-// law_ids / issue_types 等可能是逗号分隔的字符串（历史脏数据），统一转数组再比较
-function normIds(v) {
+function ids(v) {
   if (Array.isArray(v)) return v.filter(x => x !== undefined && x !== null && String(x).trim() !== '');
   if (typeof v === 'string' && v.trim()) return v.split(',').map(s => s.trim()).filter(Boolean);
   return [];
 }
 
-const existingParts = ['channels_part_1', 'channels_part_2', 'channels_part_3'].reduce((acc, f) => {
+function clean(v) {
+  const s = String(v || '').trim();
+  return (s === '（无）' || s === '（待补充）') ? '' : s;
+}
+
+function listDir(dir) {
+  const p = path.join(KB, dir);
+  if (!fs.existsSync(p)) return [];
+  return fs.readdirSync(p).filter(f => f.endsWith('.md')).map(f => path.join(p, f));
+}
+
+// ---------- 读取知识库 ----------
+const CH_KEYS = ['id', 'name', 'phone', 'website', 'regulator', 'category_l2', 'category_user',
+  'category_user_l2', 'channel_type', 'hot_level', 'related_script_id', 'law_ids', 'issue_types', 'tags'];
+const CH_SECS = ['适用范围', '前置条件', '实用提示'];
+let channels = [];
+listDir('channels').forEach(f => {
+  parseEntities(f, CH_SECS).forEach(e => {
+    const d = e.data;
+    if (!d.id) return;
+    channels.push({
+      id: d.id, name: clean(d.name), phone: clean(d.phone), website: clean(d.website),
+      regulator: clean(d.regulator), category_l2: clean(d.category_l2),
+      category_user: clean(d.category_user), category_user_l2: clean(d.category_user_l2),
+      channel_type: clean(d.channel_type), hot_level: Number(d.hot_level || 0),
+      related_script_id: clean(d.related_script_id),
+      law_ids: ids(d.law_ids), issue_types: ids(d.issue_types), tags: ids(d.tags),
+      scope: clean(d['§适用范围']), precondition: clean(d['§前置条件']), tips: clean(d['§实用提示']),
+      category_l1: (fs.readFileSync(f, 'utf8').match(/^category_l1:\s*(.+)$/m) || [])[1] || '',
+      file: path.basename(f)
+    });
+  });
+});
+channels.sort((a, b) => String(a.id).localeCompare(String(b.id)));
+
+const SC_SECS = ['电话版话术', '书面版话术'];
+let scripts = [];
+listDir('scripts').forEach(f => {
+  parseEntities(f, SC_SECS).forEach(e => {
+    const d = e.data;
+    if (!d.id) return;
+    scripts.push({
+      id: d.id, scene_name: clean(d.scene_name), category: clean(d.category),
+      applicable: clean(d.applicable),
+      is_general: String(d.is_general) === 'true',
+      hot_level: Number(d.hot_level || 0), keywords: ids(d.keywords),
+      phone_script: clean(d['§电话版话术']), written_template: clean(d['§书面版话术'])
+    });
+  });
+});
+scripts.sort((a, b) => String(a.id).localeCompare(String(b.id)));
+
+let laws = [];
+listDir('laws').forEach(f => {
+  parseEntities(f, []).forEach(e => {
+    const d = e.data;
+    if (!d.id) return;
+    // 正文 = 字段行之后的内容
+    const raw = fs.readFileSync(f, 'utf8');
+    const sec = raw.split(new RegExp('^##\\s+' + d.id.replace(/[_]/g, '_') + '[^\\n]*\\n'));
+    let article = '';
+    if (sec[1]) {
+      const rest = sec[1].split(/^##\s+/m)[0];
+      article = rest.split(/\r?\n/).filter(l => !/^-\s+\w+:/.test(l.trim())).join('\n').trim();
+    }
+    laws.push({ id: d.id, name: clean(d.name), full_name: clean(d.full_name), category: ids(d.category), article });
+  });
+});
+laws.sort((a, b) => String(a.id).localeCompare(String(b.id)));
+
+console.log('知识库读取: 渠道 ' + channels.length + ' / 话术 ' + scripts.length + ' / 法规 ' + laws.length);
+
+// ---------- 与现有数据对比 ----------
+const existing = ['channels_part_1', 'channels_part_2', 'channels_part_3'].reduce((acc, f) => {
   try {
     const a = require('../miniprogram/detail/data/' + f + '.js');
     if (Array.isArray(a)) acc = acc.concat(a);
@@ -110,27 +134,26 @@ const existingParts = ['channels_part_1', 'channels_part_2', 'channels_part_3'].
   return acc;
 }, []).sort((a, b) => String(a.id).localeCompare(String(b.id)));
 
-console.log('现有分片数据: ' + existingParts.length + ' 条');
+console.log('现有分片数据: ' + existing.length + ' 条');
 
-if (existingParts.length !== channels.length) {
-  console.log('\n❌ 数量不一致，终止。请检查 kb/channels 是否有遗漏。');
+if (existing.length !== channels.length) {
+  console.log('\n❌ 数量不一致（现有 ' + existing.length + ' / 知识库 ' + channels.length + '），终止。');
   process.exit(1);
 }
 
-// 逐条比对关键字段
 const diffs = [];
-existingParts.forEach((old, i) => {
+existing.forEach((old, i) => {
   const cur = channels[i];
   if (!cur || old.id !== cur.id) { diffs.push({ id: old.id, field: 'id', old: old.id, cur: cur && cur.id }); return; }
-  ['name', 'phone', 'website', 'regulator', 'category_l1', 'category_l2', 'category_user', 'related_script_id', 'scope', 'precondition', 'tips'].forEach(k => {
-    const a = String(old[k] || '').trim();
-    const b = String(cur[k] || '').trim();
-    if (a !== b) diffs.push({ id: old.id, field: k, old: a.slice(0, 40), cur: b.slice(0, 40) });
-  });
-  // law_ids 在历史数据里是逗号分隔字符串，知识库统一为数组；比较时都规范化为数组
-  const oldLaw = JSON.stringify(normIds(old.law_ids));
-  const curLaw = JSON.stringify(normIds(cur.law_ids));
-  if (oldLaw !== curLaw) diffs.push({ id: old.id, field: 'law_ids', old: oldLaw, cur: curLaw });
+  ['name', 'phone', 'website', 'regulator', 'category_l1', 'category_l2', 'category_user',
+    'related_script_id', 'scope', 'precondition', 'tips'].forEach(k => {
+      const a = String(old[k] || '').trim();
+      const b = String(cur[k] || '').trim();
+      if (a !== b) diffs.push({ id: old.id, field: k, old: a.slice(0, 45), cur: b.slice(0, 45) });
+    });
+  if (JSON.stringify(ids(old.law_ids)) !== JSON.stringify(ids(cur.law_ids))) {
+    diffs.push({ id: old.id, field: 'law_ids', old: JSON.stringify(ids(old.law_ids)), cur: JSON.stringify(ids(cur.law_ids)) });
+  }
 });
 
 if (diffs.length) {
@@ -140,25 +163,15 @@ if (diffs.length) {
     console.log('      现有: ' + d.old);
     console.log('      知识库: ' + d.cur);
   });
-  if (!WRITE) {
-    console.log('\n这是校验模式，未写入任何文件。确认差异无误后加 --write 生成。');
-    process.exit(0);
-  }
-  console.log('\n⚠️ 写入模式：将按知识库覆盖现有数据');
 } else {
   console.log('\n✅ 知识库与现有运行时数据完全一致');
 }
 
-// ============ 写入（仅 --write 且校验通过）============
-if (!WRITE) {
-  console.log('\n（校验模式结束，未写入）');
-  process.exit(0);
-}
+if (!WRITE) { console.log('\n（校验模式，未写入）'); process.exit(0); }
 
-// 生成渠道索引（13 字段）与分片（完整）
+// ---------- 写入 ----------
 const indexFields = ['id', 'name', 'phone', 'tags', 'category_l1', 'category_l2', 'category_user',
   'category_user_l2', 'issue_types', 'related_script_id', 'channel_type', 'hot_level'];
-
 const indexArr = channels.map((c, i) => {
   const o = {};
   indexFields.forEach(k => { o[k] = c[k]; });
@@ -166,29 +179,23 @@ const indexArr = channels.map((c, i) => {
   return o;
 });
 
-function toJs(arr, varName) {
-  return '// 本文件由 scripts/kb-build.js 从 kb/ 自动生成，请勿手工编辑\n' +
-    'module.exports = ' + JSON.stringify(arr, null, 2) + ';\n';
-}
+const HEAD = '// 本文件由 scripts/kb-build.js 从 kb/ 自动生成，请勿手工编辑\n';
+const toJs = arr => HEAD + 'module.exports = ' + JSON.stringify(arr, null, 2) + ';\n';
+
+const oldById = {};
+existing.forEach(o => { oldById[o.id] = o; });
+// 保留 kb 未覆盖的扩展字段（effect_rating / materials 等），避免信息丢失
+const merge = arr => arr.map(n => Object.assign({}, oldById[n.id] || {}, n));
 
 fs.writeFileSync(path.join(__dirname, '../miniprogram/data/channels_index.js'), toJs(indexArr), 'utf8');
-
-const p1 = channels.slice(0, 50), p2 = channels.slice(50, 100), p3 = channels.slice(100);
-const oldByid = {};
-existingParts.forEach(o => { oldByid[o.id] = o; });
-// 分片保留原文件里未纳入 kb 的扩展字段（如 effect_rating / materials 等），避免信息丢失
-function merge(oldArr, newArr) {
-  return newArr.map(n => Object.assign({}, oldByid[n.id] || {}, n));
-}
-fs.writeFileSync(path.join(__dirname, '../miniprogram/detail/data/channels_part_1.js'), toJs(merge(p1, p1)), 'utf8');
-fs.writeFileSync(path.join(__dirname, '../miniprogram/detail/data/channels_part_2.js'), toJs(merge(p2, p2)), 'utf8');
-fs.writeFileSync(path.join(__dirname, '../miniprogram/detail/data/channels_part_3.js'), toJs(merge(p3, p3)), 'utf8');
-
+['channels_part_1', 'channels_part_2', 'channels_part_3'].forEach((f, i) => {
+  const slice = channels.slice(i * 50, i * 50 + 50);
+  fs.writeFileSync(path.join(__dirname, '../miniprogram/detail/data/' + f + '.js'), toJs(merge(slice)), 'utf8');
+});
 fs.writeFileSync(path.join(__dirname, '../miniprogram/data/scripts.js'), toJs(scripts), 'utf8');
 fs.writeFileSync(path.join(__dirname, '../miniprogram/detail/data/laws.js'), toJs(laws), 'utf8');
 
 console.log('\n✅ 已生成:');
-console.log('   miniprogram/data/channels_index.js (' + indexArr.length + ' 条索引)');
-console.log('   miniprogram/detail/data/channels_part_1/2/3.js (50/50/' + p3.length + ')');
-console.log('   miniprogram/data/scripts.js (' + scripts.length + ' 条)');
-console.log('   miniprogram/detail/data/laws.js (' + laws.length + ' 条)');
+console.log('   channels_index.js (' + indexArr.length + ')');
+console.log('   channels_part_1/2/3.js (50/50/' + channels.slice(100).length + ')');
+console.log('   scripts.js (' + scripts.length + ') | laws.js (' + laws.length + ')');

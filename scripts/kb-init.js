@@ -1,8 +1,11 @@
 /**
- * 初始化知识库：从现有运行时数据反向生成 Markdown 文件（一次性迁移）
+ * 初始化知识库：从现有运行时数据反向生成 Markdown（一次性迁移）
  *
- * 生成的 md 以后就是唯一数据源（SSOT），人直接编辑，脚本再生成回 miniprogram/data/*.js。
- * 用 YAML front-matter 存放结构化字段，正文存放长文本，Obsidian / VS Code 均可直接编辑。
+ * 结构：按「一级分类」聚合成少量文件（便于人工阅读与交接），而不是一实体一文件。
+ *   - 渠道：按 category_l1 分成 5 个文件
+ *   - 话术：1 个文件
+ *   - 法规：1 个文件
+ * 每个实体用 "## id · 名称" 分节，字段用 "- key: value" 列表，长文本用 **小节名** 段落。
  *
  * 用法：node scripts/kb-init.js
  */
@@ -13,152 +16,130 @@ const KB = path.join(__dirname, '../kb');
 const data = require('../miniprogram/utils/data.js');
 data.loadAllData();
 
-// 注意：miniprogram/data/channels_index.js 只是轻量索引（13 字段），完整数据在 detail/data/channels_part_*.js（32 字段，含 website/regulator/scope/tips/law_ids）。
-// 迁移必须用分片数据，否则会丢失详情与法条关联。
 const PART_FILES = ['channels_part_1', 'channels_part_2', 'channels_part_3'];
 let channels = [];
 PART_FILES.forEach(f => {
   try {
     const a = require('../miniprogram/detail/data/' + f + '.js');
     if (Array.isArray(a)) channels = channels.concat(a);
-  } catch (e) { /* 忽略缺失分片 */ }
+  } catch (e) { /* ignore */ }
 });
 if (!channels.length) channels = data.getChannels() || [];
 
 let laws = [];
 try { laws = require('../miniprogram/detail/data/laws.js') || []; } catch (e) { laws = []; }
 
-// ---- YAML 安全的标量 ----
+// ---------- 工具 ----------
 function yamlStr(v) {
-  const s = String(v === undefined || v === null ? '' : v);
-  // 含特殊字符或首尾空格时用双引号包裹并转义
-  if (/^[-\d]/.test(s) || /[:#\n"'`|>{}\[\]&*!%@]/.test(s) || /^\s|\s$/.test(s) || s === '' ||
-    ['true', 'false', 'null', 'yes', 'no', 'on', 'off', '~'].includes(s.toLowerCase())) {
-    return '"' + s.replace(/\\/g, '\\\\').replace(/"/g, '\\"').replace(/\n/g, '\\n') + '"';
-  }
+  const s = String(v === undefined || v === null ? '' : v).replace(/\r?\n/g, ' ').trim();
   return s;
 }
-
-function yamlList(arr) {
-  const list = toIdArray(arr);
-  if (list.length === 0) return '[]';
-  const lines = list.map(x => '  - ' + yamlStr(x));
-  return '\n' + lines.join('\n');
-}
-
-// 兼容历史脏数据：law_ids 在部分渠道里是逗号分隔的字符串而非数组
 function toIdArray(v) {
   if (Array.isArray(v)) return v.filter(x => x !== undefined && x !== null && String(x).trim() !== '');
   if (typeof v === 'string' && v.trim()) return v.split(',').map(s => s.trim()).filter(Boolean);
   return [];
 }
-
 function safeFileName(s) {
-  return String(s || '').replace(/[\\/:*?"<>|]/g, '_').replace(/\s+/g, '').slice(0, 40);
+  return String(s || '未分类').replace(/[\\/:*?"<>|]/g, '_').trim();
 }
-
-function writeFile(dir, fileName, content) {
-  fs.mkdirSync(dir, { recursive: true });
-  const p = path.join(dir, fileName);
-  if (fs.existsSync(p)) {
-    console.log('  ⏭  已存在，跳过: ' + path.relative(KB, p).replace(/\\/g, '/'));
-    return false;
-  }
+function writeFile(relPath, content) {
+  const p = path.join(KB, relPath);
+  fs.mkdirSync(path.dirname(p), { recursive: true });
+  if (fs.existsSync(p)) { console.log('  ⏭  已存在，跳过: ' + relPath); return false; }
   fs.writeFileSync(p, content, 'utf8');
   return true;
 }
 
-let nChannel = 0, nScript = 0, nLaw = 0;
-
-// ==================== 渠道 ====================
+// ---------- 渠道：按一级分类分组 ----------
+const byCat = {};
 channels.forEach(c => {
-  const fm = [
-    '---',
-    'type: channel',
-    'id: ' + yamlStr(c.id),
-    'name: ' + yamlStr(c.name),
-    'phone: ' + yamlStr(c.phone),
-    'website: ' + yamlStr(c.website),
-    'regulator: ' + yamlStr(c.regulator),
-    'category_l1: ' + yamlStr(c.category_l1),
-    'category_l2: ' + yamlStr(c.category_l2),
-    'category_user: ' + yamlStr(c.category_user),
-    'category_user_l2: ' + yamlStr(c.category_user_l2),
-    'channel_type: ' + yamlStr(c.channel_type),
-    'hot_level: ' + yamlStr(c.hot_level === undefined ? 0 : c.hot_level),
-    'related_script_id: ' + yamlStr(c.related_script_id || ''),
-    'law_ids:' + yamlList(c.law_ids),
-    'issue_types:' + yamlList(c.issue_types),
-    'tags:' + yamlList(c.tags),
-    '---',
-    '',
-    '# ' + (c.name || c.id),
-    '',
-    '## 适用范围',
-    '',
-    c.scope || '（待补充）',
-    '',
-    '## 前置条件',
-    '',
-    c.precondition || '（无）',
-    '',
-    '## 实用提示',
-    '',
-    c.tips || '（无）'
-  ].join('\n');
-
-  const fn = c.id + '-' + safeFileName(c.name) + '.md';
-  if (writeFile(path.join(KB, 'channels'), fn, fm)) nChannel++;
+  const k = c.category_l1 || '未分类';
+  if (!byCat[k]) byCat[k] = [];
+  byCat[k].push(c);
 });
 
-// ==================== 话术 ====================
-(data.getScripts() || []).forEach(s => {
-  const fm = [
+let nChannelFile = 0, nChannel = 0;
+Object.keys(byCat).sort().forEach(cat => {
+  const list = byCat[cat].sort((a, b) => String(a.id).localeCompare(String(b.id)));
+  const parts = [
     '---',
-    'type: script',
-    'id: ' + yamlStr(s.id),
-    'scene_name: ' + yamlStr(s.scene_name),
-    'category: ' + yamlStr(s.category),
-    'applicable: ' + yamlStr(s.applicable),
-    'is_general: ' + (s.is_general ? 'true' : 'false'),
-    'hot_level: ' + yamlStr(s.hot_level === undefined ? 0 : s.hot_level),
-    'keywords:' + yamlList(s.keywords),
+    'type: channel-group',
+    'category_l1: ' + yamlStr(cat),
+    'count: ' + list.length,
     '---',
     '',
-    '# ' + (s.scene_name || s.id),
-    '',
-    '## 电话版话术',
-    '',
-    s.phone_script || '（无）',
-    '',
-    '## 书面版话术',
-    '',
-    s.written_template || '（无）'
-  ].join('\n');
-
-  const fn = s.id + '-' + safeFileName((s.scene_name || '').replace(/^场景\d+[:：]/, '')) + '.md';
-  if (writeFile(path.join(KB, 'scripts'), fn, fm)) nScript++;
+    '# ' + cat + '（' + list.length + ' 条）',
+    ''
+  ];
+  list.forEach(c => {
+    parts.push('## ' + c.id + ' · ' + (c.name || ''));
+    parts.push('');
+    const fields = [
+      ['id', c.id], ['name', c.name], ['phone', c.phone], ['website', c.website],
+      ['regulator', c.regulator], ['category_l2', c.category_l2],
+      ['category_user', c.category_user], ['category_user_l2', c.category_user_l2],
+      ['channel_type', c.channel_type], ['hot_level', c.hot_level === undefined ? 0 : c.hot_level],
+      ['related_script_id', c.related_script_id || ''],
+      ['law_ids', toIdArray(c.law_ids).join(', ')],
+      ['issue_types', toIdArray(c.issue_types).join(', ')],
+      ['tags', toIdArray(c.tags).join(', ')]
+    ];
+    fields.forEach(([k, v]) => { parts.push('- ' + k + ': ' + yamlStr(v)); });
+    parts.push('');
+    ['适用范围', '前置条件', '实用提示'].forEach(sec => {
+      const val = { '适用范围': c.scope, '前置条件': c.precondition, '实用提示': c.tips }[sec];
+      parts.push('**' + sec + '**');
+      parts.push('');
+      parts.push(String(val || '').trim() || '（无）');
+      parts.push('');
+    });
+  });
+  const rel = 'channels/' + safeFileName(cat) + '.md';
+  if (writeFile(rel, parts.join('\n'))) nChannelFile++;
+  nChannel += list.length;
 });
 
-// ==================== 法规 ====================
-laws.forEach(l => {
-  const fm = [
-    '---',
-    'type: law',
-    'id: ' + yamlStr(l.id),
-    'name: ' + yamlStr(l.name),
-    'full_name: ' + yamlStr(l.full_name),
-    'category:' + yamlList(l.category),
-    '---',
-    '',
-    '# ' + (l.name || l.id),
-    '',
-    l.article || l.content || '（待补充）'
-  ].join('\n');
+// ---------- 话术：1 个文件 ----------
+const scripts = (data.getScripts() || []).sort((a, b) => String(a.id).localeCompare(String(b.id)));
+{
+  const parts = ['---', 'type: script-group', 'count: ' + scripts.length, '---', '', '# 投诉话术（' + scripts.length + ' 条）', ''];
+  scripts.forEach(s => {
+    parts.push('## ' + s.id + ' · ' + (s.scene_name || ''));
+    parts.push('');
+    [['id', s.id], ['scene_name', s.scene_name], ['category', s.category],
+    ['applicable', s.applicable], ['is_general', s.is_general ? 'true' : 'false'],
+    ['hot_level', s.hot_level === undefined ? 0 : s.hot_level],
+    ['keywords', toIdArray(s.keywords).join(', ')]
+    ].forEach(([k, v]) => { parts.push('- ' + k + ': ' + yamlStr(v)); });
+    parts.push('');
+    [['电话版话术', s.phone_script], ['书面版话术', s.written_template]].forEach(([sec, val]) => {
+      parts.push('**' + sec + '**');
+      parts.push('');
+      parts.push(String(val || '').trim() || '（无）');
+      parts.push('');
+    });
+  });
+  writeFile('scripts/投诉话术.md', parts.join('\n'));
+}
 
-  const fn = l.id + '-' + safeFileName(l.name) + '.md';
-  if (writeFile(path.join(KB, 'laws'), fn, fm)) nLaw++;
-});
+// ---------- 法规：1 个文件 ----------
+{
+  const list = laws.slice().sort((a, b) => String(a.id).localeCompare(String(b.id)));
+  const parts = ['---', 'type: law-group', 'count: ' + list.length, '---', '', '# 法律法规（' + list.length + ' 条）', ''];
+  list.forEach(l => {
+    parts.push('## ' + l.id + ' · ' + (l.name || ''));
+    parts.push('');
+    [['id', l.id], ['name', l.name], ['full_name', l.full_name],
+    ['category', toIdArray(l.category).join(', ')]
+    ].forEach(([k, v]) => { parts.push('- ' + k + ': ' + yamlStr(v)); });
+    parts.push('');
+    parts.push(String(l.article || l.content || '').trim() || '（待补充）');
+    parts.push('');
+  });
+  writeFile('laws/法律法规.md', parts.join('\n'));
+}
 
 console.log('\n✅ 知识库初始化完成 → kb/');
-console.log('   渠道 ' + nChannel + ' 个 | 话术 ' + nScript + ' 条 | 法规 ' + nLaw + ' 条');
+console.log('   渠道: ' + nChannel + ' 条，分 ' + nChannelFile + ' 个文件（按一级分类）');
+console.log('   话术: ' + scripts.length + ' 条（1 个文件）');
+console.log('   法规: ' + laws.length + ' 条（1 个文件）');

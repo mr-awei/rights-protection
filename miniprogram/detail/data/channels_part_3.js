@@ -74,7 +74,8 @@ module.exports = [
       }
     ],
     "path_type": "",
-    "materials": []
+    "materials": [],
+    "file": "高层级诉求平台.md"
   },
   {
     "id": "ch_102",
@@ -149,7 +150,8 @@ module.exports = [
       }
     ],
     "path_type": "",
-    "materials": []
+    "materials": [],
+    "file": "高层级诉求平台.md"
   },
   {
     "id": "ch_103",
@@ -225,7 +227,8 @@ module.exports = [
       }
     ],
     "path_type": "",
-    "materials": []
+    "materials": [],
+    "file": "四川_成都地方渠道.md"
   },
   {
     "id": "ch_104",
@@ -304,7 +307,8 @@ module.exports = [
       }
     ],
     "path_type": "",
-    "materials": []
+    "materials": [],
+    "file": "四川_成都地方渠道.md"
   },
   {
     "id": "ch_105",
@@ -391,7 +395,8 @@ module.exports = [
       }
     ],
     "path_type": "",
-    "materials": []
+    "materials": [],
+    "file": "四川_成都地方渠道.md"
   },
   {
     "id": "ch_106",
@@ -467,7 +472,8 @@ module.exports = [
       }
     ],
     "path_type": "",
-    "materials": []
+    "materials": [],
+    "file": "四川_成都地方渠道.md"
   },
   {
     "id": "ch_107",
@@ -555,7 +561,8 @@ module.exports = [
       }
     ],
     "path_type": "",
-    "materials": []
+    "materials": [],
+    "file": "基础民生与公共交通.md"
   },
   {
     "id": "ch_108",
@@ -638,7 +645,8 @@ module.exports = [
       }
     ],
     "path_type": "",
-    "materials": []
+    "materials": [],
+    "file": "金融与商业消费.md"
   },
   {
     "id": "ch_109",
@@ -713,7 +721,8 @@ module.exports = [
       }
     ],
     "path_type": "",
-    "materials": []
+    "materials": [],
+    "file": "金融与商业消费.md"
   },
   {
     "id": "ch_110",
@@ -808,7 +817,8 @@ module.exports = [
       }
     ],
     "path_type": "",
-    "materials": []
+    "materials": [],
+    "file": "社会服务与政务司法.md"
   },
   {
     "id": "ch_111",
@@ -886,7 +896,8 @@ module.exports = [
       }
     ],
     "path_type": "",
-    "materials": []
+    "materials": [],
+    "file": "社会服务与政务司法.md"
   },
   {
     "id": "ch_112",
@@ -983,7 +994,8 @@ module.exports = [
       }
     ],
     "path_type": "",
-    "materials": []
+    "materials": [],
+    "file": "社会服务与政务司法.md"
   },
   {
     "id": "ch_113",
@@ -1055,7 +1067,8 @@ module.exports = [
       }
     ],
     "path_type": "",
-    "materials": []
+    "materials": [],
+    "file": "社会服务与政务司法.md"
   },
   {
     "id": "ch_114",
@@ -1140,7 +1153,8 @@ module.exports = [
       }
     ],
     "path_type": "",
-    "materials": []
+    "materials": [],
+    "file": "社会服务与政务司法.md"
   },
   {
     "id": "ch_115",
@@ -1223,7 +1237,8 @@ module.exports = [
       }
     ],
     "path_type": "",
-    "materials": []
+    "materials": [],
+    "file": "社会服务与政务司法.md"
   },
   {
     "id": "ch_116",
@@ -1292,7 +1307,8 @@ module.exports = [
       }
     ],
     "path_type": "",
-    "materials": []
+    "materials": [],
+    "file": "社会服务与政务司法.md"
   },
   {
     "id": "ch_117",
@@ -1366,7 +1382,8 @@ module.exports = [
       }
     ],
     "path_type": "",
-    "materials": []
+    "materials": [],
+    "file": "社会服务与政务司法.md"
   },
   {
     "id": "ch_118",
@@ -1450,7 +1467,8 @@ module.exports = [
       }
     ],
     "path_type": "",
-    "materials": []
+    "materials": [],
+    "file": "社会服务与政务司法.md"
   },
   {
     "id": "ch_119",
@@ -1534,7 +1552,8 @@ module.exports = [
       }
     ],
     "path_type": "",
-    "materials": []
+    "materials": [],
+    "file": "社会服务与政务司法.md"
   },
   {
     "id": "ch_120",
@@ -1621,7 +1640,8 @@ module.exports = [
       }
     ],
     "path_type": "",
-    "materials": []
+    "materials": [],
+    "file": "社会服务与政务司法.md"
   },
   {
     "id": "ch_121",
@@ -1696,7 +1716,8 @@ module.exports = [
       }
     ],
     "path_type": "",
-    "materials": []
+    "materials": [],
+    "file": "金融与商业消费.md"
   },
   {
     "id": "ch_122",
@@ -1772,6 +1793,7 @@ module.exports = [
       }
     ],
     "path_type": "",
-    "materials": []
+    "materials": [],
+    "file": "社会服务与政务司法.md"
   }
 ];
